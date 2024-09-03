@@ -1,0 +1,284 @@
+str,ru_RU,uz_Cyrl,uz_Latn
+title,Energy Market,Energy Market,Energy Market
+profile,Профиль,Профилим,Profilim
+hello,Здраствуйте,Ассалому алайкум,Assalomu alaykum
+indebtedness,У вас задолжность {sum} сум по договору №{contractId},{contractId} - shartnomadan {sum} qarzingiz mavjud,{contractId} - shartnomadan {sum} qarzingiz mavjud
+ok,Ok,Ok,Ok
+no,Нет,йўқ,yoq
+yes,Да,ҳа,ha
+confirm,Подтвердить,Тасдиқлаш,Tasdiqlash
+success,Успех,Муваффақият,Muvaffaqiyat
+no_internet,Нет интернета,Интернет йўқ,Internet yo'q
+resend_otp,Отправить код cнова,Кодни кайта юбориш,Kodni qayta yuboring
+new_password,Новый пароль,Янги пароль,Yangi parol
+recover_password,Восстановления пароля,Паролни тиклаш,Parolni tiklash
+phone_number,Номер телефона,Телефон рақами,Telefon raqami
+sms_code,Код смс,СМС код,SMS kod
+required_field,Обязательное поле,Мажбурий майдон,Majburiy maydon
+password_invalid,Пароль должен состоять из 6 символов и содержать хотя бы одну цифру,Пароль 6 та белгидан иборат бўлиши ва камида битта рақамни ўз ичига олиши керак,Parol 6 ta belgidan iborat bo'lishi va kamida bitta raqamni o'z ichiga olishi kerak
+confirm_password,Подтвердитe пароль,Паролни тасдиқланг,Parolni tasdiqlang
+invalid_confirm_password,Пароли не совпадают,Пароллар мос эмас,parollar mos emas
+sms_with_code,Cмс с кодом,Код билан СМС ,Kod bilan SMS
+Authorization,Авторизация,Рухсат,Ruxsat
+sign_in,Войти,Кириш,Kirish
+forget_password,Забыли пароль?,Паролни унутдингизми?,Parolni unutdingizmi?
+password,Пароль,Пароль,Parol
+download_file_name,Скачать {name},Юклаб олиш {name},Yuklab olish {name}
+contract_created,Контракт создан,Шартнома яратилди,Shartnoma yaratildi
+contract_approved,Контракт принят,Шартнома тасдиқланди,Shartnoma tasdiqlandi
+contract_finished,Контракт завершен,Шартнома тугатилди,Shartnoma tugallandi
+contract_cancelled,Контракт отменен,Шартнома бекор қилинди,Shartnoma bekor qilindi
+contract_rejected,Контракт отклонен,Шартнома рад этилди,Shartnoma rad etildi
+contract_not_approved,Контракт не принят,Шартнома қабул қилинмади,Shartnoma qabul qilinmadi
+contract_in_process_approval,Контракт в процессе принятия,Шартнома қабул қилиш жараёнида,Qabul qilish jarayonida shartnoma
+contract_confirmed,Контракт подтвержден клиентом,Шартнома имзоланди,Shartnoma imzolandi
+contract_sold_by_taqsim,Продано от Таксим,Тақсим томонидан сотилди,Taksim tomonidan sotilgan
+contract_sold_by_merchant,Продано от Мерчанта,Мерчант томонидан сотилди,Savdogar tomonidan sotiladi
+contract_underwriter,Модерация контракта,Шартнома модерацияда,Shartnoma moderatsiyasi
+contract_underwriter_approved,Модерация контракта подтверждена,Шартнома модерацияда тасдиқланди,Shartnoma moderatsiyasi tasdiqlandi
+contract_paid,Контракт частично оплачен,Шартномада тўлиқ тўланмаган,Shartnoma to'liq тўланмаган
+contract_full_paid,Контракт оплачен,Шартнома тўлиқ тўланган,Shartnoma to'liq to'langan
+contract_act_confirmed,Акт заключен с клиентом,Актни мижоз тасдиқланди,Aktni mijoz tasdiqladi
+contract_act_accepted,Акт принят фондом,Акт қабул қилинди,Akt qabul qilindi
+contract_act_rejected,Акт отклонен ,Акт рад этилган,Akt rad etilgan
+contract_claim_created,Акт сверки создан,Буюртманома тузилди,Buyurtmanoma tuzildi
+contract_claim_cancelled,Акт сверки отменен,Буюртманома бекор қилинди,Buyurtmanoma bekor qilindi
+contract_claim_confirmed,Акт сверки отправлен,Буюртманома жўнатилди,Buyurtmanoma jo`natildi
+contract_claim_accepted,Акт сверки подтвержден,Буюртманома тасдиқланди,Buyurtmanoma tasdiqlandi
+contract_claim_rejected,Акт сверки отклонен,Буюртманома рад этилди,Buyurtmanoma rad etildi
+contract_claim_closed,Акт сверки оплачен фондом,Фонд буюртманомани тўлади,Fond buyurtmanomani to`ladi
+contract_paying_installment,Оплата рассрочки,Муддатли тўлов тўланмоқда,Muddatli to`lov to`lanmoqda
+pay,Оплатить,Тўлаш,To'lash
+paid,Oплачено,Тўланган ,To'langan
+pay_with_card_alert,"Вы уверены, что хотите оплатить с этой карты?",Ҳақиқатда ҳам бу карта билан тўламоқчимисиз?,Haqiqatan ham bu karta bilan toʻlamoqchimisiz?
+contract_number,Договор №{number},Шартнома № {number},Shartnoma № {number}
+information,Информация,Маълумот ,Ma `lumot
+products,Товары,Товарлар ,Tovarlar
+total,Итого,Жами,Jami
+amount_to_be_paid,Сумма к оплате,Тўлов суммаси,To`lov summasi
+n_sum,{number} сум,{number} сўм,{number} soʻm
+amount_compensation,Сумма компенсации,Компенсация суммаси,Kompensatsiya summasi
+installment_period,Период рассрочки,Муддатли тўлов тури,Muddatli to'lov turi
+p_month.zero,{n} месяц,{n} ой,{n} oy
+p_month.one,{n} месяц,{n} ой,{n} oy
+p_month.two,{n} месяца,{n} ой,{n} oy
+p_month.few,{n} месяцев,{n} ой,{n} oy
+p_month.many,{n} месяцев,{n} ой,{n} oy
+p_month.other,{n} месяцев,{n} ой,{n} oy
+total_cost,Общая стоимость,Умумий қиймати ,"umumiy qiymati"
+redeemed,Погашено,Сўндирилган,Sondirilgan
+installment,Рассрочка,Муддатли тўлов,Muddatli tolov
+status,Статус,Ҳолат,Holat
+installment_amount,Сумма рассрочки,Тўлов миқдори,To'lov miqdori
+contract_type,Тип контрактa,Шартнома тури,"Shartnoma turi"
+compensation,Компенсация,Компенсация,Kompensatsiya
+installment,Рассрочка,Муддатли тўлов,Muddatli to'lov
+scheduled_payment,Оплата по графику,График бўйича тўлов,Grafik boicha tolov
+select_payment_method,Выберите способ оплаты,Тўлов турини танланг,To'lov usulini tanlang
+sum,Сумма,Сумма,Summa
+amount_exceed,Оплачиваемая сумма превышает сумму контракта,Тўланган сумма шартнома суммасидан кўп,To'langan summa shartnoma summasidan kop
+date_time,Дата и время,Сана ва вақт,sana va vaqt
+count,Количество,Миқдори ,Miqdori
+n_product,{num} товар,{num} Маҳсулот,{num} mahsulot
+price,Стоимость,Нархи,Narxi
+downloading,Скачивается...,Юклаб олинмоқда...,Yuklab olinmoqda...
+act,Акт,Акт,Akt
+order,Заявкa,Ариза,Ariza
+offer,Офёртa,Оферта (таклиф),Oferta (Taklif)
+check,Чек,Чек,Chek
+schedule,График,График,Grafik
+date,Дата,Сана ,Sana
+count_n,@:count:{number},@:count:{number},@:count:{number}
+no_installment,У вас нет действующей контракт,Сизда фаол шартномангиз йўқ,Sizda faol shartnomangiz yo‘q
+unexpected_error,Непредвиденная ошибка,Кутилмаган хато,"Kutilmagan xato"
+main_card_dialog_message,Bы хотите cделать карту основной?,Картани асосий карта сифатида сақламоқчимисиз?,Kartani asosiyga karta sifatida saqlarmoqchimisiz?
+main_card,Oсновная карта,Асосий карта,Asosiy karta
+new_card,Новая карта,Янги карта ,Yangi karta
+input_card_details,Укажите данные карты,Карта маълумотларини киритинг ,Karta ma'lumotlarini kiriting
+my_cards,Мои карты,Менинг карталарим,Mening kartalarim
+card_name,Hазвание карты,Карта номи ,Karta nomi
+card_number,Номер карты,Карта рақами,Karta raqami
+month_short,ММ,,
+year_short,ГГ,,
+no_cards,У вас не добавлена банковская карта,Сиз банк картасини қўшмангиз ,Siz bank kartasini qo'shmagansiz
+add,Добавить,Қўшиш,Qo'shish
+save,Сохранить,Сақлаш,Saqlash
+log_out,Выйти,Чиқиш,chiqish
+log_out_confirmation,Bы уверены что хотите выйти?,Чиқмоқчи эканлигингизга ишончингиз комилми?,Chiqmoqchi ekanligingizga ishonchingiz komilmi?   
+personal_data,Личные данные,Шахсий маълумотлар ,Shaxsiy ma'lumotlar
+contracts,Контракты,Шартномалар,Shartnomalar
+change_phone_number,Изменить номер,Телефон рақамини ўзгартириш,Telefon raqamni o'zgartirish 
+confirm_phone_number,Подтвердить номерa,Телефон рақамини тасдиқлаш,Telefon raqamlarni tasdiqlang
+current_and_new_phone_number,{currentPhone} и на {newPhone},{currentPhone} ва {newPhone},{currentPhone} va {newPhone}
+current_phone_number,Текущий номер телефона,Жорий телефон рақами,Joriy telefon raqami
+new_phone_number,Новый номер телефона,Янги телефон рақами,Yangi telefon raqami
+current_phone_otp,Код СМС на текущeм номерe телефона,Жорий телефон рақамидаги СМС код,Joriy telefon raqamidagi SMS kodi
+new_phone_otp,Код СМС на новoм номерe телефона,Янги телефон рақамидаги СМС код,Yangi telefon raqamiga SMS kodi
+change_password,Сменить пароль,Паролни ўзгартириш,Parolni o'zgartirish
+male,Мужчина,Эркак,Erkak
+female,Женщина,Аёл,Ayol
+old_password,Старый пароль,Эски парол,eski parol
+home,Главная,Бош сахифа,Bosh sahifa
+catalog,Каталог,Каталог,Katalog
+favorite,Избранное,Танланган,Tanlangan
+register,Зарегистрироваться,Рўйхатдан ўтиш,Ro'yxatdan o'tish
+registration,Регистрация,Рўйхатдан ўтиш,Ro'yxatdan o'tish
+fullname,ФИО,ФИШ,FISH
+birthday,Дата рождения,Туғилган куни,Tug'ilgan kun
+passport_serial_number,Серия и номер паспорта,Паспорт серияси ва рақами,Pasport seriyasi va raqami
+document_type,Тип документа,Ҳужжат тури,Hujjat turi
+id_card,ID карта,ID карта,ID karta
+passport,Паспорт,Паспорт,Pasport
+fill_the_blanks,Заполните все поля,Барча ойналарни тўлдиринг ,Borcha oynalarni to'ldiring
+request_canceled,Запрос отменен,Сўров бекор қилинди,So'rov bekor qilindi
+connect_timeout,Время соединения вышло,Уланиш вақти тугади,Ulanish vaqti tugadi
+server_error,Ошибка сервера,Сервер хатоси,Server xatosi
+agree_and_accept,Я согласен и принимаю,Мен розиман ва қабул қиламан,Men roziman va qabul qilaman
+terms_of_use,Пользовательское соглашение,Фойдаланувчи шартномаси,Foydalanuvchi shartnomasi
+accept_terms,Принять условия,Шартларни қабул қилиш,Shartlarni qabul qilish
+pager_new_solar,Новые солнечные панели One Sun,,
+page_new_solar_content,Электричество без перебоев в вашем доме от ведущего производителя,,
+buy_in_installments,Купить в рассрочку,Муддатли тўловга олиш,Muddatli to'lovga olish
+hit_sales,Хиты продаж,,
+view_all,Смотреть все,,
+hit,Хит,,
+price_with_compensation,Цена с учетом компенсации Фонд,,
+installment_price,Цена в рассрочку,,
+max_installment_period,x 36 мес,,
+more_details,Подробнее,,
+calculatePrice,Рассчитать стоимость,,
+calculatePriceDescription,Онлайн-калькулятор стоимости поможет сориентировать по сумме компенсации или рассрочки,,
+Building_type,Тип строения,Бино тури,Bino turi
+Choose_building_type,Выберите тип строения,Бино турини танланг,Bino turini tanlang
+Load_bearing_wall_material,Материал несущих стен,Девор материали,Devor materiali
+Choose_a_load_bearing_wall_material,Выберите материал несущих стен,Девор материалини танланг,Devor materialini tanlang
+Roof_type,Тип кровли,Том қопламаси,Tom qoplamasi
+Choose_roof_type,Выберите тип кровли,Том қопламасини танланг,Tom qoplamasini tanlang
+Overlap_type,Тип перекрытия,Том жойлашган қоплама,Tom joylashgan qoplama
+Choose_type_of_precrimination,Выберите тип прекрития,Том жойлашган қоплама турини танланг,Tom joylashgan qoplama turini tanlang
+Roof_type2,Тип крыши,Том тури,Tom turi
+Choose_roof_type2,Выберите тип крыши,Том турини танланг,Tom turini tanlang
+Cost_in_sum,Стоимость в сум,Нархи сўмда,Narxi so'mda
+Installation_location,Место установки,Ўрнатиш жойи,O'rnatish joyi
+Select_installation_location,Выберите место установки,Ўрнатиш жойини танланг,O'rnatish joyini tanlang
+Usable_to_install,Полезная к установке (площадь крыши),Фойдаланиш мумкин бўлган майдон,Foydalanish mumkin bo'lgan maydon
+Enter_usable_roof_area_sqm,Введите полезную площадь крыши кв.м,Фойдаланиш мумкин бўлган майдонни киритнг (кв.м),Foydalanish mumkin bo'lgan maydonni kiritng (kv.m)
+Room_area,Площадь помещения,Хона майдони (кв.м),Xona maydoni (kv.m)
+Area_in_sqm,Площадь в кв.м,Майдон (кв.м),Maydon (kv.m)
+Power_grid_information,Информация об электросети,Электр тармоғи маълумотлари,Elektr tarmog'i ma'lumotlari
+Distance_from_the_installation_site_to_the_meter,Расстояние от места установки до счетчика (м),Ўрнатиш жойидан ҳисоблагичгача бўлган масофа (м),O'rnatish joyidan hisoblagichgacha bo'lgan masofa (m)
+Enter_the_distance_to_the_counter,Введите растояние до счетчика (м),Ҳисоблагичгача бўлган масофани киритинг (м),Hisoblagichgacha bo'lgan masofani kiriting (m)
+Service_life_of_electrical_wiring,Срок эксплуатации электропроводки,Электр симларининг хизмат қилиш муддати,Elektr simlarining xizmat qilish muddati
+Select_the_lifetime_of_the_wiring,Выберите срок эксплуатации электропроводки,Электр симларининг хизмат қилиш муддатини танланг,Elektr simlarining xizmat qilish muddatini tanlang
+Cross_section_of_electrical_wires,Сечение электропроводов,Электр симларининг кўндаланг кесими,Elektr simlarining ko'ndalang kesimi
+Select_wire_size,Выберите сечение провода,Симларнинг кўндаланг кесимини танланг,Simlarning ko'ndalang kesimini tanlang
+Wiring_material,Материал электропроводки,Электр симларинг турини танланг,Elektr simlaring turini tanlang
+Select_wiring_material,Выберите материал электропроводки,Электр симларининг турини танланг,Elektr simlarining turini tanlang
+Distance_to_the_nearest_power_tower,Расстояние до ближайшей опоры электропередачи,Энг яқин электр минорасигача бўлган масофа,Eng yaqin elektr minorasigacha bo'lgan masofa
+Distance_in_m,Расстояние в м,Масофа (м),Masofa (m)
+Additional_Information,Дополнительная информация,Қўшимча маълумот,Qo'shimcha ma'lumot
+Add_a_photo_of_the_installation_site,Добавьте фотографию места установки,Ўрнатиш жойининг расмларини жойланг,O'rnatish joyining rasmlarini joylang
+house,Жилой дом,Яшаш жойи,Yashash joyi
+country_house,Дача,Дала ҳовли,Dala hovli
+commercial_premises,Коммерческое помещение,Тижорат биноси,Tijorat binosi
+other,Другое,Бошқа,Boshqa
+burnt_brick,Жженый кирпич,Пишган ғишт,Pishgan g'isht
+cinder_block,Шлакоблок,Шлакоблок,Shlakoblok
+raw_brick,Кирпич-сырец,Ҳом ғишт,Xom g'isht
+decking_roof,Профнастил,Профнастил,Profnastil
+roof_tiles,Черепица,Черепица,Cherepitsa
+asbestos_sheets_slate,"Асбестовые листы , шифер","Асбест плиталари, шифер","Asbest plitalari, shifer"
+reinforced_concrete_slabs,ЖБ плиты,Темир-бетон плиталар,Temir-beton plitalar
+wooden_log_cabins,Деревянные срубы,Ёғоч-хода,Yog'och-xoda
+metal_trusses,Металлические фермы,Метал ферма,Metal ferma
+flat_roof,Плоская,Текис,Tekis
+oblique,Наклонная,Қия,Qiya
+ground,На земле,Ерда,Yerda
+roof,На крыше,Томда,Tomda
+up_to_num_m,до {n} м,{n} м.гача,{n} m.gacha
+from_num_to_num1_m,от {n} до {n1} м,{n} м.дан {n1} м гача,{n} m.dan {n1} m.gacha
+over_num_m,свыше {n} м,{n} м.дан кўп,{n} m.dan ko'p
+up_to_num_years,до {n} лет,{n} йилгача,{n} yilgacha
+num_to_num1_years,от {n} до {n1} лет,{n} йилдан {n1} йилгача,{n} yildan {n1}yilgacha
+over_num_years,свыше {n} лет,{n} йилдан кўп,{n} yildan ko'p
+num_mm,{n} мм,{n} мм,{n} mm
+from_m_to_n_mm,{m} - {n} мм,{m} - {n} мм,{m} - {n} mm
+copper,Медь,Мис,Mis
+aluminum,Алюминий,Алюмин,Alyumin
+copper_and_aluminum,Медь и Алюминий,Мис ва Алюмин,Mis va Alyumin
+Unavailable,Недоступно,Мавжуд эмас,Mavjud emas
+BCA_with_number,{num} БРВ = {sum} сум,{n} БҲМ = {res} сўм,{n} BHM = {res} so'm
+compensation_is_provided,"Компенсация предоставляется только при установке возобновляемых источников электроэнергии для водяных насосов, установленных в вертикальных скважинах при освоении новых земель","Компенсация фақат янги ерларни ўзлаштириш жараёнида, вертикал қудуқларга ўрнатилган сув насослари учун қайта тикланадиган энергия манбаларини ўрнатиш учун тақдим этилади.","Kompensatsiya faqat yangi erlarni o'zlashtirish jarayonida, vertikal quduqlarga o'rnatilgan suv nasoslari uchun qayta tiklanadigan energiya manbalarini o'rnatish uchun taqdim etiladi."
+Cost_in_sum,Стоимость в сум,Нархи сўмда,Narxi so'mda
+num_soum_per_month,{n} сум в месяц,{n} сўм ойига,{n} so'm oyiga
+description_placeholder,Партнер Energymarket.uz,,
+auto_solar_energy,Автономная солнечная электростанция,Автоном қуёш электр станцияси,Avtonom quyosh elektr stansiyasi
+hybrid_solar_energy,Гибридная солнечная электростанция,Гибрид қуёш электр станцияси,Gibrid quyosh elektr stansiyasi
+network_solar_energy,Сетевая солнечная электростанция,Тармоқли қуёш электр станцияси,Tarmoqli quyosh elektr stansiyasi
+Monocrystal,Монокристаллические,Монокристал,Monokristal
+Polycrystal,Поликристаллические,Поликристал,Polikristal
+favorite_empty,Избранные продукты еще не добавлены,Танланган маҳсулотлар ҳали қўшилмаган,Tanlangan mahsulotlar hali qo'shilmagan
+delete_personal_data,Удалить личные данные,Шахсий маълумотларни ўчириш,Shaxsiy ma'lumotlarni o'chirish
+delete_personal_data_title,Вы хотите удалить свои личные данные?,Шахсий маълумотларингизни ўчириб ташламоқчимисиз?,Shaxsiy ma'lumotlaringizni o'chirib tashlamoqchimisiz?
+search_products,Найти товары,,
+select_type,Выберите тип,,
+solar_panel,Солнечная панель,,
+solar_water_heater,Солнечный водонагреватель,,
+specify_the_power,Укажите мощность солнечной панели в кВт,Қуёш панелининг қувватини кВт билан белгиланг,Quyosh panelining quvvatini kVt bilan belgilang
+specify_the_volume,Укажите объем солнечного водонагревателя в литрах,,
+power_in_kw,Мощность в кВт,Қувват kW,Quvvat kW
+volume_in_liters,Объем в литрах,Ҳажм литрда,Hajm litrda
+calculate,Рассчитать,Ҳисоблаш,Hisoblash
+wrong_input,Введено неверное значение,,Noto'g'ri qiymat kiritildi
+calculateCompensation,Расчет компенсации,Конпенсацияни ҳисоблаш,Kompensatsiyani hisoblash
+calculateInstallment,Расчет в рассрочку,Муддатли тўловни ҳисоблаш,Muddatli tolovni hisoblash
+solar_station_cost,Стоимость оборудования (сум),Қурилманинг нархи (сўм),Qurilmaning narxi (so'm)
+number_of_installment_months,Количество месяцев рассрочки,Тўлов ойлари сони,To'lov oylari soni
+noProduct,Нет продуктов,,
+filters,Фильтры,,
+applyFilter,Применить фильтр,,Filterlash
+clearFilter,Очистить фильтр,,Filtrni tozalash
+from,от ,дан ,dan 
+until,до ,гача ,gacha 
+ourPartners,Наши партнеры,Бизнинг хамкорларимиз,Bizning hamkorlarimiz
+chooseSolarPower,Выберите солнечную электростанцию под свои задачи,Эҳтиёжларингиз учун куёш станциясини танланг,Ehtiyojlaringiz uchun quyosh elektr stantsiyasini tanlang
+recommended,Рекомендовано вам,,
+registrationOrder,Оформление заявки,Aризани тўлдириш,Arizani to'ldirish
+attributes,Характеристики,Хусусиятлари,Xususiyatlari
+dealType,Тип сделки,Битим тури,Bitim turi
+buyWithCompensation,Купить с компенсацией,Компенсация билан олиш,Kompensatsiya bilan olish
+installationAddress,Адрес установки,Ўрнатиш манзили,O'rnatish manzili
+chooseRegion,Выберите область,Минтақани танланг,Mintaqani tanlang
+selectDistrict,Выберите район,Туманни танланг,Tumanni tanlang
+enterAddress,Введите адрес,Манзилни киритинг,Manzilni kiriting
+comments,Комментарии,Қўшимча маълумот,Qo'shimcha ma'lumot
+addComment,Добавить комментарий,Қўшимча маълумотни киритинг,Qo'shimcha ma'lumotni kiriting
+generalInformation,Общая информация о месте установки,Ўрнатиш жойи ҳақида маълумот,O'rnatish joyi haqida ma'lumot
+send,Отправить,Юбориш,Yuborish
+addPhoto,Добавить изображения,,
+buyWithSubsidy,КУПИТЬ С СУБСИДИЯМИ,,
+uzs,сум,сўм,so'm
+sumMonthShort,сум/мес,сум/ой,so'm/oy
+prePaymentZero,Предоплата 0%,,
+submitApplication,Оставить заявку,Aриза қолдириш,Ariza qoldirish
+description,Описание,Тавсиф,Tavsif
+viewAllProducts,Посмотреть все товары,Барча махсулотлар,Barcha mahsulotlar
+allProducts,Все товары,Все товары,Barcha mahsulotlar
+month_short2,мес,ой,oy
+scoring,Скоринг,Скоринг,Skoring
+enter_confirmation_code,Введите код подтверждения,Тасдиқлаш кодини киритинг,Tasdiqlash kodini kiriting
+user_agreement_for_scoring,Подтверждение согласия Клиента   на проведение скоринга,Мижознинг тўлов қобилиятини   баҳолашга розилигини тасдиқлаш,Mijozning to‘lov qobiliyatini   baholashga roziligini tasdiqlash
+an_sms_with_a_code_was_sent_to_the_specified_number,На указанный номер отправлен СМС с кодом,Кўрсатилган рақамга кодли СМС юборилди,Ko'rsatilgan raqamga kodli SMS yuborildi
+send_otp_again,Отправить код cнова,СМС кодни қайта жўнатиш,SMS kodni qayta jonatish
+cancel,Отмена,Бекор қилиш,Bekor qilish
+start_scoring,Запустить скоринг,Скорингни бошланг,Skoringni boshlang
+wrong_otp,Неверный отп,Нотўғри код,Notogri kod
+rejected,Отклонен,Рад етилган,Rad etilgan
+can_buy_product_till,Доступно купить товар до,Қуйидаги суммагача бўлган маҳсулотларни сотиб олиш мумкин,Quyidagi summagacha bo'lgan mahsulotlarni sotib olish mumkin
+the_buyer_is_not_available_installment,Покупателю не доступна рассрочка,Муддатли тўлов харидор учун мавжуд емас,Muddatli to'lov xaridor uchun mavjud yemas
+close,Закрыть,Ёпиш,Yopish
+please_wait_for_the_scoring_process_to_complete,"Пожалуйста, дождитесь завершения процесса скоринга.",Илтимос скоринг жараёни тугашини кутинг.,Iltimos skoring jarayoni tugashini kuting.
+identification,Идентификация,Идентификация,Identifikatsiya
+not_identified,Вы не прошли идентификацию пройдите идентификацию,"Сиз идентификациядан ўтмагансиз, идентификациядан ўтинг","Siz identifikatsiyadan o'tmagansiz, identifikatsiyadan o'ting"
+purchase_via_institute,Покупка через фонд энергосбережения,Энергияни тежаш жамгармаси орқали сотиб олиш,Energiyani tejash jamgarmasi orqali sotib olish
+purchase_via_UN,Покупка через программу ООН,БМТ дастури орқали сотиб олиш,BMT dasturi orqali sotib olish

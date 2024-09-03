@@ -1,0 +1,1 @@
+int likedProducts = 0;
