@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/assets_path/AppIconsPath.dart';
 import 'package:flutter_application_1/core/constants/AppColors.dart';
-import 'package:flutter_application_1/models/basket_response_model.dart';
+import 'package:flutter_application_1/models/basket_model/basket_response_model.dart';
 import 'package:flutter_application_1/screens/basket/BasketPage.dart';
-import 'package:flutter_application_1/service/basket_service/basket_service.dart';
+import 'package:flutter_application_1/screens/basket/basket_bloc/basket_bloc.dart';
+import 'package:flutter_application_1/screens/home/widgets/snack_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 // ignore: must_be_immutable
 class BasketProductWidget extends StatefulWidget {
@@ -13,7 +15,7 @@ class BasketProductWidget extends StatefulWidget {
       required this.index,
       required this.isSelected,
       super.key});
-  BasketResponseModel model;
+  BasketProductElement model;
   int index;
   bool isSelected;
   @override
@@ -21,7 +23,13 @@ class BasketProductWidget extends StatefulWidget {
 }
 
 class _BasketProductWidgetState extends State<BasketProductWidget> {
-  int productCount = 1;
+  int productCount = 0;
+  @override
+  void initState() {
+    productCount = widget.model.count ?? 1;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -44,21 +52,19 @@ class _BasketProductWidgetState extends State<BasketProductWidget> {
                   onChanged: (value) {
                     setState(() {
                       widget.isSelected = value!;
-                      if (widget.isSelected) {
+                      if (value) {
                         selectedProducts.add(
-                          widget.model.result!.products![widget.index],
+                          widget.model,
                         );
 
-                        for (var r in widget
-                            .model.result!.products![widget.index].prices!) {
+                        for (var r in widget.model.prices!) {
                           if (r.type == "Price") {
                             dealSum += r.value!.toInt();
                           }
                         }
                       } else {
                         selectedProducts.remove(widget.model);
-                        for (var r in widget
-                            .model.result!.products![widget.index].prices!) {
+                        for (var r in widget.model.prices!) {
                           if (r.type == "Price") {
                             dealSum -= r.value!.toInt();
                           }
@@ -75,7 +81,7 @@ class _BasketProductWidgetState extends State<BasketProductWidget> {
                 height: 90,
                 width: 60,
                 child: Image.network(
-                  widget.model.result!.products![widget.index].files![0].url!,
+                  widget.model.files![0].url!,
                   fit: BoxFit.fill,
                 ),
               ),
@@ -92,12 +98,10 @@ class _BasketProductWidgetState extends State<BasketProductWidget> {
                       Row(
                         children: [
                           Text(
-                            widget.model.result!.products![widget.index]
-                                        .prices![0].type ==
-                                    'Price'
-                                ? '${widget.model.result!.products![widget.index].prices![0].value!.toInt()} сум'
-                                : '${widget.model.result!.products![widget.index].prices![1].value!.toInt()} сум',
-                            style: TextStyle(
+                            widget.model.prices![0].type == 'Price'
+                                ? '${widget.model.prices![0].value!.toInt()} сум'
+                                : '${widget.model.prices![1].value!.toInt()} сум',
+                            style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
                             ),
@@ -136,10 +140,9 @@ class _BasketProductWidgetState extends State<BasketProductWidget> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.4,
                     child: Text(
-                      widget
-                          .model.result!.products![widget.index].product!.name!,
+                      widget.model.product!.name!,
                       maxLines: 2,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                       ),
@@ -155,15 +158,22 @@ class _BasketProductWidgetState extends State<BasketProductWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               GestureDetector(
-                onTap: () async {
-                  final response = await BasketService.deleteBasketProducts(
-                      widget.model.result!.products![widget.index].prices![0]
-                          .variationId!);
+                onTap: () {
+                  context.read<BasketBloc>().add(
+                        DeleteBasketProductsEvent(
+                          widget.model.prices![0].variationId!,
+                        ),
+                      );
+
+                  snackBar(
+                    context: context,
+                    name: widget.model.product!.name!,
+                    addProduct: false,
+                  );
                   setState(() {
                     for (var e in basketProducts) {
-                      if (e.id == widget.model.result!.id) {
+                      if (e.id == widget.model.id) {
                         basketProducts.remove(e);
-                        setState(() {});
                       }
                     }
                   });
@@ -182,13 +192,38 @@ class _BasketProductWidgetState extends State<BasketProductWidget> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        productCount != 1
-                            ? productCount -= 1
-                            : productCount = 1;
+                        if (productCount != 1) {
+                          productCount -= 1;
+                          context.read<BasketBloc>().add(
+                                PostBasketProductBasketEvent(
+                                  widget.model.prices![0].variationId!,
+                                  productCount,
+                                ),
+                              );
+                        } else if (productCount == 1) {
+                          context.read<BasketBloc>().add(
+                                DeleteBasketProductsEvent(
+                                  widget.model.prices![0].variationId!,
+                                ),
+                              );
+
+                          snackBar(
+                            context: context,
+                            name: widget.model.product!.name!,
+                            addProduct: false,
+                          );
+                          setState(() {
+                            for (var e in basketProducts) {
+                              if (e.id == widget.model.id) {
+                                basketProducts.remove(e);
+                              }
+                            }
+                          });
+                        }
                       });
                     },
                     child: Container(
-                      padding: EdgeInsets.all(2),
+                      padding: const EdgeInsets.all(2),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
                         color: AppColors.borderColor,
@@ -218,10 +253,16 @@ class _BasketProductWidgetState extends State<BasketProductWidget> {
                     onTap: () {
                       setState(() {
                         productCount += 1;
+                        context.read<BasketBloc>().add(
+                              PostBasketProductBasketEvent(
+                                widget.model.prices![0].variationId!,
+                                productCount,
+                              ),
+                            );
                       });
                     },
                     child: Container(
-                      padding: EdgeInsets.all(2),
+                      padding: const EdgeInsets.all(2),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
                         color: AppColors.borderColor,

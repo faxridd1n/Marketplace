@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/assets_path/AppImagesPath.dart';
-import 'package:flutter_application_1/models/categories_model/CategoryModel.dart';
-import 'package:flutter_application_1/screens/home/other_pages/katalog_page.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:flutter_application_1/models/home_model/CategoryModel.dart';
+import 'package:flutter_application_1/screens/katalog/katalog_page.dart';
 
 import '../../../assets_path/AppIconsPath.dart';
 
@@ -34,7 +33,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
           context,
           MaterialPageRoute(
             builder: (context) {
-              return KatalogPage(model: widget.model,index:widget.index);
+              return KatalogPage(model: widget.model, index: widget.index);
             },
           ),
         );
@@ -55,8 +54,10 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                 placeholder: const AssetImage(
                   AppImages.solarPanel1,
                 ),
-                image:
-                    NetworkImage(widget.model.item![widget.index].image!.url!),
+                image: NetworkImage(
+                  widget.model.item?[widget.index].image?.url ??
+                      AppImages.solarPanel1,
+                ),
                 imageErrorBuilder: (context, error, stackTrace) {
                   return Container(
                     width: 60,
@@ -77,8 +78,11 @@ class _CategoryWidgetState extends State<CategoryWidget> {
               height: 5,
             ),
             Text(
-              widget.model.item![widget.index].name!,
-              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+              widget.model.item?[widget.index].name ?? 'Empty',
+              style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+              ),
               maxLines: 2,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
@@ -88,20 +92,4 @@ class _CategoryWidgetState extends State<CategoryWidget> {
       ),
     );
   }
-}
-
-Widget buildShimmer() {
-  return ListView.builder(itemBuilder: (context, index) {
-    return Shimmer.fromColors(
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(7),
-        ),
-        height: 60,
-        width: 70,
-      ),
-      baseColor: Colors.grey[300]!,
-      highlightColor: Colors.grey[100]!,
-    );
-  });
 }

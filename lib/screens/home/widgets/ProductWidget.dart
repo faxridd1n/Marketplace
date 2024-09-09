@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/constants/AppColors.dart';
-import 'package:flutter_application_1/models/products_model/parent_category_model.dart';
+import 'package:flutter_application_1/models/products_model/product_model.dart';
 import 'package:flutter_application_1/screens/basket/BasketPage.dart';
-import 'package:flutter_application_1/screens/home/other_pages/ProductDetailPage1.dart';
-import 'package:flutter_application_1/service/basket_service/basket_service.dart';
+import 'package:flutter_application_1/screens/home/home_bloc/home_bloc.dart';
+import 'package:flutter_application_1/screens/home/widgets/snack_bar.dart';
+import 'package:flutter_application_1/screens/product_detail/ProductDetailPage1.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../katalog/katalog_bloc/katalog_bloc.dart';
 
 // ignore: must_be_immutable
-class ProductWidget extends StatelessWidget {
+class ProductWidget extends StatefulWidget {
   ProductWidget(
       {required this.index,
       required this.model,
@@ -14,7 +18,15 @@ class ProductWidget extends StatelessWidget {
       super.key});
   bool isMaxWidth;
   int index;
-  ParentCategoryModel model;
+  ProductModel model;
+
+  @override
+  State<ProductWidget> createState() => _ProductwidgetState();
+}
+
+class _ProductwidgetState extends State<ProductWidget> {
+  // late BasketBloc basketBloc;
+int count=1;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -23,7 +35,7 @@ class ProductWidget extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => ProductDetailPage1(
-              model: model,
+              model: widget.model,
             ),
           ),
         );
@@ -37,7 +49,7 @@ class ProductWidget extends StatelessWidget {
                 shadowColor: Colors.black,
                 color: Colors.white,
                 child: Container(
-                  width: isMaxWidth
+                  width: widget.isMaxWidth
                       ? double.infinity
                       : MediaQuery.of(context).size.width * 0.7,
                   padding: const EdgeInsets.all(15),
@@ -51,7 +63,7 @@ class ProductWidget extends StatelessWidget {
                             borderRadius: BorderRadius.circular(5),
                             image: DecorationImage(
                               image: NetworkImage(
-                                model.variations[0].files[0].url,
+                                widget.model.variations?[0].files?[0].url??'',
                               ),
                               fit: BoxFit.fill,
                             ),
@@ -72,7 +84,10 @@ class ProductWidget extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                '${model.variations[0].prices[1].value.toInt()} сум',
+                                widget.model.variations?[0].prices?[0].type==
+                                        'Price'
+                                    ? '${widget.model.variations?[0].prices?[0].value?.toInt() ??'0'} сум'
+                                    : '${widget.model.variations?[0].prices?[1].value?.toInt() ??'0'} сум',
                                 style: const TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
@@ -88,7 +103,7 @@ class ProductWidget extends StatelessWidget {
                               ),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 20,
                           ),
                           Container(
@@ -96,11 +111,11 @@ class ProductWidget extends StatelessWidget {
                               borderRadius: BorderRadius.circular(100),
                               color: AppColors.yellow,
                             ),
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                               horizontal: 5,
                               vertical: 2,
                             ),
-                            child: Text(
+                            child: const Text(
                               'x 12 мес',
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
@@ -109,11 +124,11 @@ class ProductWidget extends StatelessWidget {
                           )
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Text(
-                        model.name,
+                        widget.model.name??'Empty',
                         maxLines: 2,
                         style: const TextStyle(fontSize: 16),
                         overflow: TextOverflow.ellipsis,
@@ -133,19 +148,53 @@ class ProductWidget extends StatelessWidget {
                                   ),
                                   backgroundColor: AppColors.green,
                                 ),
-                                onPressed: () async {
+                                onPressed: () {
                                   bool isAlreadyHave = false;
                                   for (var e in basketProducts) {
-                                    if (e.id == model.id) {
+                                    if (e.id == widget.model.id) {
                                       isAlreadyHave = true;
+                                      if (!widget.isMaxWidth) {
+                                        context.read<HomeBloc>().add(
+                                              PostBasketProductHomeEvent(
+                                                productVariationId: widget
+                                                    .model.variations![0].id!,
+                                                count: 2,
+                                              ),
+                                            );
+                                      } else if (widget.isMaxWidth) {
+                                        context.read<KatalogBloc>().add(
+                                              PostBasketProductKatalogEvent(
+                                                productVariationId: widget
+                                                    .model.variations![0].id!,
+                                                count: 1,
+                                              ),
+                                            );
+                                      }
                                     }
                                   }
                                   if (!isAlreadyHave) {
-                                    final response =
-                                        await BasketService.postBasketProducts(
-                                      model.variations[0].id,
-                                    );
-                                    
+                                    if (!widget.isMaxWidth) {
+                                      context.read<HomeBloc>().add(
+                                            PostBasketProductHomeEvent(
+                                              productVariationId:
+                                                  widget.model.variations![0].id!,
+                                              count: 1,
+                                            ),
+                                          );
+                                    } else if (widget.isMaxWidth) {
+                                      context.read<KatalogBloc>().add(
+                                            PostBasketProductKatalogEvent(
+                                              productVariationId:
+                                                  widget.model.variations![0].id!,
+                                              count: 1,
+                                            ),
+                                          );
+                                    }
+
+                                    snackBar(
+                                        context: context,
+                                        name: widget.model.name??'Empty',
+                                        addProduct: true);
                                   }
                                 },
                                 child: const Padding(
@@ -165,7 +214,7 @@ class ProductWidget extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
                           SizedBox(
@@ -173,14 +222,14 @@ class ProductWidget extends StatelessWidget {
                             width: 50,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                padding: EdgeInsets.all(0),
+                                padding: const EdgeInsets.all(0),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 backgroundColor: AppColors.grey1,
                               ),
                               onPressed: () {},
-                              child: Icon(
+                              child: const Icon(
                                 Icons.remove_red_eye_outlined,
                                 color: Colors.black,
                                 size: 20,

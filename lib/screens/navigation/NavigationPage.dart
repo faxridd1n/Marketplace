@@ -38,49 +38,73 @@ class _NavigationPageState extends State<NavigationPage> {
         currentIndex: bottomNavigationBarIndex,
         type: BottomNavigationBarType.fixed,
         selectedItemColor: AppColors.green,
+       
         selectedFontSize: 15,
         unselectedFontSize: 15,
         showUnselectedLabels: true,
         items: [
           BottomNavigationBarItem(
-              icon: SvgPicture.asset(AppIcons.home),
+              icon: SvgPicture.asset(
+                AppIcons.home,
+                height: 24,
+                width: 24,
+              ),
               label: 'Asosiy',
               activeIcon: SvgPicture.asset(
                 AppIcons.home,
                 color: AppColors.primaryColor,
+                height: 24,
+                width: 24,
               )),
           BottomNavigationBarItem(
-              icon: SvgPicture.asset(AppIcons.category),
+              icon: SvgPicture.asset(
+                AppIcons.category,
+                height: 24,
+                width: 24,
+              ),
               label: 'Katalog',
               activeIcon: SvgPicture.asset(
                 AppIcons.category,
                 color: AppColors.primaryColor,
+                height: 24,
+                width: 24,
               )),
           BottomNavigationBarItem(
-              icon: SvgPicture.asset(AppIcons.shop),
+              icon: SvgPicture.asset(
+                AppIcons.shop,
+                height: 24,
+                width: 24,
+              ),
               label: 'Savatcha',
               activeIcon: SvgPicture.asset(
                 AppIcons.shop,
+                height: 24,
+                width: 24,
                 color: AppColors.primaryColor,
               )),
           BottomNavigationBarItem(
               icon: Icon(
-                Icons.favorite_outline,
-                color: AppColors.grey2,
-                size: 27,
+                Icons.favorite_border_rounded,
+                size: 24,
               ),
               label: 'Saqlanganlar',
               activeIcon: SvgPicture.asset(
-                AppIcons.heart,
-                height: 25,
+                AppIcons.likeFiilled,
+                height: 24,
                 color: AppColors.primaryColor,
               )),
           BottomNavigationBarItem(
-              icon: SvgPicture.asset(AppIcons.profile),
+              icon: SvgPicture.asset(
+                AppIcons.profile,
+                height: 24,
+                width: 24,
+              ),
               label: 'Profil',
               activeIcon: SvgPicture.asset(
                 AppIcons.profile,
                 color: AppColors.primaryColor,
+                height: 24,
+                width: 24,
               )),
         ],
       ),

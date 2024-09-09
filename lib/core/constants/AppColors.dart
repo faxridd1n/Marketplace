@@ -19,6 +19,7 @@ class AppColors {
   static const pink = Color.fromRGBO(247, 23, 87, 1);
   static const transparent = Colors.transparent;
   static const pageBgColor = Color.fromRGBO(247, 247, 247, 1);
+  static const snackBarColor = Color.fromRGBO(47, 133, 90, 1);
 
   static const detailPageGradientGreen1 = Color.fromRGBO(108, 181, 73, 0.07);
   static const detailPageGradientGreen2 = Color.fromRGBO(108, 181, 73, 0);
