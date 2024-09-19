@@ -43,11 +43,12 @@ class _BasketPageState extends State<BasketPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 1,
+        shadowColor: Colors.black,
         title: const Text(
           'Saqlanganlar',
           style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
           ),
         ),
       ),
@@ -87,7 +88,10 @@ class _BasketPageState extends State<BasketPage> {
                                         child: Checkbox(
                                           checkColor: Colors.white,
                                           activeColor: AppColors.green,
-                                          value: isAllSelected,
+                                          value: basketProducts.length ==
+                                                  selectedProducts.length
+                                              ? true
+                                              : isAllSelected,
                                           onChanged: (value) {
                                             setState(() {
                                               isAllSelected = value!;
@@ -150,7 +154,11 @@ class _BasketPageState extends State<BasketPage> {
                                               child: Checkbox(
                                                 checkColor: Colors.white,
                                                 activeColor: AppColors.green,
-                                                value: isCategorySelected,
+                                                value: selectedProducts
+                                                            .length ==
+                                                        basketProducts.length
+                                                    ? true
+                                                    : isCategorySelected,
                                                 onChanged: (value) {
                                                   setState(() {
                                                     isCategorySelected = value!;
@@ -234,7 +242,7 @@ class _BasketPageState extends State<BasketPage> {
                           padding: const EdgeInsets.all(0),
                           height: selectedProducts.length == 0
                               ? MediaQuery.of(context).size.height * 0.20
-                              : MediaQuery.of(context).size.height * 0.27,
+                              : MediaQuery.of(context).size.height * 0.3,
                           elevation: 3,
                           child: Container(
                             decoration: const BoxDecoration(

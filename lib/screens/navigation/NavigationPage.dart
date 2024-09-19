@@ -84,8 +84,10 @@ class _NavigationPageState extends State<NavigationPage> {
               )),
           BottomNavigationBarItem(
               icon: Icon(
+
                 Icons.favorite_border_rounded,
                 size: 24,
+                color: AppColors.grey2,
               ),
               label: 'Saqlanganlar',
               activeIcon: SvgPicture.asset(

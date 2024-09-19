@@ -21,8 +21,8 @@ class _FavoritePageState extends State<FavoritePage> {
         title: const Text(
           'Saqlanganlar',
           style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
           ),
         ),
       ),

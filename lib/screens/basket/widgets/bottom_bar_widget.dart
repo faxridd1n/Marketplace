@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/constants/AppColors.dart';
+import 'package:flutter_application_1/screens/buy_now/buy_now_page.dart';
 
 import '../BasketPage.dart';
 
@@ -80,7 +81,14 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
             ),
             backgroundColor: AppColors.green,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => BuyNowPage(),
+              ),
+            );
+          },
           child: const Padding(
             padding: EdgeInsets.symmetric(
               horizontal: 20,

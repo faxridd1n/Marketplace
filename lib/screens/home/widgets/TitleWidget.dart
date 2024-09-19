@@ -1,67 +1,83 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/constants/AppColors.dart';
+import 'package:flutter_application_1/screens/see_all/see_all_page.dart';
 
 // ignore: must_be_immutable
 class TitleWidget extends StatelessWidget {
-  TitleWidget({required this.titleText, required this.withSeeAllButton});
+  TitleWidget(
+      {required this.titleText,
+      required this.withSeeAllButton,
+      required this.tab});
   bool withSeeAllButton;
   String titleText;
+  int? tab;
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(15),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           withSeeAllButton
-              ? SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.48,
+              ? Expanded(
                   child: Text(
                     titleText,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
                     ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
                   ),
                 )
-              : SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.9,
+              : Expanded(
                   child: Text(
                     titleText,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w600,
                     ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
+          const SizedBox(width: 5),
           withSeeAllButton
               ? GestureDetector(
-                  onTap: () {},
-                  child: const Row(
-                    children: [
-                      Text(
-                        'Смотреть всё',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.black,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SeeAllPage(
+                          tab: tab!,
                         ),
                       ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Icon(
-                        Icons.arrow_forward,
-                        color: AppColors.grey2,
-                        size: 20,
-                      )
-                    ],
+                    );
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.only(
+                      left: 5,
+                      bottom: 10,
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          'Смотреть всё',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.black,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Icon(
+                          Icons.arrow_forward,
+                          color: AppColors.grey2,
+                          size: 20,
+                        )
+                      ],
+                    ),
                   ),
                 )
-              : SizedBox()
+              : const SizedBox()
         ],
       ),
     );

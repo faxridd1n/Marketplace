@@ -26,7 +26,7 @@ class KatalogBloc extends Bloc<KatalogEvent, KatalogState> {
     });
 
 
-     on<PostBasketProductKatalogEvent>((event, emit) async {
+    on<PostBasketProductKatalogEvent>((event, emit) async {
       emit(state.copyWith(
           postResponseBasketStatus: FormzSubmissionStatus.inProgress));
       final result =

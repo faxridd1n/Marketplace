@@ -43,7 +43,7 @@ class _EmptyBottomBarWidgetState extends State<EmptyBottomBarWidget> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
-            backgroundColor: AppColors.green,
+            backgroundColor: AppColors.green1,
           ),
           onPressed: () {},
           child: const Padding(

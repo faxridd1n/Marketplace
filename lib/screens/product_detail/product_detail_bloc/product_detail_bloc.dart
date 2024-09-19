@@ -27,7 +27,7 @@ class ProductDetailBloc extends Bloc<ProductDetailEvent, ProductDetailState> {
     
      on<GetSimilarProductsEvent>((event, emit) async {
       emit(state.copyWith(getProductStatus: FormzSubmissionStatus.inProgress));
-      final result = await ProductDetailService.getProducts();
+      final result = await ProductDetailService.getFilteredProducts(event.categoryId);
       if (result is List<ProductModel>) {
         emit(state.copyWith(parentCategoryModel: result, getProductStatus: FormzSubmissionStatus.success));
       } else {

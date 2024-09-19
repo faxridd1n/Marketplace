@@ -10,7 +10,7 @@ class GetProductDetailEvent extends ProductDetailEvent {
 }
 
 class GetSimilarProductsEvent extends ProductDetailEvent {
-  
+  final int categoryId;
 
-  GetSimilarProductsEvent();
+  GetSimilarProductsEvent(this.categoryId);
 }

@@ -58,14 +58,20 @@ class AppIcons {
   static const String subsidyaDetail = 'assets/icons/subsidyaDetail.svg';
   static const String refresh = 'assets/icons/refresh.svg';
   static const String commentPlus = 'assets/icons/commentPlus.svg';
-  static const String button_apple = 'assets/icons/button_apple.svg';
-  static const String button_google = 'assets/icons/button_google.svg';
+  static const String buttonApple = 'assets/icons/button_apple.svg';
+  static const String buttonGoogle = 'assets/icons/button_google.svg';
   static const String taqsimLogo = 'assets/icons/taqsimLogo.svg';
   static const String basketBox = 'assets/icons/basket_box.svg';
   static const String emptyBasket = 'assets/icons/empty_basket.svg';
   static const String xIcon = 'assets/icons/xIcon.svg';
   static const String catalogue = 'assets/icons/catalogue.svg';
   static const String likeFiilled = 'assets/icons/like_filled.svg';
-
   static const String likeEmpty = 'assets/icons/like_empty.svg';
+  static const String filter = 'assets/icons/filter.svg';
+  static const String card = 'assets/icons/card.svg';
+  static const String cash = 'assets/icons/cash.svg';
+  static const String deliverToAddress =
+      'assets/icons/delivery_to_address.svg';
+  static const String deliverToBranch = 'assets/icons/delivery_to_branch.svg';
+  static const String terminal = 'assets/icons/terminal.svg';
 }

@@ -8,6 +8,8 @@ class AppColors {
   static const grey2 = Color.fromRGBO(168, 170, 176, 1);
   static const grey3 = Color.fromRGBO(210, 210, 210, 1);
   static const green = Color.fromRGBO(186, 214, 67, 1);
+    static const green1 = Color.fromRGBO(187, 214, 67, 0.397);
+
   static const seeAllButtonColor = Color.fromRGBO(107, 181, 73, 0.16);
   static const blueText = Color.fromRGBO(32, 53, 74, 1);
   static const grey4 = Color.fromRGBO(245, 245, 245, 1);
@@ -20,6 +22,7 @@ class AppColors {
   static const transparent = Colors.transparent;
   static const pageBgColor = Color.fromRGBO(247, 247, 247, 1);
   static const snackBarColor = Color.fromRGBO(47, 133, 90, 1);
+  static const selectedPayment = Color.fromRGBO(107, 181, 73, 0.07);
 
   static const detailPageGradientGreen1 = Color.fromRGBO(108, 181, 73, 0.07);
   static const detailPageGradientGreen2 = Color.fromRGBO(108, 181, 73, 0);

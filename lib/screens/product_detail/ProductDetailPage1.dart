@@ -16,11 +16,13 @@ import 'tab_pages/PDetailPageTab1.dart';
 import 'tab_pages/PDetailPageTab2.dart';
 import 'tab_pages/PDetailPageTab3.dart';
 import 'widgets/fin_prod_widget.dart';
+import 'widgets/photo_dialog_widget.dart';
 
 // ignore: must_be_immutable
 class ProductDetailPage1 extends StatefulWidget {
-  ProductDetailPage1({required this.model, super.key});
+  ProductDetailPage1({required this.model, required this.tab, super.key});
   ProductModel model;
+  int? tab;
   @override
   State<ProductDetailPage1> createState() => _ProductDetailPage1State();
 }
@@ -37,7 +39,7 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
     tabController = TabController(length: 3, vsync: this);
     productDetailBloc = ProductDetailBloc()
       ..add(GetProductDetailEvent(widget.model.id!))
-      ..add(GetSimilarProductsEvent());
+      ..add(GetSimilarProductsEvent(widget.model.category?.id ?? 0));
     // similarProducts = ProductDetailBloc()..add(GetSimilarProductsEvent());
     super.initState();
   }
@@ -71,22 +73,34 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
                     SliverToBoxAdapter(
                       child: Column(
                         children: [
-                          SizedBox(
-                            height: 290,
-                            child: PageView.builder(
-                                controller: controller,
-                                itemCount: state.productDetailModel!.result!
-                                    .variations![0].files!.length,
-                                itemBuilder: (context, index) {
-                                  return SizedBox(
-                                    width: MediaQuery.of(context).size.width,
-                                    child: Image.network(
-                                      state.productDetailModel!.result!
-                                          .variations![0].files![index].url!,
-                                      fit: BoxFit.fill,
-                                    ),
-                                  );
-                                }),
+                          Container(
+                            color: const Color.fromARGB(255, 238, 238, 238),
+                            child: SizedBox(
+                              height: 300,
+                              child: PageView.builder(
+                                  controller: controller,
+                                  itemCount: state.productDetailModel!.result!
+                                      .variations![0].files!.length,
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                      onTap: () async {
+                                        await showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return MyDialog(
+                                                index: index,
+                                                model: state.productDetailModel!,
+                                              );
+                                            });
+                                      },
+                                      child: Image.network(
+                                        state.productDetailModel!.result!
+                                            .variations![0].files![index].url!,
+                                        fit: BoxFit.fitHeight,
+                                      ),
+                                    );
+                                  }),
+                            ),
                           ),
                           const SizedBox(
                             height: 10,
@@ -100,7 +114,7 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 state.productDetailModel!.result!.variations![0]
-                                        .files!.isNotEmpty
+                                        .files!.length>1
                                     ? Container(
                                         decoration: BoxDecoration(
                                           color: AppColors.grey1,
@@ -202,6 +216,7 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
                           TitleWidget(
                             titleText: 'Товары из той же линейки',
                             withSeeAllButton: true,
+                            tab: widget.tab,
                           ),
                           state.getProductStatus.isInProgress
                               ? const Center(
@@ -225,6 +240,7 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
                                               model: state
                                                   .parentCategoryModel![index],
                                               isMaxWidth: false,
+                                              tab: widget.tab,
                                             ),
                                           );
                                         },
@@ -279,10 +295,10 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
                                         height: 30,
                                       ),
                                       SvgPicture.asset(
-                                        AppIcons.button_google,
+                                        AppIcons.buttonGoogle,
                                       ),
                                       SvgPicture.asset(
-                                        AppIcons.button_apple,
+                                        AppIcons.buttonApple,
                                       )
                                     ],
                                   ),
@@ -320,3 +336,6 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
     );
   }
 }
+
+// ignore: must_be_immutable
+
