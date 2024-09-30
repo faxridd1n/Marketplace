@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/components/price_function.dart';
 import 'package:flutter_application_1/core/constants/AppColors.dart';
 import 'package:flutter_application_1/models/products_model/product_model.dart';
 import 'package:flutter_application_1/screens/buy_now/buy_now_page.dart';
@@ -16,6 +17,15 @@ class _FinProdWidgetState extends State<FinProdWidget> {
   List oy = [3, 6, 9, 12];
 
   final List<bool> _selectedFruits = <bool>[true, false, false, false];
+  String price = '';
+  @override
+  void initState() {
+    price = addSpaceEveryThreeCharacters(
+        widget.model.variations![0].prices![0].value.toString());
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -34,8 +44,14 @@ class _FinProdWidgetState extends State<FinProdWidget> {
               children: [
                 Text(
                   widget.model.variations?[0].prices?[0].type == 'Price'
-                      ? '${widget.model.variations?[0].prices?[0].value?.toInt() ?? 'Empty'}'
-                      : '${widget.model.variations?[0].prices?[1].value?.toInt() ?? 'Empty'}',
+                      ? addSpaceEveryThreeCharacters(widget
+                          .model.variations![0].prices![0].value!
+                          .toInt()
+                          .toString())
+                      : addSpaceEveryThreeCharacters(widget
+                          .model.variations![0].prices![0].value!
+                          .toInt()
+                          .toString()),
                   style: const TextStyle(
                     decoration: TextDecoration.lineThrough,
                     decorationColor: AppColors.grey2,
@@ -68,8 +84,14 @@ class _FinProdWidgetState extends State<FinProdWidget> {
                     ),
                     Text(
                       widget.model.variations?[0].prices?[0].type == 'Price'
-                          ? '${widget.model.variations?[0].prices?[0].value ?? 'Empty'}'
-                          : '${widget.model.variations?[0].prices?[1].value ?? 'Empty'}',
+                          ? addSpaceEveryThreeCharacters(widget
+                              .model.variations![0].prices![0].value!
+                              .toInt()
+                              .toString())
+                          : addSpaceEveryThreeCharacters(widget
+                              .model.variations![0].prices![1].value!
+                              .toInt()
+                              .toString()),
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
@@ -184,8 +206,17 @@ class _FinProdWidgetState extends State<FinProdWidget> {
                   children: [
                     Text(
                       widget.model.variations?[0].prices?[0].type == 'Price'
-                          ? '${(widget.model.variations![0].prices![0].value! / oy[selectedMonths]).toInt()}'
-                          : '${(widget.model.variations![0].prices![1].value! / oy[selectedMonths]).toInt()}',
+                          ? addSpaceEveryThreeCharacters((widget
+                                      .model.variations![0].prices![0].value!
+                                      .toInt() /
+                                  oy[selectedMonths])
+                              .toInt()
+                              .toString())
+                          : addSpaceEveryThreeCharacters((widget
+                                      .model.variations![0].prices![1].value!
+                                      .toInt() /
+                                  oy[selectedMonths])
+                              .toInt().toString()),
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w600,

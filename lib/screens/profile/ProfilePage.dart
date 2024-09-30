@@ -22,6 +22,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
         backgroundColor: Colors.white,
         title: const Text(
           'Profile',
@@ -34,7 +35,7 @@ class _ProfilePageState extends State<ProfilePage> {
         shadowColor: Colors.black,
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 40),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -119,33 +120,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide.none,
                         ),
-                        //   border: OutlineInputBorder(
-                        //     borderRadius: BorderRadius.circular(12),
-                        //     borderSide: const BorderSide(
-                        //       width: 1,
-                        //       color: AppColors.grey3,
-                        //     ),
-                        //   ),
-                        //   enabledBorder: OutlineInputBorder(
-                        //     borderRadius: BorderRadius.circular(12),
-                        //     borderSide: const BorderSide(
-                        //       width: 1,
-                        //       color: AppColors.grey3,
-                        //     ),
-                        //   ),
-                        //   focusedBorder: OutlineInputBorder(
-                        //     borderRadius: BorderRadius.circular(12),
-                        //     borderSide: const BorderSide(
-                        //       color: AppColors.green,
-                        //     ),
-                        //   ),3
-                        // prefixText: '+998 ',
-                        // prefixStyle: const TextStyle(
-                        //   fontWeight: FontWeight.w500,
-                        //   fontSize: 16,
-                        // ),
-                        // filled: true,
-                        // fillColor: AppColors.grey1,
                       ),
                       cursorColor: AppColors.green,
                     ),

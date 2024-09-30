@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/navigation/NavigationPage.dart';
+import 'package:flutter_application_1/screens/navigation/navigation_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -8,10 +8,9 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: NavigationPage(),
     );
   }

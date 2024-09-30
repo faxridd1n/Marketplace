@@ -36,6 +36,7 @@ class _BuyNowPageState extends State<BuyNowPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
         title: const Text('Umumiy ma\'lumotlar'),
       ),
       body: SingleChildScrollView(

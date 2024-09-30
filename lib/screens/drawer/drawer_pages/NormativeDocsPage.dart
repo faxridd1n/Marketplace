@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/drawer/drawer_pages/drawer_pages_widgets/DocsWidget.dart';
-import 'package:flutter_application_1/screens/home/widgets/BottomCardWidget.dart';
+import '../../../widgets/bottom_info_widget.dart';
 
 class NormativeDocsPage extends StatefulWidget {
   const NormativeDocsPage({super.key});

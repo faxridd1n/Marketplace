@@ -1,3 +1,4 @@
+// ignore: file_names
 class AppIcons {
   AppIcons._();
   static const String camera = 'assets/icons/camera.svg';
@@ -70,8 +71,9 @@ class AppIcons {
   static const String filter = 'assets/icons/filter.svg';
   static const String card = 'assets/icons/card.svg';
   static const String cash = 'assets/icons/cash.svg';
-  static const String deliverToAddress =
-      'assets/icons/delivery_to_address.svg';
+  static const String deliverToAddress = 'assets/icons/delivery_to_address.svg';
   static const String deliverToBranch = 'assets/icons/delivery_to_branch.svg';
   static const String terminal = 'assets/icons/terminal.svg';
+  static const String horizontalIcon = 'assets/icons/horizontal_icon.svg';
+  static const String verticalIcon = 'assets/icons/vertical_icon.svg';
 }

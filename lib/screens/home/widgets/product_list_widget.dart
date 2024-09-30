@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import '../../../widgets/product_widget.dart';
 import '../home_bloc/home_bloc.dart';
-import 'ProductWidget.dart';
 import 'TitleWidget.dart';
 
 // ignore: must_be_immutable
@@ -72,9 +72,9 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 10),
                         child: ProductWidget(
+                          isHomePage: true,
                           index: index,
                           model: state.productModel1![index],
-                          isMaxWidth: false,
                           tab: tab[widget.index],
                         ),
                       );

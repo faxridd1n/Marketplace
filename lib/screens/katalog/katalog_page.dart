@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/assets_path/AppIconsPath.dart';
+import 'package:flutter_application_1/core/constants/AppColors.dart';
 import 'package:flutter_application_1/models/home_model/CategoryModel.dart';
 import 'package:flutter_application_1/models/products_model/product_model.dart';
-import 'package:flutter_application_1/screens/home/widgets/ProductWidget.dart';
 import 'package:flutter_application_1/screens/katalog/katalog_bloc/katalog_bloc.dart';
+import 'package:flutter_application_1/widgets/horizontal_product_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
+
+import '../../widgets/product_widget.dart';
 
 // ignore: must_be_immutable
 class KatalogPage extends StatefulWidget {
@@ -22,6 +27,7 @@ class KatalogPage extends StatefulWidget {
 }
 
 class _KatalogPageState extends State<KatalogPage> {
+  bool isVerticalProduct = true;
   int selectedSubCategory = 0;
   String selectedItem = '';
   bool popUpIsOpen = false;
@@ -35,18 +41,17 @@ class _KatalogPageState extends State<KatalogPage> {
     selectedSubCategory = widget.selectedSubCategory ?? 0;
     if (widget.model.item![widget.index].childs!.isNotEmpty) {
       katalogBloc = KatalogBloc()
-        ..add(GetKatalogEvent(
-            widget.model.item![widget.index].childs![selectedSubCategory].id!
-               ,
-            10));
+        ..add(
+          GetKatalogEvent(
+            widget.model.item![widget.index].childs![selectedSubCategory].id!,
+            10,
+          ),
+        );
 
       for (var e in widget.model.item![widget.index].childs!) {
         subCategories.add(e.name!);
       }
-      selectedItem=subCategories[widget.selectedSubCategory??0];
-
-
-
+      selectedItem = subCategories[widget.selectedSubCategory ?? 0];
     }
 
     super.initState();
@@ -57,7 +62,7 @@ class _KatalogPageState extends State<KatalogPage> {
     return subCategories.length == 0
         ? Scaffold(
             appBar: AppBar(),
-            body: Center(
+            body: const Center(
               child: Text(
                 "Empty",
                 style: TextStyle(
@@ -80,9 +85,11 @@ class _KatalogPageState extends State<KatalogPage> {
                 }
                 if (state.getFilteredProductStatus.isSuccess) {
                   return Scaffold(
-                    backgroundColor: Colors.white,
+                    backgroundColor: AppColors.pageBgColor,
                     appBar: AppBar(
+                      surfaceTintColor: Colors.transparent,
                       elevation: 1,
+                      shadowColor: Colors.black,
                       backgroundColor: Colors.white,
                       actions: [
                         widget.model.item![widget.index].childs!.isEmpty
@@ -167,36 +174,88 @@ class _KatalogPageState extends State<KatalogPage> {
                     body: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(15),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 10),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Text(
-                                'Результаты:',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              const SizedBox(width: 5),
-                              Text(
-                                state.filteredProductModel!.length.toString(),
-                                style: const TextStyle(
+                              Row(children: [
+                                const Text(
+                                  'Результаты:',
+                                  style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w600,
-                                    color: Colors.amber),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              const SizedBox(width: 5),
-                              const Text(
-                                'товаров',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
+                                const SizedBox(width: 5),
+                                Text(
+                                  state.filteredProductModel!.length.toString(),
+                                  style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.amber),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                const SizedBox(width: 5),
+                                const Text(
+                                  'товаров',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ]),
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: Colors.white,
+                                ),
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 40,
+                                      height: 40,
+                                      child: IconButton(
+                                        padding: EdgeInsets.all(0),
+                                        onPressed: () {
+                                          isVerticalProduct = true;
+                                          setState(() {});
+                                        },
+                                        icon: SvgPicture.asset(
+                                          height: 28,
+                                          width: 28,
+                                          AppIcons.verticalIcon,
+                                          color: isVerticalProduct
+                                              ? AppColors.green
+                                              : AppColors.grey2,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 40,
+                                      height: 40,
+                                      child: IconButton(
+                                        padding: EdgeInsets.all(0),
+                                        onPressed: () {
+                                          isVerticalProduct = false;
+                                          setState(() {});
+                                        },
+                                        icon: SvgPicture.asset(
+                                          height: 28,
+                                          width: 28,
+                                          AppIcons.horizontalIcon,
+                                          color: isVerticalProduct
+                                              ? AppColors.grey2
+                                              : AppColors.green,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
@@ -207,11 +266,7 @@ class _KatalogPageState extends State<KatalogPage> {
                               // controller: _scrollController,
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
-                              itemCount:
-                                  //  state.hasReachedMax
-                                  //     ? state.filteredProductModel?.length ?? 0
-                                  //     : state.filteredProductModel?.length ?? 0 + 1,
-                                  state.filteredProductModel!.length,
+                              itemCount: state.filteredProductModel!.length,
                               itemBuilder: (context, index) {
                                 if (index >=
                                     state.filteredProductModel!.length) {
@@ -219,16 +274,24 @@ class _KatalogPageState extends State<KatalogPage> {
                                       child: CircularProgressIndicator());
                                 }
                                 return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 20,
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: isVerticalProduct ? 30 : 10,
                                     vertical: 10,
                                   ),
-                                  child: ProductWidget(
-                                    index: index,
-                                    model: state.filteredProductModel![index],
-                                    isMaxWidth: true,
-                                    tab: null,
-                                  ),
+                                  child: isVerticalProduct
+                                      ? ProductWidget(
+                                          isKatalogPage: true,
+                                          index: index,
+                                          model: state
+                                              .filteredProductModel![index],
+                                          tab: null,
+                                        )
+                                      : HorizontalProductWidget(
+                                          model: state
+                                              .filteredProductModel![index],
+                                          index: index,
+                                          isKatalogPage: true,
+                                        ),
                                 );
                               },
                             ),

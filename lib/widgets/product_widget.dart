@@ -2,25 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/constants/AppColors.dart';
 import 'package:flutter_application_1/models/products_model/product_model.dart';
 import 'package:flutter_application_1/screens/basket/BasketPage.dart';
+import 'package:flutter_application_1/screens/favorite/favorite_page.dart';
 import 'package:flutter_application_1/screens/home/home_bloc/home_bloc.dart';
 import 'package:flutter_application_1/screens/home/widgets/snack_bar.dart';
 import 'package:flutter_application_1/screens/product_detail/ProductDetailPage1.dart';
+import 'package:flutter_application_1/screens/product_detail/product_detail_bloc/product_detail_bloc.dart';
 import 'package:flutter_application_1/screens/see_all/see_all_bloc/see_all_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../katalog/katalog_bloc/katalog_bloc.dart';
+import '../components/price_function.dart';
+import '../screens/katalog/katalog_bloc/katalog_bloc.dart';
 
 // ignore: must_be_immutable
 class ProductWidget extends StatefulWidget {
   ProductWidget(
       {required this.index,
       required this.model,
-      required this.isMaxWidth,
       this.isSeeAllPage,
+      this.isDetailPage,
+      this.isHomePage,
+      this.isKatalogPage,
       this.tab,
       super.key});
-  bool isMaxWidth;
   bool? isSeeAllPage;
+  bool? isHomePage;
+  bool? isKatalogPage;
+  bool? isDetailPage;
   int index;
   ProductModel model;
   int? tab;
@@ -30,8 +37,20 @@ class ProductWidget extends StatefulWidget {
 }
 
 class _ProductwidgetState extends State<ProductWidget> {
-  // late BasketBloc basketBloc;
   bool isSelected = false;
+  @override
+  void initState() {
+        super.initState();
+
+    if (favoriteProducts.contains(widget.model)) {
+      isSelected = true;
+    }
+    else{
+      isSelected=false;
+    }
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -56,7 +75,8 @@ class _ProductwidgetState extends State<ProductWidget> {
                 },
                 child: Stack(children: [
                   Container(
-                    width: widget.isMaxWidth
+                    width: widget.isKatalogPage == true ||
+                            widget.isSeeAllPage == true
                         ? double.infinity
                         : MediaQuery.of(context).size.width * 0.7,
                     padding: const EdgeInsets.all(15),
@@ -94,8 +114,8 @@ class _ProductwidgetState extends State<ProductWidget> {
                                 Text(
                                   widget.model.variations?[0].prices?[0].type ==
                                           'Price'
-                                      ? '${widget.model.variations?[0].prices?[0].value?.toInt() ?? '0'} сум'
-                                      : '${widget.model.variations?[0].prices?[1].value?.toInt() ?? '0'} сум',
+                                      ? '${addSpaceEveryThreeCharacters(widget.model.variations![0].prices![0].value!.toInt().toString())} сум'
+                                      : '${addSpaceEveryThreeCharacters(widget.model.variations![0].prices![1].value!.toInt().toString())} сум',
                                   style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
@@ -104,7 +124,6 @@ class _ProductwidgetState extends State<ProductWidget> {
                                 const Text(
                                   '180 000 сум',
                                   style: TextStyle(
-                                    // decoration: TextDecoration.lineThrough,
                                     color: AppColors.grey3,
                                     fontWeight: FontWeight.w500,
                                   ),
@@ -112,7 +131,7 @@ class _ProductwidgetState extends State<ProductWidget> {
                               ],
                             ),
                             const SizedBox(
-                              width: 20,
+                              width: 10,
                             ),
                             Container(
                               decoration: BoxDecoration(
@@ -160,7 +179,7 @@ class _ProductwidgetState extends State<ProductWidget> {
                                     bool isAlreadyHave = false;
                                     if (basketProducts.contains(widget.model)) {
                                       isAlreadyHave = true;
-                                      if (!widget.isMaxWidth) {
+                                      if (widget.isHomePage == true) {
                                         context.read<HomeBloc>().add(
                                               PostBasketProductHomeEvent(
                                                 productVariationId: widget
@@ -168,8 +187,7 @@ class _ProductwidgetState extends State<ProductWidget> {
                                                 count: 2,
                                               ),
                                             );
-                                      } else if (widget.isMaxWidth &&
-                                          widget.isSeeAllPage == true) {
+                                      } else if (widget.isSeeAllPage == true) {
                                         context.read<SeeAllBloc>().add(
                                               PostBasketProductSeeAllEvent(
                                                 productVariationId: widget
@@ -177,8 +195,7 @@ class _ProductwidgetState extends State<ProductWidget> {
                                                 count: 1,
                                               ),
                                             );
-                                      } else if (widget.isSeeAllPage == null &&
-                                          widget.isMaxWidth) {
+                                      } else if (widget.isKatalogPage == true) {
                                         context.read<KatalogBloc>().add(
                                               PostBasketProductKatalogEvent(
                                                 productVariationId: widget
@@ -186,10 +203,17 @@ class _ProductwidgetState extends State<ProductWidget> {
                                                 count: 1,
                                               ),
                                             );
+                                      } else if (widget.isDetailPage == true) {
+                                        context.read<ProductDetailBloc>().add(
+                                              PostBasketProductDetailEvent(
+                                                productVariationId: widget
+                                                    .model.variations![0].id!,
+                                              ),
+                                            );
                                       }
                                     }
                                     if (!isAlreadyHave) {
-                                      if (!widget.isMaxWidth) {
+                                      if (widget.isHomePage == true) {
                                         context.read<HomeBloc>().add(
                                               PostBasketProductHomeEvent(
                                                 productVariationId: widget
@@ -197,8 +221,7 @@ class _ProductwidgetState extends State<ProductWidget> {
                                                 count: 1,
                                               ),
                                             );
-                                      } else if (widget.isMaxWidth &&
-                                          widget.isSeeAllPage == true) {
+                                      } else if (widget.isSeeAllPage == true) {
                                         context.read<SeeAllBloc>().add(
                                               PostBasketProductSeeAllEvent(
                                                 productVariationId: widget
@@ -206,13 +229,19 @@ class _ProductwidgetState extends State<ProductWidget> {
                                                 count: 1,
                                               ),
                                             );
-                                      } else if (widget.isMaxWidth &&
-                                          widget.isSeeAllPage == null) {
+                                      } else if (widget.isKatalogPage == true) {
                                         context.read<KatalogBloc>().add(
                                               PostBasketProductKatalogEvent(
                                                 productVariationId: widget
                                                     .model.variations![0].id!,
                                                 count: 1,
+                                              ),
+                                            );
+                                      } else if (widget.isDetailPage == true) {
+                                        context.read<ProductDetailBloc>().add(
+                                              PostBasketProductDetailEvent(
+                                                productVariationId: widget
+                                                    .model.variations![0].id!,
                                               ),
                                             );
                                       }
@@ -288,7 +317,12 @@ class _ProductwidgetState extends State<ProductWidget> {
                           onPressed: () {
                             setState(
                               () {
-                                isSelected != isSelected;
+                                isSelected = !isSelected;
+                                if (isSelected) {
+                                  favoriteProducts.add(widget.model);
+                                } else {
+                                  favoriteProducts.remove(widget.model);
+                                }
                               },
                             );
                           },

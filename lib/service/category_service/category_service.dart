@@ -17,7 +17,7 @@ class CategoryService {
     try {
       final response = await DioConfig.inheritance
           .createRequest()
-          .get("https://m.taqsim.uz/api/v1/Categories");
+          .get("https://arbuzmarket.com/api/v1/Categories");
       Log.i(response.data.toString());
       Log.i(response.statusCode.toString());
 
@@ -47,7 +47,7 @@ class CategoryService {
       int categoryId, int size) async {
     try {
       final response = await DioConfig.inheritance.createRequest().post(
-          "https://m.taqsim.uz/api/v1/Products/filters?size=$size",
+          "https://arbuzmarket.com/api/v1/Products/filters?size=$size",
           data: {
             "categoryId": categoryId,
             "size": size,
@@ -81,7 +81,7 @@ class CategoryService {
       String productVariationId) async {
     try {
       final response = await DioConfig.inheritance.createRequest().post(
-        "https://c.taqsim.uz/api/Basket",
+        "https://c.taqsim.uz/api/basket",
         options: Options(
           headers: {
             'Authorization':

@@ -41,6 +41,7 @@ class _BasketPageState extends State<BasketPage> {
     return Scaffold(
       backgroundColor: AppColors.pageBgColor,
       appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
         backgroundColor: Colors.white,
         elevation: 1,
         shadowColor: Colors.black,

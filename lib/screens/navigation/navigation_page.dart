@@ -3,7 +3,7 @@ import 'package:flutter_application_1/assets_path/AppIconsPath.dart';
 import 'package:flutter_application_1/core/constants/AppColors.dart';
 import 'package:flutter_application_1/screens/category/CategoryPage.dart';
 import 'package:flutter_application_1/screens/basket/BasketPage.dart';
-import 'package:flutter_application_1/screens/favorite/FavoritePage.dart';
+import 'package:flutter_application_1/screens/favorite/favorite_page.dart';
 import 'package:flutter_application_1/screens/home/HomePage.dart';
 import 'package:flutter_application_1/screens/profile/ProfilePage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -18,11 +18,11 @@ class NavigationPage extends StatefulWidget {
 class _NavigationPageState extends State<NavigationPage> {
   int bottomNavigationBarIndex = 0;
   List navigationPages = [
-    HomePage(),
-    CategoryPage(),
-    BasketPage(),
-    FavoritePage(),
-    ProfilePage()
+    const HomePage(),
+    const CategoryPage(),
+    const BasketPage(),
+    const FavoritePage(),
+    const ProfilePage()
   ];
   @override
   Widget build(BuildContext context) {
@@ -83,7 +83,7 @@ class _NavigationPageState extends State<NavigationPage> {
                 color: AppColors.primaryColor,
               )),
           BottomNavigationBarItem(
-              icon: Icon(
+              icon: const Icon(
 
                 Icons.favorite_border_rounded,
                 size: 24,

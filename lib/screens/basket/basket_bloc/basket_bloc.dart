@@ -12,44 +12,47 @@ part 'basket_event.dart';
 part 'basket_state.dart';
 
 class BasketBloc extends Bloc<BasketEvent, BasketState> {
-  BasketBloc() : super(const BasketState()) {
+  BasketBloc() : super(BasketState()) {
     on<GetBasketProductsEvent>((event, emit) async {
       emit(state.copyWith(
-          getBasketProductStatus: FormzSubmissionStatus.inProgress, ));
+        getBasketProductStatus: FormzSubmissionStatus.inProgress,
+      ));
       final result = await BasketService.getBasketProducts();
       if (result is BasketResponseModel) {
         emit(state.copyWith(
-            basketResponseModel: result,
-            getBasketProductStatus: FormzSubmissionStatus.success,
-            ));
+          basketResponseModel: result,
+          getBasketProductStatus: FormzSubmissionStatus.success,
+        ));
       } else {
         emit(state.copyWith(
-            getBasketProductStatus: FormzSubmissionStatus.failure, ));
+          getBasketProductStatus: FormzSubmissionStatus.failure,
+        ));
       }
     });
 
     on<DeleteBasketProductsEvent>((event, emit) async {
       emit(state.copyWith(
-          basketDeleteResStatus: FormzSubmissionStatus.inProgress, ));
+        basketDeleteResStatus: FormzSubmissionStatus.inProgress,
+      ));
       final result =
           await BasketService.deleteBasketProducts(event.productVariationId);
       if (result is BasketDeleteResModel) {
         emit(state.copyWith(
-            basketDeleteResModel: result,
-            basketDeleteResStatus: FormzSubmissionStatus.success,
-           ));
+          basketDeleteResModel: result,
+          basketDeleteResStatus: FormzSubmissionStatus.success,
+        ));
       } else {
         emit(state.copyWith(
-            basketDeleteResStatus: FormzSubmissionStatus.failure, ));
+          basketDeleteResStatus: FormzSubmissionStatus.failure,
+        ));
       }
     });
 
-
-   on<PostBasketProductBasketEvent>((event, emit) async {
+    on<PostBasketProductBasketEvent>((event, emit) async {
       emit(state.copyWith(
           postResponseBasketStatus: FormzSubmissionStatus.inProgress));
-      final result =
-          await BasketService.postBasketProducts(event.productVariationId,event.count);
+      final result = await BasketService.postBasketProducts(
+          event.productVariationId, event.count);
       if (result is PostResponseBasketModel) {
         emit(state.copyWith(
             postResponseBasketModel: result,
@@ -60,11 +63,11 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
       }
     });
 
-    // on<AddItemEvent>((event, emit) {
-    //   final updatedList =
-    //       List<BasketProductElement>.from(state.items as Iterable)
-    //         ..add(event.item);
-    //   emit(BasketState(items: updatedList));
-    // });
+    on<SelectBasketProductsEvent>((event, emit) {
+      final updatedList =
+          List<BasketProductElement>.from(state.selectedProducts as Iterable)
+            ..add(event.selectedProducts);
+      emit(state.copyWith(selectedProducts: updatedList));
+    });
   }
 }

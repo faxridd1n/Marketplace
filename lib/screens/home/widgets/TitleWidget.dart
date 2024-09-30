@@ -18,21 +18,11 @@ class TitleWidget extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          withSeeAllButton
-              ? Expanded(
+         Expanded(
                   child: Text(
                     titleText,
                     style: const TextStyle(
                       fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                )
-              : Expanded(
-                  child: Text(
-                    titleText,
-                    style: const TextStyle(
-                      fontSize: 22,
                       fontWeight: FontWeight.w600,
                     ),
                   ),

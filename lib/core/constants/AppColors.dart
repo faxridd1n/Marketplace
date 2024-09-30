@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 class AppColors {
@@ -8,7 +6,7 @@ class AppColors {
   static const grey2 = Color.fromRGBO(168, 170, 176, 1);
   static const grey3 = Color.fromRGBO(210, 210, 210, 1);
   static const green = Color.fromRGBO(186, 214, 67, 1);
-    static const green1 = Color.fromRGBO(187, 214, 67, 0.397);
+  static const green1 = Color.fromRGBO(187, 214, 67, 0.397);
 
   static const seeAllButtonColor = Color.fromRGBO(107, 181, 73, 0.16);
   static const blueText = Color.fromRGBO(32, 53, 74, 1);

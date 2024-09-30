@@ -2,7 +2,7 @@
 // String api = "https://test.client.energymarket.uz/";
 String api = "https://client.energymarket.uz/";
 // String api = "https://staging-client.taqsim.uz/";
-String marketplaceApi = "https://m.taqsim.uz/";
+String marketplaceApi = "https://arbuzmarket.com/";
 // String marketplaceApi = "https://test.energymarket.uz/";
 // String marketplaceApi = "https://dev-new.marketplace.taqsim.uz/";
 

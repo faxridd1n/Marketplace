@@ -1,3 +1,4 @@
+// ignore: file_names
 class AppImages {
   AppImages._();
   static const String appIconCircle = 'assets/images/App Icon Circle.png';

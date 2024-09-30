@@ -9,16 +9,18 @@ class BasketState extends Equatable {
   final FormzSubmissionStatus basketDeleteResStatus;
   final PostResponseBasketModel? postResponseBasketModel;
   final FormzSubmissionStatus postResponseBasketStatus;
+  final List<BasketProductElement>? selectedProducts;
 
-  const BasketState(
-      {this.basketResponseModel,
-      this.getBasketProductStatus = FormzSubmissionStatus.initial,
-      this.basketDeleteResModel,
-      this.basketDeleteResStatus = FormzSubmissionStatus.initial,
-      // required this.items,
-       this.postResponseBasketModel,
+  const BasketState({
+    this.basketResponseModel,
+    this.getBasketProductStatus = FormzSubmissionStatus.initial,
+    this.basketDeleteResModel,
+    this.basketDeleteResStatus = FormzSubmissionStatus.initial,
+    // required this.items,
+    this.postResponseBasketModel,
     this.postResponseBasketStatus = FormzSubmissionStatus.initial,
-      });
+    this.selectedProducts,
+  });
 
   BasketState copyWith({
     BasketResponseModel? basketResponseModel,
@@ -26,8 +28,9 @@ class BasketState extends Equatable {
     BasketDeleteResModel? basketDeleteResModel,
     FormzSubmissionStatus? basketDeleteResStatus,
     // required List<BasketProductElement> items,
-     PostResponseBasketModel? postResponseBasketModel,
+    PostResponseBasketModel? postResponseBasketModel,
     FormzSubmissionStatus? postResponseBasketStatus,
+    List<BasketProductElement>? selectedProducts,
   }) {
     return BasketState(
       basketResponseModel: basketResponseModel ?? this.basketResponseModel,
@@ -36,11 +39,12 @@ class BasketState extends Equatable {
       basketDeleteResModel: basketDeleteResModel ?? this.basketDeleteResModel,
       basketDeleteResStatus:
           basketDeleteResStatus ?? this.basketDeleteResStatus,
-          // items: items,
-           postResponseBasketModel:
+      // items: items,
+      postResponseBasketModel:
           postResponseBasketModel ?? this.postResponseBasketModel,
       postResponseBasketStatus:
           postResponseBasketStatus ?? this.postResponseBasketStatus,
+      selectedProducts: selectedProducts ?? this.selectedProducts,
     );
   }
 
@@ -50,8 +54,9 @@ class BasketState extends Equatable {
         getBasketProductStatus,
         basketDeleteResModel,
         basketDeleteResStatus,
-         basketDeleteResModel,
+        basketDeleteResModel,
         basketDeleteResStatus,
+        selectedProducts,
         // items
       ];
 }

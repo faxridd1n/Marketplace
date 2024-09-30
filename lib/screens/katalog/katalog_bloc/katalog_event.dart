@@ -15,10 +15,3 @@ class PostBasketProductKatalogEvent extends KatalogEvent {
   int? count;
   PostBasketProductKatalogEvent({required this.productVariationId, this.count});
 }
-
-class FetchNextPage extends KatalogEvent {
-  final int categoryId;
-  final int size;
-
-  FetchNextPage(this.categoryId, this.size);
-}

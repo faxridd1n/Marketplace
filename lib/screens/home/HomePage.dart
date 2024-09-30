@@ -4,7 +4,6 @@ import 'package:flutter_application_1/core/constants/AppColors.dart';
 import 'package:flutter_application_1/screens/drawer/DrawerPage.dart';
 import 'package:flutter_application_1/screens/home/home_bloc/home_bloc.dart';
 import 'package:flutter_application_1/screens/home/widgets/BannerWidget.dart';
-import 'package:flutter_application_1/screens/home/widgets/BottomCardWidget.dart';
 import 'package:flutter_application_1/screens/home/widgets/HomePopUp.dart';
 import 'package:flutter_application_1/screens/home/widgets/TitleWidget.dart';
 import 'package:flutter_application_1/screens/home/widgets/home_text_field_widget.dart';
@@ -12,6 +11,7 @@ import 'package:flutter_application_1/screens/home/widgets/product_list_widget.d
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import '../../widgets/bottom_info_widget.dart';
 import 'widgets/CategoryWidget.dart';
 
 class HomePage extends StatefulWidget {
@@ -32,11 +32,13 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     homeBloc = HomeBloc()..add(GetCategoriesEvent());
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
+
+        
         backgroundColor: Colors.white,
         leading: Builder(builder: (context) {
           return IconButton(

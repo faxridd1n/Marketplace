@@ -4,13 +4,13 @@ import 'package:flutter_application_1/assets_path/AppImagesPath.dart';
 import 'package:flutter_application_1/core/constants/AppColors.dart';
 import 'package:flutter_application_1/models/products_model/product_model.dart';
 import 'package:flutter_application_1/screens/home/widgets/BottomCardWidget1.dart';
-import 'package:flutter_application_1/screens/home/widgets/ProductWidget.dart';
 import 'package:flutter_application_1/screens/home/widgets/TitleWidget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../widgets/product_widget.dart';
 import 'product_detail_bloc/product_detail_bloc.dart';
 import 'tab_pages/PDetailPageTab1.dart';
 import 'tab_pages/PDetailPageTab2.dart';
@@ -39,7 +39,8 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
     tabController = TabController(length: 3, vsync: this);
     productDetailBloc = ProductDetailBloc()
       ..add(GetProductDetailEvent(widget.model.id!))
-      ..add(GetSimilarProductsEvent(widget.model.category?.id ?? 0));
+      ..add(
+          GetSimilarProductsEvent(categoryId: widget.model.category?.id ?? 0));
     // similarProducts = ProductDetailBloc()..add(GetSimilarProductsEvent());
     super.initState();
   }
@@ -66,6 +67,9 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
               child: Scaffold(
                 backgroundColor: Colors.white,
                 appBar: AppBar(
+                  elevation: 1,
+                  shadowColor: Colors.black,
+                  surfaceTintColor: Colors.transparent,
                   backgroundColor: Colors.white,
                 ),
                 body: CustomScrollView(
@@ -89,7 +93,8 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
                                             builder: (BuildContext context) {
                                               return MyDialog(
                                                 index: index,
-                                                model: state.productDetailModel!,
+                                                model:
+                                                    state.productDetailModel!,
                                               );
                                             });
                                       },
@@ -114,7 +119,8 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 state.productDetailModel!.result!.variations![0]
-                                        .files!.length>1
+                                            .files!.length >
+                                        1
                                     ? Container(
                                         decoration: BoxDecoration(
                                           color: AppColors.grey1,
@@ -236,10 +242,10 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 10, vertical: 10),
                                             child: ProductWidget(
+                                              isDetailPage: true,
                                               index: index,
                                               model: state
                                                   .parentCategoryModel![index],
-                                              isMaxWidth: false,
                                               tab: widget.tab,
                                             ),
                                           );

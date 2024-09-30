@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/see_all_model/filtered_search_model.dart';
-
 import '../../../core/constants/AppColors.dart';
 
 // ignore: must_be_immutable
@@ -112,6 +111,7 @@ class _SliderWidgetState extends State<SliderWidget> {
               ],
             ),
           ),
+         
           SliderTheme(
             data: SliderTheme.of(context).copyWith(
               rangeThumbShape:
@@ -141,7 +141,7 @@ class _SliderWidgetState extends State<SliderWidget> {
                 values.start.round().toString(),
                 values.end.round().toString(),
               ),
-              divisions: 10,
+              divisions: 1,
               values: values,
               onChanged: (RangeValues value) {
                 values = value;
@@ -149,6 +149,7 @@ class _SliderWidgetState extends State<SliderWidget> {
               },
             ),
           ),
+
           const SizedBox(height: 5),
         ],
       ),

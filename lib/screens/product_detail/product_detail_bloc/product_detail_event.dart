@@ -12,5 +12,13 @@ class GetProductDetailEvent extends ProductDetailEvent {
 class GetSimilarProductsEvent extends ProductDetailEvent {
   final int categoryId;
 
-  GetSimilarProductsEvent(this.categoryId);
+  GetSimilarProductsEvent({required this.categoryId});
 }
+
+// ignore: must_be_immutable
+class PostBasketProductDetailEvent extends ProductDetailEvent {
+  final String productVariationId;
+  int? count;
+  PostBasketProductDetailEvent({required this.productVariationId, this.count});
+}
+

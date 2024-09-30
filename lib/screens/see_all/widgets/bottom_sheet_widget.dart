@@ -4,16 +4,11 @@ import 'package:flutter_application_1/screens/see_all/widgets/check_widget.dart'
 import 'package:flutter_application_1/screens/see_all/widgets/clear_filters_widget.dart';
 import 'package:flutter_application_1/screens/see_all/widgets/single_select_widget.dart';
 import 'package:flutter_application_1/screens/see_all/widgets/switch_widget.dart';
-
 import '../../../core/constants/AppColors.dart';
 import 'slider_widget.dart';
 
 void openFilterSheet(
   BuildContext context,
-  double minPrice,
-  double maxPrice,
-  bool mechanical,
-  bool automatic,
   List<FilteredSearchModel>? models,
 ) {
   showModalBottomSheet<void>(
@@ -36,7 +31,7 @@ void openFilterSheet(
                     ),
                   ),
                   padding: const EdgeInsets.only(
-                      right: 20, left: 20, top: 5, bottom: 80),
+                       left: 5,right: 5,top: 5, bottom: 80),
                   height: MediaQuery.of(context).size.height -
                       200 /*(kTextTabBarHeight)*/,
                   child: Column(
@@ -54,33 +49,46 @@ void openFilterSheet(
                       ),
                       const SizedBox(height: 15),
                       Expanded(
-                        child: ListView.builder(
-                          controller: controller,
-                          shrinkWrap: true,
-                          itemCount: models!.length,
-                          itemBuilder: (context, index) {
-                            return models[index].filterType == 'Range' ||
-                                    models[index].filterType == 'Price'
-                                ? SliderWidget(
-                                    model: models[index],
-                                  )
-                                : models[index].filterType ==
-                                            'MultipleSelect' &&
-                                        models[index].dataType == 'Text'
-                                    ? CheckWidget(
-                                        label: models[index].name!,
-                                        model: models[index],
-                                      )
-                                    : models[index].filterType ==
-                                                'SingleSelect' &&
-                                            models[index].dataType == 'Text'
-                                        ? SingleSelectWidget(
-                                            model: models[index],
-                                          )
-                                        : SwitchWidget(
-                                            label: models[index].name!,
-                                          );
-                          },
+                        child: MediaQuery.removePadding(
+                          context:context,
+                          removeTop:true,
+                          removeBottom: true,
+                          child: Scrollbar(
+                            thumbVisibility: true,
+                            radius: Radius.circular(10),
+                            thickness: 5,
+                            child: ListView.builder(
+                              controller: controller,
+                              shrinkWrap: true,
+                              itemCount: models!.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 15),
+                                  child: models[index].filterType == 'Range' ||
+                                          models[index].filterType == 'Price'
+                                      ? SliderWidget(
+                                          model: models[index],
+                                        )
+                                      : models[index].filterType ==
+                                                  'MultipleSelect' &&
+                                              models[index].dataType == 'Text'
+                                          ? CheckWidget(
+                                              label: models[index].name!,
+                                              model: models[index],
+                                            )
+                                          : models[index].filterType ==
+                                                      'SingleSelect' &&
+                                                  models[index].dataType == 'Text'
+                                              ? SingleSelectWidget(
+                                                  model: models[index],
+                                                )
+                                              : SwitchWidget(
+                                                  label: models[index].name!,
+                                                ),
+                                );
+                              },
+                            ),
+                          ),
                         ),
                       ),
                     ],

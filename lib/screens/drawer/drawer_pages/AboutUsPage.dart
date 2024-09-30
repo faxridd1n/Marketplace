@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/assets_path/AppImagesPath.dart';
 import 'package:flutter_application_1/core/constants/AppColors.dart';
-import 'package:flutter_application_1/screens/home/widgets/BottomCardWidget.dart';
+import '../../../widgets/bottom_info_widget.dart';
 
 class AboutUsPage extends StatefulWidget {
   const AboutUsPage({super.key});

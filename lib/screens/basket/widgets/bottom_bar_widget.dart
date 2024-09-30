@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/constants/AppColors.dart';
 import 'package:flutter_application_1/screens/buy_now/buy_now_page.dart';
 
+import '../../../components/price_function.dart';
 import '../BasketPage.dart';
 
 class BottomBarWidget extends StatefulWidget {
@@ -28,7 +29,7 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
               ),
             ),
             Text(
-              dealSum.toString(),
+              addSpaceEveryThreeCharacters(dealSum.toString()),
               style: const TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 16,
@@ -53,7 +54,7 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
               'Товары, ${selectedProducts.length} шт.',
             ),
             Text(
-              dealSum.toString(),
+              addSpaceEveryThreeCharacters(dealSum.toString()),
             )
           ],
         ),
