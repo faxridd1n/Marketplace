@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/assets_path/AppIconsPath.dart';
 import 'package:flutter_application_1/assets_path/AppImagesPath.dart';
 import 'package:flutter_application_1/models/home_model/CategoryModel.dart';
 import 'package:flutter_application_1/screens/katalog/katalog_page.dart';
-
-import '../../../assets_path/AppIconsPath.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 // ignore: must_be_immutable
 class CategoryWidget extends StatefulWidget {
@@ -12,14 +12,6 @@ class CategoryWidget extends StatefulWidget {
   CategoryModel model;
   int index;
 
-  List categoryIcons = [
-    AppIcons.category1,
-    AppIcons.category2,
-    AppIcons.category3,
-    AppIcons.category4,
-    AppIcons.category5,
-    AppIcons.category6,
-  ];
   @override
   State<CategoryWidget> createState() => _CategoryWidgetState();
 }
@@ -52,24 +44,24 @@ class _CategoryWidgetState extends State<CategoryWidget> {
               child: FadeInImage(
                 fit: BoxFit.fill,
                 placeholder: const AssetImage(
-                  AppImages.solarPanel1,
+                  AppImages.no_image,
                 ),
                 image: NetworkImage(
-                  widget.model.item?[widget.index].image?.url ??
-                      AppImages.solarPanel1,
+                  widget.model.item![widget.index].image!.url!
                 ),
                 imageErrorBuilder: (context, error, stackTrace) {
                   return Container(
                     width: 60,
                     height: 60,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(
-                          AppImages.solarPanel1,
-                        ),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
+                    // decoration: const BoxDecoration(
+                    //   image: DecorationImage(
+                    //     image: AssetImage(
+                    //       AppImages.no_image,
+                    //     ),
+                    //     fit: BoxFit.fill,
+                    //   ),
+                    // ),
+                    child: SvgPicture.asset(AppIcons.product_placeholder),
                   );
                 },
               ),

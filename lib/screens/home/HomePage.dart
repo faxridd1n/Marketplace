@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/assets_path/AppIconsPath.dart';
+import 'package:flutter_application_1/assets_path/AppImagesPath.dart';
 import 'package:flutter_application_1/core/constants/AppColors.dart';
 import 'package:flutter_application_1/screens/drawer/DrawerPage.dart';
 import 'package:flutter_application_1/screens/home/home_bloc/home_bloc.dart';
@@ -22,23 +25,49 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final controller = PageController(viewportFraction: 0.85, keepPage: true);
+  // final controller = PageController(viewportFraction: 0.85, keepPage: true);
   String selectedItem = 'Toshkent shahri';
   bool popUpIsOpen = false;
   late final HomeBloc homeBloc;
-
+  final PageController _pageController =
+      PageController(viewportFraction: 0.85, keepPage: true);
+  Timer? _timer;
+  List banners = [
+    AppImages.banner_1,
+    AppImages.banner_2,
+    AppImages.banner_3,
+  ];
   @override
   void initState() {
     super.initState();
     homeBloc = HomeBloc()..add(GetCategoriesEvent());
+
+    // Auto page switch every 3 seconds
+    _timer = Timer.periodic(const Duration(seconds: 4), (Timer timer) {
+      int nextPage = _pageController.page!.round() + 1;
+      if (nextPage == banners.length) {
+        nextPage = 0;
+      }
+      _pageController.animateToPage(
+        nextPage,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    });
   }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    _pageController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         surfaceTintColor: Colors.transparent,
-
-        
         backgroundColor: Colors.white,
         leading: Builder(builder: (context) {
           return IconButton(
@@ -58,26 +87,28 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const Divider(
-              color: AppColors.grey3,
-              height: 0.5,
-            ),
+            // const Divider(
+            //   color: AppColors.grey3,
+            //   height: 0.5,
+            // ),
             const HomeTextFieldWidget(),
-            const Divider(
-              color: AppColors.grey3,
-              height: 0.5,
-            ),
+            // const Divider(
+            //   color: AppColors.grey3,
+            //   height: 0.5,
+            // ),
             const SizedBox(
               height: 10,
             ),
             SizedBox(
               height: 141,
               child: PageView.builder(
-                controller: controller,
-                itemCount: 4,
-                itemBuilder: (context, index) => const Padding(
-                  padding: EdgeInsets.only(right: 15),
-                  child: BannerWidget(),
+                controller: _pageController,
+                itemCount: banners.length,
+                itemBuilder: (context, index) => Padding(
+                  padding: const EdgeInsets.only(right: 15),
+                  child: BannerWidget(
+                    banner: banners[index],
+                  ),
                 ),
               ),
             ),
@@ -91,8 +122,8 @@ class _HomePageState extends State<HomePage> {
               ),
               padding: const EdgeInsets.all(7),
               child: SmoothPageIndicator(
-                controller: controller,
-                count: 4,
+                controller: _pageController,
+                count: banners.length,
                 effect: const ColorTransitionEffect(
                   activeDotColor: AppColors.green,
                   dotColor: AppColors.grey3,

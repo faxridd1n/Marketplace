@@ -1,23 +1,23 @@
 // To parse this JSON data, do
 //
-//     final userModel = userModelFromJson(jsonString);
+//     final authModel = authModelFromJson(jsonString);
 
 import 'dart:convert';
 
-UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
+AuthModel authModelFromJson(String str) => AuthModel.fromJson(json.decode(str));
 
-String userModelToJson(UserModel data) => json.encode(data.toJson());
+String authModelToJson(AuthModel data) => json.encode(data.toJson());
 
-class UserModel {
+class AuthModel {
     Result? result;
     Map? error;
 
-    UserModel({
+    AuthModel({
         this.result,
         this.error,
     });
 
-    factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
+    factory AuthModel.fromJson(Map<String, dynamic> json) => AuthModel(
         result: json["result"] == null ? null : Result.fromJson(json["result"]),
         error: json["error"],
     );

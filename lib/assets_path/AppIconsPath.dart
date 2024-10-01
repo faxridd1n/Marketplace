@@ -27,9 +27,9 @@ class AppIcons {
   static const String shop = 'assets/icons/shop.svg';
   static const String search = 'assets/icons/search.svg';
   static const String language = 'assets/icons/language.svg';
-  static const String category1 = 'assets/icons/category1.svg';
-  static const String category2 = 'assets/icons/category2.svg';
-  static const String category3 = 'assets/icons/category3.svg';
+  // static const String category1 = 'assets/icons/category1.svg';
+  // static const String category2 = 'assets/icons/category2.svg';
+  // static const String category3 = 'assets/icons/category3.svg';
   static const String mail = 'assets/icons/mail.svg';
   static const String call = 'assets/icons/call.svg';
   static const String location2 = 'assets/icons/location2.svg';
@@ -41,9 +41,9 @@ class AppIcons {
   static const String subsidya = 'assets/icons/subsidya.svg';
   static const String muddatliTolov = 'assets/icons/muddatliTolov.svg';
   static const String kompensatsiya = 'assets/icons/kompensatsiya.svg';
-  static const String category4 = 'assets/icons/category4.svg';
-  static const String category5 = 'assets/icons/category5.svg';
-  static const String category6 = 'assets/icons/category6.svg';
+  // static const String category4 = 'assets/icons/category4.svg';
+  // static const String category5 = 'assets/icons/category5.svg';
+  // static const String category6 = 'assets/icons/category6.svg';
   static const String noLikedProduct = 'assets/icons/noLikedProduct.svg';
   static const String gerb = 'assets/icons/gerb.svg';
   static const String locationBig = 'assets/icons/locationBig.svg';
@@ -76,4 +76,5 @@ class AppIcons {
   static const String terminal = 'assets/icons/terminal.svg';
   static const String horizontalIcon = 'assets/icons/horizontal_icon.svg';
   static const String verticalIcon = 'assets/icons/vertical_icon.svg';
+  static const String product_placeholder = 'assets/icons/product_placeholder.svg';
 }
