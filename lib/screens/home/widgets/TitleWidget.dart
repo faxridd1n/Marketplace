@@ -22,8 +22,8 @@ class TitleWidget extends StatelessWidget {
                   child: Text(
                     titleText,
                     style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
@@ -31,9 +31,7 @@ class TitleWidget extends StatelessWidget {
           withSeeAllButton
               ? GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
+                    Navigator.of(context, rootNavigator: true).push(                      MaterialPageRoute(
                         builder: (context) => SeeAllPage(
                           tab: tab!,
                         ),

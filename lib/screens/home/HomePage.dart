@@ -1,21 +1,20 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/assets_path/AppIconsPath.dart';
+// import 'package:flutter_application_1/assets_path/AppIconsPath.dart';
 import 'package:flutter_application_1/assets_path/AppImagesPath.dart';
 import 'package:flutter_application_1/core/constants/AppColors.dart';
 import 'package:flutter_application_1/screens/drawer/DrawerPage.dart';
 import 'package:flutter_application_1/screens/home/home_bloc/home_bloc.dart';
 import 'package:flutter_application_1/screens/home/widgets/BannerWidget.dart';
-import 'package:flutter_application_1/screens/home/widgets/HomePopUp.dart';
+import 'package:flutter_application_1/screens/home/widgets/CategoryWidget.dart';
+// import 'package:flutter_application_1/screens/home/widgets/HomePopUp.dart';
 import 'package:flutter_application_1/screens/home/widgets/TitleWidget.dart';
 import 'package:flutter_application_1/screens/home/widgets/home_text_field_widget.dart';
 import 'package:flutter_application_1/screens/home/widgets/product_list_widget.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:flutter_application_1/widgets/bottom_info_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import '../../widgets/bottom_info_widget.dart';
-import 'widgets/CategoryWidget.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -25,17 +24,18 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // final controller = PageController(viewportFraction: 0.85, keepPage: true);
   String selectedItem = 'Toshkent shahri';
   bool popUpIsOpen = false;
   late final HomeBloc homeBloc;
-  final PageController _pageController =
-      PageController(viewportFraction: 0.85, keepPage: true);
+  final PageController _pageController = PageController(
+    viewportFraction: 0.85,
+    keepPage: true,
+  );
   Timer? _timer;
   List banners = [
-    AppImages.banner_1,
-    AppImages.banner_2,
-    AppImages.banner_3,
+    AppImages.banner1,
+    AppImages.banner2,
+    AppImages.banner3,
   ];
   @override
   void initState() {
@@ -77,28 +77,18 @@ class _HomePageState extends State<HomePage> {
             icon: const Icon(Icons.menu),
           );
         }),
-        elevation: 1,
-        shadowColor: Colors.black,
-        actions: [
-          HomePopUpMenuWidget(false, AppIcons.location),
-        ],
+        elevation: 2,
+        shadowColor: const Color.fromARGB(86, 0, 0, 0),
+        // actions: [
+        //   HomePopUpMenuWidget(false, AppIcons.location),
+        // ],
       ),
       drawer: DrawerPage(),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // const Divider(
-            //   color: AppColors.grey3,
-            //   height: 0.5,
-            // ),
             const HomeTextFieldWidget(),
-            // const Divider(
-            //   color: AppColors.grey3,
-            //   height: 0.5,
-            // ),
-            const SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             SizedBox(
               height: 141,
               child: PageView.builder(
@@ -112,9 +102,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             Container(
               decoration: BoxDecoration(
                 color: AppColors.grey1,
@@ -143,7 +131,11 @@ class _HomePageState extends State<HomePage> {
                 builder: (ctx, state) {
                   if (state.getCategoryStatus.isInProgress) {
                     return const Center(
-                      child: CircularProgressIndicator(),
+                      child: Padding(
+                        padding: EdgeInsets.all(20.0),
+                        child: CircularProgressIndicator(
+                            color: AppColors.green, strokeWidth: 3),
+                      ),
                     );
                   }
                   if (state.getCategoryStatus.isSuccess) {
@@ -164,12 +156,16 @@ class _HomePageState extends State<HomePage> {
                     );
                   }
                   return const Center(
-                    child: Text('Error'),
+                    child: Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Text('Error'),
+                    ),
                   );
                 },
               ),
             ),
-            ProductListWidget(index: 0),
+            const ProductListWidget(index: 0),
+    
             // ProductListWidget(index: 1),
             // ProductListWidget(index: 2),
             // ProductListWidget(index: 3),

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/assets_path/AppIconsPath.dart';
 import 'package:flutter_application_1/core/constants/AppColors.dart';
 import 'package:flutter_application_1/models/products_model/product_model.dart';
+import 'package:flutter_application_1/screens/favorite/widgets/empty_favourite.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import '../../widgets/product_widget.dart';
 import '../../widgets/horizontal_product_widget.dart';
 
@@ -26,8 +26,8 @@ class _FavoritePageState extends State<FavoritePage> {
       appBar: AppBar(
         surfaceTintColor: Colors.transparent,
         backgroundColor: Colors.white,
-        shadowColor: Colors.black,
-        elevation: 1,
+        shadowColor: const Color.fromARGB(72, 0, 0, 0),
+        elevation: 2,
         title: const Text(
           'Saqlanganlar',
           style: TextStyle(
@@ -37,67 +37,7 @@ class _FavoritePageState extends State<FavoritePage> {
         ),
       ),
       body: favoriteProducts.isEmpty
-          ? Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    AppIcons.noLikedProduct,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Text(
-                    'Sizda hali saqlangan mahsulotlar yo’q',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                    maxLines: 2,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Text(
-                    'Keyinroq foydalanish uchun mahsulotlarni saqlab qo’yishingiz mumkin.',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                    ),
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      backgroundColor: AppColors.green,
-                    ),
-                    onPressed: () {},
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 15,
-                      ),
-                      child: Text(
-                        'Bosh sahifaga qaytish',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            )
+          ? const EmptyFavouritePage()
           : Column(
               children: [
                 Padding(
@@ -105,38 +45,7 @@ class _FavoritePageState extends State<FavoritePage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      // Row(
-                      //   children: [
-                      //     const Text(
-                      //       'Результаты:',
-                      //       style: TextStyle(
-                      //         fontSize: 18,
-                      //         fontWeight: FontWeight.w600,
-                      //       ),
-                      //       maxLines: 1,
-                      //       overflow: TextOverflow.ellipsis,
-                      //     ),
-                      //     const SizedBox(width: 5),
-                      //     Text(
-                      //       state.productModel!.length.toString(),
-                      //       style: const TextStyle(
-                      //           fontSize: 18,
-                      //           fontWeight: FontWeight.w600,
-                      //           color: Colors.amber),
-                      //       maxLines: 1,
-                      //       overflow: TextOverflow.ellipsis,
-                      //     ),
-                      //     const SizedBox(width: 5),
-                      //     const Text(
-                      //       'товаров',
-                      //       style: TextStyle(
-                      //         fontWeight: FontWeight.w500,
-                      //       ),
-                      //       maxLines: 1,
-                      //       overflow: TextOverflow.ellipsis,
-                      //     ),
-                      //   ],
-                      // ),
+                     
 
                       Container(
                         decoration: BoxDecoration(
@@ -149,7 +58,7 @@ class _FavoritePageState extends State<FavoritePage> {
                               width: 40,
                               height: 40,
                               child: IconButton(
-                                padding: EdgeInsets.all(0),
+                                padding: const EdgeInsets.all(0),
                                 onPressed: () {
                                   isVerticalProduct = true;
                                   setState(() {});
@@ -168,7 +77,7 @@ class _FavoritePageState extends State<FavoritePage> {
                               width: 40,
                               height: 40,
                               child: IconButton(
-                                padding: EdgeInsets.all(0),
+                                padding: const EdgeInsets.all(0),
                                 onPressed: () {
                                   isVerticalProduct = false;
                                   setState(() {});
@@ -192,7 +101,7 @@ class _FavoritePageState extends State<FavoritePage> {
                 Expanded(
                   child: SingleChildScrollView(
                     child: ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: favoriteProducts.length,
                       itemBuilder: (context, index) {

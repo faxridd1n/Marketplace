@@ -26,7 +26,9 @@ class ExpansionTileWidgetState extends State<CategoryExpansionWidget> {
   void _handleExpansion(int index) {
     setState(() {
       for (int i = 0; i < isOpen.length; i++) {
-        isOpen[i] = i == index ? !isOpen[i] : false; // Toggle the selected tile, close others
+        isOpen[i] = i == index
+            ? !isOpen[i]
+            : false; // Toggle the selected tile, close others
       }
     });
   }
@@ -58,10 +60,10 @@ class ExpansionTileWidgetState extends State<CategoryExpansionWidget> {
         child: FadeInImage(
           fit: BoxFit.fill,
           placeholder: const AssetImage(
-            AppImages.solarPanel1,
+            AppImages.noImage,
           ),
           image: NetworkImage(
-            widget.model.item?[parentIndex].image?.url ?? AppImages.solarPanel1,
+            widget.model.item?[parentIndex].image?.url ?? AppImages.noImage,
           ),
           imageErrorBuilder: (context, error, stackTrace) {
             return Container(
@@ -69,7 +71,7 @@ class ExpansionTileWidgetState extends State<CategoryExpansionWidget> {
               height: 40,
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(AppImages.solarPanel1),
+                  image: AssetImage(AppImages.noImage),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -87,7 +89,8 @@ class ExpansionTileWidgetState extends State<CategoryExpansionWidget> {
       onExpansionChanged: (isExpanded) {
         _handleExpansion(parentIndex); // Handle tile opening/closing
       },
-      initiallyExpanded: isOpen[parentIndex], // Open/close based on isOpen state
+      initiallyExpanded:
+          isOpen[parentIndex], // Open/close based on isOpen state
       children: [
         model.item![parentIndex].childs!.isEmpty
             ? const ListTile(
@@ -117,8 +120,7 @@ class ExpansionTileWidgetState extends State<CategoryExpansionWidget> {
                       padding: const EdgeInsets.only(left: 50),
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                            context,
+                          Navigator.of(context, rootNavigator: true).push(
                             MaterialPageRoute(
                               builder: (context) => KatalogPage(
                                 model: model,

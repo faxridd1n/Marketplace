@@ -3,6 +3,8 @@ part of 'see_all_bloc.dart';
 class SeeAllState extends Equatable {
   final List<ProductModel>? productModel;
   final FormzSubmissionStatus getProductStatus;
+  final bool hasMoreProducts;
+  final String next;
   final List<FilteredSearchModel>? filteredProductModel;
   final FormzSubmissionStatus getFilteredProductStatus;
   final PostResponseBasketModel? postResponseBasketModel;
@@ -14,10 +16,13 @@ class SeeAllState extends Equatable {
   const SeeAllState({
     this.productModel,
     this.getProductStatus = FormzSubmissionStatus.initial,
+    this.hasMoreProducts = true,
+    this.next = '',
     this.filteredProductModel,
     this.getFilteredProductStatus = FormzSubmissionStatus.initial,
     this.postResponseBasketModel,
     this.postResponseBasketStatus = FormzSubmissionStatus.initial,
+
     // this.hasMore=true,
     // this.size=10,
     // this.categoryId,
@@ -28,7 +33,8 @@ class SeeAllState extends Equatable {
     FormzSubmissionStatus? getProductStatus,
     List<FilteredSearchModel>? filteredProductModel,
     FormzSubmissionStatus? getFilteredProductStatus,
-
+    bool? hasMoreProducts,
+    String? next,
     PostResponseBasketModel? postResponseBasketModel,
     FormzSubmissionStatus? postResponseBasketStatus,
     // bool? hasMore,
@@ -39,12 +45,11 @@ class SeeAllState extends Equatable {
       productModel: productModel ?? this.productModel,
       getProductStatus: getProductStatus ?? this.getProductStatus,
       filteredProductModel: filteredProductModel ?? this.filteredProductModel,
-      getFilteredProductStatus:
-          getFilteredProductStatus ?? this.getFilteredProductStatus,
-      postResponseBasketModel:
-          postResponseBasketModel ?? this.postResponseBasketModel,
-      postResponseBasketStatus:
-          postResponseBasketStatus ?? this.postResponseBasketStatus,
+      getFilteredProductStatus: getFilteredProductStatus ?? this.getFilteredProductStatus,
+      postResponseBasketModel: postResponseBasketModel ?? this.postResponseBasketModel,
+      postResponseBasketStatus: postResponseBasketStatus ?? this.postResponseBasketStatus,
+      hasMoreProducts: hasMoreProducts ?? this.hasMoreProducts,
+      next: next ?? this.next,
       // hasMore: hasMore ?? this.hasMore,
       // size: size ?? this.size,
       // categoryId: categoryId ?? this.categoryId,
@@ -59,6 +64,8 @@ class SeeAllState extends Equatable {
         getFilteredProductStatus,
         postResponseBasketModel,
         postResponseBasketStatus,
+        hasMoreProducts,
+        next,
         // // items,
         // hasMore,
         // size,

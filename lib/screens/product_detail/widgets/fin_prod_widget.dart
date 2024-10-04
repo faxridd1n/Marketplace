@@ -102,101 +102,101 @@ class _FinProdWidgetState extends State<FinProdWidget> {
                 const SizedBox(
                   height: 25,
                 ),
-                ToggleButtons(
-                  onPressed: (int index) {
-                    setState(() {
-                      // The button that is tapped is set to true, and the others to false.
-                      for (int i = 0; i < _selectedFruits.length; i++) {
-                        _selectedFruits[i] = i == index;
-                        selectedMonths = index;
-                      }
-                    });
-                  },
-                  borderColor: AppColors.borderColor,
-                  borderRadius: const BorderRadius.all(Radius.circular(8)),
-                  selectedBorderColor: Colors.blue,
-                  selectedColor: Colors.white,
-                  fillColor: Colors.blue,
-                  color: Colors.black,
-                  constraints: BoxConstraints(
-                    minHeight: 55.0,
-                    minWidth: MediaQuery.of(context).size.width * 0.19,
+                LayoutBuilder(
+                  builder: (context, constraints) => ToggleButtons(
+                    
+                    onPressed: (int index) {
+                      setState(() {
+                        // The button that is tapped is set to true, and the others to false.
+                        for (int i = 0; i < _selectedFruits.length; i++) {
+                          _selectedFruits[i] = i == index;
+                          selectedMonths = index;
+                        }
+                      });
+                    },
+                    borderColor: AppColors.borderColor,
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    selectedBorderColor: Colors.blue,
+                    selectedColor: Colors.white,
+                    fillColor: Colors.blue,
+                    color: Colors.black,
+                    constraints: BoxConstraints.expand(width: constraints.maxWidth/4-5),
+                    isSelected: _selectedFruits,
+                    children: const [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '3',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          Text(
+                            'мес',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                            ),
+                          )
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '6',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          Text(
+                            'мес',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '9',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          Text(
+                            'мес',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                            ),
+                          )
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '12',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          Text(
+                            'мес',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                            ),
+                          )
+                        ],
+                      )
+                    ],
                   ),
-                  isSelected: _selectedFruits,
-                  children: const [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          '3',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Text(
-                          'мес',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                          ),
-                        )
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          '6',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Text(
-                          'мес',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          '9',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Text(
-                          'мес',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                          ),
-                        )
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          '12',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Text(
-                          'мес',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                          ),
-                        )
-                      ],
-                    )
-                  ],
                 ),
                 const SizedBox(
                   height: 25,
@@ -279,8 +279,7 @@ class _FinProdWidgetState extends State<FinProdWidget> {
                     backgroundColor: AppColors.grey1,
                   ),
                   onPressed: () {
-                    Navigator.push(
-                      context,
+                    Navigator.of(context, rootNavigator: true).push(
                       MaterialPageRoute(
                         builder: (context) => BuyNowPage(),
                       ),

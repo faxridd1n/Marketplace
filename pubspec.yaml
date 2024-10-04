@@ -21,6 +21,7 @@ dependencies:
   toggle_switch: ^2.3.0
   connectivity_plus: ^6.0.5
   mask_text_input_formatter: ^2.9.0
+  carousel_slider: ^5.0.0
 
 
 dev_dependencies:
@@ -45,10 +46,10 @@ flutter:
     - assets/icons/
     - assets/images/    
    
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: Montserrat
+      fonts:
+        - asset: assets\fonts\Montserrat-SemiBold.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

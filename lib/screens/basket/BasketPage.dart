@@ -43,8 +43,8 @@ class _BasketPageState extends State<BasketPage> {
       appBar: AppBar(
         surfaceTintColor: Colors.transparent,
         backgroundColor: Colors.white,
-        elevation: 1,
-        shadowColor: Colors.black,
+        elevation: 2,
+        shadowColor: const Color.fromARGB(72, 0, 0, 0),
         title: const Text(
           'Saqlanganlar',
           style: TextStyle(
@@ -60,7 +60,10 @@ class _BasketPageState extends State<BasketPage> {
             if (state.getBasketProductStatus.isInProgress) {
               return const Scaffold(
                 body: Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(
+                    color: AppColors.green,
+                    strokeWidth: 3,
+                  ),
                 ),
               );
             }
@@ -241,12 +244,15 @@ class _BasketPageState extends State<BasketPage> {
                         ),
                         BottomAppBar(
                           padding: const EdgeInsets.all(0),
-                          height: selectedProducts.length == 0
+                          height: selectedProducts.isEmpty
                               ? MediaQuery.of(context).size.height * 0.20
                               : MediaQuery.of(context).size.height * 0.3,
                           elevation: 3,
                           child: Container(
                             decoration: const BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(color: Color.fromARGB(88, 0, 0, 0),blurRadius: 2)
+                              ],
                               color: Colors.white,
                               borderRadius: BorderRadius.vertical(
                                 top: Radius.circular(10),
@@ -257,7 +263,7 @@ class _BasketPageState extends State<BasketPage> {
                               vertical: 15,
                             ),
                             width: MediaQuery.of(context).size.width,
-                            child: selectedProducts.length == 0
+                            child: selectedProducts.isEmpty
                                 ? const EmptyBottomBarWidget()
                                 : const BottomBarWidget(),
                           ),

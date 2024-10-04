@@ -5,7 +5,7 @@ class AppColors {
   static const grey1 = Color.fromRGBO(242, 242, 242, 1);
   static const grey2 = Color.fromRGBO(168, 170, 176, 1);
   static const grey3 = Color.fromRGBO(210, 210, 210, 1);
-  static const green = Color.fromRGBO(186, 214, 67, 1);
+  static const green = Color.fromRGBO(51, 92, 73, 1);
   static const green1 = Color.fromRGBO(187, 214, 67, 0.397);
 
   static const seeAllButtonColor = Color.fromRGBO(107, 181, 73, 0.16);

@@ -15,7 +15,7 @@ class _NormativeDocsPageState extends State<NormativeDocsPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text(
+        title: const Text(
           'Me\'yoriy hujjatlar',
           style: TextStyle(
             fontSize: 18,
@@ -28,19 +28,19 @@ class _NormativeDocsPageState extends State<NormativeDocsPage> {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(
+              padding: const EdgeInsets.symmetric(
                 horizontal: 15,
                 vertical: 20,
               ),
               child: ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: 10,
                 shrinkWrap: true,
                 itemBuilder:(context, index) {
-                return DocsWidget();
+                return const DocsWidget();
               },),
             ),
-            BottomInfoWidget()
+            const BottomInfoWidget()
           ],
         ),
       ),

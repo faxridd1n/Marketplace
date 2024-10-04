@@ -5,12 +5,11 @@ import 'package:flutter_application_1/models/home_model/CategoryModel.dart';
 import 'package:flutter_application_1/screens/katalog/katalog_page.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-// ignore: must_be_immutable
 class CategoryWidget extends StatefulWidget {
-  CategoryWidget(this.index, this.model, {super.key});
+  const CategoryWidget(this.index, this.model, {super.key});
 
-  CategoryModel model;
-  int index;
+  final CategoryModel model;
+  final int index;
 
   @override
   State<CategoryWidget> createState() => _CategoryWidgetState();
@@ -21,14 +20,21 @@ class _CategoryWidgetState extends State<CategoryWidget> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
+        Navigator.of(context, rootNavigator: true).push(
           MaterialPageRoute(
             builder: (context) {
               return KatalogPage(model: widget.model, index: widget.index);
             },
           ),
         );
+        // Navigator.of(context, rootNavigator: true).push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) {
+        //       return KatalogPage(model: widget.model, index: widget.index);
+        //     },
+        //   ),
+        // );
       },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 5),
@@ -44,13 +50,12 @@ class _CategoryWidgetState extends State<CategoryWidget> {
               child: FadeInImage(
                 fit: BoxFit.fill,
                 placeholder: const AssetImage(
-                  AppImages.no_image,
+                  AppImages.noImage,
                 ),
-                image: NetworkImage(
-                  widget.model.item![widget.index].image!.url!
-                ),
+                image:
+                    NetworkImage(widget.model.item![widget.index].image!.url!),
                 imageErrorBuilder: (context, error, stackTrace) {
-                  return Container(
+                  return SizedBox(
                     width: 60,
                     height: 60,
                     // decoration: const BoxDecoration(
@@ -61,7 +66,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                     //     fit: BoxFit.fill,
                     //   ),
                     // ),
-                    child: SvgPicture.asset(AppIcons.product_placeholder),
+                    child: SvgPicture.asset(AppIcons.productPlaceholder),
                   );
                 },
               ),

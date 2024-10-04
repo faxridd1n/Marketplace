@@ -59,6 +59,11 @@ class _BasketProductWidgetState extends State<BasketProductWidget> {
                     onChanged: (value) {
                       widget.isSelected = value!;
                       if (value) {
+                        context.read<BasketBloc>().add(
+                              SelectBasketProductsEvent(
+                                selectedProducts: widget.model,
+                              ),
+                            );
                         selectedProducts.add(widget.model);
 
                         for (var r in widget.model.prices!) {
@@ -121,6 +126,7 @@ class _BasketProductWidgetState extends State<BasketProductWidget> {
                                   );
 
                               snackBar(
+                                isHomePage: false,
                                 context: context,
                                 name: widget.model.product!.name!,
                                 addProduct: false,
@@ -206,7 +212,7 @@ class _BasketProductWidgetState extends State<BasketProductWidget> {
                                     if (productCount != 1) {
                                       productCount -= 1;
                                       context.read<BasketBloc>().add(
-                                            PostBasketProductBasketEvent(
+                                            PostBasketProductCountBasketEvent(
                                               widget.model.prices![0]
                                                   .variationId!,
                                               productCount,
@@ -221,6 +227,7 @@ class _BasketProductWidgetState extends State<BasketProductWidget> {
                                           );
 
                                       snackBar(
+                                        isHomePage: false,
                                         context: context,
                                         name: widget.model.product!.name!,
                                         addProduct: false,
@@ -268,7 +275,7 @@ class _BasketProductWidgetState extends State<BasketProductWidget> {
                                   setState(() {
                                     productCount += 1;
                                     context.read<BasketBloc>().add(
-                                          PostBasketProductBasketEvent(
+                                          PostBasketProductCountBasketEvent(
                                             widget
                                                 .model.prices![0].variationId!,
                                             productCount,

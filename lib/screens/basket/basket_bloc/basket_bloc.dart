@@ -48,11 +48,11 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
       }
     });
 
-    on<PostBasketProductBasketEvent>((event, emit) async {
+    on<PostBasketProductCountBasketEvent>((event, emit) async {
       emit(state.copyWith(
           postResponseBasketStatus: FormzSubmissionStatus.inProgress));
       final result = await BasketService.postBasketProducts(
-          event.productVariationId, event.count);
+          event.productVariationId!, event.count!);
       if (result is PostResponseBasketModel) {
         emit(state.copyWith(
             postResponseBasketModel: result,
@@ -68,6 +68,21 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
           List<BasketProductElement>.from(state.selectedProducts as Iterable)
             ..add(event.selectedProducts);
       emit(state.copyWith(selectedProducts: updatedList));
+    });
+
+    on<PostBasketProductBasketEvent>((event, emit) async {
+      emit(state.copyWith(
+          postResponseBasketStatus: FormzSubmissionStatus.inProgress));
+      final result = await BasketService.postBasketProducts(
+          event.productVariationId, event.count);
+      if (result is PostResponseBasketModel) {
+        emit(state.copyWith(
+            postResponseBasketModel: result,
+            postResponseBasketStatus: FormzSubmissionStatus.success));
+      } else {
+        emit(state.copyWith(
+            postResponseBasketStatus: FormzSubmissionStatus.failure));
+      }
     });
   }
 }

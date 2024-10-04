@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/assets_path/AppIconsPath.dart';
 import 'package:flutter_application_1/screens/see_all/see_all_bloc/see_all_bloc.dart';
 import 'package:flutter_application_1/screens/see_all/widgets/bottom_sheet_widget.dart';
+import 'package:flutter_application_1/widgets/horizontal_product_widget.dart';
+import 'package:flutter_application_1/widgets/paginator.dart';
+import 'package:flutter_application_1/widgets/product_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
-import '../../core/constants/AppColors.dart';
-import '../../widgets/product_widget.dart';
-import '../../widgets/horizontal_product_widget.dart';
 
-// ignore: must_be_immutable
+import '../../core/constants/AppColors.dart';
+
 class SeeAllPage extends StatefulWidget {
-  SeeAllPage({required this.tab, super.key});
-  int tab;
+  const SeeAllPage({required this.tab, super.key});
+  final int tab;
   @override
   State<SeeAllPage> createState() => _SeeAllPageState();
 }
@@ -37,13 +38,16 @@ class _SeeAllPageState extends State<SeeAllPage> {
         builder: (context, state) {
           if (state.getProductStatus.isInProgress) {
             const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                  color: AppColors.green, strokeWidth: 3),
             );
           }
           if (state.getProductStatus.isSuccess) {
             return Scaffold(
               backgroundColor: AppColors.pageBgColor,
               appBar: AppBar(
+                elevation: 2,
+                shadowColor: const Color.fromARGB(77, 0, 0, 0),
                 surfaceTintColor: Colors.transparent,
                 backgroundColor: Colors.white,
                 actions: [
@@ -62,11 +66,11 @@ class _SeeAllPageState extends State<SeeAllPage> {
                     ],
                   )
                 ],
-              ),
-              body: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(15),
+                bottom: PreferredSize(
+                  preferredSize: Size.fromHeight(55),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 5),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -153,38 +157,63 @@ class _SeeAllPageState extends State<SeeAllPage> {
                       ],
                     ),
                   ),
+                ),
+              ),
+              body: Column(
+                children: [
                   Expanded(
-                    child: SingleChildScrollView(
-                      child: ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: state.productModel!.length,
-                        itemBuilder: (context, index) {
-                          if (index >= state.productModel!.length) {
-                            return const Center(
-                                child: CircularProgressIndicator());
-                          }
-                          return Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: isVerticalProduct ? 30 : 10,
-                              vertical: 10,
-                            ),
-                            child: isVerticalProduct
-                                ? ProductWidget(
-                                    isSeeAllPage: true,
-                                    index: index,
-                                    model: state.productModel![index],
-                                  )
-                                : HorizontalProductWidget(
-                                    isSeeAllPage: true,
-                                    model: state.productModel![index],
-                                    index: index,
-                                  ),
-                          );
-                        },
+                      child: Paginator(
+                    paginatorStatus: FormzSubmissionStatus.success,
+                    itemCount: state.productModel!.length,
+                    itemBuilder: (ctx, index) {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: isVerticalProduct ? 16 : 10,
+                          vertical: 10,
+                        ),
+                        child: isVerticalProduct
+                            ? ProductWidget(
+                                isSeeAllPage: true,
+                                index: index,
+                                model: state.productModel![index],
+                              )
+                            : HorizontalProductWidget(
+                                isSeeAllPage: true,
+                                model: state.productModel![index],
+                                index: index,
+                              ),
+                      );
+                    },
+                    fetchMoreFunction: () {},
+                    hasMoreToFetch: false,
+                  )
+                      // ListView.builder(
+                      //   shrinkWrap: true,
+                      //   itemCount: state.productModel!.length,
+                      //   itemBuilder: (context, index) {
+                      //     if (index >= state.productModel!.length) {
+                      //       return const Center(child: CircularProgressIndicator(color:AppColors.green,strokeWidth:3));
+                      //     }
+                      //     return Padding(
+                      //       padding: EdgeInsets.symmetric(
+                      //         horizontal: isVerticalProduct ? 30 : 10,
+                      //         vertical: 10,
+                      //       ),
+                      //       child: isVerticalProduct
+                      //           ? ProductWidget(
+                      //               isSeeAllPage: true,
+                      //               index: index,
+                      //               model: state.productModel![index],
+                      //             )
+                      //           : HorizontalProductWidget(
+                      //               isSeeAllPage: true,
+                      //               model: state.productModel![index],
+                      //               index: index,
+                      //             ),
+                      //     );
+                      //   },
+                      // ),
                       ),
-                    ),
-                  ),
                   const SizedBox(height: 10),
                 ],
               ),

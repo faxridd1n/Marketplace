@@ -59,7 +59,7 @@ class _KatalogPageState extends State<KatalogPage> {
 
   @override
   Widget build(BuildContext context) {
-    return subCategories.length == 0
+    return subCategories.isEmpty
         ? Scaffold(
             appBar: AppBar(),
             body: const Center(
@@ -79,7 +79,8 @@ class _KatalogPageState extends State<KatalogPage> {
                 if (state.getFilteredProductStatus.isInProgress) {
                   return const Scaffold(
                     body: Center(
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(
+                          color: AppColors.green, strokeWidth: 3),
                     ),
                   );
                 }
@@ -88,8 +89,8 @@ class _KatalogPageState extends State<KatalogPage> {
                     backgroundColor: AppColors.pageBgColor,
                     appBar: AppBar(
                       surfaceTintColor: Colors.transparent,
-                      elevation: 1,
-                      shadowColor: Colors.black,
+                      elevation: 2,
+                      shadowColor: const Color.fromARGB(70, 0, 0, 0),
                       backgroundColor: Colors.white,
                       actions: [
                         widget.model.item![widget.index].childs!.isEmpty
@@ -170,10 +171,9 @@ class _KatalogPageState extends State<KatalogPage> {
                                 },
                               ),
                       ],
-                    ),
-                    body: Column(
-                      children: [
-                        Padding(
+                      bottom: PreferredSize(
+                        preferredSize: Size.fromHeight(55),
+                        child: Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 10, vertical: 10),
                           child: Row(
@@ -260,6 +260,10 @@ class _KatalogPageState extends State<KatalogPage> {
                             ],
                           ),
                         ),
+                      ),
+                    ),
+                    body: Column(
+                      children: [
                         Expanded(
                           child: SingleChildScrollView(
                             child: ListView.builder(
@@ -271,7 +275,9 @@ class _KatalogPageState extends State<KatalogPage> {
                                 if (index >=
                                     state.filteredProductModel!.length) {
                                   return const Center(
-                                      child: CircularProgressIndicator());
+                                      child: CircularProgressIndicator(
+                                          color: AppColors.green,
+                                          strokeWidth: 3));
                                 }
                                 return Padding(
                                   padding: EdgeInsets.symmetric(

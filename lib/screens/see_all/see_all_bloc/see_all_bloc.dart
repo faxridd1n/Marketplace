@@ -8,15 +8,11 @@ import '../../../models/products_model/product_model.dart';
 import '../../../models/see_all_model/filtered_search_model.dart';
 import '../../../service/see_all_service/see_all_sevice.dart';
 
-
 part 'see_all_event.dart';
 part 'see_all_state.dart';
 
 class SeeAllBloc extends Bloc<SeeAllEvent, SeeAllState> {
   SeeAllBloc() : super(const SeeAllState()) {
-
-
-
     on<GetAllProductsEvent>((event, emit) async {
       emit(state.copyWith(getProductStatus: FormzSubmissionStatus.inProgress));
       final result = await SeeAllSevice.getAllProducts(event.tab);
@@ -37,21 +33,14 @@ class SeeAllBloc extends Bloc<SeeAllEvent, SeeAllState> {
       }
     });
 
-     on<PostBasketProductSeeAllEvent>((event, emit) async {
-      emit(state.copyWith(
-          postResponseBasketStatus: FormzSubmissionStatus.inProgress));
-      final result =
-          await SeeAllSevice.postBasketProducts(event.productVariationId);
+    on<PostBasketProductSeeAllEvent>((event, emit) async {
+      emit(state.copyWith(postResponseBasketStatus: FormzSubmissionStatus.inProgress));
+      final result = await SeeAllSevice.postBasketProducts(event.productVariationId);
       if (result is PostResponseBasketModel) {
-        emit(state.copyWith(
-            postResponseBasketModel: result,
-            postResponseBasketStatus: FormzSubmissionStatus.success));
+        emit(state.copyWith(postResponseBasketModel: result, postResponseBasketStatus: FormzSubmissionStatus.success));
       } else {
-        emit(state.copyWith(
-            postResponseBasketStatus: FormzSubmissionStatus.failure));
+        emit(state.copyWith(postResponseBasketStatus: FormzSubmissionStatus.failure));
       }
     });
-
-
   }
 }

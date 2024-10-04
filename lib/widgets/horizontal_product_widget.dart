@@ -221,6 +221,7 @@ class _HorizontalProductWidgetState extends State<HorizontalProductWidget> {
                           }
                         }
                         snackBar(
+                          isHomePage: false,
                           context: context,
                           name: widget.model.name ?? 'Empty',
                           addProduct: true,

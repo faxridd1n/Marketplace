@@ -23,7 +23,7 @@
 //   Widget build(BuildContext context) {
 //     return InkWell(
 //       onTap: () {
-//         Navigator.push(
+//         Navigator.of(context, rootNavigator: true).push(
 //           context,
 //           MaterialPageRoute(
 //             builder: (context) =>  ProductDetailPage(model: widget.model,),

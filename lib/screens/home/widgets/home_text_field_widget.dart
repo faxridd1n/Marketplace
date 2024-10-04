@@ -16,17 +16,20 @@ class _HomeTextFieldWidgetState extends State<HomeTextFieldWidget> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: const [
-          BoxShadow(
-            color: Color.fromARGB(118, 0, 0, 0),
-            blurRadius: 5,
-        ),]
-      ),
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: const [
+            BoxShadow(
+              color: Color.fromARGB(62, 0, 0, 0),
+              blurRadius: 4,
+            ),
+          ]),
       height: 50,
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
       child: TextFormField(
-        
+        cursorWidth: 1.5,
+       onTapOutside: (event) {
+        FocusScope.of(context).unfocus();
+       },
         decoration: InputDecoration(
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
@@ -37,22 +40,17 @@ class _HomeTextFieldWidgetState extends State<HomeTextFieldWidget> {
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(
-              width: 1,
-              color: Colors.white,
-            ),
+            borderSide: BorderSide.none,
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15),
-            borderSide: const BorderSide(
-              color: AppColors.primaryColor,
-            ),
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide.none,
           ),
           hintText: 'Mahsulot qidirish...',
           hintStyle: const TextStyle(
-            color: AppColors.grey2,
-            fontSize: 12,
-            fontWeight: FontWeight.w400,
+            color: AppColors.grey3,
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
           ),
           filled: true,
           fillColor: Colors.white,

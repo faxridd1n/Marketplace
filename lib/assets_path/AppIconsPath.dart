@@ -76,5 +76,5 @@ class AppIcons {
   static const String terminal = 'assets/icons/terminal.svg';
   static const String horizontalIcon = 'assets/icons/horizontal_icon.svg';
   static const String verticalIcon = 'assets/icons/vertical_icon.svg';
-  static const String product_placeholder = 'assets/icons/product_placeholder.svg';
+  static const String productPlaceholder = 'assets/icons/product_placeholder.svg';
 }

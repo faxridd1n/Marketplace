@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/constants/AppColors.dart';
 import 'package:flutter_application_1/models/products_model/product_model.dart';
 import 'package:flutter_application_1/screens/basket/BasketPage.dart';
+import 'package:flutter_application_1/screens/basket/basket_bloc/basket_bloc.dart';
 import 'package:flutter_application_1/screens/favorite/favorite_page.dart';
 import 'package:flutter_application_1/screens/home/home_bloc/home_bloc.dart';
 import 'package:flutter_application_1/screens/home/widgets/snack_bar.dart';
@@ -40,15 +41,18 @@ class _ProductwidgetState extends State<ProductWidget> {
   bool isSelected = false;
   @override
   void initState() {
-        super.initState();
+    super.initState();
 
     if (favoriteProducts.contains(widget.model)) {
       isSelected = true;
+    } else {
+      isSelected = false;
     }
-    else{
-      isSelected=false;
-    }
+  }
 
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -63,8 +67,7 @@ class _ProductwidgetState extends State<ProductWidget> {
               color: Colors.white,
               child: GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
+                  Navigator.of(context, rootNavigator: true).push(
                     MaterialPageRoute(
                       builder: (context) => ProductDetailPage1(
                         model: widget.model,
@@ -180,8 +183,8 @@ class _ProductwidgetState extends State<ProductWidget> {
                                     if (basketProducts.contains(widget.model)) {
                                       isAlreadyHave = true;
                                       if (widget.isHomePage == true) {
-                                        context.read<HomeBloc>().add(
-                                              PostBasketProductHomeEvent(
+                                        context.read<BasketBloc>().add(
+                                              PostBasketProductBasketEvent(
                                                 productVariationId: widget
                                                     .model.variations![0].id!,
                                                 count: 2,
@@ -247,6 +250,9 @@ class _ProductwidgetState extends State<ProductWidget> {
                                       }
                                     }
                                     snackBar(
+                                        isHomePage: widget.isHomePage == true
+                                            ? true
+                                            :false,
                                         context: context,
                                         name: widget.model.name ?? 'Empty',
                                         addProduct: true);
@@ -283,8 +289,8 @@ class _ProductwidgetState extends State<ProductWidget> {
                                   backgroundColor: AppColors.grey1,
                                 ),
                                 onPressed: () {
-                                  Navigator.push(
-                                    context,
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(
                                     MaterialPageRoute(
                                       builder: (context) => ProductDetailPage1(
                                         model: widget.model,
@@ -315,16 +321,13 @@ class _ProductwidgetState extends State<ProductWidget> {
                         child: IconButton(
                           padding: EdgeInsets.all(0),
                           onPressed: () {
-                            setState(
-                              () {
-                                isSelected = !isSelected;
-                                if (isSelected) {
-                                  favoriteProducts.add(widget.model);
-                                } else {
-                                  favoriteProducts.remove(widget.model);
-                                }
-                              },
-                            );
+                            isSelected = !isSelected;
+                            if (isSelected) {
+                              favoriteProducts.add(widget.model);
+                            } else {
+                              favoriteProducts.remove(widget.model);
+                            }
+                            setState(() {});
                           },
                           icon: Icon(
                             isSelected

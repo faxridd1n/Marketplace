@@ -57,7 +57,8 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
           if (state.getDetailStatus.isInProgress) {
             return const Scaffold(
               body: Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                    color: AppColors.green, strokeWidth: 3),
               ),
             );
           }
@@ -67,8 +68,8 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
               child: Scaffold(
                 backgroundColor: Colors.white,
                 appBar: AppBar(
-                  elevation: 1,
-                  shadowColor: Colors.black,
+                  elevation: 2,
+                  shadowColor: const Color.fromARGB(72, 0, 0, 0),
                   surfaceTintColor: Colors.transparent,
                   backgroundColor: Colors.white,
                 ),
@@ -176,8 +177,6 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
                             height: 50,
                             child: TabBar(
                               indicatorSize: TabBarIndicatorSize.tab,
-                              // indicatorPadding: const EdgeInsets.symmetric(
-                              //     horizontal: 50),
                               onTap: (index) {
                                 selectedTab = index;
                                 setState(() {});
@@ -226,7 +225,8 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
                           ),
                           state.getProductStatus.isInProgress
                               ? const Center(
-                                  child: CircularProgressIndicator(),
+                                  child: CircularProgressIndicator(
+                                      color: AppColors.green, strokeWidth: 3),
                                 )
                               : state.getProductStatus.isSuccess
                                   ? SizedBox(
@@ -313,7 +313,7 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
                                   width: 180,
                                   height: 200,
                                   child: Image.asset(
-                                    AppImages.banner2,
+                                    AppImages.oldBanner2,
                                     fit: BoxFit.fill,
                                   ),
                                 ),

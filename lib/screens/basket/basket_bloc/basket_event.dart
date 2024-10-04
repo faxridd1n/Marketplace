@@ -18,12 +18,17 @@ class DeleteBasketProductsEvent extends BasketEvent {
   DeleteBasketProductsEvent(this.productVariationId);
 }
 
-class PostBasketProductBasketEvent extends BasketEvent {
-  final String productVariationId;
-  final int count;
-  PostBasketProductBasketEvent(this.productVariationId, this.count);
+class PostBasketProductCountBasketEvent extends BasketEvent {
+  final String? productVariationId;
+  final int? count;
+  PostBasketProductCountBasketEvent(this.productVariationId, this.count);
 }
-
+class PostBasketProductBasketEvent extends BasketEvent {
+  final int count;
+  final String productVariationId;
+  PostBasketProductBasketEvent(
+      {required this.productVariationId, required this.count});
+}
 // class AddItemEvent extends BasketEvent {
 //   final BasketProductElement item;
 

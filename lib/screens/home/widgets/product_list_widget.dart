@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+
+import '../../../core/constants/AppColors.dart';
 import '../../../widgets/product_widget.dart';
 import '../home_bloc/home_bloc.dart';
 import 'TitleWidget.dart';
 
-// ignore: must_be_immutable
 class ProductListWidget extends StatefulWidget {
-  ProductListWidget({required this.index, super.key});
+  const ProductListWidget({required this.index, super.key});
 
-  int index;
+  final int index;
   @override
   State<ProductListWidget> createState() => _ProductListWidgetState();
 }
@@ -39,9 +40,10 @@ class _ProductListWidgetState extends State<ProductListWidget> {
       child: BlocBuilder<HomeBloc, HomeState>(
         builder: (ctx, state) {
           if (state.getProductStatus.isInProgress) {
-            return const Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
+            return const Center(
+              child: Padding(
+                padding: EdgeInsets.all(20.0),
+                child: CircularProgressIndicator(color:AppColors.green,strokeWidth:3),
               ),
             );
           }
@@ -61,16 +63,15 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                   tab: tab[widget.index],
                 ),
                 SizedBox(
-                  width: double.infinity,
                   height: 520,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
                     itemCount: state.productModel1?.length ?? 0,
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 10),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: ProductWidget(
                           isHomePage: true,
                           index: index,
@@ -84,8 +85,9 @@ class _ProductListWidgetState extends State<ProductListWidget> {
               ],
             );
           }
-          return const Scaffold(
-            body: Center(
+          return const Center(
+            child: Padding(
+              padding: EdgeInsets.all(10.0),
               child: Text('Error'),
             ),
           );

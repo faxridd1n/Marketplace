@@ -133,6 +133,7 @@ class _BuyNowPageState extends State<BuyNowPage> {
               SizedBox(
                 height: 50,
                 child: TextFormField(
+                  cursorWidth: 1.5,
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
@@ -178,7 +179,10 @@ class _BuyNowPageState extends State<BuyNowPage> {
                   builder: (ctx, state) {
                     if (state.getRegionsStatus.isInProgress) {
                       return const Center(
-                        child: CircularProgressIndicator(),
+                        child: Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: CircularProgressIndicator(color:AppColors.green,strokeWidth:3),
+                        ),
                       );
                     }
                     if (state.getRegionsStatus.isSuccess) {
@@ -291,7 +295,7 @@ class _BuyNowPageState extends State<BuyNowPage> {
                                                     setState(() {});
                                                     Navigator.of(context).pop();
                                                   },
-                                                  child: Container(
+                                                  child: SizedBox(
                                                     width:
                                                         MediaQuery.of(context)
                                                             .size
@@ -516,7 +520,7 @@ class _BuyNowPageState extends State<BuyNowPage> {
                                                               .pop();
                                                           setState(() {});
                                                         },
-                                                        child: Container(
+                                                        child: SizedBox(
                                                           width: MediaQuery.of(
                                                                   context)
                                                               .size
@@ -634,6 +638,7 @@ class _BuyNowPageState extends State<BuyNowPage> {
               const Text('Qo\'shimcha ma\'lumot'),
               const SizedBox(height: 10),
               TextFormField(
+                cursorWidth: 1.5,
                 style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,

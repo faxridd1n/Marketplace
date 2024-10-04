@@ -83,8 +83,7 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
             backgroundColor: AppColors.green,
           ),
           onPressed: () {
-            Navigator.push(
-              context,
+            Navigator.of(context, rootNavigator: true).push(
               MaterialPageRoute(
                 builder: (context) => BuyNowPage(),
               ),

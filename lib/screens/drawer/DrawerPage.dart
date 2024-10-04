@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/assets_path/AppIconsPath.dart';
+// import 'package:flutter_application_1/assets_path/AppIconsPath.dart';
 import 'package:flutter_application_1/core/constants/AppColors.dart';
 import 'package:flutter_application_1/screens/drawer/drawer_pages/AboutUsPage.dart';
 import 'package:flutter_application_1/screens/drawer/drawer_pages/NormativeDocsPage.dart';
-import 'package:flutter_application_1/screens/home/widgets/HomePopUp.dart';
+// import 'package:flutter_application_1/screens/home/widgets/HomePopUp.dart';
 
 class DrawerPage extends StatefulWidget {
-  DrawerPage({super.key});
+  const DrawerPage({super.key});
 
   @override
   State<DrawerPage> createState() => _DrawerPageState();
@@ -27,29 +27,25 @@ class _DrawerPageState extends State<DrawerPage> {
             child: DrawerHeader(
               padding: const EdgeInsets.only(right: 10, left: 5),
               margin: const EdgeInsets.all(0),
-              child: Row(
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      Scaffold.of(context).closeDrawer();
-                    },
-                    icon: Icon(
-                      Icons.cancel,
-                      color: AppColors.grey3,
-                    ),
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: IconButton(
+                  onPressed: () {
+                    Scaffold.of(context).closeDrawer();
+                  },
+                  icon: const Icon(
+                    Icons.cancel,
+                    color: AppColors.grey3,
                   ),
-                  Expanded(child: Container()),
-                  HomePopUpMenuWidget(true, AppIcons.language)
-                ],
+                ),
               ),
             ),
           ),
           GestureDetector(
             onTap: () {
-              Navigator.push(
-                context,
+              Navigator.of(context, rootNavigator: true).push(
                 MaterialPageRoute(
-                  builder: (context) => AboutUsPage(),
+                  builder: (context) => const AboutUsPage(),
                 ),
               );
             },
@@ -65,10 +61,9 @@ class _DrawerPageState extends State<DrawerPage> {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.push(
-                context,
+              Navigator.of(context, rootNavigator: true).push(
                 MaterialPageRoute(
-                  builder: (context) => NormativeDocsPage(),
+                  builder: (context) => const NormativeDocsPage(),
                 ),
               );
             },

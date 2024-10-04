@@ -4,6 +4,8 @@ import 'package:flutter_application_1/screens/category/widgets/category_expansio
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
+import '../../core/constants/AppColors.dart';
+
 
 class CategoryPage extends StatefulWidget {
   const CategoryPage({super.key});
@@ -23,15 +25,13 @@ class _CategoryPageState extends State<CategoryPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: BlocProvider.value(
+    return  BlocProvider.value(
         value: homeBloc,
         child: BlocBuilder<CategoryBloc, CategoryState>(
           builder: (ctx, state) {
             if (state.getCategoryStatus.isInProgress) {
               return const Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(color:AppColors.green,strokeWidth:3),
               );
             }
             if (state.getCategoryStatus.isSuccess) {
@@ -40,8 +40,8 @@ class _CategoryPageState extends State<CategoryPage> {
                 appBar: AppBar(
                   surfaceTintColor: Colors.transparent,
                   backgroundColor: Colors.white,
-                  elevation: 1,
-                  shadowColor: Colors.black,
+                  elevation: 2,
+                  shadowColor: const Color.fromARGB(72, 0, 0, 0),
                   title: const Text(
                     'Каталог',
                     style: TextStyle(
@@ -67,7 +67,7 @@ class _CategoryPageState extends State<CategoryPage> {
             );
           },
         ),
-      ),
-    );
+      );
+    
   }
 }

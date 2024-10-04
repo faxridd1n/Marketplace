@@ -9,12 +9,12 @@ class DocsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white,
-      margin: EdgeInsets.symmetric(vertical: 10),
+        color: Colors.white,
+        margin: const EdgeInsets.symmetric(vertical: 10),
         elevation: 5,
         shadowColor: Colors.black,
         child: Container(
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -26,18 +26,18 @@ class DocsWidget extends StatelessWidget {
                   fit: BoxFit.fill,
                 ),
               ),
-  SizedBox(height: 20,),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Qayta tiklanadigan energiya manbalaridan foydalanish haqida',
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               InkWell(
                 onTap: () {},
-                child: Row(
+                child: const Row(
                   children: [
                     Text(
                       'Batafsil',
@@ -47,7 +47,9 @@ class DocsWidget extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    SizedBox(width: 5,),
+                    SizedBox(
+                      width: 5,
+                    ),
                     Icon(
                       Icons.arrow_forward_ios_rounded,
                       color: AppColors.green,

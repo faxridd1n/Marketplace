@@ -15,7 +15,7 @@ class AppImages {
   static const String moiKarti = 'assets/images/moi_karti.png';
   static const String moiZakazi = 'assets/images/moi_zakazi.png';
   static const String netUvedomleniya = 'assets/images/net_uvedomleniya.png';
-  static const String noImage = 'assets/images/no_image.jpg';
+  static const String oldNoImage = 'assets/images/no_image.jpg';
   static const String organizationBg = 'assets/images/organization_bg.png';
   static const String phone = 'assets/images/phone.png';
   static const String rasrochka = 'assets/images/rasrochka.png';
@@ -26,7 +26,7 @@ class AppImages {
   static const String splash = 'assets/images/splash.png';
   static const String uzcardLogo = 'assets/images/uzcard_logo.png';
   static const String uzcardLogo1 = 'assets/images/uzcard_logo1.png';
-  static const String banner1 = 'assets/images/banner1.png';
+  static const String oldBanner1 = 'assets/images/banner1.png';
   static const String topProduct = 'assets/images/topProducts.png';
   static const String partner = 'assets/images/partner.png';
   static const String appStore = 'assets/images/googleplay.png';
@@ -43,11 +43,11 @@ class AppImages {
   static const String commentAvatar = 'assets/images/commentAvatar.png';
   static const String commentImage1 = 'assets/images/commentImage1.png';
   static const String commentImage2 = 'assets/images/commentImage2.png';
-  static const String banner2 = 'assets/images/banner2.png';
+  static const String oldBanner2 = 'assets/images/banner2.png';
   static const String solarPanel1 = 'assets/images/solarPanel1.png';
   static const String emptyBasket = 'assets/images/emptyBasket.png';
-   static const String banner_1 = 'assets/images/banner_1.jpg';
-   static const String banner_2 = 'assets/images/banner_2.jpg';
-   static const String banner_3 = 'assets/images/banner_3.jpg';
-   static const String no_image = 'assets/images/no_image.png';
+  static const String banner1 = 'assets/images/banner_1.jpg';
+  static const String banner2 = 'assets/images/banner_2.jpg';
+  static const String banner3 = 'assets/images/banner_3.jpg';
+  static const String noImage = 'assets/images/no_image.png';
 }

@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/constants/AppColors.dart';
 
-snackBar(
-    {required BuildContext context,
-    required String name,
-    required bool addProduct}) {
+snackBar({
+  required bool isHomePage,
+  required BuildContext context,
+  required String name,
+  required bool addProduct,
+}) {
   ScaffoldMessenger.of(context).hideCurrentSnackBar();
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-    duration: Duration(
+    duration: const Duration(
       seconds: 2,
     ),
     elevation: 0,
     backgroundColor: AppColors.transparent,
     behavior: SnackBarBehavior.floating,
     margin: EdgeInsets.only(
-      bottom: MediaQuery.of(context).size.height - 250,
+      bottom:isHomePage==true? MediaQuery.of(context).size.height - 250:MediaQuery.of(context).size.height - 200,
     ),
     padding: const EdgeInsets.all(0),
     content: Row(

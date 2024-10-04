@@ -65,6 +65,12 @@ class _BottomCardWidgetState extends State<BottomCardWidget> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 5,
+            color: const Color.fromARGB(39, 0, 0, 0),
+          ),
+        ],
         borderRadius: BorderRadius.circular(15),
         color: Colors.white,
       ),
@@ -72,203 +78,8 @@ class _BottomCardWidgetState extends State<BottomCardWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // ExpansionTile(
-          //   tilePadding: const EdgeInsets.all(0),
-          //   shape: Border.all(color: Colors.transparent),
-          //   iconColor: AppColors.green,
-          //   title: const Text(
-          //     'Покупателям',
-          //     style: TextStyle(
-          //       fontSize: 16,
-          //       fontWeight: FontWeight.w600,
-          //     ),
-          //   ),
-          //   children: const <Widget>[
-          //     ListTile(
-          //       minTileHeight: 30,
-          //       minVerticalPadding: 0,
-          //       contentPadding: EdgeInsets.all(0),
-          //       title: Text(
-          //         'Доставка',
-          //         style: TextStyle(
-          //           color: AppColors.grey2,
-          //           fontSize: 14,
-          //           fontWeight: FontWeight.w400,
-          //         ),
-          //       ),
-          //     ),
-          //     ListTile(
-          //       minVerticalPadding: 0,
-          //       minTileHeight: 30,
-          //       contentPadding: EdgeInsets.all(0),
-          //       title: Text(
-          //         'Способы оплаты',
-          //         style: TextStyle(
-          //           color: AppColors.grey2,
-          //           fontSize: 14,
-          //           fontWeight: FontWeight.w400,
-          //         ),
-          //       ),
-          //     ),
-          //     ListTile(
-          //       minVerticalPadding: 0,
-          //       minTileHeight: 30,
-          //       contentPadding: EdgeInsets.all(0),
-          //       title: Text(
-          //         'Рассрочка',
-          //         style: TextStyle(
-          //           color: AppColors.grey2,
-          //           fontSize: 14,
-          //           fontWeight: FontWeight.w400,
-          //         ),
-          //       ),
-          //     ),
-          //     ListTile(
-          //       minVerticalPadding: 0,
-          //       minTileHeight: 30,
-          //       contentPadding: EdgeInsets.all(0),
-          //       title: Text(
-          //         'Профиль',
-          //         style: TextStyle(
-          //           color: AppColors.grey2,
-          //           fontSize: 14,
-          //           fontWeight: FontWeight.w400,
-          //         ),
-          //       ),
-          //     ),
-          //   ],
-          // ),
-          // const Divider(
-          //   height: 1,
-          //   color: AppColors.grey2,
-          // ),
-          // ExpansionTile(
-          //   iconColor: AppColors.green,
-          //   tilePadding: const EdgeInsets.all(0),
-          //   shape: Border.all(color: Colors.transparent),
-          //   title: const Text(
-          //     'Taqsim',
-          //     style: TextStyle(
-          //       fontSize: 16,
-          //       fontWeight: FontWeight.w600,
-          //     ),
-          //   ),
-          //   children: const <Widget>[
-          //     ListTile(
-          //       minTileHeight: 30,
-          //       minVerticalPadding: 0,
-          //       contentPadding: EdgeInsets.all(0),
-          //       title: Text(
-          //         'О компании',
-          //         style: TextStyle(
-          //           color: AppColors.grey2,
-          //           fontSize: 14,
-          //           fontWeight: FontWeight.w400,
-          //         ),
-          //       ),
-          //     ),
-          //     ListTile(
-          //       minTileHeight: 30,
-          //       minVerticalPadding: 0,
-          //       contentPadding: EdgeInsets.all(0),
-          //       title: Text(
-          //         'Наш блог',
-          //         style: TextStyle(
-          //           color: AppColors.grey2,
-          //           fontSize: 14,
-          //           fontWeight: FontWeight.w400,
-          //         ),
-          //       ),
-          //     ),
-          //     ListTile(
-          //       minTileHeight: 30,
-          //       minVerticalPadding: 0,
-          //       contentPadding: EdgeInsets.all(0),
-          //       title: Text(
-          //         'Наши партнеры',
-          //         style: TextStyle(
-          //           color: AppColors.grey2,
-          //           fontSize: 14,
-          //           fontWeight: FontWeight.w400,
-          //         ),
-          //       ),
-          //     ),
-          //     ListTile(
-          //       minTileHeight: 30,
-          //       minVerticalPadding: 0,
-          //       contentPadding: EdgeInsets.all(0),
-          //       title: Text(
-          //         'Поддержка',
-          //         style: TextStyle(
-          //           color: AppColors.grey2,
-          //           fontSize: 14,
-          //           fontWeight: FontWeight.w400,
-          //         ),
-          //       ),
-          //     ),
-          //   ],
-          // ),
-          // const Divider(
-          //   height: 1,
-          //   color: AppColors.grey2,
-          // ),
-          // ExpansionTile(
-          //   iconColor: AppColors.green,
-          //   tilePadding: const EdgeInsets.all(0),
-          //   shape: Border.all(color: Colors.transparent),
-          //   title: const Text(
-          //     'Правовая информация',
-          //     style: TextStyle(
-          //       fontSize: 16,
-          //       fontWeight: FontWeight.w600,
-          //     ),
-          //   ),
-          //   children: const <Widget>[
-          //     ListTile(
-          //       minTileHeight: 30,
-          //       minVerticalPadding: 0,
-          //       contentPadding: EdgeInsets.all(0),
-          //       title: Text(
-          //         'Политика конфиденциальности',
-          //         style: TextStyle(
-          //           color: AppColors.grey2,
-          //           fontSize: 14,
-          //           fontWeight: FontWeight.w400,
-          //         ),
-          //       ),
-          //     ),
-          //     ListTile(
-          //       minTileHeight: 30,
-          //       minVerticalPadding: 0,
-          //       contentPadding: EdgeInsets.all(0),
-          //       title: Text(
-          //         'Условия использования',
-          //         style: TextStyle(
-          //           color: AppColors.grey2,
-          //           fontSize: 14,
-          //           fontWeight: FontWeight.w400,
-          //         ),
-          //       ),
-          //     ),
-          //     ListTile(
-          //       minTileHeight: 30,
-          //       minVerticalPadding: 0,
-          //       contentPadding: EdgeInsets.all(0),
-          //       title: Text(
-          //         'Правила сервиса',
-          //         style: TextStyle(
-          //           color: AppColors.grey2,
-          //           fontSize: 14,
-          //           fontWeight: FontWeight.w400,
-          //         ),
-          //       ),
-          //     ),
-          //   ],
-          // ),
-         ExpansionTileWidget(),
-         
-         
-         const SizedBox(height: 20),
+          ExpansionTileWidget(),
+          const SizedBox(height: 20),
           const Text(
             '998 97 123-45-67',
             style: TextStyle(

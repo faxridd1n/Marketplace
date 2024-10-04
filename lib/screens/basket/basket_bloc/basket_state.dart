@@ -3,7 +3,6 @@ part of 'basket_bloc.dart';
 class BasketState extends Equatable {
   final BasketResponseModel? basketResponseModel;
   final FormzSubmissionStatus getBasketProductStatus;
-  // final List<BasketProductElement> items;
 
   final BasketDeleteResModel? basketDeleteResModel;
   final FormzSubmissionStatus basketDeleteResStatus;
@@ -16,7 +15,6 @@ class BasketState extends Equatable {
     this.getBasketProductStatus = FormzSubmissionStatus.initial,
     this.basketDeleteResModel,
     this.basketDeleteResStatus = FormzSubmissionStatus.initial,
-    // required this.items,
     this.postResponseBasketModel,
     this.postResponseBasketStatus = FormzSubmissionStatus.initial,
     this.selectedProducts,
@@ -27,7 +25,6 @@ class BasketState extends Equatable {
     FormzSubmissionStatus? getBasketProductStatus,
     BasketDeleteResModel? basketDeleteResModel,
     FormzSubmissionStatus? basketDeleteResStatus,
-    // required List<BasketProductElement> items,
     PostResponseBasketModel? postResponseBasketModel,
     FormzSubmissionStatus? postResponseBasketStatus,
     List<BasketProductElement>? selectedProducts,
@@ -39,7 +36,6 @@ class BasketState extends Equatable {
       basketDeleteResModel: basketDeleteResModel ?? this.basketDeleteResModel,
       basketDeleteResStatus:
           basketDeleteResStatus ?? this.basketDeleteResStatus,
-      // items: items,
       postResponseBasketModel:
           postResponseBasketModel ?? this.postResponseBasketModel,
       postResponseBasketStatus:
@@ -57,6 +53,5 @@ class BasketState extends Equatable {
         basketDeleteResModel,
         basketDeleteResStatus,
         selectedProducts,
-        // items
       ];
 }
