@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/assets_path/AppImagesPath.dart';
 import '../../../models/product_detail_model/ProductDetailModel.dart';
 
 // ignore: must_be_immutable
@@ -47,6 +48,12 @@ class _MyDialogState extends State<MyDialog> {
               Center(
             child: Image.network(
               images[selectedImageIndex],
+              errorBuilder: (BuildContext context, Object exception,
+                  StackTrace? stackTrace) {
+                return const Image(
+                  image: AssetImage(AppImages.noImage), // Path to your local fallback image
+                );
+              },
             ),
           ),
           //     ),

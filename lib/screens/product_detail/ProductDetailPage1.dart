@@ -20,9 +20,8 @@ import 'widgets/photo_dialog_widget.dart';
 
 // ignore: must_be_immutable
 class ProductDetailPage1 extends StatefulWidget {
-  ProductDetailPage1({required this.model, required this.tab, super.key});
+  ProductDetailPage1({required this.model, super.key});
   ProductModel model;
-  int? tab;
   @override
   State<ProductDetailPage1> createState() => _ProductDetailPage1State();
 }
@@ -38,9 +37,9 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
   void initState() {
     tabController = TabController(length: 3, vsync: this);
     productDetailBloc = ProductDetailBloc()
-      ..add(GetProductDetailEvent(widget.model.id!))
+      ..add(GetProductDetailEvent(widget.model.id))
       ..add(
-          GetSimilarProductsEvent(categoryId: widget.model.category?.id ?? 0));
+          GetSimilarProductsEvent(categoryId: widget.model.category.id));
     // similarProducts = ProductDetailBloc()..add(GetSimilarProductsEvent());
     super.initState();
   }
@@ -103,6 +102,13 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
                                         state.productDetailModel!.result!
                                             .variations![0].files![index].url!,
                                         fit: BoxFit.fitHeight,
+                                        errorBuilder: (BuildContext context,
+                                            Object exception,
+                                            StackTrace? stackTrace) {
+                                          return const Image(
+                                            image: AssetImage(AppImages.noImage), // Path to your local fallback image
+                                          );
+                                        },
                                       ),
                                     );
                                   }),
@@ -221,7 +227,7 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
                           TitleWidget(
                             titleText: 'Товары из той же линейки',
                             withSeeAllButton: true,
-                            tab: widget.tab,
+                            categoryId: widget.model.categoryId,
                           ),
                           state.getProductStatus.isInProgress
                               ? const Center(
@@ -246,7 +252,7 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
                                               index: index,
                                               model: state
                                                   .parentCategoryModel![index],
-                                              tab: widget.tab,
+                                              // tab: widget.model.categoryId,
                                             ),
                                           );
                                         },

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 import '../../../core/constants/AppColors.dart';
 
-class ProfileOtpField extends StatefulWidget {
-  const ProfileOtpField({super.key});
+class ProfilePasswordField extends StatefulWidget {
+  const ProfilePasswordField({super.key});
 
   @override
-  State<ProfileOtpField> createState() => _ProfileOtpFieldState();
+  State<ProfilePasswordField> createState() => _ProfilePasswordFieldState();
 }
 
-class _ProfileOtpFieldState extends State<ProfileOtpField> {
+class _ProfilePasswordFieldState extends State<ProfilePasswordField> {
   bool _passwordVisible = false;
 
   TextEditingController userPasswordController = TextEditingController();

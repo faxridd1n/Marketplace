@@ -27,50 +27,32 @@ class _CategoryWidgetState extends State<CategoryWidget> {
             },
           ),
         );
-        // Navigator.of(context, rootNavigator: true).push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) {
-        //       return KatalogPage(model: widget.model, index: widget.index);
-        //     },
-        //   ),
-        // );
       },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 5),
         width: 100,
         child: Column(
           children: [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(7),
-              ),
-              height: 60,
-              width: 70,
-              child: FadeInImage(
-                fit: BoxFit.fill,
-                placeholder: const AssetImage(
-                  AppImages.noImage,
-                ),
-                image:
-                    NetworkImage(widget.model.item![widget.index].image!.url!),
-                imageErrorBuilder: (context, error, stackTrace) {
-                  return SizedBox(
-                    width: 60,
-                    height: 60,
-                    // decoration: const BoxDecoration(
-                    //   image: DecorationImage(
-                    //     image: AssetImage(
-                    //       AppImages.no_image,
-                    //     ),
-                    //     fit: BoxFit.fill,
-                    //   ),
-                    // ),
-                    child: SvgPicture.asset(AppIcons.productPlaceholder),
-                  );
-                },
-              ),
-            ),
+           ClipRRect(
+  borderRadius: BorderRadius.circular(7),
+  child: FadeInImage(
+    height: 60,
+    width: 70,
+    fit: BoxFit.fill,
+    placeholder: const AssetImage(AppImages.noImage),
+    image: widget.model.item?[widget.index].image?.url != null
+        ? NetworkImage(widget.model.item![widget.index].image!.url!)
+        : const AssetImage(AppImages.noImage) as ImageProvider,  // Fallback to local image if URL is null
+    imageErrorBuilder: (context, error, stackTrace) {
+      return SizedBox(
+        width: 70,
+        height: 60,
+        child: SvgPicture.asset(AppIcons.productPlaceholder),  // SVG placeholder in case of error
+      );
+    },
+  ),
+),
+
             const SizedBox(
               height: 5,
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/assets_path/AppIconsPath.dart';
+import 'package:flutter_application_1/assets_path/AppImagesPath.dart';
 import 'package:flutter_application_1/core/constants/AppColors.dart';
 import 'package:flutter_application_1/models/basket_model/basket_response_model.dart';
 import 'package:flutter_application_1/screens/basket/BasketPage.dart';
@@ -91,6 +92,12 @@ class _BasketProductWidgetState extends State<BasketProductWidget> {
                   child: Image.network(
                     widget.model.files![0].url!,
                     fit: BoxFit.cover,
+                    errorBuilder: (BuildContext context, Object exception,
+                        StackTrace? stackTrace) {
+                      return const Image(
+                        image: AssetImage(AppImages.noImage), // Path to your local fallback image
+                      );
+                    },
                   ),
                 ),
                 const SizedBox(

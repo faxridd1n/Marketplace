@@ -35,8 +35,12 @@ class _BuyNowPageState extends State<BuyNowPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         surfaceTintColor: Colors.transparent,
+        backgroundColor: Colors.white,
+        elevation: 2,
+        shadowColor: const Color.fromARGB(84, 0, 0, 0),
         title: const Text('Umumiy ma\'lumotlar'),
       ),
       body: SingleChildScrollView(
@@ -133,6 +137,9 @@ class _BuyNowPageState extends State<BuyNowPage> {
               SizedBox(
                 height: 50,
                 child: TextFormField(
+                  onTapOutside: (event) {
+                    FocusScope.of(context).unfocus();
+                  },
                   cursorWidth: 1.5,
                   style: const TextStyle(
                     fontSize: 14,
@@ -181,7 +188,8 @@ class _BuyNowPageState extends State<BuyNowPage> {
                       return const Center(
                         child: Padding(
                           padding: EdgeInsets.all(10.0),
-                          child: CircularProgressIndicator(color:AppColors.green,strokeWidth:3),
+                          child: CircularProgressIndicator(
+                              color: AppColors.green, strokeWidth: 3),
                         ),
                       );
                     }
@@ -638,6 +646,9 @@ class _BuyNowPageState extends State<BuyNowPage> {
               const Text('Qo\'shimcha ma\'lumot'),
               const SizedBox(height: 10),
               TextFormField(
+                onTapOutside: (event) {
+                  FocusScope.of(context).unfocus();
+                },
                 cursorWidth: 1.5,
                 style: const TextStyle(
                   fontSize: 14,

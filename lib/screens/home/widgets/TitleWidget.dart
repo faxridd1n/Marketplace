@@ -7,10 +7,10 @@ class TitleWidget extends StatelessWidget {
   TitleWidget(
       {required this.titleText,
       required this.withSeeAllButton,
-      required this.tab});
+      required this.categoryId});
   bool withSeeAllButton;
   String titleText;
-  int? tab;
+  int? categoryId;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,7 +33,7 @@ class TitleWidget extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context, rootNavigator: true).push(                      MaterialPageRoute(
                         builder: (context) => SeeAllPage(
-                          tab: tab!,
+                          categoryId: categoryId!,
                         ),
                       ),
                     );

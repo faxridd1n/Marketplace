@@ -21,7 +21,7 @@ class _FinProdWidgetState extends State<FinProdWidget> {
   @override
   void initState() {
     price = addSpaceEveryThreeCharacters(
-        widget.model.variations![0].prices![0].value.toString());
+        widget.model.variations[0].prices[0].value.toString());
 
     super.initState();
   }
@@ -43,13 +43,13 @@ class _FinProdWidgetState extends State<FinProdWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.model.variations?[0].prices?[0].type == 'Price'
+                  widget.model.variations[0].prices[0].type == 'Price'
                       ? addSpaceEveryThreeCharacters(widget
-                          .model.variations![0].prices![0].value!
+                          .model.variations[0].prices[0].value
                           .toInt()
                           .toString())
                       : addSpaceEveryThreeCharacters(widget
-                          .model.variations![0].prices![0].value!
+                          .model.variations[0].prices[0].value
                           .toInt()
                           .toString()),
                   style: const TextStyle(
@@ -83,13 +83,13 @@ class _FinProdWidgetState extends State<FinProdWidget> {
                       width: 10,
                     ),
                     Text(
-                      widget.model.variations?[0].prices?[0].type == 'Price'
+                      widget.model.variations[0].prices[0].type == 'Price'
                           ? addSpaceEveryThreeCharacters(widget
-                              .model.variations![0].prices![0].value!
+                              .model.variations[0].prices[0].value
                               .toInt()
                               .toString())
                           : addSpaceEveryThreeCharacters(widget
-                              .model.variations![0].prices![1].value!
+                              .model.variations[0].prices[1].value
                               .toInt()
                               .toString()),
                       style: const TextStyle(
@@ -205,15 +205,15 @@ class _FinProdWidgetState extends State<FinProdWidget> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      widget.model.variations?[0].prices?[0].type == 'Price'
+                      widget.model.variations[0].prices[0].type == 'Price'
                           ? addSpaceEveryThreeCharacters((widget
-                                      .model.variations![0].prices![0].value!
+                                      .model.variations[0].prices[0].value
                                       .toInt() /
                                   oy[selectedMonths])
                               .toInt()
                               .toString())
                           : addSpaceEveryThreeCharacters((widget
-                                      .model.variations![0].prices![1].value!
+                                      .model.variations[0].prices[1].value
                                       .toInt() /
                                   oy[selectedMonths])
                               .toInt().toString()),

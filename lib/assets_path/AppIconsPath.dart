@@ -13,7 +13,6 @@ class AppIcons {
   static const String kalendar = 'assets/icons/kalendar.svg';
   static const String lichniyeDanniye = 'assets/icons/lichniye_danniye.svg';
   static const String logo = 'assets/icons/logo.svg';
-  static const String logout = 'assets/icons/logout.svg';
   static const String moiAdresa = 'assets/icons/moi_adresa.svg';
   static const String moiKarti = 'assets/icons/moi_karti.svg';
   static const String moiZakazi = 'assets/icons/moi_zakazi.svg';
@@ -76,5 +75,12 @@ class AppIcons {
   static const String terminal = 'assets/icons/terminal.svg';
   static const String horizontalIcon = 'assets/icons/horizontal_icon.svg';
   static const String verticalIcon = 'assets/icons/vertical_icon.svg';
-  static const String productPlaceholder = 'assets/icons/product_placeholder.svg';
+  static const String productPlaceholder =
+      'assets/icons/product_placeholder.svg';
+  static const String calendar = 'assets/icons/calendar.svg';
+
+  static const String wallet = 'assets/icons/wallet.svg';
+  static const String profileCard = 'assets/icons/profile_card.svg';
+  static const String logout = 'assets/icons/logout.svg';
+  static const String contracts = 'assets/icons/contracts.svg';
 }

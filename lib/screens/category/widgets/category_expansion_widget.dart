@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/core/constants/AppColors.dart';
 import 'package:flutter_application_1/models/home_model/CategoryModel.dart';
 
 import '../../../assets_path/AppImagesPath.dart';
@@ -50,35 +51,41 @@ class ExpansionTileWidgetState extends State<CategoryExpansionWidget> {
     return ExpansionTile(
       tilePadding: const EdgeInsets.all(0),
       shape: Border.all(color: Colors.transparent),
-      iconColor: Colors.green,
+      iconColor: AppColors.green,
       leading: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(7),
         ),
         height: 45,
         width: 45,
-        child: FadeInImage(
-          fit: BoxFit.fill,
-          placeholder: const AssetImage(
-            AppImages.noImage,
-          ),
-          image: NetworkImage(
-            widget.model.item?[parentIndex].image?.url ?? AppImages.noImage,
-          ),
-          imageErrorBuilder: (context, error, stackTrace) {
-            return Container(
-              width: 40,
-              height: 40,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(AppImages.noImage),
-                  fit: BoxFit.cover,
+        child: ClipRRect(
+          // Ensures that the image respects the rounded borders
+          borderRadius: BorderRadius.circular(7),
+          child: FadeInImage(
+            fit: BoxFit.fill,
+            placeholder: const AssetImage(
+              AppImages.noImage, // Placeholder while image is loading
+            ),
+            image: NetworkImage(
+              widget.model.item?[parentIndex].image?.url ?? AppImages.noImage,
+            ),
+            imageErrorBuilder: (context, error, stackTrace) {
+              return Container(
+                width: 40,
+                height: 40,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(
+                        AppImages.noImage), // Fallback in case of error
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
+
       title: Text(
         widget.model.item![parentIndex].name!,
         style: const TextStyle(

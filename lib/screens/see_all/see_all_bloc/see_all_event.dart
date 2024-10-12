@@ -4,15 +4,15 @@ part of 'see_all_bloc.dart';
 abstract class SeeAllEvent {}
 
 class GetAllProductsEvent extends SeeAllEvent {
-  final int tab;
+  final int categoryId;
   // final int size;
-  GetAllProductsEvent(this.tab);
+  GetAllProductsEvent(this.categoryId);
 }
 
 class GetSearchFiltersEvent extends SeeAllEvent {
-  final int tab;
+  final int categoryId;
   // final int size;
-  GetSearchFiltersEvent(this.tab);
+  GetSearchFiltersEvent(this.categoryId);
 }
 
 // ignore: must_be_immutable

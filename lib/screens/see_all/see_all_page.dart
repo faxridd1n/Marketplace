@@ -12,8 +12,8 @@ import 'package:formz/formz.dart';
 import '../../core/constants/AppColors.dart';
 
 class SeeAllPage extends StatefulWidget {
-  const SeeAllPage({required this.tab, super.key});
-  final int tab;
+  const SeeAllPage({required this.categoryId, super.key});
+  final int categoryId;
   @override
   State<SeeAllPage> createState() => _SeeAllPageState();
 }
@@ -25,8 +25,8 @@ class _SeeAllPageState extends State<SeeAllPage> {
   @override
   void initState() {
     bloc = SeeAllBloc()
-      ..add(GetAllProductsEvent(widget.tab))
-      ..add(GetSearchFiltersEvent(widget.tab));
+      ..add(GetAllProductsEvent(widget.categoryId))
+      ..add(GetSearchFiltersEvent(widget.categoryId));
     super.initState();
   }
 

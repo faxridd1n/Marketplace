@@ -61,7 +61,7 @@ class _HomeTextFieldWidgetState extends State<HomeTextFieldWidget> {
             fit: BoxFit.scaleDown,
           ),
         ),
-        cursorColor: AppColors.primaryColor,
+        cursorColor: AppColors.green,
       ),
     );
   }

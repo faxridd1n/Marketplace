@@ -15,7 +15,7 @@ class SeeAllBloc extends Bloc<SeeAllEvent, SeeAllState> {
   SeeAllBloc() : super(const SeeAllState()) {
     on<GetAllProductsEvent>((event, emit) async {
       emit(state.copyWith(getProductStatus: FormzSubmissionStatus.inProgress));
-      final result = await SeeAllSevice.getAllProducts(event.tab);
+      final result = await SeeAllSevice.getAllProducts(event.categoryId);
       if (result is List<ProductModel>) {
         emit(state.copyWith(productModel: result, getProductStatus: FormzSubmissionStatus.success));
       } else {
@@ -25,7 +25,7 @@ class SeeAllBloc extends Bloc<SeeAllEvent, SeeAllState> {
 
     on<GetSearchFiltersEvent>((event, emit) async {
       emit(state.copyWith(getProductStatus: FormzSubmissionStatus.inProgress));
-      final result = await SeeAllSevice.getSearchFilters(event.tab);
+      final result = await SeeAllSevice.getSearchFilters(event.categoryId);
       if (result is List<FilteredSearchModel>) {
         emit(state.copyWith(filteredProductModel: result, getFilteredProductStatus: FormzSubmissionStatus.success));
       } else {

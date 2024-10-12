@@ -2,265 +2,203 @@
 //
 //     final productModel = productModelFromJson(jsonString);
 
+import 'package:json_annotation/json_annotation.dart';
 import 'dart:convert';
+
+part 'product_model.g.dart';
 
 ProductModel productModelFromJson(String str) =>
     ProductModel.fromJson(json.decode(str));
 
 String productModelToJson(ProductModel data) => json.encode(data.toJson());
 
+@JsonSerializable()
 class ProductModel {
-  String? id;
-  int? state;
-  int? service;
-  int? tab;
-  int? nameId;
-  String? name;
-  int? descriptionId;
-  String? description;
-  int? categoryId;
-  Category? category;
-  int? organizationId;
-  String? organizationName;
-  List<Variation>? variations;
-  bool? isVisible;
-  double? rating;
-  double? reviewCount;
-  int? productNumber;
+  @JsonKey(name: "id")
+  final String id;
+  @JsonKey(name: "state")
+  final int state;
+  @JsonKey(name: "service")
+  final int service;
+  @JsonKey(name: "tab")
+  final int tab;
+  @JsonKey(name: "nameId")
+  final int nameId;
+  @JsonKey(name: "name")
+  final String name;
+  @JsonKey(name: "descriptionId")
+  final int descriptionId;
+  @JsonKey(name: "description")
+  final String description;
+  @JsonKey(name: "categoryId")
+  final int categoryId;
+  @JsonKey(name: "category")
+  final Category category;
+  @JsonKey(name: "organizationId")
+  final int organizationId;
+  @JsonKey(name: "organizationName")
+  final String organizationName;
+  @JsonKey(name: "variations")
+  final List<Variation> variations;
+  @JsonKey(name: "isVisible")
+  final bool isVisible;
+  @JsonKey(name: "rating")
+  final double rating;
+  @JsonKey(name: "reviewCount")
+  final double reviewCount;
+  @JsonKey(name: "productNumber")
+  final int productNumber;
 
   ProductModel({
-    this.id,
-    this.state,
-    this.service,
-    this.tab,
-    this.nameId,
-    this.name,
-    this.descriptionId,
-    this.description,
-    this.categoryId,
-    this.category,
-    this.organizationId,
-    this.organizationName,
-    this.variations,
-    this.isVisible,
-    this.rating,
-    this.reviewCount,
-    this.productNumber,
+    this.id = '',
+    this.state = -1,
+    this.service = -1,
+    this.tab = -1,
+    this.nameId =-1,
+    this.name = '',
+    this.descriptionId = -1,
+    this.description = '',
+    this.categoryId = -1,
+    required this.category,
+    this.organizationId = -1,
+    this.organizationName = '',
+    this.variations = const [],
+    this.isVisible = false,
+    this.rating = -1,
+    this.reviewCount = -1,
+    this.productNumber = -1,
   });
 
-  factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
-        id: json["id"],
-        state: json["state"],
-        service: json["service"],
-        tab: json["tab"],
-        nameId: json["nameId"],
-        name: json["name"],
-        descriptionId: json["descriptionId"],
-        description: json["description"],
-        categoryId: json["categoryId"],
-        category: json["category"] == null
-            ? null
-            : Category.fromJson(json["category"]),
-        organizationId: json["organizationId"],
-        organizationName: json["organizationName"],
-        variations: json["variations"] == null
-            ? []
-            : List<Variation>.from(
-                json["variations"]!.map((x) => Variation.fromJson(x))),
-        isVisible: json["isVisible"],
-        rating: json["rating"],
-        reviewCount: json["reviewCount"],
-        productNumber: json["productNumber"],
-      );
+  factory ProductModel.fromJson(Map<String, dynamic> json) =>
+      _$ProductModelFromJson(json);
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "state": state,
-        "service": service,
-        "tab": tab,
-        "nameId": nameId,
-        "name": name,
-        "descriptionId": descriptionId,
-        "description": description,
-        "categoryId": categoryId,
-        "category": category?.toJson(),
-        "organizationId": organizationId,
-        "organizationName": organizationName,
-        "variations": variations == null
-            ? []
-            : List<dynamic>.from(variations!.map((x) => x.toJson())),
-        "isVisible": isVisible,
-        "rating": rating,
-        "reviewCount": reviewCount,
-        "productNumber": productNumber,
-      };
+  Map<String, dynamic> toJson() => _$ProductModelToJson(this);
 }
 
+@JsonSerializable()
 class Category {
-  int? id;
-  String? name;
-  String? imageId;
-  bool? isVisible;
+  @JsonKey(name: "id")
+  final int id;
+  @JsonKey(name: "name")
+  final String name;
+  @JsonKey(name: "imageId")
+  final String imageId;
+  @JsonKey(name: "isVisible")
+  final bool isVisible;
 
   Category({
-    this.id,
-    this.name,
-    this.imageId,
-    this.isVisible,
+    this.id = -1,
+    this.name = '',
+    this.imageId = '',
+    this.isVisible = false,
   });
 
-  factory Category.fromJson(Map<String, dynamic> json) => Category(
-        id: json["id"],
-        name: json["name"],
-        imageId: json["imageId"],
-        isVisible: json["isVisible"],
-      );
+  factory Category.fromJson(Map<String, dynamic> json) =>
+      _$CategoryFromJson(json);
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "imageId": imageId,
-        "isVisible": isVisible,
-      };
+  Map<String, dynamic> toJson() => _$CategoryToJson(this);
 }
 
+@JsonSerializable()
 class Variation {
-  String? id;
-  int? count;
-  String? productId;
-  List<Price>? prices;
-  List<FileElement>? files;
-  List<dynamic>? attributeValues;
-  bool? isVisible;
-  String? moderationStatus;
-  bool? compensationOnly;
-  int? saleType;
-  int? oonModerationStatus;
+  @JsonKey(name: "id")
+  final String id;
+  @JsonKey(name: "count")
+  final int count;
+  @JsonKey(name: "productId")
+  final String productId;
+  @JsonKey(name: "prices")
+  final List<Price> prices;
+  @JsonKey(name: "files")
+  final List<FileElement> files;
+  @JsonKey(name: "attributeValues")
+  final List<Map> attributeValues;
+  @JsonKey(name: "isVisible")
+  final bool isVisible;
+  @JsonKey(name: "moderationStatus")
+  final String moderationStatus;
+  @JsonKey(name: "compensationOnly")
+  final bool compensationOnly;
+  @JsonKey(name: "saleType")
+  final int saleType;
+  @JsonKey(name: "oonModerationStatus")
+  final int oonModerationStatus;
 
   Variation({
-    this.id,
-    this.count,
-    this.productId,
-    this.prices,
-    this.files,
-    this.attributeValues,
-    this.isVisible,
-    this.moderationStatus,
-    this.compensationOnly,
-    this.saleType,
-    this.oonModerationStatus,
+    this.id = '',
+    this.count = -1,
+    this.productId = '',
+    this.prices = const [],
+    this.files = const [],
+    this.attributeValues = const [],
+    this.isVisible = false,
+    this.moderationStatus = '',
+    this.compensationOnly = false,
+    this.saleType = -1,
+    this.oonModerationStatus = -1,
   });
 
-  factory Variation.fromJson(Map<String, dynamic> json) => Variation(
-        id: json["id"],
-        count: json["count"],
-        productId: json["productId"],
-        prices: json["prices"] == null
-            ? []
-            : List<Price>.from(json["prices"]!.map((x) => Price.fromJson(x))),
-        files: json["files"] == null
-            ? []
-            : List<FileElement>.from(
-                json["files"]!.map((x) => FileElement.fromJson(x))),
-        attributeValues: json["attributeValues"] == null
-            ? []
-            : List<dynamic>.from(json["attributeValues"]!.map((x) => x)),
-        isVisible: json["isVisible"],
-        moderationStatus: json["moderationStatus"],
-        compensationOnly: json["compensationOnly"],
-        saleType: json["saleType"],
-        oonModerationStatus: json["oonModerationStatus"],
-      );
+  factory Variation.fromJson(Map<String, dynamic> json) =>
+      _$VariationFromJson(json);
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "count": count,
-        "productId": productId,
-        "prices": prices == null
-            ? []
-            : List<dynamic>.from(prices!.map((x) => x.toJson())),
-        "files": files == null
-            ? []
-            : List<dynamic>.from(files!.map((x) => x.toJson())),
-        "attributeValues": attributeValues == null
-            ? []
-            : List<dynamic>.from(attributeValues!.map((x) => x)),
-        "isVisible": isVisible,
-        "moderationStatus": moderationStatus,
-        "compensationOnly": compensationOnly,
-        "saleType": saleType,
-        "oonModerationStatus": oonModerationStatus,
-      };
+  Map<String, dynamic> toJson() => _$VariationToJson(this);
 }
 
+@JsonSerializable()
 class FileElement {
-  String? id;
-  int? order;
-  String? url;
-  Map? fileInfo;
-  String? variationId;
-  String? productId;
-  bool? isVisible;
+  @JsonKey(name: "id")
+  final String id;
+  @JsonKey(name: "order")
+  final int order;
+  @JsonKey(name: "url")
+  final String url;
+  @JsonKey(name: "fileInfo")
+  final Map fileInfo;
+  @JsonKey(name: "variationId")
+  final String variationId;
+  @JsonKey(name: "productId")
+  final String productId;
+  @JsonKey(name: "isVisible")
+  final bool isVisible;
 
   FileElement({
-    this.id,
-    this.order,
-    this.url,
-    this.fileInfo,
-    this.variationId,
-    this.productId,
-    this.isVisible,
+    this.id = '',
+    this.order = -1,
+    this.url = '',
+    this.fileInfo = const {},
+    this.variationId = '',
+    this.productId = '',
+    this.isVisible = false,
   });
 
-  factory FileElement.fromJson(Map<String, dynamic> json) => FileElement(
-        id: json["id"],
-        order: json["order"],
-        url: json["url"],
-        fileInfo: json["fileInfo"],
-        variationId: json["variationId"],
-        productId: json["productId"],
-        isVisible: json["isVisible"],
-      );
+  factory FileElement.fromJson(Map<String, dynamic> json) =>
+      _$FileElementFromJson(json);
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "order": order,
-        "url": url,
-        "fileInfo": fileInfo,
-        "variationId": variationId,
-        "productId": productId,
-        "isVisible": isVisible,
-      };
+  Map<String, dynamic> toJson() => _$FileElementToJson(this);
 }
 
+@JsonSerializable()
 class Price {
-  int? id;
-  double? value;
-  String? type;
-  int? currencyId;
-  String? variationId;
+  @JsonKey(name: "id")
+  final int id;
+  @JsonKey(name: "value")
+  final int value;
+  @JsonKey(name: "type")
+  final String type;
+  @JsonKey(name: "currencyId")
+  final int currencyId;
+  @JsonKey(name: "variationId")
+  final String variationId;
 
   Price({
-    this.id,
-    this.value,
-    this.type,
-    this.currencyId,
-    this.variationId,
+    this.id = -1,
+    this.value = -1,
+    this.type = '',
+    this.currencyId = -1,
+    this.variationId = '',
   });
 
-  factory Price.fromJson(Map<String, dynamic> json) => Price(
-        id: json["id"],
-        value: json["value"],
-        type: json["type"],
-        currencyId: json["currencyId"],
-        variationId: json["variationId"],
-      );
+  factory Price.fromJson(Map<String, dynamic> json) => _$PriceFromJson(json);
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "value": value,
-        "type": type,
-        "currencyId": currencyId,
-        "variationId": variationId,
-      };
+  Map<String, dynamic> toJson() => _$PriceToJson(this);
 }

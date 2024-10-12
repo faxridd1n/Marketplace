@@ -99,31 +99,28 @@ class _FavoritePageState extends State<FavoritePage> {
                   ),
                 ),
                 Expanded(
-                  child: SingleChildScrollView(
-                    child: ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: favoriteProducts.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: isVerticalProduct ? 30 : 10,
-                            vertical: 10,
-                          ),
-                          child: isVerticalProduct
-                              ? ProductWidget(
-                                  isSeeAllPage: true,
-                                  index: index,
-                                  model: favoriteProducts[index],
-                                )
-                              : HorizontalProductWidget(
-                                  isSeeAllPage: true,
-                                  model: favoriteProducts[index],
-                                  index: index,
-                                ),
-                        );
-                      },
-                    ),
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: favoriteProducts.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: isVerticalProduct ? 30 : 10,
+                          vertical: 10,
+                        ),
+                        child: isVerticalProduct
+                            ? ProductWidget(
+                                isSeeAllPage: true,
+                                index: index,
+                                model: favoriteProducts[index],
+                              )
+                            : HorizontalProductWidget(
+                                isSeeAllPage: true,
+                                model: favoriteProducts[index],
+                                index: index,
+                              ),
+                      );
+                    },
                   ),
                 ),
               ],

@@ -15,7 +15,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<PostAuthUser>((event, emit) async {
       emit(
           state.copyWith(postAuthUserStatus: FormzSubmissionStatus.inProgress));
-      final result = await ProfileService.postAuthUser(event.phoneNumber);
+      final result = await AuthService.postAuthUser(event.phoneNumber);
       if (result is PostResponseBasketModel) {
         emit(state.copyWith(
             userModel: result,

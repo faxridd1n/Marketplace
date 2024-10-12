@@ -66,6 +66,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         surfaceTintColor: Colors.transparent,
         backgroundColor: Colors.white,
@@ -83,7 +84,7 @@ class _HomePageState extends State<HomePage> {
         //   HomePopUpMenuWidget(false, AppIcons.location),
         // ],
       ),
-      drawer: DrawerPage(),
+      drawer: const DrawerPage(),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -123,7 +124,7 @@ class _HomePageState extends State<HomePage> {
             TitleWidget(
               titleText: 'Kategoriyalar',
               withSeeAllButton: false,
-              tab: null,
+              categoryId: null,
             ),
             BlocProvider.value(
               value: homeBloc,
@@ -165,10 +166,10 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             const ProductListWidget(index: 0),
-    
-            // ProductListWidget(index: 1),
-            // ProductListWidget(index: 2),
-            // ProductListWidget(index: 3),
+
+            const ProductListWidget(index: 1),
+            const ProductListWidget(index: 2),
+            const ProductListWidget(index: 3),
             // ProductListWidget(index: 4),
             // ProductListWidget(index: 5),
             // ProductListWidget(index: 6),

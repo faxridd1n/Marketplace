@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/auth/auth_page.dart';
+import 'package:flutter_application_1/screens/forgot_password_page/forgot_password_page.dart';
 import 'package:flutter_application_1/screens/profile/profile_bloc/profile_bloc.dart';
 import 'package:flutter_application_1/screens/profile/widgets/profile_number_field.dart';
 import 'package:flutter_application_1/screens/profile/widgets/profile_otp_field.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../core/constants/AppColors.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _LoginPageState extends State<LoginPage> {
+  TextEditingController numberController = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -86,6 +89,9 @@ class _ProfilePageState extends State<ProfilePage> {
                           width: 50,
                           child: Center(
                             child: TextFormField(
+                              onTapOutside: (event) {
+                                FocusScope.of(context).unfocus();
+                              },
                               cursorWidth: 1.5,
                               readOnly: true,
                               decoration: const InputDecoration(
@@ -102,19 +108,29 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                           ),
                         ),
-                        ProfileNumberField(),
+                        Expanded(
+                          child: ProfileNumberField(
+                            numberController: numberController,
+                          ),
+                        ),
                       ],
                     ),
                   ),
                   const SizedBox(height: 20),
-                  ProfileOtpField(),
+                  const ProfilePasswordField(),
                   const SizedBox(
                     height: 15,
                   ),
                   Align(
                     alignment: Alignment.topRight,
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context, rootNavigator: true).push(
+                          MaterialPageRoute(
+                            builder: (context) => const ForgotPasswordPage(),
+                          ),
+                        );
+                      },
                       child: const Text(
                         'Забыли пароль?',
                         style: TextStyle(
@@ -160,7 +176,13 @@ class _ProfilePageState extends State<ProfilePage> {
                   Align(
                     alignment: Alignment.topCenter,
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context, rootNavigator: true).push(
+                          MaterialPageRoute(
+                            builder: (context) => const AuthPage(),
+                          ),
+                        );
+                      },
                       child: const Text(
                         'Зарегистрироваться',
                         style: TextStyle(
@@ -172,17 +194,14 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  Align(
+                  const Align(
                     alignment: Alignment.topCenter,
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: const Text(
-                        'v1.0.0',
-                        style: TextStyle(
-                          color: AppColors.grey3,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
+                    child: Text(
+                      'v1.0.0',
+                      style: TextStyle(
+                        color: AppColors.grey3,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),
@@ -194,6 +213,4 @@ class _ProfilePageState extends State<ProfilePage> {
       }),
     );
   }
-
- 
 }

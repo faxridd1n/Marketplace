@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/assets_path/AppIconsPath.dart';
 import 'package:flutter_application_1/core/constants/AppColors.dart';
 import 'package:flutter_application_1/models/home_model/CategoryModel.dart';
-import 'package:flutter_application_1/models/products_model/product_model.dart';
 import 'package:flutter_application_1/screens/katalog/katalog_bloc/katalog_bloc.dart';
 import 'package:flutter_application_1/widgets/horizontal_product_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,7 +32,7 @@ class _KatalogPageState extends State<KatalogPage> {
   bool popUpIsOpen = false;
   List<String> subCategories = [];
   late final KatalogBloc katalogBloc;
-  ProductModel products = ProductModel();
+  // ProductModel products = ProductModel(category: Category());
 
   @override
   void initState() {
@@ -290,7 +289,7 @@ class _KatalogPageState extends State<KatalogPage> {
                                           index: index,
                                           model: state
                                               .filteredProductModel![index],
-                                          tab: null,
+                                          // tab: null,
                                         )
                                       : HorizontalProductWidget(
                                           model: state

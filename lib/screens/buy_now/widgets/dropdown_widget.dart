@@ -29,7 +29,6 @@ class _BuyNowDropDownWidgetState extends State<BuyNowDropDownWidget> {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-      
       color: Colors.white,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(

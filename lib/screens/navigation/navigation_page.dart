@@ -81,7 +81,7 @@ class _NavigationPageState extends State<NavigationPage>
                 label: 'Главная',
                 activeIcon: SvgPicture.asset(
                   AppIcons.home,
-                  color: AppColors.primaryColor,
+                  color: AppColors.green,
                   height: 24,
                   width: 24,
                 ),
@@ -95,7 +95,7 @@ class _NavigationPageState extends State<NavigationPage>
                 label: 'Каталог',
                 activeIcon: SvgPicture.asset(
                   AppIcons.category,
-                  color: AppColors.primaryColor,
+                  color: AppColors.green,
                   height: 24,
                   width: 24,
                 ),
@@ -111,7 +111,7 @@ class _NavigationPageState extends State<NavigationPage>
                     AppIcons.shop,
                     height: 24,
                     width: 24,
-                    color: AppColors.primaryColor,
+                    color: AppColors.green,
                   )),
               BottomNavigationBarItem(
                 icon: const Icon(
@@ -123,7 +123,7 @@ class _NavigationPageState extends State<NavigationPage>
                 activeIcon: SvgPicture.asset(
                   AppIcons.likeFiilled,
                   height: 24,
-                  color: AppColors.primaryColor,
+                  color: AppColors.green,
                 ),
               ),
               BottomNavigationBarItem(
@@ -135,7 +135,7 @@ class _NavigationPageState extends State<NavigationPage>
                 label: 'Профиль',
                 activeIcon: SvgPicture.asset(
                   AppIcons.profile,
-                  color: AppColors.primaryColor,
+                  color: AppColors.green,
                   height: 24,
                   width: 24,
                 ),

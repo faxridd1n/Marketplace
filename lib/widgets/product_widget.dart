@@ -11,6 +11,7 @@ import 'package:flutter_application_1/screens/product_detail/product_detail_bloc
 import 'package:flutter_application_1/screens/see_all/see_all_bloc/see_all_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../assets_path/AppImagesPath.dart';
 import '../components/price_function.dart';
 import '../screens/katalog/katalog_bloc/katalog_bloc.dart';
 
@@ -23,7 +24,7 @@ class ProductWidget extends StatefulWidget {
       this.isDetailPage,
       this.isHomePage,
       this.isKatalogPage,
-      this.tab,
+      // this.tab,
       super.key});
   bool? isSeeAllPage;
   bool? isHomePage;
@@ -31,7 +32,7 @@ class ProductWidget extends StatefulWidget {
   bool? isDetailPage;
   int index;
   ProductModel model;
-  int? tab;
+  // int? tab;
 
   @override
   State<ProductWidget> createState() => _ProductwidgetState();
@@ -71,7 +72,7 @@ class _ProductwidgetState extends State<ProductWidget> {
                     MaterialPageRoute(
                       builder: (context) => ProductDetailPage1(
                         model: widget.model,
-                        tab: widget.tab,
+                        // tab: widget.tab,
                       ),
                     ),
                   );
@@ -92,10 +93,15 @@ class _ProductwidgetState extends State<ProductWidget> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
                               image: DecorationImage(
-                                image: NetworkImage(
-                                  widget.model.variations?[0].files?[0].url ??
-                                      '',
-                                ),
+                                image: (widget.model.variations.isNotEmpty &&
+                                        widget.model.variations[0].files
+                                            .isNotEmpty &&
+                                        widget.model.variations[0].files[0]
+                                            .url.isNotEmpty)
+                                    ? NetworkImage(widget
+                                        .model.variations[0].files[0].url)
+                                    : const AssetImage(AppImages.noImage)
+                                        as ImageProvider, // Fallback image
                                 fit: BoxFit.fill,
                               ),
                             ),
@@ -115,10 +121,10 @@ class _ProductwidgetState extends State<ProductWidget> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  widget.model.variations?[0].prices?[0].type ==
+                                  widget.model.variations[0].prices[0].type ==
                                           'Price'
-                                      ? '${addSpaceEveryThreeCharacters(widget.model.variations![0].prices![0].value!.toInt().toString())} сум'
-                                      : '${addSpaceEveryThreeCharacters(widget.model.variations![0].prices![1].value!.toInt().toString())} сум',
+                                      ? '${addSpaceEveryThreeCharacters(widget.model.variations[0].prices[0].value.toInt().toString())} сум'
+                                      : '${addSpaceEveryThreeCharacters(widget.model.variations[0].prices[1].value.toInt().toString())} сум',
                                   style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
@@ -158,7 +164,7 @@ class _ProductwidgetState extends State<ProductWidget> {
                           height: 20,
                         ),
                         Text(
-                          widget.model.name ?? 'Empty',
+                          widget.model.name,
                           maxLines: 2,
                           style: const TextStyle(fontSize: 16),
                           overflow: TextOverflow.ellipsis,
@@ -186,7 +192,7 @@ class _ProductwidgetState extends State<ProductWidget> {
                                         context.read<BasketBloc>().add(
                                               PostBasketProductBasketEvent(
                                                 productVariationId: widget
-                                                    .model.variations![0].id!,
+                                                    .model.variations[0].id,
                                                 count: 2,
                                               ),
                                             );
@@ -194,7 +200,7 @@ class _ProductwidgetState extends State<ProductWidget> {
                                         context.read<SeeAllBloc>().add(
                                               PostBasketProductSeeAllEvent(
                                                 productVariationId: widget
-                                                    .model.variations![0].id!,
+                                                    .model.variations[0].id,
                                                 count: 1,
                                               ),
                                             );
@@ -202,7 +208,7 @@ class _ProductwidgetState extends State<ProductWidget> {
                                         context.read<KatalogBloc>().add(
                                               PostBasketProductKatalogEvent(
                                                 productVariationId: widget
-                                                    .model.variations![0].id!,
+                                                    .model.variations[0].id,
                                                 count: 1,
                                               ),
                                             );
@@ -210,7 +216,7 @@ class _ProductwidgetState extends State<ProductWidget> {
                                         context.read<ProductDetailBloc>().add(
                                               PostBasketProductDetailEvent(
                                                 productVariationId: widget
-                                                    .model.variations![0].id!,
+                                                    .model.variations[0].id,
                                               ),
                                             );
                                       }
@@ -220,7 +226,7 @@ class _ProductwidgetState extends State<ProductWidget> {
                                         context.read<HomeBloc>().add(
                                               PostBasketProductHomeEvent(
                                                 productVariationId: widget
-                                                    .model.variations![0].id!,
+                                                    .model.variations[0].id,
                                                 count: 1,
                                               ),
                                             );
@@ -228,7 +234,7 @@ class _ProductwidgetState extends State<ProductWidget> {
                                         context.read<SeeAllBloc>().add(
                                               PostBasketProductSeeAllEvent(
                                                 productVariationId: widget
-                                                    .model.variations![0].id!,
+                                                    .model.variations[0].id,
                                                 count: 1,
                                               ),
                                             );
@@ -236,7 +242,7 @@ class _ProductwidgetState extends State<ProductWidget> {
                                         context.read<KatalogBloc>().add(
                                               PostBasketProductKatalogEvent(
                                                 productVariationId: widget
-                                                    .model.variations![0].id!,
+                                                    .model.variations[0].id,
                                                 count: 1,
                                               ),
                                             );
@@ -244,7 +250,7 @@ class _ProductwidgetState extends State<ProductWidget> {
                                         context.read<ProductDetailBloc>().add(
                                               PostBasketProductDetailEvent(
                                                 productVariationId: widget
-                                                    .model.variations![0].id!,
+                                                    .model.variations[0].id,
                                               ),
                                             );
                                       }
@@ -252,9 +258,9 @@ class _ProductwidgetState extends State<ProductWidget> {
                                     snackBar(
                                         isHomePage: widget.isHomePage == true
                                             ? true
-                                            :false,
+                                            : false,
                                         context: context,
-                                        name: widget.model.name ?? 'Empty',
+                                        name: widget.model.name,
                                         addProduct: true);
                                   },
                                   child: const Padding(
@@ -294,7 +300,7 @@ class _ProductwidgetState extends State<ProductWidget> {
                                     MaterialPageRoute(
                                       builder: (context) => ProductDetailPage1(
                                         model: widget.model,
-                                        tab: null,
+                                        // tab: null,
                                       ),
                                     ),
                                   );

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import '../../../assets_path/AppIconsPath.dart';
-import '../../../core/constants/AppColors.dart';
+// import '../../../core/constants/AppColors.dart';
 
 class EmptyBottomBarWidget extends StatefulWidget {
   const EmptyBottomBarWidget({super.key});
@@ -43,7 +42,7 @@ class _EmptyBottomBarWidgetState extends State<EmptyBottomBarWidget> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
-            backgroundColor: AppColors.green1,
+            backgroundColor: const Color.fromARGB(186, 58, 96, 78),
           ),
           onPressed: () {},
           child: const Padding(

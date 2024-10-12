@@ -14,12 +14,12 @@ class SeeAllSevice {
   SeeAllSevice._init();
 
   static Future<List<ProductModel>?> getAllProducts(
-      int tab) async {
+      int categoryId) async {
     try {
       final response = await DioConfig.inheritance.createRequest().post(
           "https://arbuzmarket.com/api/v1/Products/filters",
           data: {
-            "tab": tab,
+            "categoryId": categoryId,
           });
       Log.i(response.data.toString());
       Log.i(response.statusCode.toString());
@@ -89,12 +89,12 @@ class SeeAllSevice {
 
 
   static Future<List<FilteredSearchModel>?> getSearchFilters(
-      int tab) async {
+      int categoryId) async {
     try {
       final response = await DioConfig.inheritance.createRequest().get(
-          "https://arbuzmarket.com/api/v1/Filters?tab=${tab}",
+          "https://arbuzmarket.com/api/v1/Filters?tab=${categoryId}",
           data: {
-            "tab": tab,
+            "categoryId": categoryId,
           });
       Log.i(response.data.toString());
       Log.i(response.statusCode.toString());
