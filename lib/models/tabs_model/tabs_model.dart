@@ -2,145 +2,132 @@
 //
 //     final tabsModel = tabsModelFromJson(jsonString);
 
+import 'package:json_annotation/json_annotation.dart';
 import 'dart:convert';
+
+part 'tabs_model.g.dart';
 
 TabsModel tabsModelFromJson(String str) => TabsModel.fromJson(json.decode(str));
 
 String tabsModelToJson(TabsModel data) => json.encode(data.toJson());
 
+@JsonSerializable()
 class TabsModel {
-    Result? result;
-    Map? error;
+    @JsonKey(name: "result")
+    Result result;
+    @JsonKey(name: "error")
+    Map error;
 
-    TabsModel({
+    TabsModel(
         this.result,
-        this.error,
+        {
+        this.error=const{},
     });
 
-    factory TabsModel.fromJson(Map<String, dynamic> json) => TabsModel(
-        result: json["result"] == null ? null : Result.fromJson(json["result"]),
-        error: json["error"],
-    );
+    factory TabsModel.fromJson(Map<String, dynamic> json) => _$TabsModelFromJson(json);
 
-    Map<String, dynamic> toJson() => {
-        "result": result?.toJson(),
-        "error": error,
-    };
+    Map<String, dynamic> toJson() => _$TabsModelToJson(this);
 }
 
+@JsonSerializable()
 class Result {
-    List<ResultItem>? items;
-    int? allCount;
+    @JsonKey(name: "items")
+    List<ResultItem> items;
+    @JsonKey(name: "allCount")
+    int allCount;
 
     Result({
-        this.items,
-        this.allCount,
+        this.items=const [],
+        this.allCount=-1,
     });
 
-    factory Result.fromJson(Map<String, dynamic> json) => Result(
-        items: json["items"] == null ? [] : List<ResultItem>.from(json["items"]!.map((x) => ResultItem.fromJson(x))),
-        allCount: json["allCount"],
-    );
+    factory Result.fromJson(Map<String, dynamic> json) => _$ResultFromJson(json);
 
-    Map<String, dynamic> toJson() => {
-        "items": items == null ? [] : List<dynamic>.from(items!.map((x) => x.toJson())),
-        "allCount": allCount,
-    };
+    Map<String, dynamic> toJson() => _$ResultToJson(this);
 }
 
+@JsonSerializable()
 class ResultItem {
-    int? id;
-    int? order;
-    int? state;
-    int? type;
-    List<Name>? names;
-    String? name;
-    List<ItemItem>? items;
+    @JsonKey(name: "id")
+    int id;
+    @JsonKey(name: "order")
+    int order;
+    @JsonKey(name: "state")
+    int state;
+    @JsonKey(name: "type")
+    int type;
+    @JsonKey(name: "names")
+    List<Name> names;
+    @JsonKey(name: "name")
+    String name;
+    @JsonKey(name: "items")
+    List<ItemItem> items;
 
     ResultItem({
-        this.id,
-        this.order,
-        this.state,
-        this.type,
-        this.names,
-        this.name,
-        this.items,
+        this.id=-1,
+        this.order=-1,
+        this.state=-1,
+        this.type=-1,
+        this.names=const [],
+        this.name='',
+        this.items=const[],
     });
 
-    factory ResultItem.fromJson(Map<String, dynamic> json) => ResultItem(
-        id: json["id"],
-        order: json["order"],
-        state: json["state"],
-        type: json["type"],
-        names: json["names"] == null ? [] : List<Name>.from(json["names"]!.map((x) => Name.fromJson(x))),
-        name: json["name"],
-        items: json["items"] == null ? [] : List<ItemItem>.from(json["items"]!.map((x) => ItemItem.fromJson(x))),
-    );
+    factory ResultItem.fromJson(Map<String, dynamic> json) => _$ResultItemFromJson(json);
 
-    Map<String, dynamic> toJson() => {
-        "id": id,
-        "order": order,
-        "state": state,
-        "type": type,
-        "names": names == null ? [] : List<dynamic>.from(names!.map((x) => x.toJson())),
-        "name": name,
-        "items": items == null ? [] : List<dynamic>.from(items!.map((x) => x.toJson())),
-    };
+    Map<String, dynamic> toJson() => _$ResultItemToJson(this);
 }
 
+@JsonSerializable()
 class ItemItem {
-    int? id;
-    String? link;
-    int? order;
-    String? fileId;
+    @JsonKey(name: "id")
+    int id;
+    @JsonKey(name: "link")
+    String link;
+    @JsonKey(name: "order")
+    int order;
+    @JsonKey(name: "fileId")
+    String fileId;
 
     ItemItem({
-        this.id,
-        this.link,
-        this.order,
-        this.fileId,
+        this.id=-1,
+        this.link='',
+        this.order=-1,
+        this.fileId='',
     });
 
-    factory ItemItem.fromJson(Map<String, dynamic> json) => ItemItem(
-        id: json["id"],
-        link: json["link"],
-        order: json["order"],
-        fileId: json["fileId"],
-    );
+    factory ItemItem.fromJson(Map<String, dynamic> json) => _$ItemItemFromJson(json);
 
-    Map<String, dynamic> toJson() => {
-        "id": id,
-        "link": link,
-        "order": order,
-        "fileId": fileId,
-    };
+    Map<String, dynamic> toJson() => _$ItemItemToJson(this);
 }
 
+@JsonSerializable()
 class Name {
-    LanguageCode? languageCode;
-    String? text;
+    @JsonKey(name: "languageCode")
+    LanguageCode languageCode;
+    @JsonKey(name: "text")
+    String text;
 
     Name({
-        this.languageCode,
-        this.text,
+        this.languageCode=LanguageCode.UZ_LATN_UZ,
+        this.text='',
     });
 
-    factory Name.fromJson(Map<String, dynamic> json) => Name(
-        languageCode: languageCodeValues.map[json["languageCode"]]!,
-        text: json["text"],
-    );
+    factory Name.fromJson(Map<String, dynamic> json) => _$NameFromJson(json);
 
-    Map<String, dynamic> toJson() => {
-        "languageCode": languageCodeValues.reverse[languageCode],
-        "text": text,
-    };
+    Map<String, dynamic> toJson() => _$NameToJson(this);
 }
 
 enum LanguageCode {
+    @JsonValue("en")
     EN,
+    @JsonValue("ru")
     RU,
+    @JsonValue("uz-Cyrl-QQ")
     UZ_CYRL_QQ,
+    @JsonValue("uz-Cyrl-UZ")
     UZ_CYRL_UZ,
+    @JsonValue("uz-Latn-UZ")
     UZ_LATN_UZ
 }
 

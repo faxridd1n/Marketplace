@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import '../../../core/constants/AppColors.dart';
-import '../../../widgets/product_widget.dart';
-import '../home_bloc/home_bloc.dart';
-import 'TitleWidget.dart';
+import '../core/constants/AppColors.dart';
+import 'product_widget.dart';
+import '../screens/home/home_bloc/home_bloc.dart';
+import 'title_widget.dart';
 
 class ProductListWidget extends StatefulWidget {
   const ProductListWidget({required this.index, super.key});
@@ -52,9 +52,9 @@ class _ProductListWidgetState extends State<ProductListWidget> {
           }
           if (state.getProductStatus.isSuccess) {
             for (var i in tab) {
-              for (var e in state.tabsModel!.result!.items!) {
+              for (var e in state.tabsModel!.result.items) {
                 if (i == e.id) {
-                  tabsName.add(e.name ?? 'Empty');
+                  tabsName.add(e.name );
                 }
               }
             }

@@ -39,7 +39,7 @@ class _BasketPageState extends State<BasketPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.pageBgColor,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         surfaceTintColor: Colors.transparent,
         backgroundColor: Colors.white,
@@ -58,12 +58,10 @@ class _BasketPageState extends State<BasketPage> {
         child: BlocBuilder<BasketBloc, BasketState>(
           builder: (ctx, state) {
             if (state.getBasketProductStatus.isInProgress) {
-              return const Scaffold(
-                body: Center(
-                  child: CircularProgressIndicator(
-                    color: AppColors.green,
-                    strokeWidth: 3,
-                  ),
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: AppColors.green,
+                  strokeWidth: 3,
                 ),
               );
             }
@@ -77,13 +75,18 @@ class _BasketPageState extends State<BasketPage> {
                             child: Column(
                               children: [
                                 Container(
+                                  decoration: BoxDecoration(
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          blurRadius: 2,
+                                          color: Color.fromARGB(91, 0, 0, 0),
+                                        ),
+                                      ],
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(12)),
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 10, vertical: 15),
                                   margin: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
-                                    color: Colors.white,
-                                  ),
                                   child: Row(
                                     children: [
                                       SizedBox(
@@ -135,11 +138,17 @@ class _BasketPageState extends State<BasketPage> {
                                   ),
                                 ),
                                 Container(
-                                  margin: const EdgeInsets.all(10),
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        blurRadius: 2,
+                                        color: Color.fromARGB(91, 0, 0, 0),
+                                      ),
+                                    ],
                                     color: Colors.white,
+                                    borderRadius: BorderRadius.circular(12),
                                   ),
+                                  margin: const EdgeInsets.all(10),
                                   child: Column(
                                     children: [
                                       Container(
@@ -251,7 +260,9 @@ class _BasketPageState extends State<BasketPage> {
                           child: Container(
                             decoration: const BoxDecoration(
                               boxShadow: [
-                                BoxShadow(color: Color.fromARGB(88, 0, 0, 0),blurRadius: 2)
+                                BoxShadow(
+                                    color: Color.fromARGB(88, 0, 0, 0),
+                                    blurRadius: 2)
                               ],
                               color: Colors.white,
                               borderRadius: BorderRadius.vertical(
@@ -272,10 +283,8 @@ class _BasketPageState extends State<BasketPage> {
                     )
                   : const EmptyBasketPage();
             }
-            return const Scaffold(
-              body: Center(
-                child: Text('Error'),
-              ),
+            return const Center(
+              child: Text('Error'),
             );
           },
         ),

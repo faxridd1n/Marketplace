@@ -26,6 +26,7 @@ class _AddNewCardPageState extends State<AddNewCardPage> {
         shadowColor: const Color.fromARGB(88, 0, 0, 0),
         centerTitle: true,
         title: const Text(
+          
           'Новая карта',
           style: TextStyle(
             fontSize: 18,
@@ -58,7 +59,7 @@ class _AddNewCardPageState extends State<AddNewCardPage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   NewCardFields(
                     cardNameController: cardNameController,
                     cardNumberController: cardNumberController,

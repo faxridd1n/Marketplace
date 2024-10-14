@@ -3,7 +3,7 @@ import 'package:flutter_application_1/core/constants/AppColors.dart';
 import 'package:flutter_application_1/screens/buy_now/buy_now_page.dart';
 
 import '../../../components/price_function.dart';
-import '../BasketPage.dart';
+import '../basket_page.dart';
 
 class BottomBarWidget extends StatefulWidget {
   const BottomBarWidget({super.key});

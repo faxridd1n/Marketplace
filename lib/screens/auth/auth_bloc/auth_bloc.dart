@@ -13,10 +13,16 @@ part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(const AuthState()) {
-    on<RegisterUserEvent>((event, emit) async {
+    
+ on<RegisterUserEvent>((event, emit) async {
+      // Emit the in-progress state
       emit(state.copyWith(
           registerUserResponseStatus: FormzSubmissionStatus.inProgress));
+
+      // Call the AuthService to register the user
       final result = await AuthService.registerUser(event.userModel);
+
+      // Emit success or failure based on the result
       if (result is RegisterUserResponseModel) {
         emit(state.copyWith(
             registerUserResponseModel: result,

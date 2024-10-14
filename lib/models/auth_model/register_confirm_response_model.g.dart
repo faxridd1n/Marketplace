@@ -9,7 +9,9 @@ part of 'register_confirm_response_model.dart';
 RegisterConfirmResponseModel _$RegisterConfirmResponseModelFromJson(
         Map<String, dynamic> json) =>
     RegisterConfirmResponseModel(
-      result: Result.fromJson(json['result'] as Map<String, dynamic>),
+      result: json['result'] == null
+          ? null
+          : Result.fromJson(json['result'] as Map<String, dynamic>),
       error: json['error'] as Map<String, dynamic>? ?? const {},
     );
 

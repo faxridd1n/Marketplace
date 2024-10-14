@@ -4,7 +4,7 @@ import 'package:flutter_application_1/assets_path/AppImagesPath.dart';
 import 'package:flutter_application_1/core/constants/AppColors.dart';
 import 'package:flutter_application_1/models/products_model/product_model.dart';
 import 'package:flutter_application_1/screens/home/widgets/BottomCardWidget1.dart';
-import 'package:flutter_application_1/screens/home/widgets/TitleWidget.dart';
+import 'package:flutter_application_1/widgets/title_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';

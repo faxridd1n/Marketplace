@@ -105,7 +105,7 @@ class _FavoritePageState extends State<FavoritePage> {
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: EdgeInsets.symmetric(
-                          horizontal: isVerticalProduct ? 30 : 10,
+                          horizontal: isVerticalProduct ? 40 : 10,
                           vertical: 10,
                         ),
                         child: isVerticalProduct

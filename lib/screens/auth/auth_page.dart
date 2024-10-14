@@ -100,7 +100,6 @@ class _AuthPageState extends State<AuthPage> {
         SizedBox(
           height: 60,
           child: TextFormField(
-            
             controller: numberController,
             onChanged: (value) {
               if (value.length == 17) {
@@ -158,7 +157,19 @@ class _AuthPageState extends State<AuthPage> {
   }
 
   Widget _buildSubmitButton() {
-    return BlocBuilder<AuthBloc, AuthState>(
+    return BlocConsumer<AuthBloc, AuthState>(
+      listener: (context, state) {
+        if (state.registerUserResponseStatus == FormzSubmissionStatus.success) {
+          // Show success message
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text('Registration successful')));
+        } else if (state.registerUserResponseStatus ==
+            FormzSubmissionStatus.failure) {
+          // Show error message
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text('Registration failed')));
+        }
+      },
       builder: (context, state) {
         return Row(
           children: [

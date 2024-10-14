@@ -5,12 +5,12 @@ import 'package:flutter_application_1/screens/katalog/katalog_bloc/katalog_bloc.
 import 'package:flutter_application_1/screens/see_all/see_all_bloc/see_all_bloc.dart';
 import '../assets_path/AppImagesPath.dart';
 import '../components/price_function.dart';
-import '../screens/basket/BasketPage.dart';
+import '../screens/basket/basket_page.dart';
 import '../screens/favorite/favorite_page.dart';
 import '../screens/home/widgets/snack_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../screens/product_detail/ProductDetailPage1.dart';
+import '../screens/product_detail/product_detail_page1.dart';
 
 // ignore: must_be_immutable
 class HorizontalProductWidget extends StatefulWidget {
@@ -46,17 +46,20 @@ class _HorizontalProductWidgetState extends State<HorizontalProductWidget> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-         Navigator.of(context, rootNavigator: true).push(
-                    MaterialPageRoute(
-                      builder: (context) => ProductDetailPage1(
-                        model: widget.model,
-                        // tab: widget.tab,
-                      ),
-                    ),
-                  );
+        Navigator.of(context, rootNavigator: true).push(
+          MaterialPageRoute(
+            builder: (context) => ProductDetailPage1(
+              model: widget.model,
+              // tab: widget.tab,
+            ),
+          ),
+        );
       },
       child: Container(
         decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(blurRadius: 2,color: const Color.fromARGB(90, 0, 0, 0))
+          ],
           borderRadius: BorderRadius.circular(12),
           color: Colors.white,
         ),

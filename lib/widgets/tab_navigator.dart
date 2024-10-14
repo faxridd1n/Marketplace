@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/basket/BasketPage.dart';
-import 'package:flutter_application_1/screens/category/CategoryPage.dart';
+import 'package:flutter_application_1/screens/basket/basket_page.dart';
+import 'package:flutter_application_1/screens/category/category_page.dart';
 import 'package:flutter_application_1/screens/favorite/favorite_page.dart';
 import 'package:flutter_application_1/screens/home/home_page.dart';
-// import 'package:flutter_application_1/screens/profile/login_page.dart';
-import '../screens/profile/profile_page.dart';
+import 'package:flutter_application_1/screens/profile/login_page.dart';
+// import '../screens/profile/profile_page.dart';
 
 enum NavItemEnum {
   home,
@@ -59,7 +59,7 @@ class _TabNavigatorState extends State<TabNavigator> with AutomaticKeepAliveClie
       return {'/': (context) => const FavoritePage()};
     }
     if (tabItem.isProfile) {
-      return {'/': (context) => const ProfilePage()};
+      return {'/': (context) => const LoginPage()};
     }
     return {};
   }

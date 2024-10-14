@@ -69,8 +69,8 @@ class _SeeAllPageState extends State<SeeAllPage> {
                 bottom: PreferredSize(
                   preferredSize: Size.fromHeight(55),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 5),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -168,7 +168,7 @@ class _SeeAllPageState extends State<SeeAllPage> {
                     itemBuilder: (ctx, index) {
                       return Padding(
                         padding: EdgeInsets.symmetric(
-                          horizontal: isVerticalProduct ? 16 : 10,
+                          horizontal: isVerticalProduct ? 40 : 10,
                           vertical: 10,
                         ),
                         child: isVerticalProduct

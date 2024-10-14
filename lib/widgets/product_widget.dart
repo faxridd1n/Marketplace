@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/constants/AppColors.dart';
 import 'package:flutter_application_1/models/products_model/product_model.dart';
-import 'package:flutter_application_1/screens/basket/BasketPage.dart';
+import 'package:flutter_application_1/screens/basket/basket_page.dart';
 import 'package:flutter_application_1/screens/basket/basket_bloc/basket_bloc.dart';
 import 'package:flutter_application_1/screens/favorite/favorite_page.dart';
 import 'package:flutter_application_1/screens/home/home_bloc/home_bloc.dart';
 import 'package:flutter_application_1/screens/home/widgets/snack_bar.dart';
-import 'package:flutter_application_1/screens/product_detail/ProductDetailPage1.dart';
+import 'package:flutter_application_1/screens/product_detail/product_detail_page1.dart';
 import 'package:flutter_application_1/screens/product_detail/product_detail_bloc/product_detail_bloc.dart';
 import 'package:flutter_application_1/screens/see_all/see_all_bloc/see_all_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

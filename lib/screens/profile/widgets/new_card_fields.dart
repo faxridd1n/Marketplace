@@ -21,6 +21,18 @@ class NewCardFields extends StatefulWidget {
 class _NewCardFieldsState extends State<NewCardFields> {
   TextEditingController oldNumberController = TextEditingController();
   TextEditingController newNumberController = TextEditingController();
+  final FocusNode firstFieldFocusNode = FocusNode();
+  final FocusNode secondFieldFocusNode = FocusNode();
+
+  @override
+  void dispose() {
+    super.dispose();
+    oldNumberController.dispose();
+    newNumberController.dispose();
+    firstFieldFocusNode.dispose();
+    secondFieldFocusNode.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -125,11 +137,16 @@ class _NewCardFieldsState extends State<NewCardFields> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             SizedBox(
-              height: 60,
-              width: 70,
+              width: 60,
               child: TextFormField(
                 onTapOutside: (event) {
                   FocusScope.of(context).unfocus();
+                },
+                onChanged: (value) {
+                  if (value.length == 2) {
+                    FocusScope.of(context).nextFocus();
+                    setState(() {});
+                  }
                 },
                 cursorWidth: 1.5,
                 keyboardType: TextInputType.number,
@@ -176,11 +193,17 @@ class _NewCardFieldsState extends State<NewCardFields> {
             ),
             const SizedBox(width: 10),
             SizedBox(
-              height: 60,
-              width: 70,
+              width: 60,
               child: TextFormField(
                 onTapOutside: (event) {
                   FocusScope.of(context).unfocus();
+                },
+                onChanged: (value) {
+                  if (value.isEmpty) {
+                    FocusScope.of(context).previousFocus();
+                  } else if (value.length == 7) {
+                    setState(() {});
+                  }
                 },
                 cursorWidth: 1.5,
                 keyboardType: TextInputType.number,

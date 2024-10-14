@@ -4,13 +4,13 @@ import 'package:flutter_application_1/screens/see_all/see_all_page.dart';
 
 // ignore: must_be_immutable
 class TitleWidget extends StatelessWidget {
-  TitleWidget(
-      {required this.titleText,
+ const TitleWidget(
+      {super.key, required this.titleText,
       required this.withSeeAllButton,
       required this.categoryId});
-  bool withSeeAllButton;
-  String titleText;
-  int? categoryId;
+  final bool withSeeAllButton;
+  final String titleText;
+  final int? categoryId;
   @override
   Widget build(BuildContext context) {
     return Container(

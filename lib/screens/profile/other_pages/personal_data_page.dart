@@ -59,8 +59,8 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
                     child: const Text(
                       'Faxriddin',
                       style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ),
@@ -74,8 +74,8 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
                     child: const Text(
                       'Ruzikulov',
                       style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ),
@@ -89,8 +89,8 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
                     child: const Text(
                       'Dilmurod o\'g\'li',
                       style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ),
@@ -105,7 +105,7 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
                       '13-03-2004',
                       style: TextStyle(
                         fontSize: 16,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ),
@@ -121,7 +121,7 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
                         'г.Ташкент,Мирабадский район',
                         style: TextStyle(
                           fontSize: 16,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                     ),
@@ -137,7 +137,7 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
                       '+998 (33) 002 07 00',
                       style: TextStyle(
                         fontSize: 16,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ),

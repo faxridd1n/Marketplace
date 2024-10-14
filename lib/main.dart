@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(fontFamily: 'Montserrat'),
       home: const NavigationPage(),
       routes: {
+
         '/navigation':(BuildContext context)=>const NavigationPage(),
         '/home':(BuildContext context)=>const HomePage(),
         // '/navigation':(BuildContext context)=>const NavigationPage(),
@@ -29,3 +30,9 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+
