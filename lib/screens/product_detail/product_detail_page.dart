@@ -44,9 +44,9 @@
 //               ? DefaultTabController(
 //                   length: 2,
 //                   child: Scaffold(
-//                     backgroundColor: Colors.white,
+//                     backgroundColor:AppColors.white,
 //                     appBar: AppBar(
-//                       backgroundColor: Colors.white,
+//                       backgroundColor:AppColors.white,
 //                     ),
 //                     body: CustomScrollView(
 //                       slivers: [
@@ -160,7 +160,7 @@
 //                                       children: [
 //                                         Icon(
 //                                           Icons.star,
-//                                           color: Colors.yellow,
+//                                           color:AppColors.yellow,
 //                                           size: 20,
 //                                         ),
 //                                         SizedBox(
@@ -307,9 +307,9 @@
 //                                   indicatorPadding: const EdgeInsets.symmetric(
 //                                       horizontal: 50),
 //                                   dividerColor: AppColors.grey3,
-//                                   labelColor: Colors.black,
+//                                   labelColor:AppColors.black,
 //                                   unselectedLabelColor: AppColors.grey2,
-//                                   indicatorColor: Colors.black,
+//                                   indicatorColor:AppColors.black,
 //                                   controller: tabController,
 //                                   tabs: [
 //                                     const Tab(
@@ -530,7 +530,7 @@
 //                                                 ),
 //                                                 backgroundColor:
 //                                                     AppColors.seeAllButtonColor,
-//                                                 shadowColor: Colors.transparent,
+//                                                 shadowColor:AppColors.transparent,
 //                                               ),
 //                                               onPressed: () {},
 //                                               child: Row(

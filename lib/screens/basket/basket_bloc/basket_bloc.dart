@@ -1,12 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_application_1/models/basket_model/basket_delete_res_model.dart';
-import 'package:flutter_application_1/models/basket_model/basket_response_model.dart';
+import 'package:flutter_application_1/models/basket_model/basket_product_model.dart';
 import 'package:flutter_application_1/service/basket_service/basket_service.dart';
 import 'package:formz/formz.dart';
 import 'package:meta/meta.dart';
 
-import '../../../models/basket_model/PostBasketProductModel.dart';
+import '../../../models/basket_model/post_basket_product_model.dart';
 
 part 'basket_event.dart';
 part 'basket_state.dart';
@@ -18,7 +18,7 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
         getBasketProductStatus: FormzSubmissionStatus.inProgress,
       ));
       final result = await BasketService.getBasketProducts();
-      if (result is BasketResponseModel) {
+      if (result is BasketProductModel) {
         emit(state.copyWith(
           basketResponseModel: result,
           getBasketProductStatus: FormzSubmissionStatus.success,
@@ -65,7 +65,7 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
 
     on<SelectBasketProductsEvent>((event, emit) {
       final updatedList =
-          List<BasketProductElement>.from(state.selectedProducts as Iterable)
+          List<ProductElement>.from(state.selectedProducts as Iterable)
             ..add(event.selectedProducts);
       emit(state.copyWith(selectedProducts: updatedList));
     });

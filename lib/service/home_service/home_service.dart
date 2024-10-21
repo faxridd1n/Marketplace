@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_application_1/di/DioClient.dart';
-import 'package:flutter_application_1/models/OrganizationContactModel.dart';
-import 'package:flutter_application_1/models/home_model/OrganizationModel.dart';
-import 'package:flutter_application_1/models/product_detail_model/ProductDetailModel.dart';
-import 'package:flutter_application_1/models/home_model/CategoryModel.dart';
+import 'package:flutter_application_1/models/organization_contact_model.dart';
+import 'package:flutter_application_1/models/home_model/organization_model.dart';
+import 'package:flutter_application_1/models/product_detail_model/product_detail_model.dart';
+import 'package:flutter_application_1/models/home_model/category_model.dart';
 import 'package:flutter_application_1/models/tabs_model/tabs_model.dart';
 import 'package:flutter_application_1/service/log_service/LogService.dart';
-import '../../models/basket_model/PostBasketProductModel.dart';
+import '../../models/basket_model/post_basket_product_model.dart';
 import '../../models/products_model/product_model.dart';
 
 class HomeService {

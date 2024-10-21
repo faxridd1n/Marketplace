@@ -8,6 +8,11 @@ class AppColors {
   static const green = Color.fromRGBO(51, 92, 73, 1);
   static const green1 = Color.fromRGBO(187, 214, 67, 0.397);
 
+  static const appBarShadowColor = Color.fromARGB(82, 0, 0, 0);
+  static const white = Colors.white;
+  static const black = Colors.black;
+  static const red = Colors.red;
+
   static const seeAllButtonColor = Color.fromRGBO(107, 181, 73, 0.16);
   static const blueText = Color.fromRGBO(32, 53, 74, 1);
   static const grey4 = Color.fromRGBO(245, 245, 245, 1);

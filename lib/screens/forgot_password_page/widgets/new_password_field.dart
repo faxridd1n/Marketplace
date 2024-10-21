@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/AppColors.dart';
+import '../../../core/constants/app_colors.dart';
 
 class NewPasswordField extends StatefulWidget {
   const NewPasswordField({super.key});

@@ -59,7 +59,7 @@
 //     return Container(
 //       decoration: BoxDecoration(
 //         borderRadius: BorderRadius.circular(15),
-//         color: Colors.white,
+//         color:AppColors.white,
 //       ),
 //       padding: const EdgeInsets.all(15),
 //       child: Column(
@@ -67,7 +67,7 @@
 //         children: [
 //           ExpansionTile(
 //             tilePadding: const EdgeInsets.all(0),
-//             shape: Border.all(color: Colors.transparent),
+//             shape: Border.all(color:AppColors.transparent),
 //             iconColor: AppColors.green,
 //             title: const Text(
 //               'Biz haqimizda',
@@ -112,7 +112,7 @@
 //           ExpansionTile(
 //             iconColor: AppColors.green,
 //             tilePadding: const EdgeInsets.all(0),
-//             shape: Border.all(color: Colors.transparent),
+//             shape: Border.all(color:AppColors.transparent),
 //             title: const Text(
 //               'Hamkorlik',
 //               style: TextStyle(

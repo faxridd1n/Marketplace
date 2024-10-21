@@ -50,4 +50,5 @@ class AppImages {
   static const String banner2 = 'assets/images/banner_2.jpg';
   static const String banner3 = 'assets/images/banner_3.jpg';
   static const String noImage = 'assets/images/no_image.png';
+  static const String noItems = 'assets/images/no_items.png';
 }

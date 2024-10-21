@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/core/constants/AppColors.dart';
+import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_application_1/screens/see_all/see_all_page.dart';
 
 // ignore: must_be_immutable
@@ -50,7 +50,7 @@ class TitleWidget extends StatelessWidget {
                           'Смотреть всё',
                           style: TextStyle(
                             fontSize: 12,
-                            color: Colors.black,
+                            color:AppColors.black,
                           ),
                         ),
                         SizedBox(

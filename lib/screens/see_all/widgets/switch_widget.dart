@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/AppColors.dart';
+import '../../../core/constants/app_colors.dart';
 
 // ignore: must_be_immutable
 class SwitchWidget extends StatefulWidget {
@@ -20,7 +20,7 @@ class _SwitchWidgetState extends State<SwitchWidget> {
         padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: Colors.white,
+          color:AppColors.white,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/assets_path/AppIconsPath.dart';
-import 'package:flutter_application_1/core/constants/AppColors.dart';
+import 'package:flutter_application_1/assets_path/app_icons_path.dart';
+import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_application_1/screens/basket/basket_bloc/basket_bloc.dart';
 import 'package:flutter_application_1/widgets/tab_navigator.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -45,7 +45,7 @@ class _NavigationPageState extends State<NavigationPage>
       value: bloc,
       child: PopScope(
         child: Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor:AppColors.white,
           body: TabBarView(
             physics: NeverScrollableScrollPhysics(),
             controller: _tabController,
@@ -58,7 +58,7 @@ class _NavigationPageState extends State<NavigationPage>
             ],
           ),
           bottomNavigationBar: BottomNavigationBar(
-            backgroundColor: Colors.white,
+            backgroundColor:AppColors.white,
             onTap: (value) {
               _tabController.animateTo(value);
               setState(() {

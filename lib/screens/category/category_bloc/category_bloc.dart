@@ -1,11 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_application_1/models/basket_model/PostBasketProductModel.dart';
+import 'package:flutter_application_1/models/basket_model/post_basket_product_model.dart';
 import 'package:flutter_application_1/service/category_service/category_service.dart';
 import 'package:formz/formz.dart';
 import 'package:meta/meta.dart';
 
-import '../../../models/home_model/CategoryModel.dart';
+import '../../../models/home_model/category_model.dart';
 import '../../../models/products_model/product_model.dart';
 
 part 'category_event.dart';

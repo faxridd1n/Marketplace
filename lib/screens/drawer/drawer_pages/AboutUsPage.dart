@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/assets_path/AppImagesPath.dart';
-import 'package:flutter_application_1/core/constants/AppColors.dart';
+import 'package:flutter_application_1/assets_path/app_images_path.dart';
+import 'package:flutter_application_1/core/constants/app_colors.dart';
 import '../../../widgets/bottom_info_widget.dart';
 
 class AboutUsPage extends StatefulWidget {
@@ -15,10 +15,10 @@ class _AboutUsPageState extends State<AboutUsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor:AppColors.white,
         
       ),
-      backgroundColor: Colors.white,
+      backgroundColor:AppColors.white,
       body: SingleChildScrollView(
               child: Column(
       children: [
@@ -37,7 +37,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
               child: Text(
                 'Biz haqimizda',
                 style: TextStyle(
-                  color: Colors.white,
+                  color:AppColors.white,
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
                 ),

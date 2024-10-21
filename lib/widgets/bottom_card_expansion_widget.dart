@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../core/constants/AppColors.dart';
+import '../core/constants/app_colors.dart';
 
 class ExpansionTileWidget extends StatefulWidget {
   const ExpansionTileWidget({super.key});
@@ -70,8 +70,8 @@ class ExpansionTileWidgetState extends State<ExpansionTileWidget> {
   ExpansionTile _buildExpansionTile(int index, String title, List<String> items) {
     return ExpansionTile(
       tilePadding: const EdgeInsets.all(0),
-      shape: Border.all(color: Colors.transparent),
-      iconColor: Colors.green,
+      shape: Border.all(color:AppColors.transparent),
+      iconColor:AppColors.green,
       title: Text(
         title,
         style: const TextStyle(
@@ -89,8 +89,8 @@ class ExpansionTileWidgetState extends State<ExpansionTileWidget> {
               contentPadding: const EdgeInsets.all(0),
               title: Text(
                 item,
-                style: TextStyle(
-                  color: Colors.grey[600],
+                style: const TextStyle(
+                  color:AppColors.grey2,
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
                 ),

@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_application_1/models/auth_model/register_confirm_request_model.dart';
-import 'package:flutter_application_1/models/auth_model/register_confirm_response_model.dart';
-import 'package:flutter_application_1/models/auth_model/register_user_request_model.dart';
-import 'package:flutter_application_1/models/auth_model/register_user_response_model.dart';
+import 'package:flutter_application_1/models/auth_model/register_confirm_model/register_confirm_request_model.dart';
+import 'package:flutter_application_1/models/auth_model/register_confirm_model/register_confirm_response_model.dart';
+import 'package:flutter_application_1/models/auth_model/register_model/register_user_request_model.dart';
+import 'package:flutter_application_1/models/auth_model/register_model/register_user_response_model.dart';
 import 'package:formz/formz.dart';
 import 'package:meta/meta.dart';
 import '../../../service/auth_service/auth_service.dart';

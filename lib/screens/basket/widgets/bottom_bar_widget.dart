@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/core/constants/AppColors.dart';
+import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_application_1/screens/buy_now/buy_now_page.dart';
 
 import '../../../components/price_function.dart';
@@ -97,7 +97,7 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
             child: Text(
               'Перейти к оформлению',
               style: TextStyle(
-                color: Colors.white,
+                color:AppColors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
               ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/assets_path/AppIconsPath.dart';
-import 'package:flutter_application_1/core/constants/AppColors.dart';
+import 'package:flutter_application_1/assets_path/app_icons_path.dart';
+import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 // ignore: must_be_immutable
@@ -45,13 +45,6 @@ class PaymentWidget extends StatelessWidget {
       Container(
         margin: const EdgeInsets.only(
           top: 10,
-          // right: deliveryType != null
-          //     ? deliveryType == 0
-          //         ? 10
-          //         : 0
-          //     : paymentType == 0
-          //         ? 10
-          //         : 0,
         ),
         width: isPaymentWidget
             ? double.infinity
@@ -59,7 +52,7 @@ class PaymentWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: isSelected ? AppColors.selectedPayment : Colors.white,
+          color: isSelected ? AppColors.selectedPayment :AppColors.white,
           border: Border.all(
             color: isSelected ? AppColors.green : AppColors.borderColor,
             width: 1,

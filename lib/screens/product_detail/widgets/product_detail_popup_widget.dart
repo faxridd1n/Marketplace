@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 
+import '../../../core/constants/app_colors.dart';
+
 class ProductDetailPopUpWidget extends StatefulWidget {
   ProductDetailPopUpWidget({super.key});
 
@@ -16,8 +18,8 @@ class _ProductDetailPopUpWidgetState extends State<ProductDetailPopUpWidget> {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-      shadowColor: Colors.transparent,
-      color: Colors.white,
+      shadowColor:AppColors.transparent,
+      color:AppColors.white,
       padding: const EdgeInsets.symmetric(
         horizontal: 8,
       ),

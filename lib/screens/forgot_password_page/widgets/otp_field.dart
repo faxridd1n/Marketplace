@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../../core/constants/AppColors.dart';
+import '../../../core/constants/app_colors.dart';
 import 'otp_timer.dart';
 
 class OtpField extends StatefulWidget {

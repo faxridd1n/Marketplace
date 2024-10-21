@@ -1,397 +1,421 @@
-// // To parse this JSON data, do
-// //
-// //     final basketProductModel = basketProductModelFromJson(jsonString);
+// To parse this JSON data, do
+//
+//     final basketProductModel = basketProductModelFromJson(jsonString);
 
-// import 'dart:convert';
+import 'package:json_annotation/json_annotation.dart';
+import 'dart:convert';
 
-// BasketProductModel basketProductModelFromJson(String str) =>
-//     BasketProductModel.fromJson(json.decode(str));
+part 'basket_product_model.g.dart';
 
-// String basketProductModelToJson(BasketProductModel data) =>
-//     json.encode(data.toJson());
+BasketProductModel basketProductModelFromJson(String str) =>
+    BasketProductModel.fromJson(json.decode(str));
 
-// class BasketProductModel {
-//   String? id;
-//   int? count;
-//   String? productId;
-//   Product? product;
-//   List<Price>? prices;
-//   List<FileElement>? files;
-//   List<AttributeValue>? attributeValues;
+String basketProductModelToJson(BasketProductModel data) =>
+    json.encode(data.toJson());
 
-//   BasketProductModel({
-//     this.id,
-//     this.count,
-//     this.productId,
-//     this.product,
-//     this.prices,
-//     this.files,
-//     this.attributeValues,
-//   });
+@JsonSerializable()
+class BasketProductModel {
+  @JsonKey(name: "result")
+  Result result;
+  @JsonKey(name: "error")
+  Map error;
 
-//   factory BasketProductModel.fromJson(Map<String, dynamic> json) =>
-//       BasketProductModel(
-//         id: json["id"],
-//         count: json["count"],
-//         productId: json["productId"],
-//         product:
-//             json["product"] == null ? null : Product.fromJson(json["product"]),
-//         prices: json["prices"] == null
-//             ? []
-//             : List<Price>.from(json["prices"]!.map((x) => Price.fromJson(x))),
-//         files: json["files"] == null
-//             ? []
-//             : List<FileElement>.from(
-//                 json["files"]!.map((x) => FileElement.fromJson(x))),
-//         attributeValues: json["attributeValues"] == null
-//             ? []
-//             : List<AttributeValue>.from(json["attributeValues"]!
-//                 .map((x) => AttributeValue.fromJson(x))),
-//       );
+  BasketProductModel({
+    required this.result,
+    this.error = const {},
+  });
 
-//   Map<String, dynamic> toJson() => {
-//         "id": id,
-//         "count": count,
-//         "productId": productId,
-//         "product": product?.toJson(),
-//         "prices": prices == null
-//             ? []
-//             : List<dynamic>.from(prices!.map((x) => x.toJson())),
-//         "files": files == null
-//             ? []
-//             : List<dynamic>.from(files!.map((x) => x.toJson())),
-//         "attributeValues": attributeValues == null
-//             ? []
-//             : List<dynamic>.from(attributeValues!.map((x) => x.toJson())),
-//       };
-// }
+  factory BasketProductModel.fromJson(Map<String, dynamic> json) =>
+      _$BasketProductModelFromJson(json);
 
-// class AttributeValue {
-//   String? id;
-//   String? value;
-//   String? valueTranslation;
-//   List<ValueTranslation>? valueTranslations;
-//   int? attributeId;
-//   Attribute? attribute;
-//   String? productId;
-//   String? variationId;
-//   bool? isVisible;
+  Map<String, dynamic> toJson() => _$BasketProductModelToJson(this);
+}
 
-//   AttributeValue({
-//     this.id,
-//     this.value,
-//     this.valueTranslation,
-//     this.valueTranslations,
-//     this.attributeId,
-//     this.attribute,
-//     this.productId,
-//     this.variationId,
-//     this.isVisible,
-//   });
+@JsonSerializable()
+class Result {
+  @JsonKey(name: "id")
+  int id;
+  @JsonKey(name: "period")
+  int period;
+  @JsonKey(name: "saleType")
+  int saleType;
+  @JsonKey(name: "products")
+  List<ProductElement> products;
+  @JsonKey(name: "totalProductCount")
+  int totalProductCount;
+  @JsonKey(name: "originPrice")
+  int originPrice;
+  @JsonKey(name: "vatPrice")
+  int vatPrice;
+  @JsonKey(name: "compensationPrice")
+  int compensationPrice;
+  @JsonKey(name: "installmentPrice")
+  int installmentPrice;
+  @JsonKey(name: "oonCompensationMale")
+  int oonCompensationMale;
+  @JsonKey(name: "oonCompensationFemale")
+  int oonCompensationFemale;
+  @JsonKey(name: "orgId")
+  int orgId;
 
-//   factory AttributeValue.fromJson(Map<String, dynamic> json) => AttributeValue(
-//         id: json["id"],
-//         value: json["value"],
-//         valueTranslation: json["valueTranslation"],
-//         valueTranslations: json["valueTranslations"] == null
-//             ? []
-//             : List<ValueTranslation>.from(json["valueTranslations"]!
-//                 .map((x) => ValueTranslation.fromJson(x))),
-//         attributeId: json["attributeId"],
-//         attribute: json["attribute"] == null
-//             ? null
-//             : Attribute.fromJson(json["attribute"]),
-//         productId: json["productId"],
-//         variationId: json["variationId"],
-//         isVisible: json["isVisible"],
-//       );
+  Result({
+    this.id = -1,
+    this.period = -1,
+    this.saleType = -1,
+    this.products = const [],
+    this.totalProductCount = -1,
+    this.originPrice = -1,
+    this.vatPrice = -1,
+    this.compensationPrice = -1,
+    this.installmentPrice = -1,
+    this.oonCompensationMale = -1,
+    this.oonCompensationFemale = -1,
+    this.orgId = -1,
+  });
 
-//   Map<String, dynamic> toJson() => {
-//         "id": id,
-//         "value": value,
-//         "valueTranslation": valueTranslation,
-//         "valueTranslations": valueTranslations == null
-//             ? []
-//             : List<dynamic>.from(valueTranslations!.map((x) => x.toJson())),
-//         "attributeId": attributeId,
-//         "attribute": attribute?.toJson(),
-//         "productId": productId,
-//         "variationId": variationId,
-//         "isVisible": isVisible,
-//       };
-// }
+  factory Result.fromJson(Map<String, dynamic> json) => _$ResultFromJson(json);
 
-// class Attribute {
-//   int? id;
-//   int? weight;
-//   DataType? dataType;
-//   bool? hasFilter;
-//   bool? isValueTranslated;
-//   bool? isRequired;
-//   String? name;
-//   String? description;
-//   int? categoryId;
-//   int? filterId;
-//   Map? filter;
-//   int? groupId;
-//   bool? isVisible;
-//   Type? type;
+  Map<String, dynamic> toJson() => _$ResultToJson(this);
+}
 
-//   Attribute({
-//     this.id,
-//     this.weight,
-//     this.dataType,
-//     this.hasFilter,
-//     this.isValueTranslated,
-//     this.isRequired,
-//     this.name,
-//     this.description,
-//     this.categoryId,
-//     this.filterId,
-//     this.filter,
-//     this.groupId,
-//     this.isVisible,
-//     this.type,
-//   });
+@JsonSerializable()
+class ProductElement {
+  @JsonKey(name: "id")
+  String id;
+  @JsonKey(name: "count")
+  int count;
+  @JsonKey(name: "productId")
+  String productId;
+  @JsonKey(name: "product")
+  ProductProduct product;
+  @JsonKey(name: "prices")
+  List<Price> prices;
+  @JsonKey(name: "files")
+  List<FileElement> files;
+  @JsonKey(name: "attributeValues")
+  List<AttributeValue> attributeValues;
 
-//   factory Attribute.fromJson(Map<String, dynamic> json) => Attribute(
-//         id: json["id"],
-//         weight: json["weight"],
-//         dataType: dataTypeValues.map[json["dataType"]]!,
-//         hasFilter: json["hasFilter"],
-//         isValueTranslated: json["isValueTranslated"],
-//         isRequired: json["isRequired"],
-//         name: json["name"],
-//         description: json["description"],
-//         categoryId: json["categoryId"],
-//         filterId: json["filterId"],
-//         filter: json["filter"],
-//         groupId: json["groupId"],
-//         isVisible: json["isVisible"],
-//         type: typeValues.map[json["type"]]!,
-//       );
+  ProductElement(
+    this.product, {
+    this.id = '',
+    this.count = -1,
+    this.productId = '',
+    this.prices = const [],
+    this.files = const [],
+    this.attributeValues = const [],
+  });
 
-//   Map<String, dynamic> toJson() => {
-//         "id": id,
-//         "weight": weight,
-//         "dataType": dataTypeValues.reverse[dataType],
-//         "hasFilter": hasFilter,
-//         "isValueTranslated": isValueTranslated,
-//         "isRequired": isRequired,
-//         "name": name,
-//         "description": description,
-//         "categoryId": categoryId,
-//         "filterId": filterId,
-//         "filter": filter,
-//         "groupId": groupId,
-//         "isVisible": isVisible,
-//         "type": typeValues.reverse[type],
-//       };
-// }
+  factory ProductElement.fromJson(Map<String, dynamic> json) =>
+      _$ProductElementFromJson(json);
 
-// enum DataType { TEXT }
+  Map<String, dynamic> toJson() => _$ProductElementToJson(this);
+}
 
-// final dataTypeValues = EnumValues({"Text": DataType.TEXT});
+@JsonSerializable()
+class AttributeValue {
+  @JsonKey(name: "id")
+  String id;
+  @JsonKey(name: "value")
+  String value;
+  @JsonKey(name: "valueTranslation")
+  String valueTranslation;
+  @JsonKey(name: "valueTranslations")
+  List<ValueTranslation> valueTranslations;
+  @JsonKey(name: "attributeId")
+  int attributeId;
+  @JsonKey(name: "attribute")
+  Attribute attribute;
+  @JsonKey(name: "productId")
+  String productId;
+  @JsonKey(name: "variationId")
+  String variationId;
+  @JsonKey(name: "isVisible")
+  bool isVisible;
 
-// enum Type { BASIC }
+  AttributeValue(
+    this.attribute, {
+    this.id = '',
+    this.value = '',
+    this.valueTranslation = '',
+    this.valueTranslations = const [],
+    this.attributeId = -1,
+    this.productId = '',
+    this.variationId = '',
+    this.isVisible = false,
+  });
 
-// final typeValues = EnumValues({"Basic": Type.BASIC});
+  factory AttributeValue.fromJson(Map<String, dynamic> json) =>
+      _$AttributeValueFromJson(json);
 
-// class ValueTranslation {
-//   LanguageCode? languageCode;
-//   String? text;
+  Map<String, dynamic> toJson() => _$AttributeValueToJson(this);
+}
 
-//   ValueTranslation({
-//     this.languageCode,
-//     this.text,
-//   });
+@JsonSerializable()
+class Attribute {
+  @JsonKey(name: "id")
+  int id;
+  @JsonKey(name: "weight")
+  int weight;
+  @JsonKey(name: "dataType")
+  DataType dataType;
+  @JsonKey(name: "hasFilter")
+  bool hasFilter;
+  @JsonKey(name: "isValueTranslated")
+  bool isValueTranslated;
+  @JsonKey(name: "isRequired")
+  bool isRequired;
+  @JsonKey(name: "name")
+  String name;
+  @JsonKey(name: "description")
+  String description;
+  @JsonKey(name: "categoryId")
+  int categoryId;
+  @JsonKey(name: "filterId")
+  int filterId;
+  @JsonKey(name: "filter")
+  Map filter;
+  @JsonKey(name: "groupId")
+  int groupId;
+  @JsonKey(name: "isVisible")
+  bool isVisible;
+  @JsonKey(name: "type")
+  AttributeType type;
 
-//   factory ValueTranslation.fromJson(Map<String, dynamic> json) =>
-//       ValueTranslation(
-//         languageCode: languageCodeValues.map[json["languageCode"]]!,
-//         text: json["text"],
-//       );
+  Attribute({
+    this.id = -1,
+    this.weight = -1,
+    this.dataType = DataType.TEXT,
+    this.hasFilter = false,
+    this.isValueTranslated = false,
+    this.isRequired = false,
+    this.name = '',
+    this.description = '',
+    this.categoryId = -1,
+    this.filterId = -1,
+    this.filter = const {},
+    this.groupId = -1,
+    this.isVisible = false,
+    this.type = AttributeType.BASIC,
+  });
 
-//   Map<String, dynamic> toJson() => {
-//         "languageCode": languageCodeValues.reverse[languageCode],
-//         "text": text,
-//       };
-// }
+  factory Attribute.fromJson(Map<String, dynamic> json) =>
+      _$AttributeFromJson(json);
 
-// enum LanguageCode { EN, RU, UZ_CYRL_QQ, UZ_CYRL_UZ, UZ_LATN_UZ }
+  Map<String, dynamic> toJson() => _$AttributeToJson(this);
+}
 
-// final languageCodeValues = EnumValues({
-//   "en": LanguageCode.EN,
-//   "ru": LanguageCode.RU,
-//   "uz-Cyrl-QQ": LanguageCode.UZ_CYRL_QQ,
-//   "uz-Cyrl-UZ": LanguageCode.UZ_CYRL_UZ,
-//   "uz-Latn-UZ": LanguageCode.UZ_LATN_UZ
-// });
+enum DataType {
+  @JsonValue("Text")
+  TEXT
+}
 
-// class FileElement {
-//   String? id;
-//   int? order;
-//   String? url;
-//   FileInfo? fileInfo;
-//   String? variationId;
-//   String? productId;
-//   bool? isVisible;
+final dataTypeValues = EnumValues({"Text": DataType.TEXT});
 
-//   FileElement({
-//     this.id,
-//     this.order,
-//     this.url,
-//     this.fileInfo,
-//     this.variationId,
-//     this.productId,
-//     this.isVisible,
-//   });
+enum AttributeType {
+  @JsonValue("Basic")
+  BASIC
+}
 
-//   factory FileElement.fromJson(Map<String, dynamic> json) => FileElement(
-//         id: json["id"],
-//         order: json["order"],
-//         url: json["url"],
-//         fileInfo: json["fileInfo"] == null
-//             ? null
-//             : FileInfo.fromJson(json["fileInfo"]),
-//         variationId: json["variationId"],
-//         productId: json["productId"],
-//         isVisible: json["isVisible"],
-//       );
+final attributeTypeValues = EnumValues({"Basic": AttributeType.BASIC});
 
-//   Map<String, dynamic> toJson() => {
-//         "id": id,
-//         "order": order,
-//         "url": url,
-//         "fileInfo": fileInfo?.toJson(),
-//         "variationId": variationId,
-//         "productId": productId,
-//         "isVisible": isVisible,
-//       };
-// }
+@JsonSerializable()
+class ValueTranslation {
+  @JsonKey(name: "languageCode")
+  LanguageCode languageCode;
+  @JsonKey(name: "text")
+  String text;
 
-// class FileInfo {
-//   String? id;
-//   String? url;
-//   String? name;
-//   String? extension;
-//   String? contentType;
-//   DateTime? createdAt;
-//   bool? isVisible;
+  ValueTranslation({
+    this.languageCode = LanguageCode.EN,
+    this.text = '',
+  });
 
-//   FileInfo({
-//     this.id,
-//     this.url,
-//     this.name,
-//     this.extension,
-//     this.contentType,
-//     this.createdAt,
-//     this.isVisible,
-//   });
+  factory ValueTranslation.fromJson(Map<String, dynamic> json) =>
+      _$ValueTranslationFromJson(json);
 
-//   factory FileInfo.fromJson(Map<String, dynamic> json) => FileInfo(
-//         id: json["id"],
-//         url: json["url"],
-//         name: json["name"],
-//         extension: json["extension"],
-//         contentType: json["contentType"],
-//         createdAt: json["createdAt"] == null
-//             ? null
-//             : DateTime.parse(json["createdAt"]),
-//         isVisible: json["isVisible"],
-//       );
+  Map<String, dynamic> toJson() => _$ValueTranslationToJson(this);
+}
 
-//   Map<String, dynamic> toJson() => {
-//         "id": id,
-//         "url": url,
-//         "name": name,
-//         "extension": extension,
-//         "contentType": contentType,
-//         "createdAt": createdAt?.toIso8601String(),
-//         "isVisible": isVisible,
-//       };
-// }
+enum LanguageCode {
+  @JsonValue("en")
+  EN,
+  @JsonValue("ru")
+  RU,
+  @JsonValue("uz-Cyrl-QQ")
+  UZ_CYRL_QQ,
+  @JsonValue("uz-Cyrl-UZ")
+  UZ_CYRL_UZ,
+  @JsonValue("uz-Latn-UZ")
+  UZ_LATN_UZ
+}
 
-// class Price {
-//   int? id;
-//   double? value;
-//   String? type;
-//   int? currencyId;
-//   String? variationId;
+final languageCodeValues = EnumValues({
+  "en": LanguageCode.EN,
+  "ru": LanguageCode.RU,
+  "uz-Cyrl-QQ": LanguageCode.UZ_CYRL_QQ,
+  "uz-Cyrl-UZ": LanguageCode.UZ_CYRL_UZ,
+  "uz-Latn-UZ": LanguageCode.UZ_LATN_UZ
+});
 
-//   Price({
-//     this.id,
-//     this.value,
-//     this.type,
-//     this.currencyId,
-//     this.variationId,
-//   });
+@JsonSerializable()
+class FileElement {
+  @JsonKey(name: "id")
+  String id;
+  @JsonKey(name: "order")
+  int order;
+  @JsonKey(name: "url")
+  String url;
+  @JsonKey(name: "fileInfo")
+  FileInfo fileInfo;
+  @JsonKey(name: "variationId")
+  String variationId;
+  @JsonKey(name: "productId")
+  String productId;
+  @JsonKey(name: "isVisible")
+  bool isVisible;
 
-//   factory Price.fromJson(Map<String, dynamic> json) => Price(
-//         id: json["id"],
-//         value: json["value"],
-//         type: json["type"],
-//         currencyId: json["currencyId"],
-//         variationId: json["variationId"],
-//       );
+  FileElement(
+    this.fileInfo, {
+    this.id = '',
+    this.order = -1,
+    this.url = '',
+    this.variationId = '',
+    this.productId = '',
+    this.isVisible = false,
+  });
 
-//   Map<String, dynamic> toJson() => {
-//         "id": id,
-//         "value": value,
-//         "type": type,
-//         "currencyId": currencyId,
-//         "variationId": variationId,
-//       };
-// }
+  factory FileElement.fromJson(Map<String, dynamic> json) =>
+      _$FileElementFromJson(json);
 
-// class Product {
-//   String? id;
-//     String? state;
-//     String? name;
-//     String? description;
-//     int? categoryId;
-//     int? organizationId;
-//     bool? isVisible;
+  Map<String, dynamic> toJson() => _$FileElementToJson(this);
+}
 
-//   Product({
-//     this.id,
-//     this.state,
-//     this.name,
-//     this.description,
-//     this.categoryId,
-//     this.organizationId,
-//     this.isVisible,
-//   });
+@JsonSerializable()
+class FileInfo {
+  @JsonKey(name: "id")
+  String id;
+  @JsonKey(name: "url")
+  String url;
+  @JsonKey(name: "name")
+  String name;
+  @JsonKey(name: "extension")
+  Extension extension;
+  @JsonKey(name: "contentType")
+  ContentType contentType;
+  @JsonKey(name: "createdAt")
+  DateTime createdAt;
+  @JsonKey(name: "isVisible")
+  bool isVisible;
 
-//   factory Product.fromJson(Map<String, dynamic> json) => Product(
-//         id: json["id"],
-//         state: json["state"],
-//         name: json["name"],
-//         description: json["description"],
-//         categoryId: json["categoryId"],
-//         organizationId: json["organizationId"],
-//         isVisible: json["isVisible"],
-//       );
+  FileInfo(
+    this.createdAt, {
+    this.id = '',
+    this.url = '',
+    this.name = '',
+    this.extension = Extension.JPG,
+    this.contentType = ContentType.IMAGE_JPEG,
+    this.isVisible = false,
+  });
 
-//   Map<String, dynamic> toJson() => {
-//         "id": id,
-//         "state": state,
-//         "name": name,
-//         "description": description,
-//         "categoryId": categoryId,
-//         "organizationId": organizationId,
-//         "isVisible": isVisible,
-//       };
-// }
+  factory FileInfo.fromJson(Map<String, dynamic> json) =>
+      _$FileInfoFromJson(json);
 
-// class EnumValues<T> {
-//   Map<String, T> map;
-//   late Map<T, String> reverseMap;
+  Map<String, dynamic> toJson() => _$FileInfoToJson(this);
+}
 
-//   EnumValues(this.map);
+enum ContentType {
+  @JsonValue("image/jpeg")
+  IMAGE_JPEG
+}
 
-//   Map<T, String> get reverse {
-//     reverseMap = map.map((k, v) => MapEntry(v, k));
-//     return reverseMap;
-//   }
-// }
+final contentTypeValues = EnumValues({"image/jpeg": ContentType.IMAGE_JPEG});
+
+enum Extension {
+  @JsonValue(".jpg")
+  JPG
+}
+
+final extensionValues = EnumValues({".jpg": Extension.JPG});
+
+@JsonSerializable()
+class Price {
+  @JsonKey(name: "id")
+  int id;
+  @JsonKey(name: "value")
+  int value;
+  @JsonKey(name: "type")
+  PriceType type;
+  @JsonKey(name: "currencyId")
+  int currencyId;
+  @JsonKey(name: "variationId")
+  String variationId;
+
+  Price({
+    this.id = -1,
+    this.value = -1,
+    this.type = PriceType.PRICE,
+    this.currencyId = -1,
+    this.variationId = '',
+  });
+
+  factory Price.fromJson(Map<String, dynamic> json) => _$PriceFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PriceToJson(this);
+}
+
+enum PriceType {
+  @JsonValue("Price")
+  PRICE,
+  @JsonValue("Sale")
+  SALE,
+  @JsonValue("Vat")
+  VAT
+}
+
+final priceTypeValues = EnumValues(
+    {"Price": PriceType.PRICE, "Sale": PriceType.SALE, "Vat": PriceType.VAT});
+
+@JsonSerializable()
+class ProductProduct {
+  @JsonKey(name: "id")
+  String id;
+  @JsonKey(name: "state")
+  String state;
+  @JsonKey(name: "name")
+  String name;
+  @JsonKey(name: "description")
+  String description;
+  @JsonKey(name: "categoryId")
+  int categoryId;
+  @JsonKey(name: "organizationId")
+  int organizationId;
+  @JsonKey(name: "isVisible")
+  bool isVisible;
+
+  ProductProduct({
+    this.id = '',
+    this.state = '',
+    this.name = '',
+    this.description = '',
+    this.categoryId = -1,
+    this.organizationId = -1,
+    this.isVisible = false,
+  });
+
+  factory ProductProduct.fromJson(Map<String, dynamic> json) =>
+      _$ProductProductFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProductProductToJson(this);
+}
+
+class EnumValues<T> {
+  Map<String, T> map;
+  late Map<T, String> reverseMap;
+
+  EnumValues(this.map);
+
+  Map<T, String> get reverse {
+    reverseMap = map.map((k, v) => MapEntry(v, k));
+    return reverseMap;
+  }
+}

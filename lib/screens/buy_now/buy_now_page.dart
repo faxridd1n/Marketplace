@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/core/constants/AppColors.dart';
+import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_application_1/screens/buy_now/buy_now_bloc/buy_now_bloc.dart';
 import 'package:flutter_application_1/screens/buy_now/widgets/payment_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:formz/formz.dart';
 
-import '../../assets_path/AppIconsPath.dart';
+import '../../assets_path/app_icons_path.dart';
 
 class BuyNowPage extends StatefulWidget {
   const BuyNowPage({super.key});
@@ -34,188 +34,177 @@ class _BuyNowPageState extends State<BuyNowPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        surfaceTintColor: Colors.transparent,
-        backgroundColor: Colors.white,
-        elevation: 2,
-        shadowColor: const Color.fromARGB(84, 0, 0, 0),
-        title: const Text('Umumiy ma\'lumotlar'),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text('To\'lov turini tanlang'),
-              const SizedBox(height: 5),
-              Wrap(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      paymentType1 = true;
-                      paymentType2 = false;
-                      paymentType3 = false;
-                      setState(() {});
-                    },
-                    child: PaymentWidget(
-                      isSelected: paymentType1,
-                      deliveryType: null,
-                      paymentType: 0,
-                      isPaymentWidget: true,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      paymentType1 = false;
-                      paymentType2 = true;
-                      paymentType3 = false;
-                      setState(() {});
-                    },
-                    child: PaymentWidget(
-                      isSelected: paymentType2,
-                      deliveryType: null,
-                      paymentType: 1,
-                      isPaymentWidget: true,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      paymentType1 = false;
-                      paymentType2 = false;
-                      paymentType3 = true;
-                      setState(() {});
-                    },
-                    child: PaymentWidget(
-                      isSelected: paymentType3,
-                      deliveryType: null,
-                      paymentType: 2,
-                      isPaymentWidget: true,
-                    ),
-                  ),
-                ],
+    return BlocProvider.value(
+      value: buyNowBloc,
+      child: BlocBuilder<BuyNowBloc, BuyNowState>(
+        builder: (ctx, state) {
+          if (state.getRegionsStatus.isInProgress ||
+              state.getDistrictsStatus.isInProgress) {
+            return const Center(
+              child: Padding(
+                padding: EdgeInsets.all(10.0),
+                child: CircularProgressIndicator(
+                    color: AppColors.green, strokeWidth: 3),
               ),
-              const SizedBox(height: 20),
-              const Text('Yetkazib berish turini tanlang'),
-              const SizedBox(height: 5),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      deliveryType1 = true;
-                      deliveryType2 = false;
-                      setState(() {});
-                    },
-                    child: PaymentWidget(
-                      isSelected: deliveryType1,
-                      deliveryType: 0,
-                      paymentType: null,
-                      isPaymentWidget: false,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      deliveryType1 = false;
-                      deliveryType2 = true;
-                      setState(() {});
-                    },
-                    child: PaymentWidget(
-                      isSelected: deliveryType2,
-                      deliveryType: 1,
-                      paymentType: null,
-                      isPaymentWidget: false,
-                    ),
-                  ),
-                ],
+            );
+          }
+          if (state.getRegionsStatus.isSuccess ||
+              state.getDistrictsStatus.isSuccess) {
+            return Scaffold(
+              backgroundColor: AppColors.white,
+              appBar: AppBar(
+                surfaceTintColor: AppColors.transparent,
+                backgroundColor: AppColors.white,
+                elevation: 2,
+                shadowColor: AppColors.appBarShadowColor,
+                title: const Text('Umumiy ma\'lumotlar'),
               ),
-              const SizedBox(height: 20),
-              const Text('Manzil'),
-              const SizedBox(height: 10),
-              SizedBox(
-                height: 50,
-                child: TextFormField(
-                  onTapOutside: (event) {
-                    FocusScope.of(context).unfocus();
-                  },
-                  cursorWidth: 1.5,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                  ),
-                  textAlignVertical: TextAlignVertical.center,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: const BorderSide(
-                        width: 1,
-                        color: AppColors.grey3,
+              body: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('To\'lov turini tanlang'),
+                      const SizedBox(height: 5),
+                      Wrap(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              paymentType1 = true;
+                              paymentType2 = false;
+                              paymentType3 = false;
+                              setState(() {});
+                            },
+                            child: PaymentWidget(
+                              isSelected: paymentType1,
+                              deliveryType: null,
+                              paymentType: 0,
+                              isPaymentWidget: true,
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              paymentType1 = false;
+                              paymentType2 = true;
+                              paymentType3 = false;
+                              setState(() {});
+                            },
+                            child: PaymentWidget(
+                              isSelected: paymentType2,
+                              deliveryType: null,
+                              paymentType: 1,
+                              isPaymentWidget: true,
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              paymentType1 = false;
+                              paymentType2 = false;
+                              paymentType3 = true;
+                              setState(() {});
+                            },
+                            child: PaymentWidget(
+                              isSelected: paymentType3,
+                              deliveryType: null,
+                              paymentType: 2,
+                              isPaymentWidget: true,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: const BorderSide(
-                        width: 1,
-                        color: AppColors.grey3,
+                      const SizedBox(height: 20),
+                      const Text('Yetkazib berish turini tanlang'),
+                      const SizedBox(height: 5),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              deliveryType1 = true;
+                              deliveryType2 = false;
+                              setState(() {});
+                            },
+                            child: PaymentWidget(
+                              isSelected: deliveryType1,
+                              deliveryType: 0,
+                              paymentType: null,
+                              isPaymentWidget: false,
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              deliveryType1 = false;
+                              deliveryType2 = true;
+                              setState(() {});
+                            },
+                            child: PaymentWidget(
+                              isSelected: deliveryType2,
+                              deliveryType: 1,
+                              paymentType: null,
+                              isPaymentWidget: false,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: const BorderSide(
-                        color: AppColors.green,
-                      ),
-                    ),
-                    hintText: 'Manzilni kiriting',
-                    hintStyle: const TextStyle(
-                      color: AppColors.grey2,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                    ),
-                    filled: true,
-                    fillColor: AppColors.grey1,
-                  ),
-                  cursorColor: AppColors.green,
-                ),
-              ),
-              const SizedBox(height: 20),
-              BlocProvider.value(
-                value: buyNowBloc,
-                child: BlocBuilder<BuyNowBloc, BuyNowState>(
-                  builder: (ctx, state) {
-                    if (state.getRegionsStatus.isInProgress) {
-                      return const Center(
-                        child: Padding(
-                          padding: EdgeInsets.all(10.0),
-                          child: CircularProgressIndicator(
-                              color: AppColors.green, strokeWidth: 3),
+                      const SizedBox(height: 20),
+                      const Text('Manzil'),
+                      const SizedBox(height: 10),
+                      TextFormField(
+                        onTapOutside: (event) {
+                          FocusScope.of(context).unfocus();
+                        },
+                        cursorWidth: 1.5,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
                         ),
-                      );
-                    }
-                    if (state.getRegionsStatus.isSuccess) {
-                      return Column(
+                        textAlignVertical: TextAlignVertical.center,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide.none,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide.none,
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide.none,
+                          ),
+                          hintText: 'Manzilni kiriting',
+                          hintStyle: const TextStyle(
+                            color: AppColors.grey2,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          ),
+                          filled: true,
+                          fillColor: AppColors.grey1,
+                        ),
+                        cursorColor: AppColors.green,
+                      ),
+                      const SizedBox(height: 20),
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text('O\'rnatish manzili'),
                           const SizedBox(height: 10),
                           SizedBox(
-                            height: 50,
+                            height: 60,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 8),
                                 elevation: 0,
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    side: const BorderSide(
-                                      color: AppColors.grey3,
-                                    )),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
                                 backgroundColor: AppColors.grey1,
                               ),
                               onPressed: () {
                                 showModalBottomSheet<void>(
-                                  backgroundColor: Colors.transparent,
+                                  backgroundColor: AppColors.transparent,
                                   isScrollControlled: true,
                                   context: context,
                                   builder: (BuildContext context) {
@@ -226,7 +215,7 @@ class _BuyNowPageState extends State<BuyNowPage> {
                                         borderRadius: BorderRadius.vertical(
                                           top: Radius.circular(15),
                                         ),
-                                        color: Colors.white,
+                                        color: AppColors.white,
                                       ),
                                       height: 400,
                                       padding: const EdgeInsets.only(
@@ -309,7 +298,7 @@ class _BuyNowPageState extends State<BuyNowPage> {
                                                             .size
                                                             .width,
                                                     height: 50,
-                                                    //  color: Colors.red,
+                                                    //  color:AppColors.red,
                                                     child: Column(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
@@ -380,7 +369,7 @@ class _BuyNowPageState extends State<BuyNowPage> {
                                     style: TextStyle(
                                       color: selectedRegion.isEmpty
                                           ? AppColors.grey2
-                                          : Colors.black,
+                                          : AppColors.black,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w400,
                                     ),
@@ -413,22 +402,21 @@ class _BuyNowPageState extends State<BuyNowPage> {
                           const Text('Tuman'),
                           const SizedBox(height: 10),
                           SizedBox(
-                            height: 50,
+                            height: 60,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 8),
                                 elevation: 0,
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    side: const BorderSide(
-                                      color: AppColors.grey3,
-                                    )),
+                                  borderRadius: BorderRadius.circular(10),
+                                  side: BorderSide.none,
+                                ),
                                 backgroundColor: AppColors.grey1,
                               ),
                               onPressed: () {
                                 showModalBottomSheet<void>(
-                                  backgroundColor: Colors.transparent,
+                                  backgroundColor: AppColors.transparent,
                                   isScrollControlled: true,
                                   context: context,
                                   builder: (BuildContext context) {
@@ -439,7 +427,7 @@ class _BuyNowPageState extends State<BuyNowPage> {
                                         borderRadius: BorderRadius.vertical(
                                           top: Radius.circular(15),
                                         ),
-                                        color: Colors.white,
+                                        color: AppColors.white,
                                       ),
                                       height: 400,
                                       padding: const EdgeInsets.only(
@@ -534,7 +522,7 @@ class _BuyNowPageState extends State<BuyNowPage> {
                                                               .size
                                                               .width,
                                                           height: 50,
-                                                          //  color: Colors.red,
+                                                          //  color:AppColors.red,
                                                           child: Column(
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
@@ -604,7 +592,7 @@ class _BuyNowPageState extends State<BuyNowPage> {
                                     style: TextStyle(
                                       color: selectedDistrict.isEmpty
                                           ? AppColors.grey2
-                                          : Colors.black,
+                                          : AppColors.black,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w400,
                                     ),
@@ -634,91 +622,83 @@ class _BuyNowPageState extends State<BuyNowPage> {
                             ),
                           ),
                         ],
-                      );
-                    }
-                    return const Center(
-                      child: Text('Error'),
-                    );
-                  },
-                ),
-              ),
-              const SizedBox(height: 20),
-              const Text('Qo\'shimcha ma\'lumot'),
-              const SizedBox(height: 10),
-              TextFormField(
-                onTapOutside: (event) {
-                  FocusScope.of(context).unfocus();
-                },
-                cursorWidth: 1.5,
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                ),
-                maxLines: 5,
-                textAlignVertical: TextAlignVertical.center,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(
-                      width: 1,
-                      color: AppColors.grey3,
-                    ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(
-                      width: 1,
-                      color: AppColors.grey3,
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(
-                      color: AppColors.green,
-                    ),
-                  ),
-                  hintText: 'Shu yerga yozing...',
-                  hintStyle: const TextStyle(
-                    color: AppColors.grey2,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                  ),
-                  filled: true,
-                  fillColor: AppColors.grey1,
-                ),
-                cursorColor: AppColors.green,
-              ),
-              const SizedBox(height: 20),
-              Align(
-                alignment: Alignment.topRight,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    backgroundColor: AppColors.green,
-                  ),
-                  onPressed: () {},
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 15,
-                    ),
-                    child: Text(
-                      'Rasmiylashtirish',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
                       ),
-                    ),
+                      const SizedBox(height: 20),
+                      const Text('Qo\'shimcha ma\'lumot'),
+                      const SizedBox(height: 10),
+                      TextFormField(
+                        onTapOutside: (event) {
+                          FocusScope.of(context).unfocus();
+                        },
+                        cursorWidth: 1.5,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                        maxLines: 5,
+                        textAlignVertical: TextAlignVertical.center,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide.none,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide.none,
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide.none,
+                          ),
+                          hintText: 'Shu yerga yozing...',
+                          hintStyle: const TextStyle(
+                            color: AppColors.grey2,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          ),
+                          filled: true,
+                          fillColor: AppColors.grey1,
+                        ),
+                        cursorColor: AppColors.green,
+                      ),
+                      const SizedBox(height: 20),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            backgroundColor: AppColors.green,
+                          ),
+                          onPressed: () {},
+                          child: const Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 20,
+                              vertical: 15,
+                            ),
+                            child: Text(
+                              'Rasmiylashtirish',
+                              style: TextStyle(
+                                color: AppColors.white,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                    ],
                   ),
                 ),
               ),
-              const SizedBox(height: 15),
-            ],
-          ),
-        ),
+            );
+          }
+          return const Center(
+            child: Text('Error'),
+          );
+        },
       ),
     );
   }

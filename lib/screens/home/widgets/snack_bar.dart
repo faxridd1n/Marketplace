@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/core/constants/AppColors.dart';
+import 'package:flutter_application_1/core/constants/app_colors.dart';
 
 snackBar({
   required bool isHomePage,
@@ -34,7 +34,7 @@ snackBar({
             children: [
               const Icon(
                 Icons.check_circle,
-                color: Colors.white,
+                color:AppColors.white,
                 size: 25,
               ),
               const SizedBox(

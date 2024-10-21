@@ -1,27 +1,27 @@
 part of 'profile_bloc.dart';
 
 class ProfileState extends Equatable {
-  final AuthModel? userModel;
-  final FormzSubmissionStatus postAuthUserStatus;
+  final UserProfileModel? userProfileModel;
+  final FormzSubmissionStatus getUserProfileStatus;
 
   const ProfileState({
-    this.userModel,
-    this.postAuthUserStatus = FormzSubmissionStatus.initial,
+    this.userProfileModel,
+    this.getUserProfileStatus = FormzSubmissionStatus.initial,
   });
 
   ProfileState copyWith({
-    AuthModel? userModel,
-    FormzSubmissionStatus? postAuthUserStatus,
+    UserProfileModel? userProfileModel,
+    FormzSubmissionStatus? getUserProfileStatus,
   }) {
     return ProfileState(
-      userModel: userModel ?? this.userModel,
-      postAuthUserStatus: postAuthUserStatus ?? this.postAuthUserStatus,
+      userProfileModel: userProfileModel ?? this.userProfileModel,
+      getUserProfileStatus: getUserProfileStatus ?? this.getUserProfileStatus,
     );
   }
 
   @override
   List<Object?> get props => [
-        userModel,
-        postAuthUserStatus,
+        userProfileModel,
+        getUserProfileStatus,
       ];
 }

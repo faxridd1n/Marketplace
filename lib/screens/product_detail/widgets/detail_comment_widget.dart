@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/assets_path/AppImagesPath.dart';
-import 'package:flutter_application_1/core/constants/AppColors.dart';
+import 'package:flutter_application_1/assets_path/app_images_path.dart';
+import 'package:flutter_application_1/core/constants/app_colors.dart';
 
 class DetailPageCommentWidget extends StatelessWidget {
   const DetailPageCommentWidget({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/assets_path/AppImagesPath.dart';
-import '../../../models/product_detail_model/ProductDetailModel.dart';
+import 'package:flutter_application_1/assets_path/app_images_path.dart';
+import '../../../models/product_detail_model/product_detail_model.dart';
 
 // ignore: must_be_immutable
 class MyDialog extends StatefulWidget {
@@ -31,7 +31,8 @@ class _MyDialogState extends State<MyDialog> {
     return Column(
       children: [
         Expanded(child: Container()),
-        SizedBox(
+        Container(
+          color: const Color.fromARGB(255, 238, 238, 238),
           height: 400,
           width: MediaQuery.of(context).size.width,
           child:
@@ -51,7 +52,8 @@ class _MyDialogState extends State<MyDialog> {
               errorBuilder: (BuildContext context, Object exception,
                   StackTrace? stackTrace) {
                 return const Image(
-                  image: AssetImage(AppImages.noImage), // Path to your local fallback image
+                  image: AssetImage(
+                      AppImages.noImage), // Path to your local fallback image
                 );
               },
             ),
@@ -111,7 +113,7 @@ class _MyDialogState extends State<MyDialog> {
     //                             ? AppColors.grey3
     //                             : selectedImageIndex == images.length - 1
     //                                 ? AppColors.grey3
-    //                                 : Colors.white,
+    //                                 :AppColors.white,
     //                   ),
     //                 ),
     //               ),
@@ -135,7 +137,7 @@ class _MyDialogState extends State<MyDialog> {
     //                     Icons.arrow_back_ios_new_rounded,
     //                     color: selectedImageIndex == 0
     //                         ? AppColors.grey3
-    //                         : Colors.white,
+    //                         :AppColors.white,
     //                   ),
     //                 ),
     //               ),
@@ -155,7 +157,7 @@ class _MyDialogState extends State<MyDialog> {
     //             radius: 15,
     //             child: SvgPicture.asset(
     //               AppIcons.xIcon,
-    //               color: Colors.white,
+    //               color:AppColors.white,
     //             ),
     //           ),
     //         ),

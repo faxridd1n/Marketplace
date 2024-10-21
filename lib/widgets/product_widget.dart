@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/core/constants/AppColors.dart';
+import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_application_1/models/products_model/product_model.dart';
 import 'package:flutter_application_1/screens/basket/basket_page.dart';
 import 'package:flutter_application_1/screens/basket/basket_bloc/basket_bloc.dart';
 import 'package:flutter_application_1/screens/favorite/favorite_page.dart';
-import 'package:flutter_application_1/screens/home/home_bloc/home_bloc.dart';
+// import 'package:flutter_application_1/screens/home/home_bloc/home_bloc.dart';
 import 'package:flutter_application_1/screens/home/widgets/snack_bar.dart';
 import 'package:flutter_application_1/screens/product_detail/product_detail_page1.dart';
 import 'package:flutter_application_1/screens/product_detail/product_detail_bloc/product_detail_bloc.dart';
 import 'package:flutter_application_1/screens/see_all/see_all_bloc/see_all_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../assets_path/AppImagesPath.dart';
+import '../assets_path/app_images_path.dart';
 import '../components/price_function.dart';
 import '../screens/katalog/katalog_bloc/katalog_bloc.dart';
 
@@ -64,8 +64,8 @@ class _ProductwidgetState extends State<ProductWidget> {
           children: [
             Card(
               elevation: 5,
-              shadowColor: Colors.black,
-              color: Colors.white,
+              shadowColor: AppColors.black,
+              color: AppColors.white,
               child: GestureDetector(
                 onTap: () {
                   Navigator.of(context, rootNavigator: true).push(
@@ -89,24 +89,32 @@ class _ProductwidgetState extends State<ProductWidget> {
                       children: [
                         Align(
                           alignment: Alignment.center,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              image: DecorationImage(
-                                image: (widget.model.variations.isNotEmpty &&
-                                        widget.model.variations[0].files
-                                            .isNotEmpty &&
-                                        widget.model.variations[0].files[0]
-                                            .url.isNotEmpty)
-                                    ? NetworkImage(widget
-                                        .model.variations[0].files[0].url)
-                                    : const AssetImage(AppImages.noImage)
-                                        as ImageProvider, // Fallback image
-                                fit: BoxFit.fill,
-                              ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(5),
+                            child: SizedBox(
+                              height: 240,
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              child: (widget.model.variations.isNotEmpty &&
+                                      widget.model.variations[0].files
+                                          .isNotEmpty &&
+                                      widget.model.variations[0].files[0].url
+                                          .isNotEmpty)
+                                  ? Image.network(
+                                      widget.model.variations[0].files[0].url,
+                                      fit: BoxFit.fill,
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                        return Image.asset(
+                                          AppImages.noImage,
+                                          fit: BoxFit.fitWidth,
+                                        );
+                                      },
+                                    )
+                                  : Image.asset(
+                                      AppImages.noImage,
+                                      fit: BoxFit.fitWidth,
+                                    ),
                             ),
-                            height: 240,
-                            width: MediaQuery.of(context).size.width * 0.4,
                           ),
                         ),
                         const SizedBox(
@@ -219,12 +227,20 @@ class _ProductwidgetState extends State<ProductWidget> {
                                                     .model.variations[0].id,
                                               ),
                                             );
+                                      } else {
+                                        context.read<BasketBloc>().add(
+                                              PostBasketProductBasketEvent(
+                                                productVariationId: widget
+                                                    .model.variations[0].id,
+                                                count: 2,
+                                              ),
+                                            );
                                       }
                                     }
                                     if (!isAlreadyHave) {
                                       if (widget.isHomePage == true) {
-                                        context.read<HomeBloc>().add(
-                                              PostBasketProductHomeEvent(
+                                        context.read<BasketBloc>().add(
+                                              PostBasketProductBasketEvent(
                                                 productVariationId: widget
                                                     .model.variations[0].id,
                                                 count: 1,
@@ -253,6 +269,14 @@ class _ProductwidgetState extends State<ProductWidget> {
                                                     .model.variations[0].id,
                                               ),
                                             );
+                                      } else {
+                                        context.read<BasketBloc>().add(
+                                              PostBasketProductBasketEvent(
+                                                productVariationId: widget
+                                                    .model.variations[0].id,
+                                                count: 1,
+                                              ),
+                                            );
                                       }
                                     }
                                     snackBar(
@@ -271,7 +295,7 @@ class _ProductwidgetState extends State<ProductWidget> {
                                     child: Text(
                                       'в корзину',
                                       style: TextStyle(
-                                        color: Colors.white,
+                                        color: AppColors.white,
                                         fontSize: 14,
                                         fontWeight: FontWeight.w500,
                                       ),
@@ -307,7 +331,7 @@ class _ProductwidgetState extends State<ProductWidget> {
                                 },
                                 child: const Icon(
                                   Icons.remove_red_eye_outlined,
-                                  color: Colors.black,
+                                  color: AppColors.black,
                                   size: 20,
                                 ),
                               ),
@@ -318,31 +342,24 @@ class _ProductwidgetState extends State<ProductWidget> {
                     ),
                   ),
                   Positioned(
-                    right: 12,
-                    top: 12,
-                    child: CircleAvatar(
-                      backgroundColor: AppColors.grey1,
-                      radius: 17,
-                      child: Center(
-                        child: IconButton(
-                          padding: EdgeInsets.all(0),
-                          onPressed: () {
-                            isSelected = !isSelected;
-                            if (isSelected) {
-                              favoriteProducts.add(widget.model);
-                            } else {
-                              favoriteProducts.remove(widget.model);
-                            }
-                            setState(() {});
-                          },
-                          icon: Icon(
-                            isSelected
-                                ? Icons.favorite
-                                : Icons.favorite_border_rounded,
-                            color:
-                                isSelected ? AppColors.green : AppColors.grey2,
-                          ),
-                        ),
+                    right: 8,
+                    child: IconButton(
+                      padding: EdgeInsets.all(0),
+                      onPressed: () {
+                        isSelected = !isSelected;
+                        if (isSelected) {
+                          favoriteProducts.add(widget.model);
+                        } else {
+                          favoriteProducts.remove(widget.model);
+                        }
+                        setState(() {});
+                      },
+                      icon: Icon(
+                        isSelected
+                            ? Icons.favorite
+                            : Icons.favorite_border_rounded,
+                        color: isSelected ? AppColors.pink : AppColors.black,
+                        size: 27,
                       ),
                     ),
                   ),

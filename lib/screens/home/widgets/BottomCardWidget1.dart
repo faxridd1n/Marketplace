@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/assets_path/AppIconsPath.dart';
-import 'package:flutter_application_1/core/constants/AppColors.dart';
+import 'package:flutter_application_1/assets_path/app_icons_path.dart';
+import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class _BottomInfoWidget1State extends State<BottomInfoWidget1> {
@@ -17,7 +17,7 @@ class _BottomInfoWidget1State extends State<BottomInfoWidget1> {
           const SizedBox(
             height: 15,
           ),
-          Text('© 2022 «Taqsim»'),
+          const Text('© 2022 «Taqsim»'),
           const SizedBox(
             height: 20,
           ),
@@ -60,24 +60,24 @@ class _BottomCardWidget1State extends State<BottomCardWidget1> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: Colors.white,
+        color:AppColors.white,
       ),
       padding: const EdgeInsets.all(15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ExpansionTile(
-            tilePadding: EdgeInsets.all(0),
-            shape: Border.all(color: Colors.transparent),
+            tilePadding: const EdgeInsets.all(0),
+            shape: Border.all(color:AppColors.transparent),
             iconColor: AppColors.green,
-            title: Text(
+            title: const Text(
               'Покупателям',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
             ),
-            children: <Widget>[
+            children: const <Widget>[
               ListTile(
                 minTileHeight: 30,
                 minVerticalPadding: 0,
@@ -137,17 +137,17 @@ class _BottomCardWidget1State extends State<BottomCardWidget1> {
             color: AppColors.grey2,
           ),
           ExpansionTile(
-            tilePadding: EdgeInsets.all(0),
-            shape: Border.all(color: Colors.transparent),
+            tilePadding: const EdgeInsets.all(0),
+            shape: Border.all(color:AppColors.transparent),
             iconColor: AppColors.green,
-            title: Text(
+            title: const Text(
               'Taqsim',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
             ),
-            children: <Widget>[
+            children: const <Widget>[
               ListTile(
                 minTileHeight: 30,
                 minVerticalPadding: 0,
@@ -207,17 +207,17 @@ class _BottomCardWidget1State extends State<BottomCardWidget1> {
             color: AppColors.grey2,
           ),
           ExpansionTile(
-            tilePadding: EdgeInsets.all(0),
-            shape: Border.all(color: Colors.transparent),
+            tilePadding: const EdgeInsets.all(0),
+            shape: Border.all(color:AppColors.transparent),
             iconColor: AppColors.green,
-            title: Text(
+            title: const Text(
               'Правовая информация',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
             ),
-            children: <Widget>[
+            children: const <Widget>[
               ListTile(
                 minVerticalPadding: 0,
                 minTileHeight: 30,

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
-import '../../../assets_path/AppIconsPath.dart';
-import '../../../core/constants/AppColors.dart';
+import 'package:flutter_application_1/assets_path/app_images_path.dart';
+import '../../../core/constants/app_colors.dart';
 
 class EmptyFavouritePage extends StatefulWidget {
   const EmptyFavouritePage({super.key});
@@ -20,17 +18,19 @@ class _EmptyFavouritePageState extends State<EmptyFavouritePage> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SvgPicture.asset(
-            AppIcons.noLikedProduct,
+          Image.asset(
+            AppImages.noItems,
+            width: MediaQuery.of(context).size.width * 0.5,
+            fit: BoxFit.fitWidth,
           ),
           const SizedBox(
             height: 20,
           ),
           const Text(
-            'Sizda hali saqlangan mahsulotlar yo’q',
+            'У вас нет сохранённых товаров',
             style: TextStyle(
               fontSize: 16,
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.w700,
             ),
             maxLines: 2,
           ),
@@ -38,7 +38,7 @@ class _EmptyFavouritePageState extends State<EmptyFavouritePage> {
             height: 10,
           ),
           const Text(
-            'Keyinroq foydalanish uchun mahsulotlarni saqlab qo’yishingiz mumkin.',
+            'Вы можете сохранить товары для использования позже.',
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w400,
@@ -63,9 +63,9 @@ class _EmptyFavouritePageState extends State<EmptyFavouritePage> {
                 vertical: 15,
               ),
               child: Text(
-                'Bosh sahifaga qaytish',
+                'На главную',
                 style: TextStyle(
-                  color: Colors.white,
+                  color:AppColors.white,
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),

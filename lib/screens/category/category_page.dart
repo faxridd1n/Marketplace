@@ -4,7 +4,7 @@ import 'package:flutter_application_1/screens/category/widgets/category_expansio
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
-import '../../core/constants/AppColors.dart';
+import '../../core/constants/app_colors.dart';
 
 
 class CategoryPage extends StatefulWidget {
@@ -36,12 +36,13 @@ class _CategoryPageState extends State<CategoryPage> {
             }
             if (state.getCategoryStatus.isSuccess) {
               return Scaffold(
-                backgroundColor: Colors.white,
+                backgroundColor:AppColors.white,
                 appBar: AppBar(
-                  surfaceTintColor: Colors.transparent,
-                  backgroundColor: Colors.white,
+                  surfaceTintColor:AppColors.transparent,
+                  backgroundColor:AppColors.white,
                   elevation: 2,
-                  shadowColor: const Color.fromARGB(72, 0, 0, 0),
+                  shadowColor: AppColors.appBarShadowColor
+                  ,
                   title: const Text(
                     'Каталог',
                     style: TextStyle(
@@ -54,7 +55,7 @@ class _CategoryPageState extends State<CategoryPage> {
                   child: Container(
                     padding:
                         const EdgeInsets.symmetric(vertical: 15, horizontal: 5),
-                    color: Colors.white,
+                    color:AppColors.white,
                     child: CategoryExpansionWidget(
                       model: state.categoryModel!,
                     ),

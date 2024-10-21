@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/AppColors.dart';
+import '../../../core/constants/app_colors.dart';
 
 class ClearFiltersWidget extends StatefulWidget {
   const ClearFiltersWidget({super.key});
@@ -16,7 +16,7 @@ class _ClearFiltersWidgetState extends State<ClearFiltersWidget> {
       margin: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: Colors.transparent,
+        color:AppColors.transparent,
       ),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
@@ -35,7 +35,7 @@ class _ClearFiltersWidgetState extends State<ClearFiltersWidget> {
             child: Text(
               'Очистить все фильтры',
               style: TextStyle(
-                color: Colors.black,
+                color:AppColors.black,
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
               ),

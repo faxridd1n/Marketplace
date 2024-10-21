@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/AppColors.dart';
+import '../../../core/constants/app_colors.dart';
 import '../../../models/see_all_model/filtered_search_model.dart';
 
 // ignore: must_be_immutable
@@ -28,13 +28,13 @@ class _SingleSelectWidgetState extends State<SingleSelectWidget> {
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: Colors.white,
+        color:AppColors.white,
       ),
       child: ExpansionTile(
         collapsedIconColor: AppColors.grey2,
         initiallyExpanded: true,
         tilePadding: const EdgeInsets.all(0),
-        shape: Border.all(color: Colors.transparent),
+        shape: Border.all(color:AppColors.transparent),
         iconColor: AppColors.grey2,
         title: Text(
           widget.model.name!,
@@ -48,7 +48,7 @@ class _SingleSelectWidgetState extends State<SingleSelectWidget> {
             height: 10,
           ),
           Container(
-            // color: Colors.red,
+            // color:AppColors.red,
             height: values!.length * 40,
             child: ListView.builder(
               physics: NeverScrollableScrollPhysics(),
@@ -56,7 +56,7 @@ class _SingleSelectWidgetState extends State<SingleSelectWidget> {
               itemBuilder: (context, index) {
                 return Container(
                   height: 40,
-                  // color: Colors.green,
+                  // color:AppColors.green,
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   child: Row(
                     children: [
@@ -68,7 +68,7 @@ class _SingleSelectWidgetState extends State<SingleSelectWidget> {
                             width: 1,
                             color: AppColors.grey2,
                           ),
-                          checkColor: Colors.white,
+                          checkColor:AppColors.white,
                           activeColor: AppColors.green,
                           value: isFirstSelected,
                           onChanged: (value) {

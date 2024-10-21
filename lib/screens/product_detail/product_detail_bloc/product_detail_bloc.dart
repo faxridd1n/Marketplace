@@ -1,13 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_application_1/models/product_detail_model/ProductDetailModel.dart';
+import 'package:flutter_application_1/models/product_detail_model/product_detail_model.dart';
 import 'package:flutter_application_1/models/products_model/product_model.dart';
 import 'package:flutter_application_1/service/home_service/home_service.dart';
 import 'package:flutter_application_1/service/product_detail_service/product_detail_service.dart';
 import 'package:formz/formz.dart';
 import 'package:meta/meta.dart';
 
-import '../../../models/basket_model/PostBasketProductModel.dart';
+import '../../../models/basket_model/post_basket_product_model.dart';
 
 part 'product_detail_event.dart';
 part 'product_detail_state.dart';

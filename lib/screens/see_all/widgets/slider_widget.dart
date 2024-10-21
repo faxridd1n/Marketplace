@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/see_all_model/filtered_search_model.dart';
 
-import '../../../core/constants/AppColors.dart';
+import '../../../core/constants/app_colors.dart';
 
 // ignore: must_be_immutable
 class SliderWidget extends StatefulWidget {
@@ -33,13 +33,13 @@ class _SliderWidgetState extends State<SliderWidget> {
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: Colors.white,
+        color:AppColors.white,
       ),
       child: ExpansionTile(
         collapsedIconColor: AppColors.grey2,
         initiallyExpanded: true,
         tilePadding: const EdgeInsets.all(0),
-        shape: Border.all(color: Colors.transparent),
+        shape: Border.all(color:AppColors.transparent),
         iconColor: AppColors.grey2,
         title: Text(
           widget.model.name!,
@@ -120,7 +120,7 @@ class _SliderWidgetState extends State<SliderWidget> {
               valueIndicatorColor: AppColors.green, // Color of value indicator popup
               valueIndicatorTextStyle: const TextStyle(
                 fontWeight: FontWeight.w400,
-                color: Colors.black,
+                color:AppColors.black,
                 fontSize: 14,
               ),
             ),

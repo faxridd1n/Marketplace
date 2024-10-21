@@ -71,7 +71,9 @@ Map<String, dynamic> _$ItemItemToJson(ItemItem instance) => <String, dynamic>{
     };
 
 Name _$NameFromJson(Map<String, dynamic> json) => Name(
-      languageCode: $enumDecode(_$LanguageCodeEnumMap, json['languageCode']),
+      languageCode:
+          $enumDecodeNullable(_$LanguageCodeEnumMap, json['languageCode']) ??
+              LanguageCode.UZ_LATN_UZ,
       text: json['text'] as String? ?? '',
     );
 

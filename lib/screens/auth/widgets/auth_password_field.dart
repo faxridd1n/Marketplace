@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/auth_model/register_user_request_model.dart';
+import 'package:flutter_application_1/models/auth_model/register_model/register_user_request_model.dart';
 
-import '../../../core/constants/AppColors.dart';
+import '../../../core/constants/app_colors.dart';
 
 class AuthPasswordField extends StatefulWidget {
   const AuthPasswordField({required this.userModel, super.key});

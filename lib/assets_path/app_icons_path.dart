@@ -1,4 +1,3 @@
-// ignore: file_names
 class AppIcons {
   AppIcons._();
   static const String camera = 'assets/icons/camera.svg';
@@ -78,7 +77,6 @@ class AppIcons {
   static const String productPlaceholder =
       'assets/icons/product_placeholder.svg';
   static const String calendar = 'assets/icons/calendar.svg';
-
   static const String wallet = 'assets/icons/wallet.svg';
   static const String profileCard = 'assets/icons/profile_card.svg';
   static const String logout = 'assets/icons/logout.svg';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/assets_path/AppIconsPath.dart';
-import 'package:flutter_application_1/assets_path/AppImagesPath.dart';
-import 'package:flutter_application_1/core/constants/AppColors.dart';
+import 'package:flutter_application_1/assets_path/app_icons_path.dart';
+import 'package:flutter_application_1/assets_path/app_images_path.dart';
+import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_application_1/models/products_model/product_model.dart';
 import 'package:flutter_application_1/screens/home/widgets/BottomCardWidget1.dart';
 import 'package:flutter_application_1/widgets/title_widget.dart';
@@ -12,9 +12,9 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../widgets/product_widget.dart';
 import 'product_detail_bloc/product_detail_bloc.dart';
-import 'tab_pages/PDetailPageTab1.dart';
-import 'tab_pages/PDetailPageTab2.dart';
-import 'tab_pages/PDetailPageTab3.dart';
+import 'tab_pages/detail_tab1_page.dart';
+import 'tab_pages/detail_tab2_page.dart';
+import 'tab_pages/detail_tab3_page.dart';
 import 'widgets/fin_prod_widget.dart';
 import 'widgets/photo_dialog_widget.dart';
 
@@ -65,12 +65,12 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
             return DefaultTabController(
               length: 2,
               child: Scaffold(
-                backgroundColor: Colors.white,
+                backgroundColor:AppColors.white,
                 appBar: AppBar(
                   elevation: 2,
-                  shadowColor: const Color.fromARGB(72, 0, 0, 0),
-                  surfaceTintColor: Colors.transparent,
-                  backgroundColor: Colors.white,
+                  shadowColor: AppColors.appBarShadowColor,
+                  surfaceTintColor:AppColors.transparent,
+                  backgroundColor:AppColors.white,
                 ),
                 body: CustomScrollView(
                   slivers: [
@@ -86,7 +86,7 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
                                   itemCount: state.productDetailModel!.result!
                                       .variations![0].files!.length,
                                   itemBuilder: (context, index) {
-                                    return GestureDetector(
+                                    return InkWell(
                                       onTap: () async {
                                         await showDialog(
                                             context: context,
@@ -98,17 +98,23 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
                                               );
                                             });
                                       },
-                                      child: Image.network(
-                                        state.productDetailModel!.result!
-                                            .variations![0].files![index].url!,
-                                        fit: BoxFit.fitHeight,
-                                        errorBuilder: (BuildContext context,
-                                            Object exception,
-                                            StackTrace? stackTrace) {
-                                          return const Image(
-                                            image: AssetImage(AppImages.noImage), // Path to your local fallback image
-                                          );
-                                        },
+                                      child: Center(
+                                        child: SizedBox(
+                                          width: 200,
+                                          child: Image.network(
+                                            state.productDetailModel!.result!
+                                                .variations![0].files![index].url!,
+                                            fit: BoxFit.fitWidth,
+                                            errorBuilder: (BuildContext context,
+                                                Object exception,
+                                                StackTrace? stackTrace) {
+                                              return const Image(
+                                                image: AssetImage(AppImages.noImage), 
+                                                fit: BoxFit.fitWidth,// Path to your local fallback image
+                                              );
+                                            },
+                                          ),
+                                        ),
                                       ),
                                     );
                                   }),
@@ -188,9 +194,9 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
                                 setState(() {});
                               },
                               dividerColor: AppColors.grey3,
-                              labelColor: Colors.black,
+                              labelColor:AppColors.black,
                               unselectedLabelColor: AppColors.grey2,
-                              indicatorColor: Colors.black,
+                              indicatorColor:AppColors.black,
                               controller: tabController,
                               labelPadding: const EdgeInsets.all(0),
                               tabs: const [
@@ -282,7 +288,7 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
                                       const Text(
                                         'В приложении удобнее!',
                                         style: TextStyle(
-                                          color: Colors.white,
+                                          color:AppColors.white,
                                           fontSize: 16,
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -349,5 +355,4 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
   }
 }
 
-// ignore: must_be_immutable
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/assets_path/AppIconsPath.dart';
+import 'package:flutter_application_1/assets_path/app_icons_path.dart';
 import 'package:flutter_application_1/screens/profile/other_pages/add_new_card_page.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../core/constants/AppColors.dart';
+import '../../../core/constants/app_colors.dart';
 
 class AddCardPage extends StatefulWidget {
   const AddCardPage({super.key});
@@ -16,11 +16,11 @@ class _AddCardPageState extends State<AddCardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        surfaceTintColor: Colors.transparent,
-        shadowColor: const Color.fromARGB(87, 0, 0, 0),
+        backgroundColor: AppColors.white,
+        surfaceTintColor: AppColors.transparent,
+        shadowColor: AppColors.appBarShadowColor,
         elevation: 2,
         centerTitle: true,
         title: const Text(
@@ -34,10 +34,10 @@ class _AddCardPageState extends State<AddCardPage> {
           IconButton(
             onPressed: () {
               Navigator.of(context, rootNavigator: true).push(
-              MaterialPageRoute(
-                builder: (context) =>const AddNewCardPage(),
-              ),
-            );
+                MaterialPageRoute(
+                  builder: (context) => const AddNewCardPage(),
+                ),
+              );
             },
             icon: const Icon(Icons.add),
           ),
@@ -57,7 +57,7 @@ class _AddCardPageState extends State<AddCardPage> {
                 child: Center(
                   child: SvgPicture.asset(
                     AppIcons.wallet,
-                    color: Colors.white,
+                    color: AppColors.white,
                   ),
                 ),
               ),
@@ -74,11 +74,11 @@ class _AddCardPageState extends State<AddCardPage> {
               const SizedBox(height: 15),
               ElevatedButton(
                 onPressed: () {
-                 Navigator.of(context, rootNavigator: true).push(
-              MaterialPageRoute(
-                builder: (context) =>const AddNewCardPage(),
-              ),
-            );
+                  Navigator.of(context, rootNavigator: true).push(
+                    MaterialPageRoute(
+                      builder: (context) => const AddNewCardPage(),
+                    ),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(
@@ -93,7 +93,7 @@ class _AddCardPageState extends State<AddCardPage> {
                 child: const Text(
                   'Добавить',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: AppColors.white,
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                   ),

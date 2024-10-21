@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import '../core/constants/AppColors.dart';
+import '../core/constants/app_colors.dart';
 import 'product_widget.dart';
 import '../screens/home/home_bloc/home_bloc.dart';
 import 'title_widget.dart';

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/assets_path/AppIconsPath.dart';
-import 'package:flutter_application_1/models/auth_model/register_user_request_model.dart';
+import 'package:flutter_application_1/assets_path/app_icons_path.dart';
+import 'package:flutter_application_1/models/auth_model/register_model/register_user_request_model.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-import '../../../core/constants/AppColors.dart';
+import '../../../core/constants/app_colors.dart';
 
 class AuthBirthdayField extends StatefulWidget {
   const AuthBirthdayField({required this.userModel, super.key});
@@ -30,15 +30,15 @@ class _AuthBirthdayFieldState extends State<AuthBirthdayField> {
                 weekdayStyle: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
-                  color: Colors.grey,
+                  color:AppColors.grey2,
                 ),
                 todayBorder: BorderSide.none,
                 headerBackgroundColor: AppColors.green,
-                headerForegroundColor: Colors.white,
+                headerForegroundColor:AppColors.white,
               ),
               colorScheme: const ColorScheme.light(
                 primary: AppColors.green,
-                onPrimary: Colors.white,
+                onPrimary:AppColors.white,
               ),
               textButtonTheme: TextButtonThemeData(
                 style: TextButton.styleFrom(
@@ -113,6 +113,11 @@ class _AuthBirthdayFieldState extends State<AuthBirthdayField> {
           ),
           textAlignVertical: TextAlignVertical.top,
           decoration: InputDecoration(
+            hintText: 'dd.mm.yyyy',
+            hintStyle: const TextStyle(
+              fontWeight: FontWeight.w400,
+              color: AppColors.grey2,
+            ),
             suffixIcon: IconButton(
                 onPressed: () {
                   _selectDate(context);

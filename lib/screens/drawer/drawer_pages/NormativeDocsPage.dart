@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/drawer/drawer_pages/drawer_pages_widgets/DocsWidget.dart';
+import '../../../core/constants/app_colors.dart';
 import '../../../widgets/bottom_info_widget.dart';
 
 class NormativeDocsPage extends StatefulWidget {
@@ -14,7 +15,7 @@ class _NormativeDocsPageState extends State<NormativeDocsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor:AppColors.white,
         title: const Text(
           'Me\'yoriy hujjatlar',
           style: TextStyle(
@@ -23,7 +24,7 @@ class _NormativeDocsPageState extends State<NormativeDocsPage> {
           ),
         ),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor:AppColors.white,
       body: SingleChildScrollView(
         child: Column(
           children: [

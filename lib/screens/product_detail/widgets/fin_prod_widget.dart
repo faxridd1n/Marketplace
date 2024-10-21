@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/price_function.dart';
-import 'package:flutter_application_1/core/constants/AppColors.dart';
+import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_application_1/models/products_model/product_model.dart';
 import 'package:flutter_application_1/screens/buy_now/buy_now_page.dart';
 
@@ -29,9 +29,9 @@ class _FinProdWidgetState extends State<FinProdWidget> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white,
+      color: AppColors.white,
       elevation: 5,
-      shadowColor: Colors.black,
+      shadowColor: AppColors.black,
       child: Column(
         children: [
           Padding(
@@ -75,7 +75,7 @@ class _FinProdWidgetState extends State<FinProdWidget> {
                       child: const Text(
                         '-12%',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: AppColors.white,
                         ),
                       ),
                     ),
@@ -104,7 +104,6 @@ class _FinProdWidgetState extends State<FinProdWidget> {
                 ),
                 LayoutBuilder(
                   builder: (context, constraints) => ToggleButtons(
-                    
                     onPressed: (int index) {
                       setState(() {
                         // The button that is tapped is set to true, and the others to false.
@@ -116,11 +115,12 @@ class _FinProdWidgetState extends State<FinProdWidget> {
                     },
                     borderColor: AppColors.borderColor,
                     borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    selectedBorderColor: Colors.blue,
-                    selectedColor: Colors.white,
-                    fillColor: Colors.blue,
-                    color: Colors.black,
-                    constraints: BoxConstraints.expand(width: constraints.maxWidth/4-5),
+                    selectedBorderColor: AppColors.blue,
+                    selectedColor: AppColors.white,
+                    fillColor: AppColors.blue,
+                    color: AppColors.black,
+                    constraints: BoxConstraints.expand(
+                        width: constraints.maxWidth / 4 - 5),
                     isSelected: _selectedFruits,
                     children: const [
                       Column(
@@ -216,7 +216,8 @@ class _FinProdWidgetState extends State<FinProdWidget> {
                                       .model.variations[0].prices[1].value
                                       .toInt() /
                                   oy[selectedMonths])
-                              .toInt().toString()),
+                              .toInt()
+                              .toString()),
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
@@ -261,7 +262,7 @@ class _FinProdWidgetState extends State<FinProdWidget> {
                     child: Text(
                       'Купить в рассрочку',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: AppColors.white,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),
@@ -293,7 +294,7 @@ class _FinProdWidgetState extends State<FinProdWidget> {
                     child: Text(
                       'Купить сразу',
                       style: TextStyle(
-                        color: Colors.black,
+                        color: AppColors.black,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),

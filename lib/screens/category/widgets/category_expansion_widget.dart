@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/core/constants/AppColors.dart';
-import 'package:flutter_application_1/models/home_model/CategoryModel.dart';
+import 'package:flutter_application_1/core/constants/app_colors.dart';
+import 'package:flutter_application_1/models/home_model/category_model.dart';
 
-import '../../../assets_path/AppImagesPath.dart';
+import '../../../assets_path/app_images_path.dart';
 import '../../katalog/katalog_page.dart';
 
 // ignore: must_be_immutable
@@ -50,7 +50,7 @@ class ExpansionTileWidgetState extends State<CategoryExpansionWidget> {
       int parentIndex, String title, CategoryModel model) {
     return ExpansionTile(
       tilePadding: const EdgeInsets.all(0),
-      shape: Border.all(color: Colors.transparent),
+      shape: Border.all(color:AppColors.transparent),
       iconColor: AppColors.green,
       leading: Container(
         decoration: BoxDecoration(

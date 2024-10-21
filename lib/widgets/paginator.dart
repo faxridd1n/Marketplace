@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:formz/formz.dart';
 
-import '../core/constants/AppColors.dart';
+import '../core/constants/app_colors.dart';
 
 class Paginator extends StatelessWidget {
   final FormzSubmissionStatus paginatorStatus;

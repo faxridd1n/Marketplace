@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter_application_1/assets_path/AppIconsPath.dart';
-import 'package:flutter_application_1/core/constants/AppColors.dart';
+import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_application_1/screens/drawer/drawer_pages/AboutUsPage.dart';
 import 'package:flutter_application_1/screens/drawer/drawer_pages/NormativeDocsPage.dart';
 // import 'package:flutter_application_1/screens/home/widgets/HomePopUp.dart';
@@ -18,6 +18,7 @@ class _DrawerPageState extends State<DrawerPage> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: AppColors.white,
       width: MediaQuery.of(context).size.width,
       child: ListView(
         padding: EdgeInsets.zero,

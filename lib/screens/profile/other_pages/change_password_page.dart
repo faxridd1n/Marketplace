@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/profile/widgets/user_password_field.dart';
 
-import '../../../core/constants/AppColors.dart';
+import '../../../core/constants/app_colors.dart';
 
 class ChangePasswordPage extends StatefulWidget {
   const ChangePasswordPage({super.key});
@@ -16,12 +16,12 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.white,
       appBar: AppBar(
-        surfaceTintColor: Colors.transparent,
-        backgroundColor: Colors.white,
+        surfaceTintColor: AppColors.transparent,
+        backgroundColor: AppColors.white,
         elevation: 2,
-        shadowColor: const Color.fromARGB(88, 0, 0, 0),
+        shadowColor: AppColors.appBarShadowColor,
         centerTitle: true,
         title: const Text(
           'Изменить номер',
@@ -84,7 +84,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                           child: const Text(
                             'Подтвердить',
                             style: TextStyle(
-                              color: Colors.white,
+                              color: AppColors.white,
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
                             ),

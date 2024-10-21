@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/assets_path/AppIconsPath.dart';
-import 'package:flutter_application_1/core/constants/AppColors.dart';
-import 'package:flutter_application_1/models/home_model/CategoryModel.dart';
+import 'package:flutter_application_1/assets_path/app_icons_path.dart';
+import 'package:flutter_application_1/core/constants/app_colors.dart';
+import 'package:flutter_application_1/models/home_model/category_model.dart';
 import 'package:flutter_application_1/screens/katalog/katalog_bloc/katalog_bloc.dart';
+import 'package:flutter_application_1/screens/katalog/widgets/katalog_empty_page.dart';
 import 'package:flutter_application_1/widgets/horizontal_product_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -59,17 +60,8 @@ class _KatalogPageState extends State<KatalogPage> {
   @override
   Widget build(BuildContext context) {
     return subCategories.isEmpty
-        ? Scaffold(
-            appBar: AppBar(),
-            body: const Center(
-              child: Text(
-                "Empty",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
+        ? const KatalogEmptyPage(
+            withScaffold: true,
           )
         : BlocProvider.value(
             value: katalogBloc,
@@ -85,12 +77,12 @@ class _KatalogPageState extends State<KatalogPage> {
                 }
                 if (state.getFilteredProductStatus.isSuccess) {
                   return Scaffold(
-                    backgroundColor: AppColors.pageBgColor,
+                    backgroundColor: AppColors.white,
                     appBar: AppBar(
-                      surfaceTintColor: Colors.transparent,
+                      surfaceTintColor: AppColors.transparent,
                       elevation: 2,
-                      shadowColor: const Color.fromARGB(70, 0, 0, 0),
-                      backgroundColor: Colors.white,
+                      shadowColor: AppColors.appBarShadowColor,
+                      backgroundColor: AppColors.white,
                       actions: [
                         widget.model.item![widget.index].childs!.isEmpty
                             ? const SizedBox()
@@ -99,8 +91,8 @@ class _KatalogPageState extends State<KatalogPage> {
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 elevation: 5,
-                                shadowColor: Colors.black,
-                                color: Colors.white,
+                                shadowColor: AppColors.black,
+                                color: AppColors.white,
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 8,
                                 ),
@@ -171,7 +163,7 @@ class _KatalogPageState extends State<KatalogPage> {
                               ),
                       ],
                       bottom: PreferredSize(
-                        preferredSize: Size.fromHeight(55),
+                        preferredSize: const Size.fromHeight(55),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 10, vertical: 10),
@@ -192,9 +184,10 @@ class _KatalogPageState extends State<KatalogPage> {
                                 Text(
                                   state.filteredProductModel!.length.toString(),
                                   style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.amber),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.yellow,
+                                  ),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
@@ -211,7 +204,7 @@ class _KatalogPageState extends State<KatalogPage> {
                               Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(12),
-                                  color: Colors.white,
+                                  color: AppColors.white,
                                 ),
                                 child: Row(
                                   children: [
@@ -219,7 +212,7 @@ class _KatalogPageState extends State<KatalogPage> {
                                       width: 40,
                                       height: 40,
                                       child: IconButton(
-                                        padding: EdgeInsets.all(0),
+                                        padding: const EdgeInsets.all(0),
                                         onPressed: () {
                                           isVerticalProduct = true;
                                           setState(() {});
@@ -238,7 +231,7 @@ class _KatalogPageState extends State<KatalogPage> {
                                       width: 40,
                                       height: 40,
                                       child: IconButton(
-                                        padding: EdgeInsets.all(0),
+                                        padding: const EdgeInsets.all(0),
                                         onPressed: () {
                                           isVerticalProduct = false;
                                           setState(() {});
@@ -261,50 +254,61 @@ class _KatalogPageState extends State<KatalogPage> {
                         ),
                       ),
                     ),
-                    body: Column(
-                      children: [
-                        Expanded(
-                          child: SingleChildScrollView(
-                            child: ListView.builder(
-                              // controller: _scrollController,
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: state.filteredProductModel!.length,
-                              itemBuilder: (context, index) {
-                                if (index >=
-                                    state.filteredProductModel!.length) {
-                                  return const Center(
-                                      child: CircularProgressIndicator(
-                                          color: AppColors.green,
-                                          strokeWidth: 3));
-                                }
-                                return Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: isVerticalProduct ? 40 : 10,
-                                    vertical: 10,
-                                  ),
-                                  child: isVerticalProduct
-                                      ? ProductWidget(
-                                          isKatalogPage: true,
-                                          index: index,
-                                          model: state
-                                              .filteredProductModel![index],
-                                          // tab: null,
-                                        )
-                                      : HorizontalProductWidget(
-                                          model: state
-                                              .filteredProductModel![index],
-                                          index: index,
-                                          isKatalogPage: true,
+                    body: state.filteredProductModel!.isNotEmpty
+                        ? Column(
+                            children: [
+                              Expanded(
+                                child: SingleChildScrollView(
+                                  child: ListView.builder(
+                                    // controller: _scrollController,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount:
+                                        state.filteredProductModel!.length,
+                                    itemBuilder: (context, index) {
+                                      if (index >=
+                                          state.filteredProductModel!.length) {
+                                        return const Center(
+                                          child: CircularProgressIndicator(
+                                            color: AppColors.green,
+                                            strokeWidth: 3,
+                                          ),
+                                        );
+                                      }
+                                      return Padding(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal:
+                                              isVerticalProduct ? 40 : 10,
+                                          vertical: 10,
                                         ),
-                                );
-                              },
-                            ),
+                                        child: isVerticalProduct
+                                            ? ProductWidget(
+                                                isKatalogPage: true,
+                                                index: index,
+                                                model:
+                                                    state.filteredProductModel![
+                                                        index],
+                                                // tab: null,
+                                              )
+                                            : HorizontalProductWidget(
+                                                model:
+                                                    state.filteredProductModel![
+                                                        index],
+                                                index: index,
+                                                isKatalogPage: true,
+                                              ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                            ],
+                          )
+                        : const KatalogEmptyPage(
+                            withScaffold: false,
                           ),
-                        ),
-                        const SizedBox(height: 10),
-                      ],
-                    ),
                   );
                 }
                 return const Scaffold(

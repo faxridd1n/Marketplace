@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/components/hive/user_token.dart';
+import 'package:flutter_application_1/components/hive/user_token_model.dart';
 import 'package:flutter_application_1/screens/home/home_page.dart';
 import 'package:flutter_application_1/screens/navigation/navigation_page.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() {
+void main()async {
+  await Hive.initFlutter();
+  Hive.registerAdapter(UserTokenModelAdapter());
+  userTokenBox=await Hive.openBox<UserTokenModel>('userToken');
   runApp(const MyApp());
 }
 

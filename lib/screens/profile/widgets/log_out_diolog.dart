@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/login/login_page.dart';
 
-import '../../../core/constants/AppColors.dart';
+import '../../../core/constants/app_colors.dart';
 
 logOutDiolog(BuildContext context) {
   return showDialog<String>(
     context: context,
     builder: (BuildContext context) => Dialog(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Padding(
         padding: const EdgeInsets.only(top: 20, left: 15, right: 15, bottom: 5),
@@ -23,37 +24,50 @@ logOutDiolog(BuildContext context) {
             ),
             const SizedBox(height: 15),
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                TextButton(
-                  style: TextButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                Expanded(
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.white,
+                      shape: RoundedRectangleBorder(
+                        side: const BorderSide(color: AppColors.green),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                     ),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text(
-                    'Нет',
-                    style: TextStyle(
-                      color: AppColors.green,
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text(
+                      'Отмена',
+                      style: TextStyle(
+                        color: AppColors.green,
+                      ),
                     ),
                   ),
                 ),
-                TextButton(
-                  style: TextButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.green,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                     ),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text(
-                    'Да',
-                    style: TextStyle(
-                      color: AppColors.green,
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                        MaterialPageRoute(
+                          builder: (context) => const LoginPage(),
+                        ),
+                        (Route<dynamic> route) => false,
+                      );
+                    },
+                    child: const Text(
+                      'Да,выйти',
+                      style: TextStyle(
+                        color: AppColors.white,
+                      ),
                     ),
                   ),
                 ),

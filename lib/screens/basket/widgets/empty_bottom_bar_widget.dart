@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../../assets_path/AppIconsPath.dart';
-// import '../../../core/constants/AppColors.dart';
+import '../../../assets_path/app_icons_path.dart';
+import '../../../core/constants/app_colors.dart';
 
 class EmptyBottomBarWidget extends StatefulWidget {
   const EmptyBottomBarWidget({super.key});
@@ -53,7 +53,7 @@ class _EmptyBottomBarWidgetState extends State<EmptyBottomBarWidget> {
             child: Text(
               'Перейти к оформлению',
               style: TextStyle(
-                color: Colors.white,
+                color:AppColors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
               ),

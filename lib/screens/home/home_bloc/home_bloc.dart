@@ -1,14 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_application_1/models/home_model/OrganizationModel.dart';
-import 'package:flutter_application_1/models/home_model/CategoryModel.dart';
+import 'package:flutter_application_1/models/home_model/organization_model.dart';
+import 'package:flutter_application_1/models/home_model/category_model.dart';
 import 'package:flutter_application_1/models/products_model/product_model.dart';
 import 'package:flutter_application_1/models/tabs_model/tabs_model.dart';
 import 'package:flutter_application_1/service/home_service/home_service.dart';
 import 'package:formz/formz.dart';
 import 'package:meta/meta.dart';
 
-import '../../../models/basket_model/PostBasketProductModel.dart';
+import '../../../models/basket_model/post_basket_product_model.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';

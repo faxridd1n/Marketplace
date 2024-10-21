@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/widgets/bottom_card_expansion_widget.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../assets_path/AppIconsPath.dart';
-import '../core/constants/AppColors.dart';
+import '../assets_path/app_icons_path.dart';
+import '../core/constants/app_colors.dart';
 
 class BottomInfoWidget extends StatefulWidget {
   const BottomInfoWidget({super.key});
@@ -72,7 +72,7 @@ class _BottomCardWidgetState extends State<BottomCardWidget> {
           ),
         ],
         borderRadius: BorderRadius.circular(15),
-        color: Colors.white,
+        color:AppColors.white,
       ),
       padding: const EdgeInsets.all(15),
       child: Column(

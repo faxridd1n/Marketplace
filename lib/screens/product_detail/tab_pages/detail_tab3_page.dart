@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/core/constants/AppColors.dart';
-import 'package:flutter_application_1/screens/product_detail/widgets/DetailPageCommentWidget.dart';
-import 'package:flutter_application_1/screens/product_detail/widgets/ProductDetailPopUpWidget.dart';
+import 'package:flutter_application_1/core/constants/app_colors.dart';
+import 'package:flutter_application_1/screens/product_detail/widgets/detail_comment_widget.dart';
+import 'package:flutter_application_1/screens/product_detail/widgets/product_detail_popup_widget.dart';
 
 enum SingingCharacter { var1, var2, var3 }
 

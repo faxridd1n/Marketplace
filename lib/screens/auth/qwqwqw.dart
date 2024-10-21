@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/auth_model/register_confirm_request_model.dart';
+import 'package:flutter_application_1/models/auth_model/register_confirm_model/register_confirm_request_model.dart';
 // import 'package:flutter_application_1/models/auth_model/register_confirm_response_model.dart';
-import 'package:flutter_application_1/models/auth_model/register_user_request_model.dart';
-import 'package:flutter_application_1/models/auth_model/register_user_response_model.dart';
+import 'package:flutter_application_1/models/auth_model/register_model/register_user_request_model.dart';
+import 'package:flutter_application_1/models/auth_model/register_model/register_user_response_model.dart';
 
 class Pagee extends StatefulWidget {
   const Pagee(

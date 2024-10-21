@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/core/constants/AppColors.dart';
+import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_application_1/models/see_all_model/filtered_search_model.dart';
 
 // ignore: must_be_immutable
@@ -28,13 +28,13 @@ class _CheckWidgetState extends State<CheckWidget> {
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: Colors.white,
+        color:AppColors.white,
       ),
       child: ExpansionTile(
         collapsedIconColor: AppColors.grey2,
         initiallyExpanded: true,
         tilePadding: const EdgeInsets.all(0),
-        shape: Border.all(color: Colors.transparent),
+        shape: Border.all(color:AppColors.transparent),
         iconColor: AppColors.grey2,
         title: Text(
           widget.label,
@@ -57,7 +57,7 @@ class _CheckWidgetState extends State<CheckWidget> {
                     width: 1,
                     color: AppColors.grey2,
                   ),
-                  checkColor: Colors.white,
+                  checkColor:AppColors.white,
                   activeColor: AppColors.green,
                   value: isFirstSelected,
                   onChanged: (value) {
@@ -81,7 +81,7 @@ class _CheckWidgetState extends State<CheckWidget> {
                     width: 1,
                     color: AppColors.grey2,
                   ),
-                  checkColor: Colors.white,
+                  checkColor:AppColors.white,
                   activeColor: AppColors.green,
                   value: isSecondSelected,
                   onChanged: (value) {

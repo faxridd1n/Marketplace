@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../core/constants/AppColors.dart';
+import '../../core/constants/app_colors.dart';
 import '../profile/widgets/profile_number_field.dart';
 import 'new_password_page.dart';
 import 'widgets/otp_timer.dart';
@@ -40,14 +40,14 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.white,
       appBar: AppBar(
         elevation: 2,
-        backgroundColor: Colors.white,
-        shadowColor: const Color.fromARGB(95, 0, 0, 0),
-        surfaceTintColor: Colors.transparent,
+        backgroundColor: AppColors.white,
+        shadowColor: AppColors.appBarShadowColor,
+        surfaceTintColor: AppColors.transparent,
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'Восстановления пароля',
           style: TextStyle(
             fontSize: 18,
@@ -95,7 +95,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
                           decoration: const InputDecoration(
                             hintText: '+998 ',
                             hintStyle: TextStyle(
-                              color: Colors.black,
+                              color: AppColors.black,
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
                             ),
@@ -115,7 +115,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
               ),
               isOTPsend
                   ? Container(
-                      margin: EdgeInsets.only(top: 15),
+                      margin: const EdgeInsets.only(top: 15),
                       height: 60,
                       child: TextFormField(
                         onTapOutside: (event) {
@@ -137,7 +137,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
                           filled: true,
                           fillColor: AppColors.grey1,
                           hintText: 'Код смс',
-                          hintStyle: TextStyle(
+                          hintStyle: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                             color: AppColors.grey2,
@@ -176,7 +176,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
                         cursorColor: AppColors.green,
                       ),
                     )
-                  : SizedBox(),
+                  : const SizedBox(),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: Row(
@@ -184,7 +184,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
                     Expanded(
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.symmetric(vertical: 18),
+                          padding: const EdgeInsets.symmetric(vertical: 18),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -197,7 +197,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
                           if (otpController.text.length == 6) {
                             Navigator.of(context, rootNavigator: true).push(
                               MaterialPageRoute(
-                                builder: (context) => NewPasswordPage(),
+                                builder: (context) => const NewPasswordPage(),
                               ),
                             );
                           }
@@ -206,7 +206,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
                         child: const Text(
                           'Подтвердить',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: AppColors.white,
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                           ),

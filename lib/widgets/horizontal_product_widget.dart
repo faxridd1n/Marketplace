@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/core/constants/AppColors.dart';
+import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_application_1/models/products_model/product_model.dart';
+import 'package:flutter_application_1/screens/basket/basket_bloc/basket_bloc.dart';
 import 'package:flutter_application_1/screens/katalog/katalog_bloc/katalog_bloc.dart';
 import 'package:flutter_application_1/screens/see_all/see_all_bloc/see_all_bloc.dart';
-import '../assets_path/AppImagesPath.dart';
+import '../assets_path/app_images_path.dart';
 import '../components/price_function.dart';
 import '../screens/basket/basket_page.dart';
 import '../screens/favorite/favorite_page.dart';
@@ -57,11 +58,11 @@ class _HorizontalProductWidgetState extends State<HorizontalProductWidget> {
       },
       child: Container(
         decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(blurRadius: 2,color: const Color.fromARGB(90, 0, 0, 0))
+          boxShadow: const [
+             BoxShadow(blurRadius: 2, color: Color.fromARGB(90, 0, 0, 0))
           ],
           borderRadius: BorderRadius.circular(12),
-          color: Colors.white,
+          color:AppColors.white,
         ),
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         width: MediaQuery.of(context).size.width,
@@ -105,35 +106,32 @@ class _HorizontalProductWidgetState extends State<HorizontalProductWidget> {
                           ),
                         ),
                         const SizedBox(width: 5),
-                        CircleAvatar(
-                          backgroundColor: AppColors.grey1,
-                          radius: 17,
-                          child: Center(
-                            child: IconButton(
-                              padding: const EdgeInsets.all(0),
-                              onPressed: () {
-                                setState(
-                                  () {
-                                    isSelected = !isSelected;
-                                    if (isSelected) {
-                                      favoriteProducts.add(widget.model);
-                                    } else {
-                                      favoriteProducts.remove(widget.model);
-                                    }
-                                  },
-                                );
-                              },
-                              icon: Icon(
-                                isSelected
-                                    ? Icons.favorite
-                                    : Icons.favorite_border_rounded,
-                                color: isSelected
-                                    ? AppColors.green
-                                    : AppColors.grey2,
-                              ),
+                        SizedBox(
+                          height: 25,
+                          width: 25,
+                          child: IconButton(
+                            padding: const EdgeInsets.all(0),
+                            onPressed: () {
+                              setState(
+                                () {
+                                  isSelected = !isSelected;
+                                  if (isSelected) {
+                                    favoriteProducts.add(widget.model);
+                                  } else {
+                                    favoriteProducts.remove(widget.model);
+                                  }
+                                },
+                              );
+                            },
+                            icon: Icon(
+                              isSelected
+                                  ? Icons.favorite
+                                  : Icons.favorite_border_rounded,
+                              color: isSelected ? AppColors.pink :AppColors.black,
                             ),
                           ),
                         ),
+                        const SizedBox(width: 5)
                       ],
                     ),
                   ),
@@ -214,6 +212,14 @@ class _HorizontalProductWidgetState extends State<HorizontalProductWidget> {
                                       count: 1,
                                     ),
                                   );
+                            } else {
+                              context.read<BasketBloc>().add(
+                                    PostBasketProductBasketEvent(
+                                      productVariationId:
+                                          widget.model.variations[0].id,
+                                      count: 1,
+                                    ),
+                                  );
                             }
                           }
                           if (!isAlreadyHave) {
@@ -233,6 +239,14 @@ class _HorizontalProductWidgetState extends State<HorizontalProductWidget> {
                                       count: 1,
                                     ),
                                   );
+                            } else {
+                              context.read<BasketBloc>().add(
+                                    PostBasketProductBasketEvent(
+                                      productVariationId:
+                                          widget.model.variations[0].id,
+                                      count: 1,
+                                    ),
+                                  );
                             }
                           }
                           snackBar(
@@ -245,7 +259,7 @@ class _HorizontalProductWidgetState extends State<HorizontalProductWidget> {
                         child: const Text(
                           'В корзину',
                           style: TextStyle(
-                            color: Colors.white,
+                            color:AppColors.white,
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
                           ),

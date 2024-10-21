@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../core/constants/app_colors.dart';
+
 // ignore: must_be_immutable
 class HomePopUpMenuWidget extends StatefulWidget {
   bool isLanguagePopUp;
@@ -18,7 +20,7 @@ class _HomePopUpMenuWidgetState extends State<HomePopUpMenuWidget> {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-      color: Colors.white,
+      color: AppColors.white,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
           Radius.circular(10),

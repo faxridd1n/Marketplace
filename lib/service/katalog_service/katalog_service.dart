@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_application_1/di/DioClient.dart';
 import 'package:flutter_application_1/service/log_service/LogService.dart';
 
-import '../../models/basket_model/PostBasketProductModel.dart';
+import '../../models/basket_model/post_basket_product_model.dart';
 import '../../models/products_model/product_model.dart';
 
 class KatalogService {

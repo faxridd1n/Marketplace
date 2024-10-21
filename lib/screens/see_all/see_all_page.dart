@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/assets_path/AppIconsPath.dart';
+import 'package:flutter_application_1/assets_path/app_icons_path.dart';
 import 'package:flutter_application_1/screens/see_all/see_all_bloc/see_all_bloc.dart';
 import 'package:flutter_application_1/screens/see_all/widgets/bottom_sheet_widget.dart';
 import 'package:flutter_application_1/widgets/horizontal_product_widget.dart';
@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
 
-import '../../core/constants/AppColors.dart';
+import '../../core/constants/app_colors.dart';
 
 class SeeAllPage extends StatefulWidget {
   const SeeAllPage({required this.categoryId, super.key});
@@ -47,9 +47,9 @@ class _SeeAllPageState extends State<SeeAllPage> {
               backgroundColor: AppColors.pageBgColor,
               appBar: AppBar(
                 elevation: 2,
-                shadowColor: const Color.fromARGB(77, 0, 0, 0),
-                surfaceTintColor: Colors.transparent,
-                backgroundColor: Colors.white,
+                shadowColor: AppColors.appBarShadowColor,
+                surfaceTintColor: AppColors.transparent,
+                backgroundColor: AppColors.white,
                 actions: [
                   Row(
                     children: [
@@ -89,9 +89,10 @@ class _SeeAllPageState extends State<SeeAllPage> {
                             Text(
                               state.productModel!.length.toString(),
                               style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.amber),
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.yellow,
+                              ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -109,7 +110,7 @@ class _SeeAllPageState extends State<SeeAllPage> {
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
-                            color: Colors.white,
+                            color: AppColors.white,
                           ),
                           child: Row(
                             children: [

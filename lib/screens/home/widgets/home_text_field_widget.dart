@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../assets_path/AppIconsPath.dart';
-import '../../../core/constants/AppColors.dart';
+import '../../../assets_path/app_icons_path.dart';
+import '../../../core/constants/app_colors.dart';
 
 class HomeTextFieldWidget extends StatefulWidget {
   const HomeTextFieldWidget({super.key});
@@ -35,7 +35,7 @@ class _HomeTextFieldWidgetState extends State<HomeTextFieldWidget> {
             borderRadius: BorderRadius.circular(10),
             borderSide: const BorderSide(
               width: 1,
-              color: Colors.white,
+              color:AppColors.white,
             ),
           ),
           enabledBorder: OutlineInputBorder(
@@ -53,7 +53,7 @@ class _HomeTextFieldWidgetState extends State<HomeTextFieldWidget> {
             fontWeight: FontWeight.w500,
           ),
           filled: true,
-          fillColor: Colors.white,
+          fillColor:AppColors.white,
           prefixIcon: SvgPicture.asset(
             AppIcons.search,
             width: 22,

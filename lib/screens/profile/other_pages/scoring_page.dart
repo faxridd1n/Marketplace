@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/constants/app_colors.dart';
+
 class ScoringPage extends StatefulWidget {
   const ScoringPage({super.key});
 
@@ -11,11 +13,11 @@ class _ScoringPageState extends State<ScoringPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        surfaceTintColor: Colors.transparent,
-        shadowColor: const Color.fromARGB(87, 0, 0, 0),
+        backgroundColor: AppColors.white,
+        surfaceTintColor: AppColors.transparent,
+        shadowColor: AppColors.appBarShadowColor,
         elevation: 2,
         centerTitle: true,
         title: const Text(

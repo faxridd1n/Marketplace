@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/assets_path/AppIconsPath.dart';
-import 'package:flutter_application_1/core/constants/AppColors.dart';
+import 'package:flutter_application_1/assets_path/app_icons_path.dart';
+import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class DocsWidget extends StatelessWidget {
@@ -9,10 +9,10 @@ class DocsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-        color: Colors.white,
+        color:AppColors.white,
         margin: const EdgeInsets.symmetric(vertical: 10),
         elevation: 5,
-        shadowColor: Colors.black,
+        shadowColor:AppColors.black,
         child: Container(
           padding: const EdgeInsets.all(15),
           child: Column(

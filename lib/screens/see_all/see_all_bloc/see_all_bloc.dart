@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 import 'package:meta/meta.dart';
 
-import '../../../models/basket_model/PostBasketProductModel.dart';
+import '../../../models/basket_model/post_basket_product_model.dart';
 import '../../../models/products_model/product_model.dart';
 import '../../../models/see_all_model/filtered_search_model.dart';
 import '../../../service/see_all_service/see_all_sevice.dart';

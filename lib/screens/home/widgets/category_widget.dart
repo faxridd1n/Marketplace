@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/assets_path/AppIconsPath.dart';
-import 'package:flutter_application_1/assets_path/AppImagesPath.dart';
-import 'package:flutter_application_1/models/home_model/CategoryModel.dart';
+import 'package:flutter_application_1/assets_path/app_icons_path.dart';
+import 'package:flutter_application_1/assets_path/app_images_path.dart';
+import 'package:flutter_application_1/models/home_model/category_model.dart';
 import 'package:flutter_application_1/screens/katalog/katalog_page.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

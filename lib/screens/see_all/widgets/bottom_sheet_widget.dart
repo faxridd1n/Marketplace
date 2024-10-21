@@ -5,7 +5,7 @@ import 'package:flutter_application_1/screens/see_all/widgets/clear_filters_widg
 import 'package:flutter_application_1/screens/see_all/widgets/single_select_widget.dart';
 import 'package:flutter_application_1/screens/see_all/widgets/switch_widget.dart';
 
-import '../../../core/constants/AppColors.dart';
+import '../../../core/constants/app_colors.dart';
 import 'slider_widget.dart';
 
 void openFilterSheet(
@@ -13,7 +13,7 @@ void openFilterSheet(
   List<FilteredSearchModel>? models,
 ) {
   showModalBottomSheet(
-    backgroundColor: Colors.transparent,
+    backgroundColor:AppColors.transparent,
     context: context,
     useRootNavigator: true,
     isDismissible: true,

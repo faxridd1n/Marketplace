@@ -1,14 +1,14 @@
 part of 'basket_bloc.dart';
 
 class BasketState extends Equatable {
-  final BasketResponseModel? basketResponseModel;
+  final BasketProductModel? basketResponseModel;
   final FormzSubmissionStatus getBasketProductStatus;
 
   final BasketDeleteResModel? basketDeleteResModel;
   final FormzSubmissionStatus basketDeleteResStatus;
   final PostResponseBasketModel? postResponseBasketModel;
   final FormzSubmissionStatus postResponseBasketStatus;
-  final List<BasketProductElement>? selectedProducts;
+  final List<ProductElement>? selectedProducts;
 
   const BasketState({
     this.basketResponseModel,
@@ -21,13 +21,13 @@ class BasketState extends Equatable {
   });
 
   BasketState copyWith({
-    BasketResponseModel? basketResponseModel,
+    BasketProductModel? basketResponseModel,
     FormzSubmissionStatus? getBasketProductStatus,
     BasketDeleteResModel? basketDeleteResModel,
     FormzSubmissionStatus? basketDeleteResStatus,
     PostResponseBasketModel? postResponseBasketModel,
     FormzSubmissionStatus? postResponseBasketStatus,
-    List<BasketProductElement>? selectedProducts,
+    List<ProductElement>? selectedProducts,
   }) {
     return BasketState(
       basketResponseModel: basketResponseModel ?? this.basketResponseModel,

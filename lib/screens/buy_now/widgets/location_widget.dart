@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/assets_path/AppIconsPath.dart';
-import 'package:flutter_application_1/core/constants/AppColors.dart';
+import 'package:flutter_application_1/assets_path/app_icons_path.dart';
+import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_application_1/models/buy_now_model/location_model.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -29,7 +29,7 @@ void openLocationSheet(
  
 
   showModalBottomSheet<void>(
-    backgroundColor: Colors.transparent,
+    backgroundColor:AppColors.transparent,
     isScrollControlled: true,
     context: context,
     builder: (BuildContext context) {
@@ -39,7 +39,7 @@ void openLocationSheet(
           borderRadius: BorderRadius.vertical(
             top: Radius.circular(15),
           ),
-          color: Colors.white,
+          color:AppColors.white,
         ),
         height: 400,
         padding: const EdgeInsets.only(
@@ -97,10 +97,10 @@ void openLocationSheet(
                       selectedRegion = models.result!.regions![index].name!;
                       Navigator.of(context).pop();
                     },
-                    child: Container(
+                    child: SizedBox(
                       width: MediaQuery.of(context).size.width,
                       height: 50,
-                      //  color: Colors.red,
+                      //  color:AppColors.red,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,

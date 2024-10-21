@@ -36,8 +36,8 @@
 //             children: [
 //               Card(
 //                 elevation: 5,
-//                 shadowColor: Colors.black,
-//                 color: Colors.white,
+//                 shadowColor:AppColors.black,
+//                 color:AppColors.white,
 //                 child: Stack(
 //                   children: [
 //                     Container(
@@ -66,7 +66,7 @@
 //                             children: [
 //                               const Icon(
 //                                 Icons.star,
-//                                 color: Colors.yellow,
+//                                 color:AppColors.yellow,
 //                                 size: 20,
 //                               ),
 //                               const SizedBox(
@@ -114,7 +114,7 @@
 //                                   radius: 20,
 //                                   child: Icon(
 //                                     Icons.arrow_forward,
-//                                     color: Colors.white,
+//                                     colorshite,
 //                                   ),
 //                                 ),
 //                               ),

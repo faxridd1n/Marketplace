@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/core/constants/AppColors.dart';
+import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_application_1/screens/profile/other_pages/change_password_page.dart';
 import 'package:flutter_application_1/screens/profile/other_pages/edit_number_page.dart';
 import 'package:flutter_application_1/screens/profile/widgets/delete_personal_data_diolog.dart';
@@ -15,11 +15,11 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.white,
       appBar: AppBar(
-        shadowColor: const Color.fromARGB(85, 0, 0, 0),
-        surfaceTintColor: Colors.transparent,
-        backgroundColor: Colors.white,
+        shadowColor: AppColors.appBarShadowColor,
+        surfaceTintColor: AppColors.transparent,
+        backgroundColor: AppColors.white,
         elevation: 2,
         centerTitle: true,
         title: const Text(
@@ -163,7 +163,7 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
                     child: const Text(
                       'Изменить номер',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: AppColors.white,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),
@@ -191,7 +191,7 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
                     child: const Text(
                       'Сменить пароль',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: AppColors.white,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),
@@ -220,7 +220,7 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
                     child: const Text(
                       'Удалить личные данные',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: AppColors.white,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/core/constants/AppColors.dart';
-import 'package:flutter_application_1/models/product_detail_model/ProductDetailModel.dart';
+import 'package:flutter_application_1/core/constants/app_colors.dart';
+import 'package:flutter_application_1/models/product_detail_model/product_detail_model.dart';
 
 // ignore: must_be_immutable
 class PDetailPageTab1 extends StatefulWidget {
@@ -26,7 +26,7 @@ class _PDetailPageTab1State extends State<PDetailPageTab1> {
             return Container(
               width: MediaQuery.of(context).size.width,
               height: 50,
-              color: index % 2 == 0 ? AppColors.grey1 : Colors.white,
+              color: index % 2 == 0 ? AppColors.grey1 :AppColors.white,
               child: Padding(
                 padding: EdgeInsets.only(
                   left: 15,

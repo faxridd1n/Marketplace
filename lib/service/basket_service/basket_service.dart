@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_application_1/di/DioClient.dart';
 import 'package:flutter_application_1/models/basket_model/basket_delete_res_model.dart';
-import 'package:flutter_application_1/models/basket_model/basket_response_model.dart';
+import 'package:flutter_application_1/models/basket_model/basket_product_model.dart';
 import 'package:flutter_application_1/service/log_service/LogService.dart';
 
-import '../../models/basket_model/PostBasketProductModel.dart';
+import '../../models/basket_model/post_basket_product_model.dart';
 
 class BasketService {
   static final BasketService _inheritance = BasketService._init();
@@ -13,7 +13,7 @@ class BasketService {
 
   BasketService._init();
 
-  static Future<BasketResponseModel?> getBasketProducts() async {
+  static Future<BasketProductModel?> getBasketProducts() async {
     try {
       final response = await DioConfig.inheritance.createRequest().get(
             "https://client.arbuzmarket.com/api/basket",
@@ -31,7 +31,7 @@ class BasketService {
         // final data = (response.data['item'] as List)
         //     .map((e) => BasketProductModel.fromJson(e))
         //     .toList();
-        final data = BasketResponseModel.fromJson(response.data);
+        final data = BasketProductModel.fromJson(response.data);
         return data;
       } else {
         Log.e("${response.statusMessage} ${response.statusCode}");

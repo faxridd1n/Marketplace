@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import '../core/constants/AppColors.dart';
+import '../core/constants/app_colors.dart';
 
 class UserNumberField extends StatefulWidget {
   const UserNumberField({required this.textController, super.key});
@@ -35,7 +35,7 @@ class _UserNumberFieldState extends State<UserNumberField> {
                 decoration: const InputDecoration(
                   hintText: '+998 ',
                   hintStyle: TextStyle(
-                    color: Colors.black,
+                    color:AppColors.black,
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                   ),

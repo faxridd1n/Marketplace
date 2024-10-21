@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/assets_path/AppIconsPath.dart';
-import 'package:flutter_application_1/core/constants/AppColors.dart';
+import 'package:flutter_application_1/assets_path/app_icons_path.dart';
+import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_svg/svg.dart';
 
 // ignore: must_be_immutable
@@ -45,7 +45,7 @@ class DetailPagePaymentWidget extends StatelessWidget {
             ),
             height: 2,
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Container(
@@ -62,7 +62,7 @@ class DetailPagePaymentWidget extends StatelessWidget {
               width: 25,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           Padding(
@@ -76,10 +76,10 @@ class DetailPagePaymentWidget extends StatelessWidget {
           ),
           Expanded(child: Container()),
           index == 3
-              ? SizedBox()
+              ? const SizedBox()
               : Text(
                   realPrice,
-                  style: TextStyle(
+                  style: const TextStyle(
                       decoration: TextDecoration.lineThrough,
                       color: AppColors.grey3),
                 ),
@@ -88,17 +88,17 @@ class DetailPagePaymentWidget extends StatelessWidget {
             children: [
               Text(
                index==3?realPrice: price,
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.w600,
                 ),
                 overflow: TextOverflow.ellipsis,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
               index == 1
                   ? Container(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 5,
                         vertical: 2,
                       ),
@@ -106,12 +106,12 @@ class DetailPagePaymentWidget extends StatelessWidget {
                         borderRadius: BorderRadius.circular(32),
                         color: AppColors.yellow,
                       ),
-                      child: Text('x36 oy'),
+                      child: const Text('x36 oy'),
                     )
-                  : SizedBox(),
+                  : const SizedBox(),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           index == 3
@@ -120,19 +120,19 @@ class DetailPagePaymentWidget extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.all(0),
+                      padding: const EdgeInsets.all(0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(7),
                       ),
                       backgroundColor: buttonColor,
                     ),
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           'Xarid qilish',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: AppColors.white,
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
                           ),
@@ -141,13 +141,13 @@ class DetailPagePaymentWidget extends StatelessWidget {
                     ),
                   ),
                 )
-              : SizedBox(),
+              : const SizedBox(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5),
             child: ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.all(0),
+                padding: const EdgeInsets.all(0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(7),
                 ),
@@ -158,15 +158,15 @@ class DetailPagePaymentWidget extends StatelessWidget {
                 children: [
                   SvgPicture.asset(
                    index==3? AppIcons.cartAdd:AppIcons.edit,
-                    color: index == 1 ? Colors.black : Colors.white,
+                    color: index == 1 ? Colors.black :AppColors.white,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
-                  Text(
+                  const Text(
                     'Rasmiylashtirish',
                     style: TextStyle(
-                      color: Colors.white,
+                      color:AppColors.white,
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                     ),

@@ -4,7 +4,6 @@ part of 'profile_bloc.dart';
 abstract class ProfileEvent {}
 
 // ignore: must_be_immutable
-class PostAuthUser extends ProfileEvent {
-  String phoneNumber;
-  PostAuthUser({required this.phoneNumber});
+class GetUserProfile extends ProfileEvent {
+  GetUserProfile();
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/AppColors.dart';
-import '../../../models/auth_model/register_user_request_model.dart';
+import '../../../core/constants/app_colors.dart';
+import '../../../models/auth_model/register_model/register_user_request_model.dart';
 
 class AuthPassportTypeField extends StatefulWidget {
   const AuthPassportTypeField({required this.userModel, super.key});
@@ -35,10 +35,10 @@ class _AuthPassportTypeFieldState extends State<AuthPassportTypeField> {
         ),
         const SizedBox(height: 10),
         PopupMenuButton(
-          surfaceTintColor: Colors.transparent,
-          shadowColor: Colors.black,
+          surfaceTintColor: AppColors.transparent,
+          shadowColor: AppColors.black,
           splashRadius: 5,
-          color: Colors.white,
+          color: AppColors.white,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(10),

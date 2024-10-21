@@ -5,7 +5,7 @@ import 'package:flutter_application_1/screens/profile/profile_bloc/profile_bloc.
 import 'package:flutter_application_1/screens/profile/widgets/profile_number_field.dart';
 import 'package:flutter_application_1/screens/profile/widgets/profile_otp_field.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../core/constants/AppColors.dart';
+import '../../core/constants/app_colors.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -27,11 +27,11 @@ class _LoginPageState extends State<LoginPage> {
       create: (c) => ProfileBloc(),
       child: Builder(builder: (context) {
         return Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor:AppColors.white,
           appBar: AppBar(
             centerTitle: true,
-            surfaceTintColor: Colors.transparent,
-            backgroundColor: Colors.white,
+            surfaceTintColor:AppColors.transparent,
+            backgroundColor:AppColors.white,
             title: const Text(
               'Profile',
               style: TextStyle(
@@ -40,7 +40,8 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             elevation: 2,
-            shadowColor: const Color.fromARGB(72, 0, 0, 0),
+            shadowColor: AppColors.appBarShadowColor
+            ,
           ),
           body: SingleChildScrollView(
             child: Padding(
@@ -97,7 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                               decoration: const InputDecoration(
                                 hintText: '+998 ',
                                 hintStyle: TextStyle(
-                                  color: Colors.black,
+                                  color:AppColors.black,
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -165,7 +166,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: const Text(
                         'Войти',
                         style: TextStyle(
-                          color: Colors.white,
+                          color:AppColors.white,
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),

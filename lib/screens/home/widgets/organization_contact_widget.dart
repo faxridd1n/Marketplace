@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/assets_path/AppIconsPath.dart';
-import 'package:flutter_application_1/assets_path/AppImagesPath.dart';
-import 'package:flutter_application_1/core/constants/AppColors.dart';
-import 'package:flutter_application_1/models/OrganizationContactModel.dart';
+import 'package:flutter_application_1/assets_path/app_icons_path.dart';
+import 'package:flutter_application_1/assets_path/app_images_path.dart';
+import 'package:flutter_application_1/core/constants/app_colors.dart';
+import 'package:flutter_application_1/models/organization_contact_model.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../models/home_model/OrganizationModel.dart';
+import '../../../models/home_model/organization_model.dart';
 
 // ignore: must_be_immutable
 class OrganizationContactWidget extends StatelessWidget {
@@ -25,8 +25,8 @@ class OrganizationContactWidget extends StatelessWidget {
           children: [
             Card(
               elevation: 5,
-              shadowColor: isSingle ? Colors.transparent : Colors.black,
-              color: isSingle ? AppColors.grey1 : Colors.white,
+              shadowColor: isSingle ? Colors.transparent :AppColors.black,
+              color: isSingle ? AppColors.grey1 :AppColors.white,
               child: Container(
                 width: isSingle
                     ? MediaQuery.of(context).size.width * 0.9
@@ -68,7 +68,7 @@ class OrganizationContactWidget extends StatelessWidget {
                                 children: [
                                   const Icon(
                                     Icons.star,
-                                    color: Colors.yellow,
+                                    color:AppColors.yellow,
                                     size: 20,
                                   ),
                                   const SizedBox(width: 5),

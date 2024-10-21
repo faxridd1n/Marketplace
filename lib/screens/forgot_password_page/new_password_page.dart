@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/forgot_password_page/widgets/new_password_field.dart';
 
-import '../../core/constants/AppColors.dart';
+import '../../core/constants/app_colors.dart';
 
 class NewPasswordPage extends StatefulWidget {
   const NewPasswordPage({super.key});
@@ -14,14 +14,15 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor:AppColors.white,
       appBar: AppBar(
         elevation: 2,
-        shadowColor: const Color.fromARGB(86, 0, 0, 0),
-        backgroundColor: Colors.white,
-        surfaceTintColor: Colors.transparent,
+        shadowColor: AppColors.appBarShadowColor
+        ,
+        backgroundColor:AppColors.white,
+        surfaceTintColor:AppColors.transparent,
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'Новый пароль',
           style: TextStyle(
             fontSize: 18,
@@ -47,14 +48,14 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
           ),
           child: Column(
             children: [
-              NewPasswordField(),
-              SizedBox(height: 20),
+              const NewPasswordField(),
+              const SizedBox(height: 20),
               Row(
                 children: [
                   Expanded(
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(vertical: 18),
+                        padding: const EdgeInsets.symmetric(vertical: 18),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -64,7 +65,7 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                       child: const Text(
                         'Подтвердить',
                         style: TextStyle(
-                          color: Colors.white,
+                          color:AppColors.white,
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),
@@ -73,7 +74,7 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                   ),
                 ],
               ),
-              SizedBox(height: 20)
+              const SizedBox(height: 20)
             ],
           ),
         ),

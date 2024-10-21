@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../assets_path/AppImagesPath.dart';
-import '../../../core/constants/AppColors.dart';
+import '../../../assets_path/app_images_path.dart';
+import '../../../core/constants/app_colors.dart';
 
 class EmptyBasketPage extends StatelessWidget {
   const EmptyBasketPage({super.key});
@@ -60,7 +60,7 @@ class EmptyBasketPage extends StatelessWidget {
               child: Text(
                 'Перейти в каталог',
                 style: TextStyle(
-                  color: Colors.white,
+                  color:AppColors.white,
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),

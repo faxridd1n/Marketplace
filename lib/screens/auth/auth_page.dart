@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/auth_model/register_user_request_model.dart';
+import 'package:flutter_application_1/models/auth_model/register_model/register_user_request_model.dart';
 import 'package:flutter_application_1/screens/auth/auth_bloc/auth_bloc.dart';
 import 'package:flutter_application_1/screens/auth/auth_otp_page.dart';
 import 'package:flutter_application_1/screens/auth/widgets/auth_birthday_field.dart';
+import 'package:flutter_application_1/screens/auth/widgets/auth_number_field.dart';
 import 'package:flutter_application_1/screens/auth/widgets/auth_passport_type_field.dart';
 import 'package:flutter_application_1/screens/auth/widgets/auth_password_field.dart';
 import 'package:flutter_application_1/screens/auth/widgets/auth_user_name_field.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import '../../core/constants/AppColors.dart';
+import '../../core/constants/app_colors.dart';
+// import 'qwqwqw.dart';
+// import 'qwqwqw.dart';
 import 'widgets/auth_passport_field.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -29,12 +31,12 @@ class _AuthPageState extends State<AuthPage> {
     return BlocProvider(
       create: (ctx) => AuthBloc(),
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.white,
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          surfaceTintColor: Colors.transparent,
+          backgroundColor: AppColors.white,
+          surfaceTintColor: AppColors.transparent,
           elevation: 2,
-          shadowColor: const Color.fromARGB(100, 0, 0, 0),
+          shadowColor: AppColors.appBarShadowColor,
           centerTitle: true,
           title: const Text(
             'Регистрация',
@@ -47,7 +49,10 @@ class _AuthPageState extends State<AuthPage> {
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 16,
+            ),
             child: Form(
               key: _formGlobalKey,
               child: Column(
@@ -62,7 +67,8 @@ class _AuthPageState extends State<AuthPage> {
                   ),
                   const SizedBox(height: 20),
                   AuthUserNameField(userModel: userModel),
-                  _buildPhoneNumberField(),
+                  const SizedBox(height: 20),
+                  AuthNumberField(userModel: userModel),
                   const SizedBox(height: 20),
                   AuthBirthdayField(userModel: userModel),
                   const SizedBox(height: 20),
@@ -83,91 +89,39 @@ class _AuthPageState extends State<AuthPage> {
     );
   }
 
-  Widget _buildPhoneNumberField() {
-    String number = '';
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Номер телефона',
-          style: TextStyle(
-            color: AppColors.grey2,
-            fontWeight: FontWeight.w500,
-            fontSize: 12,
-          ),
-        ),
-        const SizedBox(height: 10),
-        SizedBox(
-          height: 60,
-          child: TextFormField(
-            controller: numberController,
-            onChanged: (value) {
-              if (value.length == 17) {
-                var a = value.split('');
-                for (var e in a) {
-                  if (e != '+' && e != ' ') number += e;
-                }
-                userModel.phoneNumber = number;
-              }
-            },
-            inputFormatters: [
-              MaskTextInputFormatter(
-                mask: "+### ## ### ## ##",
-                filter: {"#": RegExp(r'[0-9]')},
-              )
-            ],
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Enter your number correctly';
-              }
-              return null;
-            },
-            keyboardType: TextInputType.number,
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-            ),
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(
-                  width: 1,
-                  color: AppColors.grey3,
-                ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(
-                  width: 1,
-                  color: AppColors.grey3,
-                ),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(
-                  width: 1,
-                  color: AppColors.grey3,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
   Widget _buildSubmitButton() {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state.registerUserResponseStatus == FormzSubmissionStatus.success) {
           // Show success message
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('Registration successful')));
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Registration successful'),
+            ),
+          );
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return
+                    //  Pagee(
+                    //   // model: userModel,
+                    //   userResponseModel: state.registerUserResponseModel,
+                    // );
+                    AuthOtpPage(
+                  responseModel: state.registerUserResponseModel!,
+                );
+              },
+            ),
+          );
         } else if (state.registerUserResponseStatus ==
             FormzSubmissionStatus.failure) {
           // Show error message
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('Registration failed')));
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Registration failed'),
+            ),
+          );
         }
       },
       builder: (context, state) {
@@ -182,24 +136,23 @@ class _AuthPageState extends State<AuthPage> {
                         );
                   }
 
-                  if (state.registerUserResponseStatus.isSuccess) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return
-                              // Pagee(
-                              //   // model: userModel,
-                              //   userResponseModel: state.registerUserResponseModel,
-                              // );
-                              AuthOtpPage(
-                            // userModel: userModel,
-                            responseModel: state.registerUserResponseModel,
-                          );
-                        },
-                      ),
-                    );
-                  }
+                  // if (state.registerUserResponseStatus.isSuccess) {
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) {
+                  //       return
+                  //           Pagee(
+                  //             model: userModel,
+                  //             // userResponseModel: state.registerUserResponseModel,
+                  //           );
+                  //       //     AuthOtpPage(
+                  //       //   responseModel: state.registerUserResponseModel!,
+                  //       // );
+                  //     },
+                  //   ),
+                  // );
+                  // }
                 },
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 18),
@@ -209,14 +162,17 @@ class _AuthPageState extends State<AuthPage> {
                   backgroundColor: AppColors.grey2,
                 ),
                 child: state.registerUserResponseStatus.isInProgress
-                    ? const CircularProgressIndicator(
-                        color: Colors.white,
-                        strokeWidth: 1,
+                    ? const SizedBox(
+                        height: 40,
+                        child: CircularProgressIndicator(
+                          color: AppColors.white,
+                          strokeWidth: 1,
+                        ),
                       )
                     : const Text(
                         'Сохранить',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: AppColors.white,
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),

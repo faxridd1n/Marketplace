@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 // import 'package:flutter_application_1/assets_path/AppIconsPath.dart';
-import 'package:flutter_application_1/assets_path/AppImagesPath.dart';
-import 'package:flutter_application_1/core/constants/AppColors.dart';
+import 'package:flutter_application_1/assets_path/app_images_path.dart';
+import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_application_1/screens/drawer/DrawerPage.dart';
 import 'package:flutter_application_1/screens/home/home_bloc/home_bloc.dart';
 import 'package:flutter_application_1/screens/home/widgets/BannerWidget.dart';
-import 'package:flutter_application_1/screens/home/widgets/CategoryWidget.dart';
+import 'package:flutter_application_1/screens/home/widgets/category_widget.dart';
 // import 'package:flutter_application_1/screens/home/widgets/HomePopUp.dart';
 import 'package:flutter_application_1/widgets/title_widget.dart';
 import 'package:flutter_application_1/screens/home/widgets/home_text_field_widget.dart';
@@ -15,6 +15,9 @@ import 'package:flutter_application_1/widgets/bottom_info_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
+import '../../assets_path/app_icons_path.dart';
+import 'widgets/home_pop_up.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -66,10 +69,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor:AppColors.white,
       appBar: AppBar(
-        surfaceTintColor: Colors.transparent,
-        backgroundColor: Colors.white,
+        surfaceTintColor:AppColors.transparent,
+        backgroundColor:AppColors.white,
         leading: Builder(builder: (context) {
           return IconButton(
             onPressed: () {
@@ -79,10 +82,10 @@ class _HomePageState extends State<HomePage> {
           );
         }),
         elevation: 2,
-        shadowColor: const Color.fromARGB(86, 0, 0, 0),
-        // actions: [
-        //   HomePopUpMenuWidget(false, AppIcons.location),
-        // ],
+        shadowColor: AppColors.appBarShadowColor,
+        actions: [
+          HomePopUpMenuWidget(true, AppIcons.language),
+        ],
       ),
       drawer: const DrawerPage(),
       body: SingleChildScrollView(
@@ -121,7 +124,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            TitleWidget(
+            const TitleWidget(
               titleText: 'Kategoriyalar',
               withSeeAllButton: false,
               categoryId: null,

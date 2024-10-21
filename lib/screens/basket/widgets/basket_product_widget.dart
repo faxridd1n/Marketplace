@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/assets_path/AppIconsPath.dart';
-import 'package:flutter_application_1/assets_path/AppImagesPath.dart';
-import 'package:flutter_application_1/core/constants/AppColors.dart';
-import 'package:flutter_application_1/models/basket_model/basket_response_model.dart';
+import 'package:flutter_application_1/assets_path/app_icons_path.dart';
+import 'package:flutter_application_1/assets_path/app_images_path.dart';
+import 'package:flutter_application_1/core/constants/app_colors.dart';
+import 'package:flutter_application_1/models/basket_model/basket_product_model.dart';
 import 'package:flutter_application_1/screens/basket/basket_page.dart';
 import 'package:flutter_application_1/screens/basket/basket_bloc/basket_bloc.dart';
 import 'package:flutter_application_1/screens/home/widgets/snack_bar.dart';
@@ -18,7 +18,7 @@ class BasketProductWidget extends StatefulWidget {
       required this.index,
       required this.isSelected,
       super.key});
-  BasketProductElement model;
+  ProductElement model;
   int index;
   bool isSelected;
   @override
@@ -29,7 +29,7 @@ class _BasketProductWidgetState extends State<BasketProductWidget> {
   int productCount = 0;
   @override
   void initState() {
-    productCount = widget.model.count ?? 1;
+    productCount = widget.model.count;
 
     super.initState();
   }
@@ -40,273 +40,267 @@ class _BasketProductWidgetState extends State<BasketProductWidget> {
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 15),
       width: MediaQuery.of(context).size.width,
       height: 140,
-      child: Expanded(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 24,
-              width: 24,
-              child: Checkbox(
-                checkColor: Colors.white,
-                activeColor: AppColors.green,
-                value: widget.isSelected
-                    ? true
-                    : selectedProducts.contains(widget.model)
-                        ? true
-                        : false,
-                onChanged: (value) {
-                  widget.isSelected = value!;
-                  if (value) {
-                    context.read<BasketBloc>().add(
-                          SelectBasketProductsEvent(
-                            selectedProducts: widget.model,
-                          ),
-                        );
-                    selectedProducts.add(widget.model);
-
-                    for (var r in widget.model.prices!) {
-                      if (r.type == "Price") {
-                        dealSum += r.value!.toInt();
-                      }
-                    }
-                  } else {
-                    selectedProducts.remove(widget.model);
-                    for (var r in widget.model.prices!) {
-                      if (r.type == "Price") {
-                        dealSum -= r.value!.toInt();
-                      }
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: 24,
+            width: 24,
+            child: Checkbox(
+              checkColor: AppColors.white,
+              activeColor: AppColors.green,
+              value: widget.isSelected
+                  ? true
+                  : selectedProducts.contains(widget.model)
+                      ? true
+                      : false,
+              onChanged: (value) {
+                widget.isSelected = value!;
+                if (value) {
+                  context.read<BasketBloc>().add(
+                        SelectBasketProductsEvent(
+                          selectedProducts: widget.model,
+                        ),
+                      );
+                  selectedProducts.add(widget.model);
+      
+                  for (var r in widget.model.prices) {
+                    if (r.type == "Price") {
+                      dealSum += r.value.toInt();
                     }
                   }
-                  setState(() {});
-                },
-              ),
+                } else {
+                  selectedProducts.remove(widget.model);
+                  for (var r in widget.model.prices) {
+                    if (r.type == "Price") {
+                      dealSum -= r.value.toInt();
+                    }
+                  }
+                }
+                setState(() {});
+              },
             ),
-            const SizedBox(
-              width: 5,
+          ),
+          const SizedBox(width: 5),
+          SizedBox(
+            width: 70,
+            child: Image.network(
+              widget.model.files[0].url,
+              fit: BoxFit.cover,
+              errorBuilder: (BuildContext context, Object exception,
+                  StackTrace? stackTrace) {
+                return const Image(
+                  image: AssetImage(
+                      AppImages.noImage), // Path to your local fallback image
+                );
+              },
             ),
-            SizedBox(
-              width: 70,
-              child: Image.network(
-                widget.model.files![0].url!,
-                fit: BoxFit.cover,
-                errorBuilder: (BuildContext context, Object exception,
-                    StackTrace? stackTrace) {
-                  return const Image(
-                    image: AssetImage(
-                        AppImages.noImage), // Path to your local fallback image
-                  );
-                },
-              ),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          widget.model.product!.name!,
-                          // maxLines: 3,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
-                          // overflow: TextOverflow.ellipsis,
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        widget.model.product.name,
+                        // maxLines: 3,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
                         ),
+                        // overflow: TextOverflow.ellipsis,
                       ),
-                      SizedBox(width: 5),
-                      GestureDetector(
-                        onTap: () {
-                          context.read<BasketBloc>().add(
-                                DeleteBasketProductsEvent(
-                                  widget.model.prices![0].variationId!,
-                                ),
-                              );
-
-                          snackBar(
-                            isHomePage: false,
-                            context: context,
-                            name: widget.model.product!.name!,
-                            addProduct: false,
-                          );
-                          setState(() {
-                            for (var e in basketProducts) {
-                              if (e.id == widget.model.id) {
-                                basketProducts.remove(e);
-                              }
+                    ),
+                    const SizedBox(width: 5),
+                    GestureDetector(
+                      onTap: () {
+                        context.read<BasketBloc>().add(
+                              DeleteBasketProductsEvent(
+                                widget.model.prices[0].variationId,
+                              ),
+                            );
+      
+                        snackBar(
+                          isHomePage: false,
+                          context: context,
+                          name: widget.model.product.name,
+                          addProduct: false,
+                        );
+                        setState(() {
+                          for (var e in basketProducts) {
+                            if (e.id == widget.model.id) {
+                              basketProducts.remove(e);
                             }
-                          });
-                        },
-                        child: SizedBox(
-                          height: 25,
-                          width: 25,
-                          child: SvgPicture.asset(
-                            AppIcons.xIcon,
-                          ),
+                          }
+                        });
+                      },
+                      child: SizedBox(
+                        height: 25,
+                        width: 25,
+                        child: SvgPicture.asset(
+                          AppIcons.xIcon,
                         ),
                       ),
-                    ],
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                widget.model.prices?[0].type == 'Price'
-                                    ? addSpaceEveryThreeCharacters(widget
-                                        .model.prices![0].value!
-                                        .toInt()
-                                        .toString())
-                                    : addSpaceEveryThreeCharacters(widget
-                                        .model.prices![0].value!
-                                        .toInt()
-                                        .toString()),
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                    ),
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              widget.model.prices[0].type == 'Price'
+                                  ? addSpaceEveryThreeCharacters(widget
+                                      .model.prices[0].value
+                                      .toInt()
+                                      .toString())
+                                  : addSpaceEveryThreeCharacters(widget
+                                      .model.prices[0].value
+                                      .toInt()
+                                      .toString()),
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
                               ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(100),
-                                  color: AppColors.yellow,
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 5,
-                                ),
-                                child: const Text(
-                                  'x 12 мес',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const Text(
-                            '180 000 сум',
-                            style: TextStyle(
-                              color: AppColors.grey3,
-                              fontWeight: FontWeight.w500,
                             ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                if (productCount != 1) {
-                                  productCount -= 1;
-                                  context.read<BasketBloc>().add(
-                                        PostBasketProductCountBasketEvent(
-                                          widget.model.prices![0].variationId!,
-                                          productCount,
-                                        ),
-                                      );
-                                } else if (productCount == 1) {
-                                  context.read<BasketBloc>().add(
-                                        DeleteBasketProductsEvent(
-                                          widget.model.prices![0].variationId!,
-                                        ),
-                                      );
-
-                                  snackBar(
-                                    isHomePage: false,
-                                    context: context,
-                                    name: widget.model.product!.name!,
-                                    addProduct: false,
-                                  );
-                                  setState(() {
-                                    for (var e in basketProducts) {
-                                      if (e.id == widget.model.id) {
-                                        basketProducts.remove(e);
-                                      }
-                                    }
-                                  });
-                                }
-                              });
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(2),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),
-                                color: AppColors.borderColor,
+                                color: AppColors.yellow,
                               ),
-                              child: Icon(
-                                Icons.remove,
-                                size: 20,
-                                color: productCount == 1
-                                    ? AppColors.grey2
-                                    : Colors.black,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 5,
+                              ),
+                              child: const Text(
+                                'x 12 мес',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ),
+                          ],
+                        ),
+                        const Text(
+                          '180 000 сум',
+                          style: TextStyle(
+                            color: AppColors.grey3,
+                            fontWeight: FontWeight.w500,
                           ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            productCount.toString(),
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                productCount += 1;
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              if (productCount != 1) {
+                                productCount -= 1;
                                 context.read<BasketBloc>().add(
                                       PostBasketProductCountBasketEvent(
-                                        widget.model.prices![0].variationId!,
+                                        widget.model.prices[0].variationId,
                                         productCount,
                                       ),
                                     );
-                              });
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(2),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(100),
-                                color: AppColors.borderColor,
-                              ),
-                              child: const Icon(
-                                Icons.add,
-                                size: 20,
-                              ),
+                              } else if (productCount == 1) {
+                                context.read<BasketBloc>().add(
+                                      DeleteBasketProductsEvent(
+                                        widget.model.prices[0].variationId,
+                                      ),
+                                    );
+      
+                                snackBar(
+                                  isHomePage: false,
+                                  context: context,
+                                  name: widget.model.product.name,
+                                  addProduct: false,
+                                );
+                                setState(() {
+                                  for (var e in basketProducts) {
+                                    if (e.id == widget.model.id) {
+                                      basketProducts.remove(e);
+                                    }
+                                  }
+                                });
+                              }
+                            });
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(2),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: AppColors.borderColor,
+                            ),
+                            child: Icon(
+                              Icons.remove,
+                              size: 20,
+                              color: productCount == 1
+                                  ? AppColors.grey2
+                                  : AppColors.black,
                             ),
                           ),
-                        ],
-                      )
-                    ],
-                  ),
-                ],
-              ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          productCount.toString(),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              productCount += 1;
+                              context.read<BasketBloc>().add(
+                                    PostBasketProductCountBasketEvent(
+                                      widget.model.prices[0].variationId,
+                                      productCount,
+                                    ),
+                                  );
+                            });
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(2),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: AppColors.borderColor,
+                            ),
+                            child: const Icon(
+                              Icons.add,
+                              size: 20,
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

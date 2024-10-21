@@ -45,8 +45,8 @@
 //         borderRadius: BorderRadius.circular(8),
 //       ),
 //       elevation: 5,
-//       shadowColor: Colors.black,
-//       color: Colors.white,
+//       shadowColor:AppColors.black,
+//       color:AppColors.white,
 //       padding: const EdgeInsets.symmetric(
 //         horizontal: 8,
 //       ),
