@@ -2,16 +2,22 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   AppColors._();
+  static const grey = Colors.grey;
   static const grey1 = Color.fromRGBO(242, 242, 242, 1);
   static const grey2 = Color.fromRGBO(168, 170, 176, 1);
   static const grey3 = Color.fromRGBO(210, 210, 210, 1);
   static const green = Color.fromRGBO(51, 92, 73, 1);
+  static const snackBarGreen = Colors.green;
+  static const snackBarGreenGradient = Color.fromARGB(255, 244, 252, 245);
   static const green1 = Color.fromRGBO(187, 214, 67, 0.397);
 
   static const appBarShadowColor = Color.fromARGB(82, 0, 0, 0);
   static const white = Colors.white;
   static const black = Colors.black;
   static const red = Colors.red;
+    static const dotColor = Color.fromRGBO(226,232,240,1);
+    static const organizationHeaderBlue = Color.fromRGBO(51, 55, 78, 1);
+    static const organizationHeaderIconBlue = Color.fromRGBO(39,42,57,1);
 
   static const seeAllButtonColor = Color.fromRGBO(107, 181, 73, 0.16);
   static const blueText = Color.fromRGBO(32, 53, 74, 1);

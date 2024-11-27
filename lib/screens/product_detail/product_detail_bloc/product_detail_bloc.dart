@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_application_1/models/product_detail_model/organization_contact_model.dart';
 import 'package:flutter_application_1/models/product_detail_model/product_detail_model.dart';
 import 'package:flutter_application_1/models/products_model/product_model.dart';
 import 'package:flutter_application_1/service/home_service/home_service.dart';
@@ -53,5 +54,21 @@ class ProductDetailBloc extends Bloc<ProductDetailEvent, ProductDetailState> {
             postResponseBasketStatus: FormzSubmissionStatus.failure));
       }
     });
+
+
+    on<GetOrganizationContactEvent>((event, emit) async {
+      emit(state.copyWith(
+          organizationContactStatus: FormzSubmissionStatus.inProgress));
+      final result = await ProductDetailService.getOrganizationContact(event.categoryId);
+      if (result is OrganizationContactModel) {
+        emit(state.copyWith(
+            organizationContactModel: result,
+            organizationContactStatus: FormzSubmissionStatus.success));
+      } else {
+        emit(state.copyWith(
+            organizationContactStatus: FormzSubmissionStatus.failure));
+      }
+    });
+
   }
 }

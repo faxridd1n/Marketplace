@@ -1,36 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/assets_path/app_icons_path.dart';
-import 'package:flutter_application_1/assets_path/app_images_path.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
-import 'package:flutter_application_1/models/organization_contact_model.dart';
+import 'package:flutter_application_1/models/product_detail_model/organization_contact_model.dart';
+import 'package:flutter_application_1/screens/organization_page/organization_page.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../models/home_model/organization_model.dart';
+// import '../../../models/home_model/organization_model.dart';
 
 // ignore: must_be_immutable
 class OrganizationContactWidget extends StatelessWidget {
   OrganizationContactWidget(
       {required this.isSingle,
-      required this.model,
+      // required this.model,
       required this.contactModel,
       super.key});
   bool isSingle;
-  OrganizationModel? model;
+  // OrganizationModel? model;
   OrganizationContactModel? contactModel;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Wrap(
-          children: [
-            Card(
-              elevation: 5,
-              shadowColor: isSingle ? Colors.transparent :AppColors.black,
-              color: isSingle ? AppColors.grey1 :AppColors.white,
-              child: Container(
-                width: isSingle
-                    ? MediaQuery.of(context).size.width * 0.9
-                    : MediaQuery.of(context).size.width * 0.8,
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => OrganizationPage(
+              categoryId: contactModel!.result.organizationId,
+              contactModel: contactModel!,
+            ),
+          ),
+        );
+      },
+      child: Column(
+        children: [
+          Wrap(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  boxShadow: const [
+                    BoxShadow(
+                      blurRadius: 5,
+                      color: AppColors.appBarShadowColor,
+                    ),
+                  ],
+                  borderRadius: BorderRadius.circular(12),
+                  color: isSingle ? AppColors.white : AppColors.white,
+                ),
                 padding: const EdgeInsets.all(15),
                 child: Column(
                   children: [
@@ -41,7 +56,9 @@ class OrganizationContactWidget extends StatelessWidget {
                         children: [
                           const CircleAvatar(
                             radius: 28,
-                            backgroundImage: AssetImage(AppImages.partner),
+                            backgroundImage: NetworkImage(
+                                'https://business.energymarket.uz/api/v1/files/69431af3-7645-4837-98bb-cfa2931e317c'),
+                            // backgroundImage: AssetImage(AppImages.partner),
                           ),
                           const SizedBox(
                             width: 15,
@@ -50,12 +67,10 @@ class OrganizationContactWidget extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.5,
+                                width:
+                                    MediaQuery.of(context).size.width * 0.5,
                                 child: Text(
-                                  model == null
-                                      ? contactModel?.result?.organizationName ??
-                                          'Empty'
-                                      : model?.organizationName ?? 'Empty',
+                                  contactModel!.result.organizationName,
                                   maxLines: 2,
                                   style: const TextStyle(fontSize: 16),
                                   overflow: TextOverflow.ellipsis,
@@ -68,18 +83,18 @@ class OrganizationContactWidget extends StatelessWidget {
                                 children: [
                                   const Icon(
                                     Icons.star,
-                                    color:AppColors.yellow,
+                                    color: AppColors.yellow,
                                     size: 20,
                                   ),
                                   const SizedBox(width: 5),
                                   Text(
-                                    '${model == null ? contactModel?.result?.rating ?? 'Empty' : model?.rating ?? 'Empty'}',
+                                    '${contactModel!.result.rating}',
                                   ),
                                   const SizedBox(width: 10),
                                   Text(
-                                    '(${model == null ? contactModel?.result?.reviewCount?.toInt() ?? 'Empty' : model?.reviewCount?.toInt() ?? 'Empty'} ta izohlar)',
+                                    '(${contactModel?.result.reviewCount.toInt()} ta izohlar)',
                                     style: const TextStyle(
-                                      color: AppColors.grey3,
+                                      color: AppColors.grey2,
                                     ),
                                   ),
                                 ],
@@ -102,7 +117,7 @@ class OrganizationContactWidget extends StatelessWidget {
                     Row(
                       children: [
                         CircleAvatar(
-                          radius: 16,
+                          radius: 18,
                           backgroundColor: AppColors.grey1,
                           child: SvgPicture.asset(AppIcons.call),
                         ),
@@ -114,12 +129,10 @@ class OrganizationContactWidget extends StatelessWidget {
                           children: [
                             const Text(
                               'Telefon raqam',
-                              style: TextStyle(color: AppColors.grey3),
+                              style: TextStyle(color: AppColors.grey2),
                             ),
                             Text(
-                              model == null
-                                  ? contactModel?.result?.phone??'Empty'
-                                  : model?.contact?.phone ??'Empty',
+                              contactModel!.result.phone,
                             ),
                           ],
                         )
@@ -131,7 +144,7 @@ class OrganizationContactWidget extends StatelessWidget {
                     Row(
                       children: [
                         CircleAvatar(
-                          radius: 16,
+                          radius: 18,
                           backgroundColor: AppColors.grey1,
                           child: SvgPicture.asset(AppIcons.mail),
                         ),
@@ -143,12 +156,12 @@ class OrganizationContactWidget extends StatelessWidget {
                           children: [
                             const Text(
                               'Email adres',
-                              style: TextStyle(color: AppColors.grey3),
+                              style: TextStyle(color: AppColors.grey2),
                             ),
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.55,
                               child: Text(
-                                model == null ? contactModel?.result?.email ?? 'Empty' : model?.contact?.email ?? 'Empty',
+                                contactModel!.result.email,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -163,7 +176,7 @@ class OrganizationContactWidget extends StatelessWidget {
                     Row(
                       children: [
                         CircleAvatar(
-                          radius: 16,
+                          radius: 18,
                           backgroundColor: AppColors.grey1,
                           child: SvgPicture.asset(AppIcons.location2),
                         ),
@@ -173,14 +186,12 @@ class OrganizationContactWidget extends StatelessWidget {
                           children: [
                             const Text(
                               'Manzil',
-                              style: TextStyle(color: AppColors.grey3),
+                              style: TextStyle(color: AppColors.grey2),
                             ),
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.55,
                               child: Text(
-                                model == null
-                                    ? contactModel?.result?.address ?? 'Empty'
-                                    : model?.address ?? 'Empty',
+                                contactModel!.result.address,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -192,10 +203,10 @@ class OrganizationContactWidget extends StatelessWidget {
                   ],
                 ),
               ),
-            ),
-          ],
-        ),
-      ],
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

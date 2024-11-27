@@ -40,8 +40,8 @@ class _CategoryWidgetState extends State<CategoryWidget> {
     width: 70,
     fit: BoxFit.fill,
     placeholder: const AssetImage(AppImages.noImage),
-    image: widget.model.item?[widget.index].image?.url != null
-        ? NetworkImage(widget.model.item![widget.index].image!.url!)
+    image: widget.model.item?[widget.index].image.url != null
+        ? NetworkImage(widget.model.item[widget.index].image.url)
         : const AssetImage(AppImages.noImage) as ImageProvider,  // Fallback to local image if URL is null
     imageErrorBuilder: (context, error, stackTrace) {
       return SizedBox(

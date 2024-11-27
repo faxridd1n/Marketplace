@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../core/constants/app_colors.dart';
-import '../../../models/auth_model/register_model/register_user_request_model.dart';
+import '../../../models/register_model/register_model/register_user_request_model.dart';
 
 class AuthPassportField extends StatefulWidget {
   const AuthPassportField({required this.userModel, super.key});
-  final RegisterUserModel userModel;
+  final RegisterUserRequestModel userModel;
   @override
   State<AuthPassportField> createState() => _AuthPassportFieldState();
 }

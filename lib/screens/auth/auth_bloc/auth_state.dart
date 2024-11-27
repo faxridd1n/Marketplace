@@ -3,16 +3,11 @@ part of 'auth_bloc.dart';
 class AuthState extends Equatable {
   final RegisterUserResponseModel? registerUserResponseModel;
   final FormzSubmissionStatus registerUserResponseStatus;
-
-  // final RegisterConfirmRequestModel? registerConfirmRequestModel;
-  // final FormzSubmissionStatus registerConfirmRequestStatus;
   final RegisterConfirmResponseModel? registerConfirmResponseModel;
   final FormzSubmissionStatus registerConfirmResponseStatus;
   const AuthState({
     this.registerUserResponseModel,
     this.registerUserResponseStatus = FormzSubmissionStatus.initial,
-    // this.registerConfirmRequestModel,
-    // this.registerConfirmRequestStatus = FormzSubmissionStatus.initial,this.registerConfirmResponseModel,
     this.registerConfirmResponseModel,
     this.registerConfirmResponseStatus = FormzSubmissionStatus.initial,
   });
@@ -20,9 +15,6 @@ class AuthState extends Equatable {
   AuthState copyWith({
     RegisterUserResponseModel? registerUserResponseModel,
     FormzSubmissionStatus? registerUserResponseStatus,
-    // RegisterConfirmRequestModel? registerConfirmRequestModel,
-    // FormzSubmissionStatus? registerConfirmRequestStatus,
-
     RegisterConfirmResponseModel? registerConfirmResponseModel,
     FormzSubmissionStatus? registerConfirmResponseStatus,
   }) {
@@ -31,11 +23,6 @@ class AuthState extends Equatable {
           registerUserResponseModel ?? this.registerUserResponseModel,
       registerUserResponseStatus:
           registerUserResponseStatus ?? this.registerUserResponseStatus,
-      // registerConfirmRequestModel:
-      //     registerConfirmRequestModel ?? this.registerConfirmRequestModel,
-      // registerConfirmRequestStatus:
-      //     registerConfirmRequestStatus ?? this.registerConfirmRequestStatus,
-
       registerConfirmResponseModel:
           registerConfirmResponseModel ?? this.registerConfirmResponseModel,
       registerConfirmResponseStatus:
@@ -47,9 +34,6 @@ class AuthState extends Equatable {
   List<Object?> get props => [
         registerUserResponseModel,
         registerUserResponseStatus,
-        // registerConfirmRequestModel,
-        // registerConfirmRequestStatus,
-
         registerConfirmResponseModel,
         registerConfirmResponseStatus,
       ];

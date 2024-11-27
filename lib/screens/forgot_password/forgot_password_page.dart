@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../core/constants/app_colors.dart';
-import '../profile/widgets/profile_number_field.dart';
+import '../../models/login_model/post_login_request_model.dart';
+import '../login/widgets/login_number_field.dart';
 import 'new_password_page.dart';
 import 'widgets/otp_timer.dart';
 
@@ -20,6 +21,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
   TextEditingController otpController = TextEditingController();
   AnimationController? _controller;
   int otpTimer = 180;
+  PostLoginRequestModel requestModel = PostLoginRequestModel();
 
   @override
   void dispose() {
@@ -108,7 +110,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
                     ),
                     Expanded(
                         child: ProfileNumberField(
-                      numberController: numberController,
+                      requestModel: requestModel,
                     )),
                   ],
                 ),

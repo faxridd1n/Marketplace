@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/auth_model/register_model/register_user_request_model.dart';
+import 'package:flutter_application_1/models/register_model/register_model/register_user_request_model.dart';
 
 import '../../../core/constants/app_colors.dart';
 
 class AuthUserNameField extends StatefulWidget {
   const AuthUserNameField({required this.userModel, super.key});
-  final RegisterUserModel userModel;
+  final RegisterUserRequestModel userModel;
   @override
   State<AuthUserNameField> createState() => _AuthUserNameFieldState();
 }

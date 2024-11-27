@@ -5,6 +5,9 @@ import 'package:flutter_application_1/screens/favorite/favorite_page.dart';
 import 'package:flutter_application_1/screens/home/home_page.dart';
 // import 'package:flutter_application_1/screens/profile/login_page.dart';
 import 'package:flutter_application_1/screens/profile/profile_page.dart';
+
+import '../components/hive/user_token.dart';
+import '../screens/login/login_page.dart';
 // import '../screens/profile/profile_page.dart';
 
 enum NavItemEnum {
@@ -34,6 +37,19 @@ class TabNavigator extends StatefulWidget {
 
 class _TabNavigatorState extends State<TabNavigator>
     with AutomaticKeepAliveClientMixin {
+  @override
+  void initState() {
+    super.initState();
+    // userTokenBox.put(
+    //   'token',
+    //   UserTokenModel(
+    //     token:
+    //         'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0OTciLCJPcmdhbml6YXRpb25JZCI6IiIsIlVzZXJJZCI6IjQ5NyIsIkRldmljZUlkIjoiMTIyMSIsIlJvbGVJZCI6IjEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJ1c2VyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6Ijk5ODMzMDAyMDcwMCIsIm5iZiI6MTczMjI2NTk4NCwiZXhwIjoxNzMyODcwNzg0LCJpc3MiOiJ0YXFzaW0udXoiLCJhdWQiOiJIYWxhbFRhcXNpbSJ9.EgrlYd_q4TAfALdwPFVqwu9Tm2_ihz-_dm6HsdL25eg',
+    //   ),
+    // );
+    // setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -66,10 +82,11 @@ class _TabNavigatorState extends State<TabNavigator>
     }
     if (tabItem.isProfile) {
       return {
-        '/': (context) => ProfilePage()
-        // userTokenBox.isNotEmpty && userTokenBox.getAt(0)!.token.isNotEmpty
-        //     ? const ProfilePage()
-        //     : const LoginPage()
+        '/': (context) => userTokenBox.isNotEmpty &&
+                userTokenBox.get('token') != null &&
+                userTokenBox.get('token')!.token.isNotEmpty
+            ? const ProfilePage()
+            : const LoginPage()
       };
     }
     return {};

@@ -3,8 +3,13 @@ part of 'login_bloc.dart';
 @immutable
 abstract class LoginEvent {}
 
-// ignore: must_be_immutable
 class PostLoginUserEvent extends LoginEvent {
-  String phoneNumber;
+  final String phoneNumber;
   PostLoginUserEvent({required this.phoneNumber});
+}
+
+class PutLoginOtpEvent extends LoginEvent {
+  final String phoneNumber;
+  final String otp;
+  PutLoginOtpEvent({required this.phoneNumber, required this.otp});
 }

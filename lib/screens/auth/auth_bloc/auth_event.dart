@@ -4,12 +4,11 @@ part of 'auth_bloc.dart';
 abstract class AuthEvent {}
 
 class RegisterUserEvent extends AuthEvent {
-  final RegisterUserModel userModel;
-  RegisterUserEvent({required this.userModel});
+  final RegisterUserRequestModel registerUserRequestModel;
+  RegisterUserEvent({required this.registerUserRequestModel});
 }
 
-
 class RegisterConfirmRequestEvent extends AuthEvent {
-  final RegisterConfirmRequestModel userModel;
-  RegisterConfirmRequestEvent({required this.userModel});
+  final RegisterConfirmRequestModel confirmRequestModel;
+  RegisterConfirmRequestEvent({required this.confirmRequestModel});
 }

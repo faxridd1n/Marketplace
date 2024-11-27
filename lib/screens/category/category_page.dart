@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/category/category_bloc/category_bloc.dart';
 import 'package:flutter_application_1/screens/category/widgets/category_expansion_widget.dart';
+import 'package:flutter_application_1/widgets/indicator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
@@ -30,8 +31,8 @@ class _CategoryPageState extends State<CategoryPage> {
         child: BlocBuilder<CategoryBloc, CategoryState>(
           builder: (ctx, state) {
             if (state.getCategoryStatus.isInProgress) {
-              return const Center(
-                child: CircularProgressIndicator(color:AppColors.green,strokeWidth:3),
+              return Center(
+                child:CustomThicknessIndicator(),
               );
             }
             if (state.getCategoryStatus.isSuccess) {

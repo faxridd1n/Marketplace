@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/forgot_password_page/widgets/new_password_field.dart';
+import 'package:flutter_application_1/screens/forgot_password/widgets/new_password_field.dart';
 
 import '../../core/constants/app_colors.dart';
 

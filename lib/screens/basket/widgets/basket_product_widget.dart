@@ -5,7 +5,7 @@ import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_application_1/models/basket_model/basket_product_model.dart';
 import 'package:flutter_application_1/screens/basket/basket_page.dart';
 import 'package:flutter_application_1/screens/basket/basket_bloc/basket_bloc.dart';
-import 'package:flutter_application_1/screens/home/widgets/snack_bar.dart';
+import 'package:flutter_application_1/widgets/snack_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -37,63 +37,35 @@ class _BasketProductWidgetState extends State<BasketProductWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 15),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 5,
+        vertical: 15,
+      ),
       width: MediaQuery.of(context).size.width,
       height: 140,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
-            height: 24,
-            width: 24,
-            child: Checkbox(
-              checkColor: AppColors.white,
-              activeColor: AppColors.green,
-              value: widget.isSelected
-                  ? true
-                  : selectedProducts.contains(widget.model)
-                      ? true
-                      : false,
-              onChanged: (value) {
-                widget.isSelected = value!;
-                if (value) {
-                  context.read<BasketBloc>().add(
-                        SelectBasketProductsEvent(
-                          selectedProducts: widget.model,
-                        ),
-                      );
-                  selectedProducts.add(widget.model);
-      
-                  for (var r in widget.model.prices) {
-                    if (r.type == "Price") {
-                      dealSum += r.value.toInt();
-                    }
-                  }
-                } else {
-                  selectedProducts.remove(widget.model);
-                  for (var r in widget.model.prices) {
-                    if (r.type == "Price") {
-                      dealSum -= r.value.toInt();
-                    }
-                  }
-                }
-                setState(() {});
-              },
-            ),
-          ),
-          const SizedBox(width: 5),
-          SizedBox(
             width: 70,
-            child: Image.network(
-              widget.model.files[0].url,
-              fit: BoxFit.cover,
-              errorBuilder: (BuildContext context, Object exception,
-                  StackTrace? stackTrace) {
-                return const Image(
-                  image: AssetImage(
-                      AppImages.noImage), // Path to your local fallback image
-                );
-              },
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: (widget.model.files.isNotEmpty &&
+                      widget.model.files[0].url.isNotEmpty)
+                  ? Image.network(
+                      widget.model.files[0].url,
+                      fit: BoxFit.fitHeight,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Image.asset(
+                          AppImages.noImage,
+                          fit: BoxFit.fitHeight,
+                        );
+                      },
+                    )
+                  : Image.asset(
+                      AppImages.noImage,
+                      fit: BoxFit.fitWidth,
+                    ),
             ),
           ),
           const SizedBox(width: 10),
@@ -125,7 +97,7 @@ class _BasketProductWidgetState extends State<BasketProductWidget> {
                                 widget.model.prices[0].variationId,
                               ),
                             );
-      
+
                         snackBar(
                           isHomePage: false,
                           context: context,
@@ -224,7 +196,7 @@ class _BasketProductWidgetState extends State<BasketProductWidget> {
                                         widget.model.prices[0].variationId,
                                       ),
                                     );
-      
+
                                 snackBar(
                                   isHomePage: false,
                                   context: context,

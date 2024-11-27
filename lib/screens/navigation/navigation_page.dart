@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/assets_path/app_icons_path.dart';
+// import 'package:flutter_application_1/components/hive/user_token_model.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_application_1/screens/basket/basket_bloc/basket_bloc.dart';
 import 'package:flutter_application_1/widgets/tab_navigator.dart';
@@ -34,9 +35,16 @@ class _NavigationPageState extends State<NavigationPage>
   @override
   void initState() {
     super.initState();
+
+    // userTokenBox.put(
+    //   'token',
+    //   'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0OTciLCJPcmdhbml6YXRpb25JZCI6IiIsIlVzZXJJZCI6IjQ5NyIsIkRldmljZUlkIjoiMTIyMSIsIlJvbGVJZCI6IjEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJ1c2VyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6Ijk5ODMzMDAyMDcwMCIsIm5iZiI6MTczMjI2NTk4NCwiZXhwIjoxNzMyODcwNzg0LCJpc3MiOiJ0YXFzaW0udXoiLCJhdWQiOiJIYWxhbFRhcXNpbSJ9.EgrlYd_q4TAfALdwPFVqwu9Tm2_ihz-_dm6HsdL25eg' as UserTokenModel,
+    // );
+    // setState(() {});
     bloc = BasketBloc()..add(GetBasketProductsEvent());
     _tabController =
         TabController(length: 5, vsync: this, animationDuration: Duration.zero);
+    // userTokenBox.delete('token');
   }
 
   @override
@@ -45,9 +53,9 @@ class _NavigationPageState extends State<NavigationPage>
       value: bloc,
       child: PopScope(
         child: Scaffold(
-          backgroundColor:AppColors.white,
+          backgroundColor: AppColors.white,
           body: TabBarView(
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             controller: _tabController,
             children: [
               _buildPageNavigator(NavItemEnum.home),
@@ -58,7 +66,7 @@ class _NavigationPageState extends State<NavigationPage>
             ],
           ),
           bottomNavigationBar: BottomNavigationBar(
-            backgroundColor:AppColors.white,
+            backgroundColor: AppColors.white,
             onTap: (value) {
               _tabController.animateTo(value);
               setState(() {

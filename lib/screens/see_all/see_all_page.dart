@@ -3,13 +3,14 @@ import 'package:flutter_application_1/assets_path/app_icons_path.dart';
 import 'package:flutter_application_1/screens/see_all/see_all_bloc/see_all_bloc.dart';
 import 'package:flutter_application_1/screens/see_all/widgets/bottom_sheet_widget.dart';
 import 'package:flutter_application_1/widgets/horizontal_product_widget.dart';
+import 'package:flutter_application_1/widgets/indicator.dart';
 import 'package:flutter_application_1/widgets/paginator.dart';
-import 'package:flutter_application_1/widgets/product_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
 
 import '../../core/constants/app_colors.dart';
+import '../../widgets/mini_product.dart';
 
 class SeeAllPage extends StatefulWidget {
   const SeeAllPage({required this.categoryId, super.key});
@@ -37,9 +38,8 @@ class _SeeAllPageState extends State<SeeAllPage> {
       child: BlocBuilder<SeeAllBloc, SeeAllState>(
         builder: (context, state) {
           if (state.getProductStatus.isInProgress) {
-            const Center(
-              child: CircularProgressIndicator(
-                  color: AppColors.green, strokeWidth: 3),
+             Center(
+              child:CustomThicknessIndicator(),
             );
           }
           if (state.getProductStatus.isSuccess) {
@@ -167,23 +167,43 @@ class _SeeAllPageState extends State<SeeAllPage> {
                     paginatorStatus: FormzSubmissionStatus.success,
                     itemCount: state.productModel!.length,
                     itemBuilder: (ctx, index) {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: isVerticalProduct ? 40 : 10,
-                          vertical: 10,
-                        ),
-                        child: isVerticalProduct
-                            ? ProductWidget(
-                                isSeeAllPage: true,
-                                index: index,
-                                model: state.productModel![index],
-                              )
-                            : HorizontalProductWidget(
-                                isSeeAllPage: true,
-                                model: state.productModel![index],
-                                index: index,
+                      return isVerticalProduct
+                          ? GridView.builder(
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              padding: const EdgeInsets.all(10),
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisSpacing: 10,
+                                mainAxisSpacing: 10,
+                                crossAxisCount: 2,
+                                childAspectRatio: 0.55, // Adjust if needed
                               ),
-                      );
+                              itemCount: state.productModel!.length,
+                              itemBuilder: (context, index) {
+                                return MiniProductWidget(
+                                  index: index,
+                                  model: state.productModel![index],
+                                );
+                              },
+                            )
+                          : ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: state.productModel!.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 10,
+                                    vertical: 10,
+                                  ),
+                                  child: HorizontalProductWidget(
+                                    model: state.productModel![index],
+                                    index: index,
+                                  ),
+                                );
+                              },
+                            );
                     },
                     fetchMoreFunction: () {},
                     hasMoreToFetch: false,

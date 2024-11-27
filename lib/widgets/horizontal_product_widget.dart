@@ -8,7 +8,7 @@ import '../assets_path/app_images_path.dart';
 import '../components/price_function.dart';
 import '../screens/basket/basket_page.dart';
 import '../screens/favorite/favorite_page.dart';
-import '../screens/home/widgets/snack_bar.dart';
+import 'snack_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../screens/product_detail/product_detail_page1.dart';
@@ -50,7 +50,9 @@ class _HorizontalProductWidgetState extends State<HorizontalProductWidget> {
         Navigator.of(context, rootNavigator: true).push(
           MaterialPageRoute(
             builder: (context) => ProductDetailPage1(
-              model: widget.model,
+              productId: widget.model.id,
+              categoryId: widget.model.category.id,
+              // model: widget.model,
               // tab: widget.tab,
             ),
           ),

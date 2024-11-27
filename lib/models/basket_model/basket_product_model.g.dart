@@ -115,8 +115,7 @@ Map<String, dynamic> _$AttributeValueToJson(AttributeValue instance) =>
 Attribute _$AttributeFromJson(Map<String, dynamic> json) => Attribute(
       id: (json['id'] as num?)?.toInt() ?? -1,
       weight: (json['weight'] as num?)?.toInt() ?? -1,
-      dataType: $enumDecodeNullable(_$DataTypeEnumMap, json['dataType']) ??
-          DataType.TEXT,
+      dataType: json['dataType'] as String? ?? '',
       hasFilter: json['hasFilter'] as bool? ?? false,
       isValueTranslated: json['isValueTranslated'] as bool? ?? false,
       isRequired: json['isRequired'] as bool? ?? false,
@@ -127,14 +126,13 @@ Attribute _$AttributeFromJson(Map<String, dynamic> json) => Attribute(
       filter: json['filter'] as Map<String, dynamic>? ?? const {},
       groupId: (json['groupId'] as num?)?.toInt() ?? -1,
       isVisible: json['isVisible'] as bool? ?? false,
-      type: $enumDecodeNullable(_$AttributeTypeEnumMap, json['type']) ??
-          AttributeType.BASIC,
+      type: json['type'] as String? ?? '',
     );
 
 Map<String, dynamic> _$AttributeToJson(Attribute instance) => <String, dynamic>{
       'id': instance.id,
       'weight': instance.weight,
-      'dataType': _$DataTypeEnumMap[instance.dataType]!,
+      'dataType': instance.dataType,
       'hasFilter': instance.hasFilter,
       'isValueTranslated': instance.isValueTranslated,
       'isRequired': instance.isRequired,
@@ -145,38 +143,20 @@ Map<String, dynamic> _$AttributeToJson(Attribute instance) => <String, dynamic>{
       'filter': instance.filter,
       'groupId': instance.groupId,
       'isVisible': instance.isVisible,
-      'type': _$AttributeTypeEnumMap[instance.type]!,
+      'type': instance.type,
     };
-
-const _$DataTypeEnumMap = {
-  DataType.TEXT: 'Text',
-};
-
-const _$AttributeTypeEnumMap = {
-  AttributeType.BASIC: 'Basic',
-};
 
 ValueTranslation _$ValueTranslationFromJson(Map<String, dynamic> json) =>
     ValueTranslation(
-      languageCode:
-          $enumDecodeNullable(_$LanguageCodeEnumMap, json['languageCode']) ??
-              LanguageCode.EN,
+      languageCode: json['languageCode'] as String? ?? '',
       text: json['text'] as String? ?? '',
     );
 
 Map<String, dynamic> _$ValueTranslationToJson(ValueTranslation instance) =>
     <String, dynamic>{
-      'languageCode': _$LanguageCodeEnumMap[instance.languageCode]!,
+      'languageCode': instance.languageCode,
       'text': instance.text,
     };
-
-const _$LanguageCodeEnumMap = {
-  LanguageCode.EN: 'en',
-  LanguageCode.RU: 'ru',
-  LanguageCode.UZ_CYRL_QQ: 'uz-Cyrl-QQ',
-  LanguageCode.UZ_CYRL_UZ: 'uz-Cyrl-UZ',
-  LanguageCode.UZ_LATN_UZ: 'uz-Latn-UZ',
-};
 
 FileElement _$FileElementFromJson(Map<String, dynamic> json) => FileElement(
       FileInfo.fromJson(json['fileInfo'] as Map<String, dynamic>),
@@ -201,14 +181,11 @@ Map<String, dynamic> _$FileElementToJson(FileElement instance) =>
 
 FileInfo _$FileInfoFromJson(Map<String, dynamic> json) => FileInfo(
       DateTime.parse(json['createdAt'] as String),
+      json['extension'] as String,
       id: json['id'] as String? ?? '',
       url: json['url'] as String? ?? '',
       name: json['name'] as String? ?? '',
-      extension: $enumDecodeNullable(_$ExtensionEnumMap, json['extension']) ??
-          Extension.JPG,
-      contentType:
-          $enumDecodeNullable(_$ContentTypeEnumMap, json['contentType']) ??
-              ContentType.IMAGE_JPEG,
+      contentType: json['contentType'] as String? ?? '',
       isVisible: json['isVisible'] as bool? ?? false,
     );
 
@@ -216,25 +193,16 @@ Map<String, dynamic> _$FileInfoToJson(FileInfo instance) => <String, dynamic>{
       'id': instance.id,
       'url': instance.url,
       'name': instance.name,
-      'extension': _$ExtensionEnumMap[instance.extension]!,
-      'contentType': _$ContentTypeEnumMap[instance.contentType]!,
+      'extension': instance.extension,
+      'contentType': instance.contentType,
       'createdAt': instance.createdAt.toIso8601String(),
       'isVisible': instance.isVisible,
     };
 
-const _$ExtensionEnumMap = {
-  Extension.JPG: '.jpg',
-};
-
-const _$ContentTypeEnumMap = {
-  ContentType.IMAGE_JPEG: 'image/jpeg',
-};
-
 Price _$PriceFromJson(Map<String, dynamic> json) => Price(
       id: (json['id'] as num?)?.toInt() ?? -1,
       value: (json['value'] as num?)?.toInt() ?? -1,
-      type: $enumDecodeNullable(_$PriceTypeEnumMap, json['type']) ??
-          PriceType.PRICE,
+      type: json['type'] as String? ?? '',
       currencyId: (json['currencyId'] as num?)?.toInt() ?? -1,
       variationId: json['variationId'] as String? ?? '',
     );
@@ -242,16 +210,10 @@ Price _$PriceFromJson(Map<String, dynamic> json) => Price(
 Map<String, dynamic> _$PriceToJson(Price instance) => <String, dynamic>{
       'id': instance.id,
       'value': instance.value,
-      'type': _$PriceTypeEnumMap[instance.type]!,
+      'type': instance.type,
       'currencyId': instance.currencyId,
       'variationId': instance.variationId,
     };
-
-const _$PriceTypeEnumMap = {
-  PriceType.PRICE: 'Price',
-  PriceType.SALE: 'Sale',
-  PriceType.VAT: 'Vat',
-};
 
 ProductProduct _$ProductProductFromJson(Map<String, dynamic> json) =>
     ProductProduct(

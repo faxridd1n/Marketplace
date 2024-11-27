@@ -7,6 +7,8 @@ class ProductDetailState extends Equatable {
   final FormzSubmissionStatus postResponseBasketStatus;
   final List<ProductModel>? parentCategoryModel;
   final FormzSubmissionStatus getProductStatus;
+  final OrganizationContactModel? organizationContactModel;
+  final FormzSubmissionStatus organizationContactStatus;
 
   const ProductDetailState({
     this.productDetailModel,
@@ -15,6 +17,8 @@ class ProductDetailState extends Equatable {
     this.postResponseBasketStatus = FormzSubmissionStatus.initial,
     this.parentCategoryModel,
     this.getProductStatus = FormzSubmissionStatus.initial,
+    this.organizationContactModel,
+    this.organizationContactStatus = FormzSubmissionStatus.initial,
   });
 
   ProductDetailState copyWith({
@@ -24,6 +28,8 @@ class ProductDetailState extends Equatable {
     FormzSubmissionStatus? postResponseBasketStatus,
     List<ProductModel>? parentCategoryModel,
     FormzSubmissionStatus? getProductStatus,
+    OrganizationContactModel? organizationContactModel,
+    FormzSubmissionStatus? organizationContactStatus,
   }) {
     return ProductDetailState(
       productDetailModel: productDetailModel ?? this.productDetailModel,
@@ -34,6 +40,10 @@ class ProductDetailState extends Equatable {
           postResponseBasketStatus ?? this.postResponseBasketStatus,
       parentCategoryModel: parentCategoryModel ?? this.parentCategoryModel,
       getProductStatus: getProductStatus ?? this.getProductStatus,
+      organizationContactModel:
+          organizationContactModel ?? this.organizationContactModel,
+      organizationContactStatus:
+          organizationContactStatus ?? this.organizationContactStatus,
     );
   }
 
@@ -45,5 +55,7 @@ class ProductDetailState extends Equatable {
         postResponseBasketStatus,
         parentCategoryModel,
         getProductStatus,
+        organizationContactModel,
+        organizationContactStatus,
       ];
 }

@@ -22,3 +22,8 @@ class PostBasketProductDetailEvent extends ProductDetailEvent {
   PostBasketProductDetailEvent({required this.productVariationId, this.count});
 }
 
+class GetOrganizationContactEvent extends ProductDetailEvent {
+  final int categoryId;
+
+  GetOrganizationContactEvent({required this.categoryId});
+}

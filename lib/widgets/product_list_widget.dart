@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/widgets/indicator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import '../core/constants/app_colors.dart';
 import 'product_widget.dart';
 import '../screens/home/home_bloc/home_bloc.dart';
 import 'title_widget.dart';
@@ -17,7 +17,7 @@ class ProductListWidget extends StatefulWidget {
 
 class _ProductListWidgetState extends State<ProductListWidget> {
   late HomeBloc homeBloc;
-  List tab = [37, 35, 39, 34, 30, 32, 31, 40, 41];
+  List tab = [53,54,55,56,57];
   List tabsName = [];
 
   @override
@@ -40,13 +40,10 @@ class _ProductListWidgetState extends State<ProductListWidget> {
       child: BlocBuilder<HomeBloc, HomeState>(
         builder: (ctx, state) {
           if (state.getProductStatus.isInProgress) {
-            return const Center(
+            return Center(
               child: Padding(
                 padding: EdgeInsets.all(20.0),
-                child: CircularProgressIndicator(
-                  color: AppColors.green,
-                  strokeWidth: 3,
-                ),
+                child:CustomThicknessIndicator(),
               ),
             );
           }
@@ -66,7 +63,7 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                   categoryId: state.productModel1![0].categoryId,
                 ),
                 SizedBox(
-                  height: 520,
+                  height: 480,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,

@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../core/constants/app_colors.dart';
 
 class ProfilePasswordField extends StatefulWidget {
-  const ProfilePasswordField({super.key});
+  const ProfilePasswordField({required this.userPasswordController, super.key});
+  final TextEditingController userPasswordController;
 
   @override
   State<ProfilePasswordField> createState() => _ProfilePasswordFieldState();
@@ -11,8 +12,6 @@ class ProfilePasswordField extends StatefulWidget {
 
 class _ProfilePasswordFieldState extends State<ProfilePasswordField> {
   bool _passwordVisible = false;
-
-  TextEditingController userPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +25,7 @@ class _ProfilePasswordFieldState extends State<ProfilePasswordField> {
           },
           cursorWidth: 1.5,
           keyboardType: TextInputType.text,
-          controller: userPasswordController,
+          controller: widget.userPasswordController,
           obscureText: !_passwordVisible,
           style: const TextStyle(
             fontSize: 16,
@@ -78,9 +77,10 @@ class _ProfilePasswordFieldState extends State<ProfilePasswordField> {
       ),
     );
   }
- @override
+
+  @override
   void dispose() {
     super.dispose();
-    userPasswordController.dispose();
+    widget.userPasswordController.dispose();
   }
 }

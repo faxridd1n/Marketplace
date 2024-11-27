@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/widgets/indicator.dart';
 import 'package:formz/formz.dart';
-
-import '../core/constants/app_colors.dart';
 
 class Paginator extends StatelessWidget {
   final FormzSubmissionStatus paginatorStatus;
@@ -36,11 +35,8 @@ class Paginator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (paginatorStatus == FormzSubmissionStatus.inProgress) {
-      return const Center(
-          child: CircularProgressIndicator.adaptive(
-        backgroundColor: AppColors.green,
-        strokeWidth: 3,
-      ));
+      return Center(
+          child:CustomThicknessIndicator());
     } else if (paginatorStatus == FormzSubmissionStatus.failure) {
       return errorWidget ?? const SizedBox.shrink();
     } else if (paginatorStatus == FormzSubmissionStatus.success) {
@@ -54,11 +50,8 @@ class Paginator extends StatelessWidget {
           if (index == itemCount) {
             if (hasMoreToFetch) {
               fetchMoreFunction();
-              return const Center(
-                  child: CircularProgressIndicator.adaptive(
-                backgroundColor: AppColors.green,
-                strokeWidth: 3,
-              ));
+              return Center(
+                  child:CustomThicknessIndicator());
             } else {
               return const SizedBox();
             }

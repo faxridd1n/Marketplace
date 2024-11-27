@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../../../core/constants/app_colors.dart';
-import '../../../models/auth_model/register_model/register_user_request_model.dart';
+import '../../../models/register_model/register_model/register_user_request_model.dart';
 
 class AuthNumberField extends StatefulWidget {
   const AuthNumberField({required this.userModel, super.key});
-  final RegisterUserModel userModel;
+  final RegisterUserRequestModel userModel;
   @override
   State<AuthNumberField> createState() => _AuthNumberFieldState();
 }

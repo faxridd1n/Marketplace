@@ -7,17 +7,18 @@ import 'package:flutter_application_1/screens/drawer/DrawerPage.dart';
 import 'package:flutter_application_1/screens/home/home_bloc/home_bloc.dart';
 import 'package:flutter_application_1/screens/home/widgets/BannerWidget.dart';
 import 'package:flutter_application_1/screens/home/widgets/category_widget.dart';
+import 'package:flutter_application_1/widgets/indicator.dart';
 // import 'package:flutter_application_1/screens/home/widgets/HomePopUp.dart';
 import 'package:flutter_application_1/widgets/title_widget.dart';
 import 'package:flutter_application_1/screens/home/widgets/home_text_field_widget.dart';
 import 'package:flutter_application_1/widgets/product_list_widget.dart';
 import 'package:flutter_application_1/widgets/bottom_info_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:formz/formz.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
 import '../../assets_path/app_icons_path.dart';
-import 'widgets/home_pop_up.dart';
+// import 'widgets/home_pop_up.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -69,10 +70,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:AppColors.white,
+      backgroundColor: AppColors.white,
       appBar: AppBar(
-        surfaceTintColor:AppColors.transparent,
-        backgroundColor:AppColors.white,
+        title: SizedBox(
+          width: MediaQuery.of(context).size.width*0.5,
+          child: SvgPicture.asset(AppIcons.taqsimAppLogo)),
+        surfaceTintColor: AppColors.transparent,
+        backgroundColor: AppColors.white,
         leading: Builder(builder: (context) {
           return IconButton(
             onPressed: () {
@@ -84,7 +88,7 @@ class _HomePageState extends State<HomePage> {
         elevation: 2,
         shadowColor: AppColors.appBarShadowColor,
         actions: [
-          HomePopUpMenuWidget(true, AppIcons.language),
+          // HomePopUpMenuWidget(true, AppIcons.language),
         ],
       ),
       drawer: const DrawerPage(),
@@ -95,35 +99,43 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 10),
             SizedBox(
               height: 141,
-              child: PageView.builder(
-                controller: _pageController,
-                itemCount: banners.length,
-                itemBuilder: (context, index) => Padding(
-                  padding: const EdgeInsets.only(right: 15),
-                  child: BannerWidget(
-                    banner: banners[index],
+              child: Stack(
+                children: [
+                  PageView.builder(
+                    controller: _pageController,
+                    itemCount: banners.length,
+                    itemBuilder: (context, index) => Padding(
+                      padding: const EdgeInsets.only(right: 15),
+                      child: BannerWidget(
+                        banner: banners[index],
+                      ),
+                    ),
                   ),
-                ),
+                  Positioned(
+                    bottom: 10,
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: Center(
+                        child: SmoothPageIndicator(
+                          controller: _pageController,
+                          count: banners.length,
+                          effect:  const ExpandingDotsEffect(
+                            // paintStyle: PaintingStyle.fill,
+                            activeDotColor: AppColors.green,
+                            dotColor: AppColors.dotColor,
+                            dotHeight: 5,
+                            dotWidth: 20,
+                            expansionFactor: 1.8
+                            // dotWidth: 20,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 10),
-            Container(
-              decoration: BoxDecoration(
-                color: AppColors.grey1,
-                borderRadius: BorderRadius.circular(100),
-              ),
-              padding: const EdgeInsets.all(7),
-              child: SmoothPageIndicator(
-                controller: _pageController,
-                count: banners.length,
-                effect: const ColorTransitionEffect(
-                  activeDotColor: AppColors.green,
-                  dotColor: AppColors.grey3,
-                  dotHeight: 7,
-                  dotWidth: 7,
-                ),
-              ),
-            ),
             const TitleWidget(
               titleText: 'Kategoriyalar',
               withSeeAllButton: false,
@@ -134,11 +146,10 @@ class _HomePageState extends State<HomePage> {
               child: BlocBuilder<HomeBloc, HomeState>(
                 builder: (ctx, state) {
                   if (state.getCategoryStatus.isInProgress) {
-                    return const Center(
+                    return  Center(
                       child: Padding(
-                        padding: EdgeInsets.all(20.0),
-                        child: CircularProgressIndicator(
-                            color: AppColors.green, strokeWidth: 3),
+                        padding: const EdgeInsets.all(20.0),
+                        child:CustomThicknessIndicator(),
                       ),
                     );
                   }
@@ -149,7 +160,7 @@ class _HomePageState extends State<HomePage> {
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         shrinkWrap: true,
-                        itemCount: state.categoryModel?.item?.length ?? 0,
+                        itemCount: state.categoryModel?.item.length ?? 0,
                         itemBuilder: (context, index) {
                           return CategoryWidget(
                             index,

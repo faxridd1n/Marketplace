@@ -1,4 +1,4 @@
-class RegisterUserModel {
+class RegisterUserRequestModel {
   String? firstname;
   String? lastname;
   String? middlename;
@@ -10,7 +10,7 @@ class RegisterUserModel {
   String? confirmPassword;
   int? passportType;
 
-  RegisterUserModel({
+  RegisterUserRequestModel({
     this.firstname,
     this.lastname,
     this.middlename,

@@ -9,7 +9,7 @@ deletePersonalDataDiolog(BuildContext context) {
       backgroundColor:AppColors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Padding(
-        padding: const EdgeInsets.only(top: 20, left: 15, right: 15, bottom: 5),
+        padding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 15),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -58,7 +58,7 @@ deletePersonalDataDiolog(BuildContext context) {
                       Navigator.pop(context);
                     },
                     child: const Text(
-                      'Да,удалить',
+                      'Да, удалить',
                       style: TextStyle(
                         color: AppColors.white,
                       ),

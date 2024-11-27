@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/auth_model/register_model/register_user_request_model.dart';
 import 'package:flutter_application_1/screens/auth/auth_bloc/auth_bloc.dart';
 import 'package:flutter_application_1/screens/auth/auth_otp_page.dart';
 import 'package:flutter_application_1/screens/auth/widgets/auth_birthday_field.dart';
@@ -8,8 +7,7 @@ import 'package:flutter_application_1/screens/auth/widgets/auth_passport_type_fi
 import 'package:flutter_application_1/screens/auth/widgets/auth_password_field.dart';
 import 'package:flutter_application_1/screens/auth/widgets/auth_user_name_field.dart';
 import '../../core/constants/app_colors.dart';
-// import 'qwqwqw.dart';
-// import 'qwqwqw.dart';
+import '../../models/register_model/register_model/register_user_request_model.dart';
 import 'widgets/auth_passport_field.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -22,7 +20,7 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
-  final userModel = RegisterUserModel();
+  final userModel = RegisterUserRequestModel();
   final _formGlobalKey = GlobalKey<FormState>();
   TextEditingController numberController = TextEditingController();
 
@@ -108,8 +106,11 @@ class _AuthPageState extends State<AuthPage> {
                     //   // model: userModel,
                     //   userResponseModel: state.registerUserResponseModel,
                     // );
-                    AuthOtpPage(
-                  responseModel: state.registerUserResponseModel!,
+                    BlocProvider(
+                  create: (ctx) => AuthBloc(),
+                  child: AuthOtpPage(
+                    responseModel: state.registerUserResponseModel!,
+                  ),
                 );
               },
             ),
@@ -128,55 +129,60 @@ class _AuthPageState extends State<AuthPage> {
         return Row(
           children: [
             Expanded(
-              child: ElevatedButton(
-                onPressed: () {
-                  if (_formGlobalKey.currentState!.validate()) {
-                    context.read<AuthBloc>().add(
-                          RegisterUserEvent(userModel: userModel),
-                        );
-                  }
+              child: SizedBox(
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (_formGlobalKey.currentState!.validate()) {
+                      context.read<AuthBloc>().add(
+                            RegisterUserEvent(
+                                registerUserRequestModel: userModel),
+                          );
+                    }
 
-                  // if (state.registerUserResponseStatus.isSuccess) {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) {
-                  //       return
-                  //           Pagee(
-                  //             model: userModel,
-                  //             // userResponseModel: state.registerUserResponseModel,
-                  //           );
-                  //       //     AuthOtpPage(
-                  //       //   responseModel: state.registerUserResponseModel!,
-                  //       // );
-                  //     },
-                  //   ),
-                  // );
-                  // }
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 18),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    // if (state.registerUserResponseStatus.isSuccess) {
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) {
+                    //       return
+                    //           Pagee(
+                    //             model: userModel,
+                    //             // userResponseModel: state.registerUserResponseModel,
+                    //           );
+                    //       //     AuthOtpPage(
+                    //       //   responseModel: state.registerUserResponseModel!,
+                    //       // );
+                    //     },
+                    //   ),
+                    // );
+                    // }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    // padding: EdgeInsets.symmetric(vertical: state.registerUserResponseStatus.isInProgress? 12:18),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    backgroundColor: AppColors.grey2,
                   ),
-                  backgroundColor: AppColors.grey2,
+                  child: state.registerUserResponseStatus.isInProgress
+                      ? const SizedBox(
+                          height: 30,
+                          width: 30,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 3,
+                            color: AppColors.white,
+                          ),
+                        )
+                      : const Text(
+                          'Сохранить',
+                          style: TextStyle(
+                            color: AppColors.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                 ),
-                child: state.registerUserResponseStatus.isInProgress
-                    ? const SizedBox(
-                        height: 40,
-                        child: CircularProgressIndicator(
-                          color: AppColors.white,
-                          strokeWidth: 1,
-                        ),
-                      )
-                    : const Text(
-                        'Сохранить',
-                        style: TextStyle(
-                          color: AppColors.white,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
               ),
             ),
           ],

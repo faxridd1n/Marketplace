@@ -74,11 +74,15 @@ class AppIcons {
   static const String terminal = 'assets/icons/terminal.svg';
   static const String horizontalIcon = 'assets/icons/horizontal_icon.svg';
   static const String verticalIcon = 'assets/icons/vertical_icon.svg';
-  static const String productPlaceholder =
-      'assets/icons/product_placeholder.svg';
+  static const String productPlaceholder ='assets/icons/product_placeholder.svg';
   static const String calendar = 'assets/icons/calendar.svg';
   static const String wallet = 'assets/icons/wallet.svg';
   static const String profileCard = 'assets/icons/profile_card.svg';
   static const String logout = 'assets/icons/logout.svg';
   static const String contracts = 'assets/icons/contracts.svg';
+  static const String taqsimAppLogo = 'assets/icons/taqsimAppLogo.svg';
+  static const String avatar = 'assets/icons/avatar.svg';
+  static const String review = 'assets/icons/review.svg';
+    static const String orderSuccess = 'assets/icons/order_success.svg';
+
 }

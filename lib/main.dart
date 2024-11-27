@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/hive/user_token.dart';
 import 'package:flutter_application_1/components/hive/user_token_model.dart';
 import 'package:flutter_application_1/screens/home/home_page.dart';
+import 'package:flutter_application_1/screens/login/login_page.dart';
 import 'package:flutter_application_1/screens/navigation/navigation_page.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-void main()async {
+void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(UserTokenModelAdapter());
-  userTokenBox=await Hive.openBox<UserTokenModel>('userToken');
+  userTokenBox = await Hive.openBox<UserTokenModel>('userToken');
+
   runApp(const MyApp());
 }
 
@@ -18,28 +20,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return MaterialApp(
       initialRoute: '/navigation',
       theme: ThemeData(fontFamily: 'Montserrat'),
       home: const NavigationPage(),
       routes: {
-
-        '/navigation':(BuildContext context)=>const NavigationPage(),
-        '/home':(BuildContext context)=>const HomePage(),
+        '/navigation': (BuildContext context) => const NavigationPage(),
+        '/home': (BuildContext context) => const HomePage(),
         // '/navigation':(BuildContext context)=>const NavigationPage(),
         // '/navigation':(BuildContext context)=>const NavigationPage(),
         // '/navigation':(BuildContext context)=>const NavigationPage(),
         // '/navigation':(BuildContext context)=>const NavigationPage(),
-        
       },
-
-      
     );
   }
 }
-
-
-
-
-
-

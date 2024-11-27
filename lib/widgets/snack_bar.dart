@@ -16,7 +16,9 @@ snackBar({
     backgroundColor: AppColors.transparent,
     behavior: SnackBarBehavior.floating,
     margin: EdgeInsets.only(
-      bottom:isHomePage==true? MediaQuery.of(context).size.height - 250:MediaQuery.of(context).size.height - 200,
+      bottom: isHomePage == true
+          ? MediaQuery.of(context).size.height - 250
+          : MediaQuery.of(context).size.height - 200,
     ),
     padding: const EdgeInsets.all(0),
     content: Row(
@@ -25,8 +27,12 @@ snackBar({
         Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(6),
-            color: AppColors.snackBarColor,
+            border: Border.all(
+              width: 1,
+              color: AppColors.snackBarGreen,
+            ),
+            borderRadius: BorderRadius.circular(10),
+            color: AppColors.snackBarGreenGradient,
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,7 +40,7 @@ snackBar({
             children: [
               const Icon(
                 Icons.check_circle,
-                color:AppColors.white,
+                color: AppColors.snackBarGreen,
                 size: 25,
               ),
               const SizedBox(
@@ -48,6 +54,7 @@ snackBar({
                     style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w500,
+                      color: AppColors.black
                     ),
                   ),
                   const SizedBox(
@@ -57,10 +64,13 @@ snackBar({
                     width: MediaQuery.of(context).size.width - 100,
                     child: Text(
                       addProduct
-                          ? '${name} добавлено в корзину'
-                          : '${name}  удалено из корзины',
+                          ? '$name добавлено в корзину'
+                          : '$name  удалено из корзины',
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        color: AppColors.black
+                      ),
                     ),
                   )
                 ],

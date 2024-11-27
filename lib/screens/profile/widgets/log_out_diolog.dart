@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/login/login_page.dart';
+import 'package:flutter_application_1/components/hive/user_token.dart';
+// import 'package:flutter_application_1/screens/login/login_page.dart';
 
 import '../../../core/constants/app_colors.dart';
 
-logOutDiolog(BuildContext context) {
+logOutDiolog(BuildContext context, Function() setState) {
   return showDialog<String>(
     context: context,
     builder: (BuildContext context) => Dialog(
       backgroundColor: AppColors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Padding(
-        padding: const EdgeInsets.only(top: 20, left: 15, right: 15, bottom: 5),
+        padding:
+            const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 15),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -55,16 +57,19 @@ logOutDiolog(BuildContext context) {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.of(context, rootNavigator: true)
-                          .pushAndRemoveUntil(
-                        MaterialPageRoute(
-                          builder: (context) => const LoginPage(),
-                        ),
-                        (Route<dynamic> route) => false,
-                      );
+                      userTokenBox.delete('token');
+                      setState();
+                      Navigator.pop(context);
+                      // Navigator.of(context, rootNavigator: true)
+                      //     .pushAndRemoveUntil(
+                      //   MaterialPageRoute(
+                      //     builder: (context) => const LoginPage(),
+                      //   ),
+                      //   (Route<dynamic> route) => false,
+                      // );
                     },
                     child: const Text(
-                      'Да,выйти',
+                      'Да, выйти',
                       style: TextStyle(
                         color: AppColors.white,
                       ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/assets_path/app_icons_path.dart';
-import 'package:flutter_application_1/models/auth_model/register_model/register_user_request_model.dart';
+import 'package:flutter_application_1/models/register_model/register_model/register_user_request_model.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
@@ -8,7 +8,7 @@ import '../../../core/constants/app_colors.dart';
 
 class AuthBirthdayField extends StatefulWidget {
   const AuthBirthdayField({required this.userModel, super.key});
-  final RegisterUserModel userModel;
+  final RegisterUserRequestModel userModel;
   @override
   State<AuthBirthdayField> createState() => _AuthBirthdayFieldState();
 }

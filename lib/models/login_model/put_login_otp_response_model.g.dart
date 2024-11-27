@@ -1,22 +1,20 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'register_confirm_response_model.dart';
+part of 'put_login_otp_response_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-RegisterConfirmResponseModel _$RegisterConfirmResponseModelFromJson(
+PutLoginOtpResponseModel _$PutLoginOtpResponseModelFromJson(
         Map<String, dynamic> json) =>
-    RegisterConfirmResponseModel(
-      result: json['result'] == null
-          ? null
-          : Result.fromJson(json['result'] as Map<String, dynamic>),
+    PutLoginOtpResponseModel(
+      Result.fromJson(json['result'] as Map<String, dynamic>),
       error: json['error'] as Map<String, dynamic>? ?? const {},
     );
 
-Map<String, dynamic> _$RegisterConfirmResponseModelToJson(
-        RegisterConfirmResponseModel instance) =>
+Map<String, dynamic> _$PutLoginOtpResponseModelToJson(
+        PutLoginOtpResponseModel instance) =>
     <String, dynamic>{
       'result': instance.result,
       'error': instance.error,
@@ -30,7 +28,7 @@ Result _$ResultFromJson(Map<String, dynamic> json) => Result(
               ?.map((e) => e as String)
               .toList() ??
           const [],
-      planInfo: json['planInfo'] as Map<String, dynamic>? ?? const {},
+      planInfo: json['planInfo'] as String? ?? '',
     );
 
 Map<String, dynamic> _$ResultToJson(Result instance) => <String, dynamic>{

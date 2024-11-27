@@ -157,7 +157,7 @@ class Attribute {
   @JsonKey(name: "weight")
   int weight;
   @JsonKey(name: "dataType")
-  DataType dataType;
+  String dataType;
   @JsonKey(name: "hasFilter")
   bool hasFilter;
   @JsonKey(name: "isValueTranslated")
@@ -179,12 +179,12 @@ class Attribute {
   @JsonKey(name: "isVisible")
   bool isVisible;
   @JsonKey(name: "type")
-  AttributeType type;
+  String type;
 
   Attribute({
     this.id = -1,
     this.weight = -1,
-    this.dataType = DataType.TEXT,
+    this.dataType = '',
     this.hasFilter = false,
     this.isValueTranslated = false,
     this.isRequired = false,
@@ -195,7 +195,7 @@ class Attribute {
     this.filter = const {},
     this.groupId = -1,
     this.isVisible = false,
-    this.type = AttributeType.BASIC,
+    this.type = '',
   });
 
   factory Attribute.fromJson(Map<String, dynamic> json) =>
@@ -204,29 +204,15 @@ class Attribute {
   Map<String, dynamic> toJson() => _$AttributeToJson(this);
 }
 
-enum DataType {
-  @JsonValue("Text")
-  TEXT
-}
-
-final dataTypeValues = EnumValues({"Text": DataType.TEXT});
-
-enum AttributeType {
-  @JsonValue("Basic")
-  BASIC
-}
-
-final attributeTypeValues = EnumValues({"Basic": AttributeType.BASIC});
-
 @JsonSerializable()
 class ValueTranslation {
   @JsonKey(name: "languageCode")
-  LanguageCode languageCode;
+  String languageCode;
   @JsonKey(name: "text")
   String text;
 
   ValueTranslation({
-    this.languageCode = LanguageCode.EN,
+    this.languageCode = '',
     this.text = '',
   });
 
@@ -235,27 +221,6 @@ class ValueTranslation {
 
   Map<String, dynamic> toJson() => _$ValueTranslationToJson(this);
 }
-
-enum LanguageCode {
-  @JsonValue("en")
-  EN,
-  @JsonValue("ru")
-  RU,
-  @JsonValue("uz-Cyrl-QQ")
-  UZ_CYRL_QQ,
-  @JsonValue("uz-Cyrl-UZ")
-  UZ_CYRL_UZ,
-  @JsonValue("uz-Latn-UZ")
-  UZ_LATN_UZ
-}
-
-final languageCodeValues = EnumValues({
-  "en": LanguageCode.EN,
-  "ru": LanguageCode.RU,
-  "uz-Cyrl-QQ": LanguageCode.UZ_CYRL_QQ,
-  "uz-Cyrl-UZ": LanguageCode.UZ_CYRL_UZ,
-  "uz-Latn-UZ": LanguageCode.UZ_LATN_UZ
-});
 
 @JsonSerializable()
 class FileElement {
@@ -299,21 +264,21 @@ class FileInfo {
   @JsonKey(name: "name")
   String name;
   @JsonKey(name: "extension")
-  Extension extension;
+  String extension;
   @JsonKey(name: "contentType")
-  ContentType contentType;
+  String contentType;
   @JsonKey(name: "createdAt")
   DateTime createdAt;
   @JsonKey(name: "isVisible")
   bool isVisible;
 
   FileInfo(
-    this.createdAt, {
+    this.createdAt,
+    this.extension, {
     this.id = '',
     this.url = '',
     this.name = '',
-    this.extension = Extension.JPG,
-    this.contentType = ContentType.IMAGE_JPEG,
+    this.contentType = '',
     this.isVisible = false,
   });
 
@@ -323,20 +288,6 @@ class FileInfo {
   Map<String, dynamic> toJson() => _$FileInfoToJson(this);
 }
 
-enum ContentType {
-  @JsonValue("image/jpeg")
-  IMAGE_JPEG
-}
-
-final contentTypeValues = EnumValues({"image/jpeg": ContentType.IMAGE_JPEG});
-
-enum Extension {
-  @JsonValue(".jpg")
-  JPG
-}
-
-final extensionValues = EnumValues({".jpg": Extension.JPG});
-
 @JsonSerializable()
 class Price {
   @JsonKey(name: "id")
@@ -344,7 +295,7 @@ class Price {
   @JsonKey(name: "value")
   int value;
   @JsonKey(name: "type")
-  PriceType type;
+  String type;
   @JsonKey(name: "currencyId")
   int currencyId;
   @JsonKey(name: "variationId")
@@ -353,7 +304,7 @@ class Price {
   Price({
     this.id = -1,
     this.value = -1,
-    this.type = PriceType.PRICE,
+    this.type = '',
     this.currencyId = -1,
     this.variationId = '',
   });
@@ -362,18 +313,6 @@ class Price {
 
   Map<String, dynamic> toJson() => _$PriceToJson(this);
 }
-
-enum PriceType {
-  @JsonValue("Price")
-  PRICE,
-  @JsonValue("Sale")
-  SALE,
-  @JsonValue("Vat")
-  VAT
-}
-
-final priceTypeValues = EnumValues(
-    {"Price": PriceType.PRICE, "Sale": PriceType.SALE, "Vat": PriceType.VAT});
 
 @JsonSerializable()
 class ProductProduct {

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_1/models/auth_model/register_confirm_model/register_confirm_request_model.dart';
-
 import '../../../core/constants/app_colors.dart';
-import '../../forgot_password_page/widgets/otp_timer.dart';
+import '../../../models/register_model/register_confirm_model/register_confirm_request_model.dart';
+import '../../forgot_password/widgets/otp_timer.dart';
 
 class AuthOtpField extends StatefulWidget {
   const AuthOtpField(

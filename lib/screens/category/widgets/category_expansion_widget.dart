@@ -21,7 +21,7 @@ class ExpansionTileWidgetState extends State<CategoryExpansionWidget> {
   void initState() {
     super.initState();
     // Initialize isOpen list with the number of items from the model
-    isOpen = List.generate(widget.model.item?.length ?? 0, (index) => false);
+    isOpen = List.generate(widget.model.item.length, (index) => false);
   }
 
   void _handleExpansion(int index) {
@@ -38,7 +38,7 @@ class ExpansionTileWidgetState extends State<CategoryExpansionWidget> {
   Widget build(BuildContext context) {
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: widget.model.item?.length ?? 0,
+      itemCount: widget.model.item.length,
       shrinkWrap: true,
       itemBuilder: (context, parentIndex) {
         return _buildExpansionTile(parentIndex, 'title', widget.model);
@@ -50,7 +50,7 @@ class ExpansionTileWidgetState extends State<CategoryExpansionWidget> {
       int parentIndex, String title, CategoryModel model) {
     return ExpansionTile(
       tilePadding: const EdgeInsets.all(0),
-      shape: Border.all(color:AppColors.transparent),
+      shape: Border.all(color: AppColors.transparent),
       iconColor: AppColors.green,
       leading: Container(
         decoration: BoxDecoration(
@@ -67,7 +67,7 @@ class ExpansionTileWidgetState extends State<CategoryExpansionWidget> {
               AppImages.noImage, // Placeholder while image is loading
             ),
             image: NetworkImage(
-              widget.model.item?[parentIndex].image?.url ?? AppImages.noImage,
+              widget.model.item[parentIndex].image.url,
             ),
             imageErrorBuilder: (context, error, stackTrace) {
               return Container(
@@ -87,7 +87,7 @@ class ExpansionTileWidgetState extends State<CategoryExpansionWidget> {
       ),
 
       title: Text(
-        widget.model.item![parentIndex].name!,
+        widget.model.item[parentIndex].name,
         style: const TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w500,
@@ -99,29 +99,44 @@ class ExpansionTileWidgetState extends State<CategoryExpansionWidget> {
       initiallyExpanded:
           isOpen[parentIndex], // Open/close based on isOpen state
       children: [
-        model.item![parentIndex].childs!.isEmpty
-            ? const ListTile(
-                contentPadding: EdgeInsets.symmetric(horizontal: 70),
-                minTileHeight: 35,
-                title: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 5),
-                    Text(
-                      'No options',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
+        model.item[parentIndex].childs.isEmpty
+            ? GestureDetector(
+              onTap: () {
+              Navigator.of(context, rootNavigator: true).push(
+                            MaterialPageRoute(
+                              builder: (context) => KatalogPage(
+                                model: model,
+                                index: parentIndex,
+                                // selectedSubCategory: null,
+                              ),
+                            ),
+                          );
+                          setState(() {});
+              },
+              child: const ListTile(
+                  contentPadding: EdgeInsets.symmetric(horizontal: 70),
+                  minTileHeight: 35,
+                  title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 5),
+                      Text(
+                        'Все',
+                        // 'No options',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              )
+            )
             : SizedBox(
-                height: model.item![parentIndex].childs!.length * 45,
+                height: model.item[parentIndex].childs.length * 45,
                 child: ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: model.item![parentIndex].childs!.length,
+                  itemCount: model.item[parentIndex].childs.length,
                   itemBuilder: (context, index) {
                     return Container(
                       padding: const EdgeInsets.only(left: 50),
@@ -132,7 +147,7 @@ class ExpansionTileWidgetState extends State<CategoryExpansionWidget> {
                               builder: (context) => KatalogPage(
                                 model: model,
                                 index: parentIndex,
-                                selectedSubCategory: index,
+                                // selectedSubCategory: index,
                               ),
                             ),
                           );
@@ -148,7 +163,7 @@ class ExpansionTileWidgetState extends State<CategoryExpansionWidget> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                model.item![parentIndex].childs![index].name!,
+                                model.item[parentIndex].childs[index].name!,
                                 style: const TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,

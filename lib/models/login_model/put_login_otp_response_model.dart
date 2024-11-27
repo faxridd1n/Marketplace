@@ -1,34 +1,34 @@
 // To parse this JSON data, do
 //
-//     final registerConfirmResponseModel = registerConfirmResponseModelFromJson(jsonString);
+//     final putLoginOtpResponseModel = putLoginOtpResponseModelFromJson(jsonString);
 
 import 'package:json_annotation/json_annotation.dart';
 import 'dart:convert';
 
-part 'register_confirm_response_model.g.dart';
+part 'put_login_otp_response_model.g.dart';
 
-RegisterConfirmResponseModel registerConfirmResponseModelFromJson(String str) =>
-    RegisterConfirmResponseModel.fromJson(json.decode(str));
+PutLoginOtpResponseModel putLoginOtpResponseModelFromJson(String str) =>
+    PutLoginOtpResponseModel.fromJson(json.decode(str));
 
-String registerConfirmResponseModelToJson(RegisterConfirmResponseModel data) =>
+String putLoginOtpResponseModelToJson(PutLoginOtpResponseModel data) =>
     json.encode(data.toJson());
 
 @JsonSerializable()
-class RegisterConfirmResponseModel {
+class PutLoginOtpResponseModel {
   @JsonKey(name: "result")
-  Result? result;
+  Result result;
   @JsonKey(name: "error")
   Map error;
 
-  RegisterConfirmResponseModel({
-    this.result,
+  PutLoginOtpResponseModel(
+    this.result, {
     this.error = const {},
   });
 
-  factory RegisterConfirmResponseModel.fromJson(Map<String, dynamic> json) =>
-      _$RegisterConfirmResponseModelFromJson(json);
+  factory PutLoginOtpResponseModel.fromJson(Map<String, dynamic> json) =>
+      _$PutLoginOtpResponseModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$RegisterConfirmResponseModelToJson(this);
+  Map<String, dynamic> toJson() => _$PutLoginOtpResponseModelToJson(this);
 }
 
 @JsonSerializable()
@@ -42,14 +42,14 @@ class Result {
   @JsonKey(name: "access")
   List<String> access;
   @JsonKey(name: "planInfo")
-  Map planInfo;
+  String planInfo;
 
   Result({
     this.token = '',
     this.refreshToken = '',
     this.login = '',
     this.access = const [],
-    this.planInfo = const {},
+    this.planInfo = '',
   });
 
   factory Result.fromJson(Map<String, dynamic> json) => _$ResultFromJson(json);

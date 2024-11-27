@@ -3,12 +3,11 @@ import 'package:flutter_application_1/assets_path/app_icons_path.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_application_1/models/products_model/product_model.dart';
 import 'package:flutter_application_1/screens/favorite/widgets/empty_favourite.dart';
+import 'package:flutter_application_1/widgets/mini_product.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../widgets/product_widget.dart';
-import '../../widgets/horizontal_product_widget.dart';
+ import '../../widgets/horizontal_product_widget.dart';
 
 List<ProductModel> favoriteProducts = [];
-
 class FavoritePage extends StatefulWidget {
   const FavoritePage({super.key});
 
@@ -22,10 +21,10 @@ class _FavoritePageState extends State<FavoritePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:AppColors.white,
+      backgroundColor: AppColors.white,
       appBar: AppBar(
-        surfaceTintColor:AppColors.transparent,
-        backgroundColor:AppColors.white,
+        surfaceTintColor: AppColors.transparent,
+        backgroundColor: AppColors.white,
         shadowColor: AppColors.appBarShadowColor,
         elevation: 2,
         title: const Text(
@@ -42,8 +41,9 @@ class _FavoritePageState extends State<FavoritePage> {
             child: IconButton(
               padding: const EdgeInsets.all(0),
               onPressed: () {
-                isVerticalProduct = true;
-                setState(() {});
+                setState(() {
+                  isVerticalProduct = true;
+                });
               },
               icon: SvgPicture.asset(
                 height: 28,
@@ -59,8 +59,9 @@ class _FavoritePageState extends State<FavoritePage> {
             child: IconButton(
               padding: const EdgeInsets.all(0),
               onPressed: () {
-                isVerticalProduct = false;
-                setState(() {});
+                setState(() {
+                  isVerticalProduct = false;
+                });
               },
               icon: SvgPicture.asset(
                 height: 28,
@@ -78,27 +79,40 @@ class _FavoritePageState extends State<FavoritePage> {
           : Column(
               children: [
                 Expanded(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: favoriteProducts.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: isVerticalProduct ? 40 : 10,
-                          vertical: 10,
-                        ),
-                        child: isVerticalProduct
-                            ? ProductWidget(
-                                index: index,
-                                model: favoriteProducts[index],
-                              )
-                            : HorizontalProductWidget(
+                  child: isVerticalProduct
+                      ? GridView.builder(
+                          padding: const EdgeInsets.all(10),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10,
+                            crossAxisCount: 2,
+                            childAspectRatio: 0.55, // Adjust if needed
+                          ),
+                          itemCount: favoriteProducts.length,
+                          itemBuilder: (context, index) {
+                            return MiniProductWidget(
+                              index: index,
+                              model: favoriteProducts[index],
+                            );
+                          },
+                        )
+                      : ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: favoriteProducts.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 10,
+                              ),
+                              child: HorizontalProductWidget(
                                 model: favoriteProducts[index],
                                 index: index,
                               ),
-                      );
-                    },
-                  ),
+                            );
+                          },
+                        ),
                 ),
               ],
             ),

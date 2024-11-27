@@ -2,138 +2,97 @@
 //
 //     final categoryModel = categoryModelFromJson(jsonString);
 
+import 'package:json_annotation/json_annotation.dart';
 import 'dart:convert';
 
-CategoryModel categoryModelFromJson(String str) => CategoryModel.fromJson(json.decode(str));
+part 'category_model.g.dart';
+
+CategoryModel categoryModelFromJson(String str) =>
+    CategoryModel.fromJson(json.decode(str));
 
 String categoryModelToJson(CategoryModel data) => json.encode(data.toJson());
 
+@JsonSerializable()
 class CategoryModel {
-    List<Item>? item;
+  @JsonKey(name: "item")
+  List<Item> item;
 
-    CategoryModel({
-        this.item,
-    });
+  CategoryModel({
+    this.item = const [],
+  });
 
-    factory CategoryModel.fromJson(Map<String, dynamic> json) => CategoryModel(
-        item: json["item"] == null ? [] : List<Item>.from(json["item"]!.map((x) => Item.fromJson(x))),
-    );
+  factory CategoryModel.fromJson(Map<String, dynamic> json) =>
+      _$CategoryModelFromJson(json);
 
-    Map<String, dynamic> toJson() => {
-        "item": item == null ? [] : List<dynamic>.from(item!.map((x) => x.toJson())),
-    };
+  Map<String, dynamic> toJson() => _$CategoryModelToJson(this);
 }
 
+@JsonSerializable()
 class Item {
-    int? id;
-    String? name;
-    int? parentId;
-    String? imageId;
-    Image? image;
-    List<Item>? childs;
-    bool? isVisible;
+  @JsonKey(name: "id")
+  int id;
+  @JsonKey(name: "name")
+  String name;
+  @JsonKey(name: "parentId")
+  int parentId;
+  @JsonKey(name: "imageId")
+  String imageId;
+  @JsonKey(name: "image")
+  Image image;
+  @JsonKey(name: "iconId")
+  String iconId;
+  @JsonKey(name: "icon")
+  Map icon;
+  @JsonKey(name: "childs")
+  List childs;
+  @JsonKey(name: "isVisible")
+  bool isVisible;
 
-    Item({
-        this.id,
-        this.name,
-        this.parentId,
-        this.imageId,
-        this.image,
-        this.childs,
-        this.isVisible,
-    });
+  Item(
+    this.image, {
+    this.id = -1,
+    this.name = '',
+    this.parentId = -1,
+    this.imageId = '',
+    this.iconId = '',
+    this.icon = const {},
+    this.childs = const [],
+    this.isVisible = false,
+  });
 
-    factory Item.fromJson(Map<String, dynamic> json) => Item(
-        id: json["id"],
-        name: json["name"],
-        parentId: json["parentId"],
-        imageId: json["imageId"],
-        image: json["image"] == null ? null : Image.fromJson(json["image"]),
-        childs: json["childs"] == null ? [] : List<Item>.from(json["childs"]!.map((x) => Item.fromJson(x))),
-        isVisible: json["isVisible"],
-    );
+  factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
 
-    Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "parentId": parentId,
-        "imageId": imageId,
-        "image": image?.toJson(),
-        "childs": childs == null ? [] : List<dynamic>.from(childs!.map((x) => x.toJson())),
-        "isVisible": isVisible,
-    };
+  Map<String, dynamic> toJson() => _$ItemToJson(this);
 }
 
+@JsonSerializable()
 class Image {
-    String? id;
-    String? url;
-    String? name;
-    Extension? extension;
-    ContentType? contentType;
-    DateTime? createdAt;
-    bool? isVisible;
+  @JsonKey(name: "id")
+  String id;
+  @JsonKey(name: "url")
+  String url;
+  @JsonKey(name: "name")
+  String name;
+  @JsonKey(name: "extension")
+  String extension;
+  @JsonKey(name: "contentType")
+  String contentType;
+  @JsonKey(name: "createdAt")
+  String createdAt;
+  @JsonKey(name: "isVisible")
+  bool isVisible;
 
-    Image({
-        this.id,
-        this.url,
-        this.name,
-        this.extension,
-        this.contentType,
-        this.createdAt,
-        this.isVisible,
-    });
+  Image({
+    this.id = '',
+    this.url = '',
+    this.name = '',
+    this.extension = '',
+    this.contentType = '',
+    this.createdAt = '',
+    this.isVisible = false,
+  });
 
-    factory Image.fromJson(Map<String, dynamic> json) => Image(
-        id: json["id"],
-        url: json["url"],
-        name: json["name"],
-        extension: extensionValues.map[json["extension"]]!,
-        contentType: contentTypeValues.map[json["contentType"]]!,
-        createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
-        isVisible: json["isVisible"],
-    );
+  factory Image.fromJson(Map<String, dynamic> json) => _$ImageFromJson(json);
 
-    Map<String, dynamic> toJson() => {
-        "id": id,
-        "url": url,
-        "name": name,
-        "extension": extensionValues.reverse[extension],
-        "contentType": contentTypeValues.reverse[contentType],
-        "createdAt": createdAt?.toIso8601String(),
-        "isVisible": isVisible,
-    };
-}
-
-enum ContentType {
-    IMAGE_JPEG,
-    IMAGE_PNG
-}
-
-final contentTypeValues = EnumValues({
-    "image/jpeg": ContentType.IMAGE_JPEG,
-    "image/png": ContentType.IMAGE_PNG
-});
-
-enum Extension {
-    EMPTY,
-    JPG,
-    PNG
-}
-
-final extensionValues = EnumValues({
-    "": Extension.EMPTY,
-    ".jpg": Extension.JPG,
-    ".png": Extension.PNG
-});
-
-class EnumValues<T> {
-    Map<String, T> map;
-    late Map<T, String> reverseMap;
-
-    EnumValues(this.map);
-
-    Map<T, String> get reverse {
-            reverseMap = map.map((k, v) => MapEntry(v, k));
-            return reverseMap;
-    }
+  Map<String, dynamic> toJson() => _$ImageToJson(this);
 }

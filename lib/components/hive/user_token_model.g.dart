@@ -8,7 +8,7 @@ part of 'user_token_model.dart';
 
 class UserTokenModelAdapter extends TypeAdapter<UserTokenModel> {
   @override
-  final int typeId = 1;
+  final int typeId = 0;
 
   @override
   UserTokenModel read(BinaryReader reader) {
@@ -17,7 +17,7 @@ class UserTokenModelAdapter extends TypeAdapter<UserTokenModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return UserTokenModel(
-      token: fields[1] as String,
+      token: fields[0] as String,
     );
   }
 
@@ -25,7 +25,7 @@ class UserTokenModelAdapter extends TypeAdapter<UserTokenModel> {
   void write(BinaryWriter writer, UserTokenModel obj) {
     writer
       ..writeByte(1)
-      ..writeByte(1)
+      ..writeByte(0)
       ..write(obj.token);
   }
 
