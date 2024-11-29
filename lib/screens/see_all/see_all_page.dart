@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/assets_path/app_icons_path.dart';
+import 'package:flutter_application_1/screens/basket/basket_bloc/basket_bloc.dart';
 import 'package:flutter_application_1/screens/see_all/see_all_bloc/see_all_bloc.dart';
 import 'package:flutter_application_1/screens/see_all/widgets/bottom_sheet_widget.dart';
 import 'package:flutter_application_1/widgets/horizontal_product_widget.dart';
@@ -38,8 +39,8 @@ class _SeeAllPageState extends State<SeeAllPage> {
       child: BlocBuilder<SeeAllBloc, SeeAllState>(
         builder: (context, state) {
           if (state.getProductStatus.isInProgress) {
-             Center(
-              child:CustomThicknessIndicator(),
+            Center(
+              child: CustomThicknessIndicator(),
             );
           }
           if (state.getProductStatus.isSuccess) {
@@ -181,9 +182,12 @@ class _SeeAllPageState extends State<SeeAllPage> {
                               ),
                               itemCount: state.productModel!.length,
                               itemBuilder: (context, index) {
-                                return MiniProductWidget(
-                                  index: index,
-                                  model: state.productModel![index],
+                                return BlocProvider.value(
+                                  value: BasketBloc(),
+                                  child: MiniProductWidget(
+                                    index: index,
+                                    model: state.productModel![index],
+                                  ),
                                 );
                               },
                             )
@@ -197,9 +201,12 @@ class _SeeAllPageState extends State<SeeAllPage> {
                                     horizontal: 10,
                                     vertical: 10,
                                   ),
-                                  child: HorizontalProductWidget(
-                                    model: state.productModel![index],
-                                    index: index,
+                                  child: BlocProvider.value(
+                                    value: BasketBloc(),
+                                    child: HorizontalProductWidget(
+                                      model: state.productModel![index],
+                                      index: index,
+                                    ),
                                   ),
                                 );
                               },

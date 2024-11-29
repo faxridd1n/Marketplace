@@ -53,7 +53,7 @@ class OrganizationService {
         options: Options(
           headers: {
             'Authorization':
-                userTokenBox.getAt(0)!.token.toString(),
+                'Bearer ${userTokenBox.get('token')!.token.toString()}',
           },
         ),
         data: {"productVariationId": productVariationId, "count": 1},

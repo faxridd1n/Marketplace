@@ -22,9 +22,7 @@ class _EmptyBottomBarWidgetState extends State<EmptyBottomBarWidget> {
             SvgPicture.asset(
               AppIcons.basketBox,
             ),
-            const SizedBox(
-              width: 10,
-            ),
+            const SizedBox(width: 10),
             const Expanded(
               child: Text(
                 'Выберите товары, чтобы перейти к оформлению заказа',
@@ -34,9 +32,7 @@ class _EmptyBottomBarWidgetState extends State<EmptyBottomBarWidget> {
             ),
           ],
         ),
-        const SizedBox(
-          height: 10,
-        ),
+        const SizedBox(height: 10),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
@@ -53,7 +49,7 @@ class _EmptyBottomBarWidgetState extends State<EmptyBottomBarWidget> {
             child: Text(
               'Перейти к оформлению',
               style: TextStyle(
-                color:AppColors.white,
+                color: AppColors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
               ),

@@ -47,7 +47,7 @@ class _ProfilePageState extends State<ProfilePage> {
             return Scaffold(
               body: Center(
                 child: Padding(
-                  padding: EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(20.0),
                   child: CustomThicknessIndicator(),
                 ),
               ),
@@ -117,11 +117,11 @@ class _ProfilePageState extends State<ProfilePage> {
             return Scaffold(
               body: Center(
                 child: Padding(
-                  padding: EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(20.0),
                   child: Column(
                     children: [
                       Text(userTokenBox.get('token')!.token),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Text('${state.userProfileModel?.result}')
                     ],
                   ),

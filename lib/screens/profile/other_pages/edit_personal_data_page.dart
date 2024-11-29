@@ -3,6 +3,7 @@ import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_application_1/models/profile_model/user_profile_model.dart';
 import 'package:flutter_application_1/screens/profile/profile_bloc/profile_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 
 class EditPersonalDataPage extends StatefulWidget {
   const EditPersonalDataPage({required this.userProfileModel, super.key});
@@ -164,32 +165,7 @@ class _EditPersonalDataPageState extends State<EditPersonalDataPage> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () {
-                        context.read<ProfileBloc>().add(
-                              EditUserInfoEvent(
-                                firstName: nameController.text,
-                                lastName: surnameController.text,
-                              ),
-                            );
-                        Navigator.pop(context);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 18),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        backgroundColor: AppColors.green,
-                      ),
-                      child: const Text(
-                        'Сахранить',
-                        style: TextStyle(
-                          color: AppColors.white,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
+                    buildSubmitButton(),
                     const SizedBox(height: 10),
                   ],
                 ),
@@ -198,6 +174,82 @@ class _EditPersonalDataPageState extends State<EditPersonalDataPage> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget buildSubmitButton() {
+    return BlocConsumer<ProfileBloc, ProfileState>(
+      listener: (context, state) {
+        if (state.editUserInfoStatus == FormzSubmissionStatus.success) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Successful'),
+            ),
+          );
+          Navigator.pop(context);
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (context) =>
+          //         // Pagee(
+          //         //       number: requestModel.phoneNumber,
+          //         //     )
+          //         BlocProvider(
+          //       create: (context) => LoginBloc(),
+          //       child: LoginOtpPage(
+          //         phoneNumber: requestModel.phoneNumber!,
+          //       ),
+          //     ),
+          //   ),
+          // );
+        } else if (state.editUserInfoStatus == FormzSubmissionStatus.failure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Failed'),
+            ),
+          );
+        }
+      },
+      builder: (context, state) {
+        return SizedBox(
+          height: 45,
+          width: double.infinity,
+          child: ElevatedButton(
+            onPressed: () {
+              context.read<ProfileBloc>().add(
+                    EditUserInfoEvent(
+                      firstName: nameController.text,
+                      lastName: surnameController.text,
+                    ),
+                  );
+            },
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(vertical: 0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              backgroundColor: AppColors.green,
+            ),
+            child: state.editUserInfoStatus.isInProgress
+                ? const SizedBox(
+                    height: 30,
+                    width: 30,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 3,
+                      color: AppColors.white,
+                    ),
+                  )
+                : const Text(
+                    'Сахранить',
+                    style: TextStyle(
+                      color: AppColors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+          ),
+        );
+      },
     );
   }
 }

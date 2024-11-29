@@ -60,15 +60,12 @@ class OrganizationContactWidget extends StatelessWidget {
                                 'https://business.energymarket.uz/api/v1/files/69431af3-7645-4837-98bb-cfa2931e317c'),
                             // backgroundImage: AssetImage(AppImages.partner),
                           ),
-                          const SizedBox(
-                            width: 15,
-                          ),
+                          const SizedBox(width: 15),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(
-                                width:
-                                    MediaQuery.of(context).size.width * 0.5,
+                                width: MediaQuery.of(context).size.width * 0.5,
                                 child: Text(
                                   contactModel!.result.organizationName,
                                   maxLines: 2,
@@ -76,9 +73,7 @@ class OrganizationContactWidget extends StatelessWidget {
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
-                              const SizedBox(
-                                height: 10,
-                              ),
+                              const SizedBox(height: 10),
                               Row(
                                 children: [
                                   const Icon(
@@ -104,16 +99,12 @@ class OrganizationContactWidget extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    const SizedBox(height: 20),
                     const Divider(
                       height: 1,
                       color: AppColors.borderColor,
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    const SizedBox(height: 20),
                     Row(
                       children: [
                         CircleAvatar(
@@ -121,9 +112,7 @@ class OrganizationContactWidget extends StatelessWidget {
                           backgroundColor: AppColors.grey1,
                           child: SvgPicture.asset(AppIcons.call),
                         ),
-                        const SizedBox(
-                          width: 10,
-                        ),
+                        const SizedBox(width: 10),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -138,9 +127,7 @@ class OrganizationContactWidget extends StatelessWidget {
                         )
                       ],
                     ),
-                    const SizedBox(
-                      height: 15,
-                    ),
+                    const SizedBox(height: 15),
                     Row(
                       children: [
                         CircleAvatar(
@@ -148,9 +135,7 @@ class OrganizationContactWidget extends StatelessWidget {
                           backgroundColor: AppColors.grey1,
                           child: SvgPicture.asset(AppIcons.mail),
                         ),
-                        const SizedBox(
-                          width: 10,
-                        ),
+                        const SizedBox(width: 10),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -170,9 +155,7 @@ class OrganizationContactWidget extends StatelessWidget {
                         )
                       ],
                     ),
-                    const SizedBox(
-                      height: 15,
-                    ),
+                    const SizedBox(height: 15),
                     Row(
                       children: [
                         CircleAvatar(

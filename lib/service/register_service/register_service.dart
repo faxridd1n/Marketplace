@@ -21,7 +21,7 @@ class RegisterService {
         // options: Options(
         //   headers: {
         //     'Authorization':
-        //         userTokenBox.getAt(0)!.token.toString(),
+        //         userTokenBox.get('token')!.token.toString(),
         //   },
         // ),
         data: {
@@ -81,7 +81,7 @@ class RegisterService {
         // options: Options(
         //   headers: {
         //     'Authorization':
-        //         userTokenBox.getAt(0)!.token.toString(),
+        //         userTokenBox.get('token')!.token.toString(),
         //   },
         // ),
         data: {

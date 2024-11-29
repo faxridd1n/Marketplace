@@ -20,9 +20,9 @@ class BasketService {
             "https://client.arbuzmarket.com/api/basket",
             options: Options(
               headers: {
-                 'Authorization':
-                userTokenBox.getAt(0)!.token.toString(),
-          },
+                'Authorization':
+                    'Bearer ${userTokenBox.get('token')!.token.toString()}',
+              },
             ),
           );
       Log.i(response.data.toString());
@@ -57,9 +57,9 @@ class BasketService {
             "https://client.arbuzmarket.com/api/basket/$productVariationId",
             options: Options(
               headers: {
-              'Authorization':
-                userTokenBox.getAt(0)!.token.toString(),
-          },
+                'Authorization':
+                    'Bearer ${userTokenBox.get('token')!.token.toString()}',
+              },
             ),
           );
       Log.i(response.data.toString());
@@ -87,17 +87,16 @@ class BasketService {
     return null;
   }
 
-  
   static Future<PostResponseBasketModel?> postBasketProducts(
-      String productVariationId,int count) async {
+      String productVariationId, int count) async {
     try {
       final response = await DioConfig.inheritance.createRequest().post(
         "https://client.arbuzmarket.com/api/basket",
         options: Options(
           headers: {
             'Authorization':
-                userTokenBox.getAt(0)!.token.toString(),
-         },
+                'Bearer ${userTokenBox.get('token')!.token.toString()}',
+          },
         ),
         data: {"productVariationId": productVariationId, "count": count},
       );
@@ -125,5 +124,4 @@ class BasketService {
 
     return null;
   }
-
 }

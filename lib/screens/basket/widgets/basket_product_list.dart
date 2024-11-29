@@ -35,42 +35,6 @@ class BasketProductListWidgetState extends State<BasketProductListWidget> {
         collapsedIconColor: AppColors.grey2,
         tilePadding: const EdgeInsets.all(0),
         shape: Border.all(color: AppColors.transparent),
-        // iconColor: AppColors.grey2,
-        // collapsedIconColor: AppColors.grey2,
-        // leading: Container(
-        //   decoration: BoxDecoration(
-        //     borderRadius: BorderRadius.circular(7),
-        //   ),
-        //   height: 45,
-        //   width: 45,
-        //   child: ClipRRect(
-        //     // Ensures that the image respects the rounded borders
-        //     borderRadius: BorderRadius.circular(7),
-        //     child: FadeInImage(
-        //       fit: BoxFit.fill,
-        //       placeholder: const AssetImage(
-        //         AppImages.noImage, // Placeholder while image is loading
-        //       ),
-        //       image: NetworkImage(
-        //         widget.model.item?[parentIndex].image?.url ?? AppImages.noImage,
-        //       ),
-        //       imageErrorBuilder: (context, error, stackTrace) {
-        //         return Container(
-        //           width: 40,
-        //           height: 40,
-        //           decoration: const BoxDecoration(
-        //             image: DecorationImage(
-        //               image: AssetImage(
-        //                   AppImages.noImage), // Fallback in case of error
-        //               fit: BoxFit.cover,
-        //             ),
-        //           ),
-        //         );
-        //       },
-        //     ),
-        //   ),
-        // ),
-
         title: const Text(
           'Solara',
           style: TextStyle(
@@ -78,7 +42,6 @@ class BasketProductListWidgetState extends State<BasketProductListWidget> {
             fontWeight: FontWeight.w500,
           ),
         ),
-
         initiallyExpanded: true,
         children: [
           SizedBox(

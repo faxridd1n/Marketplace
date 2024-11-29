@@ -8,8 +8,12 @@ part of 'basket_product_model.dart';
 
 BasketProductModel _$BasketProductModelFromJson(Map<String, dynamic> json) =>
     BasketProductModel(
-      result: Result.fromJson(json['result'] as Map<String, dynamic>),
-      error: json['error'] as Map<String, dynamic>? ?? const {},
+      result: json['result'] == null
+          ? null
+          : Result.fromJson(json['result'] as Map<String, dynamic>),
+      error: json['error'] == null
+          ? null
+          : Error.fromJson(json['error'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$BasketProductModelToJson(BasketProductModel instance) =>
@@ -18,23 +22,33 @@ Map<String, dynamic> _$BasketProductModelToJson(BasketProductModel instance) =>
       'error': instance.error,
     };
 
+Error _$ErrorFromJson(Map<String, dynamic> json) => Error(
+      errorCode: (json['errorCode'] as num?)?.toInt() ?? 0,
+      errorMessage: json['errorMessage'] as String? ?? '',
+    );
+
+Map<String, dynamic> _$ErrorToJson(Error instance) => <String, dynamic>{
+      'errorCode': instance.errorCode,
+      'errorMessage': instance.errorMessage,
+    };
+
 Result _$ResultFromJson(Map<String, dynamic> json) => Result(
-      id: (json['id'] as num?)?.toInt() ?? -1,
-      period: (json['period'] as num?)?.toInt() ?? -1,
-      saleType: (json['saleType'] as num?)?.toInt() ?? -1,
+      id: (json['id'] as num?)?.toInt() ?? 0,
+      period: (json['period'] as num?)?.toInt() ?? 0,
+      saleType: (json['saleType'] as num?)?.toInt() ?? 0,
       products: (json['products'] as List<dynamic>?)
               ?.map((e) => ProductElement.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      totalProductCount: (json['totalProductCount'] as num?)?.toInt() ?? -1,
-      originPrice: (json['originPrice'] as num?)?.toInt() ?? -1,
-      vatPrice: (json['vatPrice'] as num?)?.toInt() ?? -1,
-      compensationPrice: (json['compensationPrice'] as num?)?.toInt() ?? -1,
-      installmentPrice: (json['installmentPrice'] as num?)?.toInt() ?? -1,
-      oonCompensationMale: (json['oonCompensationMale'] as num?)?.toInt() ?? -1,
+      totalProductCount: (json['totalProductCount'] as num?)?.toInt() ?? 0,
+      originPrice: (json['originPrice'] as num?)?.toInt() ?? 0,
+      vatPrice: (json['vatPrice'] as num?)?.toInt() ?? 0,
+      compensationPrice: (json['compensationPrice'] as num?)?.toInt() ?? 0,
+      installmentPrice: (json['installmentPrice'] as num?)?.toInt() ?? 0,
+      oonCompensationMale: (json['oonCompensationMale'] as num?)?.toInt() ?? 0,
       oonCompensationFemale:
-          (json['oonCompensationFemale'] as num?)?.toInt() ?? -1,
-      orgId: (json['orgId'] as num?)?.toInt() ?? -1,
+          (json['oonCompensationFemale'] as num?)?.toInt() ?? 0,
+      orgId: (json['orgId'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$ResultToJson(Result instance) => <String, dynamic>{
@@ -54,10 +68,12 @@ Map<String, dynamic> _$ResultToJson(Result instance) => <String, dynamic>{
 
 ProductElement _$ProductElementFromJson(Map<String, dynamic> json) =>
     ProductElement(
-      ProductProduct.fromJson(json['product'] as Map<String, dynamic>),
       id: json['id'] as String? ?? '',
-      count: (json['count'] as num?)?.toInt() ?? -1,
+      count: (json['count'] as num?)?.toInt() ?? 0,
       productId: json['productId'] as String? ?? '',
+      product: json['product'] == null
+          ? null
+          : ProductProduct.fromJson(json['product'] as Map<String, dynamic>),
       prices: (json['prices'] as List<dynamic>?)
               ?.map((e) => Price.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -85,7 +101,6 @@ Map<String, dynamic> _$ProductElementToJson(ProductElement instance) =>
 
 AttributeValue _$AttributeValueFromJson(Map<String, dynamic> json) =>
     AttributeValue(
-      Attribute.fromJson(json['attribute'] as Map<String, dynamic>),
       id: json['id'] as String? ?? '',
       value: json['value'] as String? ?? '',
       valueTranslation: json['valueTranslation'] as String? ?? '',
@@ -93,10 +108,13 @@ AttributeValue _$AttributeValueFromJson(Map<String, dynamic> json) =>
               ?.map((e) => ValueTranslation.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      attributeId: (json['attributeId'] as num?)?.toInt() ?? -1,
+      attributeId: (json['attributeId'] as num?)?.toInt() ?? 0,
+      attribute: json['attribute'] == null
+          ? null
+          : Attribute.fromJson(json['attribute'] as Map<String, dynamic>),
       productId: json['productId'] as String? ?? '',
       variationId: json['variationId'] as String? ?? '',
-      isVisible: json['isVisible'] as bool? ?? false,
+      isVisible: json['isVisible'] as bool? ?? true,
     );
 
 Map<String, dynamic> _$AttributeValueToJson(AttributeValue instance) =>
@@ -113,19 +131,26 @@ Map<String, dynamic> _$AttributeValueToJson(AttributeValue instance) =>
     };
 
 Attribute _$AttributeFromJson(Map<String, dynamic> json) => Attribute(
-      id: (json['id'] as num?)?.toInt() ?? -1,
-      weight: (json['weight'] as num?)?.toInt() ?? -1,
+      id: (json['id'] as num?)?.toInt() ?? 0,
+      weight: (json['weight'] as num?)?.toInt() ?? 0,
       dataType: json['dataType'] as String? ?? '',
       hasFilter: json['hasFilter'] as bool? ?? false,
       isValueTranslated: json['isValueTranslated'] as bool? ?? false,
       isRequired: json['isRequired'] as bool? ?? false,
       name: json['name'] as String? ?? '',
+      names: (json['names'] as List<dynamic>?)
+              ?.map((e) => ValueTranslation.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
       description: json['description'] as String? ?? '',
-      categoryId: (json['categoryId'] as num?)?.toInt() ?? -1,
-      filterId: (json['filterId'] as num?)?.toInt() ?? -1,
-      filter: json['filter'] as Map<String, dynamic>? ?? const {},
-      groupId: (json['groupId'] as num?)?.toInt() ?? -1,
-      isVisible: json['isVisible'] as bool? ?? false,
+      categoryId: (json['categoryId'] as num?)?.toInt() ?? 0,
+      filterId: (json['filterId'] as num?)?.toInt() ?? 0,
+      filter: json['filter'] == null
+          ? null
+          : Filter.fromJson(json['filter'] as Map<String, dynamic>),
+      groupId: (json['groupId'] as num?)?.toInt() ?? 0,
+      isVisible: json['isVisible'] as bool? ?? true,
+      isAdditional: json['isAdditional'] as bool? ?? false,
       type: json['type'] as String? ?? '',
     );
 
@@ -137,13 +162,55 @@ Map<String, dynamic> _$AttributeToJson(Attribute instance) => <String, dynamic>{
       'isValueTranslated': instance.isValueTranslated,
       'isRequired': instance.isRequired,
       'name': instance.name,
+      'names': instance.names,
       'description': instance.description,
       'categoryId': instance.categoryId,
       'filterId': instance.filterId,
       'filter': instance.filter,
       'groupId': instance.groupId,
       'isVisible': instance.isVisible,
+      'isAdditional': instance.isAdditional,
       'type': instance.type,
+    };
+
+Filter _$FilterFromJson(Map<String, dynamic> json) => Filter(
+      id: (json['id'] as num?)?.toInt() ?? 0,
+      name: json['name'] as String? ?? '',
+      filterType: json['filterType'] as String? ?? '',
+      values: json['values'] as String? ?? '',
+      dataType: json['dataType'] as String? ?? '',
+      weight: (json['weight'] as num?)?.toInt() ?? 0,
+      categoryId: (json['categoryId'] as num?)?.toInt() ?? 0,
+      category: json['category'] == null
+          ? null
+          : Category.fromJson(json['category'] as Map<String, dynamic>),
+      isVisible: json['isVisible'] as bool? ?? true,
+    );
+
+Map<String, dynamic> _$FilterToJson(Filter instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'filterType': instance.filterType,
+      'values': instance.values,
+      'dataType': instance.dataType,
+      'weight': instance.weight,
+      'categoryId': instance.categoryId,
+      'category': instance.category,
+      'isVisible': instance.isVisible,
+    };
+
+Category _$CategoryFromJson(Map<String, dynamic> json) => Category(
+      id: (json['id'] as num?)?.toInt() ?? 0,
+      name: json['name'] as String? ?? '',
+      imageId: json['imageId'] as String? ?? '',
+      isVisible: json['isVisible'] as bool? ?? true,
+    );
+
+Map<String, dynamic> _$CategoryToJson(Category instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'imageId': instance.imageId,
+      'isVisible': instance.isVisible,
     };
 
 ValueTranslation _$ValueTranslationFromJson(Map<String, dynamic> json) =>
@@ -159,13 +226,15 @@ Map<String, dynamic> _$ValueTranslationToJson(ValueTranslation instance) =>
     };
 
 FileElement _$FileElementFromJson(Map<String, dynamic> json) => FileElement(
-      FileInfo.fromJson(json['fileInfo'] as Map<String, dynamic>),
       id: json['id'] as String? ?? '',
-      order: (json['order'] as num?)?.toInt() ?? -1,
+      order: (json['order'] as num?)?.toInt() ?? 0,
       url: json['url'] as String? ?? '',
+      fileInfo: json['fileInfo'] == null
+          ? null
+          : FileInfo.fromJson(json['fileInfo'] as Map<String, dynamic>),
       variationId: json['variationId'] as String? ?? '',
       productId: json['productId'] as String? ?? '',
-      isVisible: json['isVisible'] as bool? ?? false,
+      isVisible: json['isVisible'] as bool? ?? true,
     );
 
 Map<String, dynamic> _$FileElementToJson(FileElement instance) =>
@@ -180,13 +249,15 @@ Map<String, dynamic> _$FileElementToJson(FileElement instance) =>
     };
 
 FileInfo _$FileInfoFromJson(Map<String, dynamic> json) => FileInfo(
-      DateTime.parse(json['createdAt'] as String),
-      json['extension'] as String,
       id: json['id'] as String? ?? '',
       url: json['url'] as String? ?? '',
       name: json['name'] as String? ?? '',
+      extension: json['extension'] as String? ?? '',
       contentType: json['contentType'] as String? ?? '',
-      isVisible: json['isVisible'] as bool? ?? false,
+      createdAt: json['createdAt'] == null
+          ? null
+          : DateTime.parse(json['createdAt'] as String),
+      isVisible: json['isVisible'] as bool? ?? true,
     );
 
 Map<String, dynamic> _$FileInfoToJson(FileInfo instance) => <String, dynamic>{
@@ -200,10 +271,10 @@ Map<String, dynamic> _$FileInfoToJson(FileInfo instance) => <String, dynamic>{
     };
 
 Price _$PriceFromJson(Map<String, dynamic> json) => Price(
-      id: (json['id'] as num?)?.toInt() ?? -1,
-      value: (json['value'] as num?)?.toInt() ?? -1,
+      id: (json['id'] as num?)?.toInt() ?? 0,
+      value: (json['value'] as num?)?.toInt() ?? 0,
       type: json['type'] as String? ?? '',
-      currencyId: (json['currencyId'] as num?)?.toInt() ?? -1,
+      currencyId: (json['currencyId'] as num?)?.toInt() ?? 0,
       variationId: json['variationId'] as String? ?? '',
     );
 
@@ -221,9 +292,9 @@ ProductProduct _$ProductProductFromJson(Map<String, dynamic> json) =>
       state: json['state'] as String? ?? '',
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
-      categoryId: (json['categoryId'] as num?)?.toInt() ?? -1,
-      organizationId: (json['organizationId'] as num?)?.toInt() ?? -1,
-      isVisible: json['isVisible'] as bool? ?? false,
+      categoryId: (json['categoryId'] as num?)?.toInt() ?? 0,
+      organizationId: (json['organizationId'] as num?)?.toInt() ?? 0,
+      isVisible: json['isVisible'] as bool? ?? true,
     );
 
 Map<String, dynamic> _$ProductProductToJson(ProductProduct instance) =>

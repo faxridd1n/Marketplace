@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/assets_path/app_icons_path.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_application_1/models/home_model/category_model.dart';
+import 'package:flutter_application_1/screens/basket/basket_bloc/basket_bloc.dart';
 import 'package:flutter_application_1/screens/katalog/katalog_bloc/katalog_bloc.dart';
 import 'package:flutter_application_1/screens/katalog/widgets/katalog_empty_page.dart';
 import 'package:flutter_application_1/widgets/horizontal_product_widget.dart';
@@ -90,85 +91,84 @@ class _KatalogPageState extends State<KatalogPage> {
                       elevation: 2,
                       shadowColor: AppColors.appBarShadowColor,
                       backgroundColor: AppColors.white,
-                      actions: [
+                      actions: const [
                         // widget.model.item[widget.index].childs.isEmpty
-                            // ? const SizedBox()
-                            // : PopupMenuButton(
-                            //     shape: RoundedRectangleBorder(
-                            //       borderRadius: BorderRadius.circular(8),
-                            //     ),
-                            //     elevation: 5,
-                            //     shadowColor: AppColors.black,
-                            //     color: AppColors.white,
-                            //     padding: const EdgeInsets.symmetric(
-                            //       horizontal: 8,
-                            //     ),
-                            //     offset: const Offset(0, 50),
-                            //     onSelected: (value) {
-                            //       popUpIsOpen = false;
-                            //       selectedItem = value.toString();
-                            //       for (var i = 0;
-                            //           i < subCategories.length;
-                            //           i++) {
-                            //         if (subCategories[i] == selectedItem) {
-                            //           selectedSubCategory = i;
-                            //           katalogBloc.add(GetKatalogEvent(
-                            //               widget.model.item[widget.index]
-                            //                   .childs[selectedSubCategory].id!,
-                            //               10));
-                            //           setState(() {});
-                            //         }
-                            //       }
-                            //       setState(() {});
-                            //     },
-                            //     onOpened: () {
-                            //       popUpIsOpen = true;
-                            //       setState(() {});
-                            //     },
-                            //     onCanceled: () {
-                            //       popUpIsOpen = false;
-                            //       setState(() {});
-                            //     },
-                            //     initialValue: selectedItem.isEmpty
-                            //         ? widget.model.item[widget.index].childs[0]
-                            //             .name!
-                            //         : selectedItem,
-                            //     icon: Row(
-                            //       children: [
-                            //         const SizedBox(width: 5),
-                            //         Text(
-                            //           selectedItem.isEmpty
-                            //               ? widget.model.item[widget.index]
-                            //                   .childs[0].name!
-                            //               : selectedItem,
-                            //           textAlign: TextAlign.right,
-                            //           overflow: TextOverflow.ellipsis,
-                            //           style: const TextStyle(
-                            //             fontSize: 14,
-                            //             fontWeight: FontWeight.w500,
-                            //           ),
-                            //         ),
-                            //         const SizedBox(
-                            //           width: 5,
-                            //         ),
-                            //         Icon(
-                            //           popUpIsOpen
-                            //               ? Icons.keyboard_arrow_up
-                            //               : Icons.keyboard_arrow_down,
-                            //           size: 20,
-                            //         )
-                            //       ],
-                            //     ),
-                            //     itemBuilder: (BuildContext context) {
-                            //       return subCategories.map((String choice) {
-                            //         return PopupMenuItem<String>(
-                            //           value: choice,
-                            //           child: Text(choice),
-                            //         );
-                            //       }).toList();
-                            //     },
-                            //   ),
-                     
+                        // ? const SizedBox()
+                        // : PopupMenuButton(
+                        //     shape: RoundedRectangleBorder(
+                        //       borderRadius: BorderRadius.circular(8),
+                        //     ),
+                        //     elevation: 5,
+                        //     shadowColor: AppColors.black,
+                        //     color: AppColors.white,
+                        //     padding: const EdgeInsets.symmetric(
+                        //       horizontal: 8,
+                        //     ),
+                        //     offset: const Offset(0, 50),
+                        //     onSelected: (value) {
+                        //       popUpIsOpen = false;
+                        //       selectedItem = value.toString();
+                        //       for (var i = 0;
+                        //           i < subCategories.length;
+                        //           i++) {
+                        //         if (subCategories[i] == selectedItem) {
+                        //           selectedSubCategory = i;
+                        //           katalogBloc.add(GetKatalogEvent(
+                        //               widget.model.item[widget.index]
+                        //                   .childs[selectedSubCategory].id!,
+                        //               10));
+                        //           setState(() {});
+                        //         }
+                        //       }
+                        //       setState(() {});
+                        //     },
+                        //     onOpened: () {
+                        //       popUpIsOpen = true;
+                        //       setState(() {});
+                        //     },
+                        //     onCanceled: () {
+                        //       popUpIsOpen = false;
+                        //       setState(() {});
+                        //     },
+                        //     initialValue: selectedItem.isEmpty
+                        //         ? widget.model.item[widget.index].childs[0]
+                        //             .name!
+                        //         : selectedItem,
+                        //     icon: Row(
+                        //       children: [
+                        //         const SizedBox(width: 5),
+                        //         Text(
+                        //           selectedItem.isEmpty
+                        //               ? widget.model.item[widget.index]
+                        //                   .childs[0].name!
+                        //               : selectedItem,
+                        //           textAlign: TextAlign.right,
+                        //           overflow: TextOverflow.ellipsis,
+                        //           style: const TextStyle(
+                        //             fontSize: 14,
+                        //             fontWeight: FontWeight.w500,
+                        //           ),
+                        //         ),
+                        //         const SizedBox(
+                        //           width: 5,
+                        //         ),
+                        //         Icon(
+                        //           popUpIsOpen
+                        //               ? Icons.keyboard_arrow_up
+                        //               : Icons.keyboard_arrow_down,
+                        //           size: 20,
+                        //         )
+                        //       ],
+                        //     ),
+                        //     itemBuilder: (BuildContext context) {
+                        //       return subCategories.map((String choice) {
+                        //         return PopupMenuItem<String>(
+                        //           value: choice,
+                        //           child: Text(choice),
+                        //         );
+                        //       }).toList();
+                        //     },
+                        //   ),
                       ],
                       bottom: PreferredSize(
                         preferredSize: const Size.fromHeight(55),
@@ -279,10 +279,13 @@ class _KatalogPageState extends State<KatalogPage> {
                                         itemCount:
                                             state.filteredProductModel!.length,
                                         itemBuilder: (context, index) {
-                                          return MiniProductWidget(
-                                            index: index,
-                                            model: state
-                                                .filteredProductModel![index],
+                                          return BlocProvider.value(
+                                            value: BasketBloc(),
+                                            child: MiniProductWidget(
+                                              index: index,
+                                              model: state
+                                                  .filteredProductModel![index],
+                                            ),
                                           );
                                         },
                                       )
@@ -296,10 +299,14 @@ class _KatalogPageState extends State<KatalogPage> {
                                               horizontal: 10,
                                               vertical: 10,
                                             ),
-                                            child: HorizontalProductWidget(
-                                              model: state
-                                                  .filteredProductModel![index],
-                                              index: index,
+                                            child: BlocProvider.value(
+                                              value: BasketBloc(),
+                                              child: HorizontalProductWidget(
+                                                model:
+                                                    state.filteredProductModel![
+                                                        index],
+                                                index: index,
+                                              ),
                                             ),
                                           );
                                         },

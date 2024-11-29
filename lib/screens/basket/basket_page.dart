@@ -38,29 +38,29 @@ class _BasketPageState extends State<BasketPage> {
   int productCount = 1;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.white,
-      appBar: AppBar(
-        surfaceTintColor: AppColors.transparent,
-        backgroundColor: AppColors.white,
-        elevation: 2,
-        shadowColor: AppColors.appBarShadowColor,
-        title: const Text(
-          'Saqlanganlar',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ),
-      body: BlocBuilder<BasketBloc, BasketState>(
-        builder: (ctx, state) {
-          if (state.getBasketProductStatus.isInProgress) {
-            return Center(child: CustomThicknessIndicator());
-          }
-          if (state.getBasketProductStatus.isSuccess) {
-            basketProducts = state.basketResponseModel!.result.products;
-            return state.basketResponseModel!.result.products.isNotEmpty
+    return BlocBuilder<BasketBloc, BasketState>(
+      builder: (ctx, state) {
+        basketProducts = state.basketResponseModel!.result.products;
+        if (state.getBasketProductStatus.isInProgress) {
+          return Center(child: CustomThicknessIndicator());
+        }
+        if (state.getBasketProductStatus.isSuccess) {
+          return Scaffold(
+            backgroundColor: AppColors.white,
+            appBar: AppBar(
+              surfaceTintColor: AppColors.transparent,
+              backgroundColor: AppColors.white,
+              elevation: 2,
+              shadowColor: AppColors.appBarShadowColor,
+              title: const Text(
+                'Saqlanganlar',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            body: state.basketResponseModel!.result.products.isNotEmpty
                 ? Column(
                     children: [
                       Expanded(
@@ -247,10 +247,10 @@ class _BasketPageState extends State<BasketPage> {
                       ),
                       BottomAppBar(
                         padding: const EdgeInsets.all(0),
-                        height: 
-                        // selectedProducts.isEmpty
-                        //     ? MediaQuery.of(context).size.height * 0.20:
-                             MediaQuery.of(context).size.height * 0.3,
+                        height:
+                            // selectedProducts.isEmpty
+                            //     ? MediaQuery.of(context).size.height * 0.20:
+                            MediaQuery.of(context).size.height * 0.3,
                         elevation: 3,
                         child: Container(
                           decoration: const BoxDecoration(
@@ -277,13 +277,15 @@ class _BasketPageState extends State<BasketPage> {
                       ),
                     ],
                   )
-                : const EmptyBasketPage();
-          }
-          return const Center(
-            child: Text('Error'),
+                : const EmptyBasketPage(),
           );
-        },
-      ),
+        }
+        return const Scaffold(
+          body: Center(
+            child: Text('Error'),
+          ),
+        );
+      },
     );
   }
 }

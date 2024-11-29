@@ -39,7 +39,7 @@ class MiniProductWidget extends StatefulWidget {
 }
 
 class _MiniProductWidgetState extends State<MiniProductWidget> {
-  bool isAddedBasket = false;
+  // bool isAddedBasket = false;
   int basketProductCount = 0;
   bool isSelected = false;
   @override
@@ -91,8 +91,8 @@ class _MiniProductWidgetState extends State<MiniProductWidget> {
                       Align(
                         alignment: Alignment.center,
                         child: SizedBox(
-                            height: 140,
-                            child: Padding(
+                          height: 140,
+                          child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(5),
@@ -140,7 +140,7 @@ class _MiniProductWidgetState extends State<MiniProductWidget> {
                       const SizedBox(height: 15),
                       Row(
                         children: [
-                          isAddedBasket
+                          basketProductCount != 0
                               ? Expanded(
                                   child: Row(
                                     mainAxisAlignment:
@@ -159,8 +159,85 @@ class _MiniProductWidgetState extends State<MiniProductWidget> {
                                             backgroundColor: AppColors.grey1,
                                           ),
                                           onPressed: () {
-                                            if (basketProductCount != 1) {
+                                            if (basketProductCount != 0) {
                                               basketProductCount -= 1;
+                                              // isAddedBasket = true;
+
+                                              if (widget.isHomePage == true) {
+                                                context.read<BasketBloc>().add(
+                                                      PostBasketProductBasketEvent(
+                                                        productVariationId:
+                                                            widget
+                                                                .model
+                                                                .variations[0]
+                                                                .id,
+                                                        count:
+                                                            basketProductCount,
+                                                      ),
+                                                    );
+                                              } else if (widget.isSeeAllPage ==
+                                                  true) {
+                                                context.read<SeeAllBloc>().add(
+                                                      PostBasketProductSeeAllEvent(
+                                                        productVariationId:
+                                                            widget
+                                                                .model
+                                                                .variations[0]
+                                                                .id,
+                                                        count:
+                                                            basketProductCount,
+                                                      ),
+                                                    );
+                                              } else if (widget.isKatalogPage ==
+                                                  true) {
+                                                context.read<KatalogBloc>().add(
+                                                      PostBasketProductKatalogEvent(
+                                                        productVariationId:
+                                                            widget
+                                                                .model
+                                                                .variations[0]
+                                                                .id,
+                                                        count:
+                                                            basketProductCount,
+                                                      ),
+                                                    );
+                                              } else if (widget.isDetailPage ==
+                                                  true) {
+                                                context
+                                                    .read<ProductDetailBloc>()
+                                                    .add(
+                                                      PostBasketProductDetailEvent(
+                                                        productVariationId:
+                                                            widget
+                                                                .model
+                                                                .variations[0]
+                                                                .id,
+                                                        count:
+                                                            basketProductCount,
+                                                      ),
+                                                    );
+                                              } else {
+                                                context.read<BasketBloc>().add(
+                                                      PostBasketProductBasketEvent(
+                                                        productVariationId:
+                                                            widget
+                                                                .model
+                                                                .variations[0]
+                                                                .id,
+                                                        count:
+                                                            basketProductCount,
+                                                      ),
+                                                    );
+                                              }
+                                              snackBar(
+                                                isHomePage:
+                                                    widget.isHomePage == true
+                                                        ? true
+                                                        : false,
+                                                context: context,
+                                                name: widget.model.name,
+                                                addProduct: false,
+                                              );
                                               setState(() {});
                                             }
                                           },
@@ -192,6 +269,74 @@ class _MiniProductWidgetState extends State<MiniProductWidget> {
                                           ),
                                           onPressed: () {
                                             basketProductCount += 1;
+                                            // isAddedBasket = true;
+
+                                            if (widget.isHomePage == true) {
+                                              context.read<BasketBloc>().add(
+                                                    PostBasketProductBasketEvent(
+                                                      productVariationId: widget
+                                                          .model
+                                                          .variations[0]
+                                                          .id,
+                                                      count: basketProductCount,
+                                                    ),
+                                                  );
+                                            } else if (widget.isSeeAllPage ==
+                                                true) {
+                                              context.read<SeeAllBloc>().add(
+                                                    PostBasketProductSeeAllEvent(
+                                                      productVariationId: widget
+                                                          .model
+                                                          .variations[0]
+                                                          .id,
+                                                      count: basketProductCount,
+                                                    ),
+                                                  );
+                                            } else if (widget.isKatalogPage ==
+                                                true) {
+                                              context.read<KatalogBloc>().add(
+                                                    PostBasketProductKatalogEvent(
+                                                      productVariationId: widget
+                                                          .model
+                                                          .variations[0]
+                                                          .id,
+                                                      count: basketProductCount,
+                                                    ),
+                                                  );
+                                            } else if (widget.isDetailPage ==
+                                                true) {
+                                              context
+                                                  .read<ProductDetailBloc>()
+                                                  .add(
+                                                    PostBasketProductDetailEvent(
+                                                      productVariationId: widget
+                                                          .model
+                                                          .variations[0]
+                                                          .id,
+                                                      count: basketProductCount,
+                                                    ),
+                                                  );
+                                            } else {
+                                              context.read<BasketBloc>().add(
+                                                    PostBasketProductBasketEvent(
+                                                      productVariationId: widget
+                                                          .model
+                                                          .variations[0]
+                                                          .id,
+                                                      count: basketProductCount,
+                                                    ),
+                                                  );
+                                            }
+
+                                            snackBar(
+                                                isHomePage:
+                                                    widget.isHomePage == true
+                                                        ? true
+                                                        : false,
+                                                context: context,
+                                                name: widget.model.name,
+                                                addProduct: true);
+
                                             setState(() {});
                                           },
                                           child: const Icon(
@@ -218,7 +363,6 @@ class _MiniProductWidgetState extends State<MiniProductWidget> {
                                       ),
                                       onPressed: () {
                                         basketProductCount += 1;
-                                        isAddedBasket = true;
                                         bool isAlreadyHave = false;
                                         setState(() {});
                                         if (basketProducts
@@ -228,10 +372,8 @@ class _MiniProductWidgetState extends State<MiniProductWidget> {
                                             context.read<BasketBloc>().add(
                                                   PostBasketProductBasketEvent(
                                                     productVariationId: widget
-                                                        .model
-                                                        .variations[0]
-                                                        .id,
-                                                    count: 2,
+                                                        .model.variations[0].id,
+                                                    count: basketProductCount,
                                                   ),
                                                 );
                                           } else if (widget.isSeeAllPage ==
@@ -239,9 +381,7 @@ class _MiniProductWidgetState extends State<MiniProductWidget> {
                                             context.read<SeeAllBloc>().add(
                                                   PostBasketProductSeeAllEvent(
                                                     productVariationId: widget
-                                                        .model
-                                                        .variations[0]
-                                                        .id,
+                                                        .model.variations[0].id,
                                                     count: 1,
                                                   ),
                                                 );
@@ -250,9 +390,7 @@ class _MiniProductWidgetState extends State<MiniProductWidget> {
                                             context.read<KatalogBloc>().add(
                                                   PostBasketProductKatalogEvent(
                                                     productVariationId: widget
-                                                        .model
-                                                        .variations[0]
-                                                        .id,
+                                                        .model.variations[0].id,
                                                     count: 1,
                                                   ),
                                                 );
@@ -263,18 +401,14 @@ class _MiniProductWidgetState extends State<MiniProductWidget> {
                                                 .add(
                                                   PostBasketProductDetailEvent(
                                                     productVariationId: widget
-                                                        .model
-                                                        .variations[0]
-                                                        .id,
+                                                        .model.variations[0].id,
                                                   ),
                                                 );
                                           } else {
                                             context.read<BasketBloc>().add(
                                                   PostBasketProductBasketEvent(
                                                     productVariationId: widget
-                                                        .model
-                                                        .variations[0]
-                                                        .id,
+                                                        .model.variations[0].id,
                                                     count: 2,
                                                   ),
                                                 );
@@ -285,9 +419,7 @@ class _MiniProductWidgetState extends State<MiniProductWidget> {
                                             context.read<BasketBloc>().add(
                                                   PostBasketProductBasketEvent(
                                                     productVariationId: widget
-                                                        .model
-                                                        .variations[0]
-                                                        .id,
+                                                        .model.variations[0].id,
                                                     count: 1,
                                                   ),
                                                 );
@@ -296,9 +428,7 @@ class _MiniProductWidgetState extends State<MiniProductWidget> {
                                             context.read<SeeAllBloc>().add(
                                                   PostBasketProductSeeAllEvent(
                                                     productVariationId: widget
-                                                        .model
-                                                        .variations[0]
-                                                        .id,
+                                                        .model.variations[0].id,
                                                     count: 1,
                                                   ),
                                                 );
@@ -307,9 +437,7 @@ class _MiniProductWidgetState extends State<MiniProductWidget> {
                                             context.read<KatalogBloc>().add(
                                                   PostBasketProductKatalogEvent(
                                                     productVariationId: widget
-                                                        .model
-                                                        .variations[0]
-                                                        .id,
+                                                        .model.variations[0].id,
                                                     count: 1,
                                                   ),
                                                 );
@@ -320,18 +448,14 @@ class _MiniProductWidgetState extends State<MiniProductWidget> {
                                                 .add(
                                                   PostBasketProductDetailEvent(
                                                     productVariationId: widget
-                                                        .model
-                                                        .variations[0]
-                                                        .id,
+                                                        .model.variations[0].id,
                                                   ),
                                                 );
                                           } else {
                                             context.read<BasketBloc>().add(
                                                   PostBasketProductBasketEvent(
                                                     productVariationId: widget
-                                                        .model
-                                                        .variations[0]
-                                                        .id,
+                                                        .model.variations[0].id,
                                                     count: 1,
                                                   ),
                                                 );
@@ -363,9 +487,7 @@ class _MiniProductWidgetState extends State<MiniProductWidget> {
                                     ),
                                   ),
                                 ),
-                          const SizedBox(
-                            width: 5,
-                          ),
+                          const SizedBox(width: 5),
                           SizedBox(
                             height: 35,
                             width: 35,
@@ -378,8 +500,7 @@ class _MiniProductWidgetState extends State<MiniProductWidget> {
                                 backgroundColor: AppColors.grey1,
                               ),
                               onPressed: () {
-                                Navigator.of(context, rootNavigator: true)
-                                    .push(
+                                Navigator.of(context, rootNavigator: true).push(
                                   MaterialPageRoute(
                                     builder: (context) => ProductDetailPage1(
                                       productId: widget.model.id,

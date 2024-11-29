@@ -4,7 +4,6 @@ import 'package:flutter_application_1/screens/auth/auth_page.dart';
 import 'package:flutter_application_1/screens/forgot_password/forgot_password_page.dart';
 import 'package:flutter_application_1/screens/login/login_bloc/login_bloc.dart';
 import 'package:flutter_application_1/screens/login/widgets/login_number_field.dart';
-import 'package:flutter_application_1/screens/profile/widgets/profile_otp_field.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import '../../core/constants/app_colors.dart';
@@ -116,10 +115,10 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 20),
-                ProfilePasswordField(
-                  userPasswordController: passwordController,
-                ),
+                // const SizedBox(height: 20),
+                // ProfilePasswordField(
+                //   userPasswordController: passwordController,
+                // ),
                 const SizedBox(height: 15),
                 Align(
                   alignment: Alignment.topRight,

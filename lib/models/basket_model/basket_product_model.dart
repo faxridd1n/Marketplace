@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final basketProductModel = basketProductModelFromJson(jsonString);
-
 import 'package:json_annotation/json_annotation.dart';
 import 'dart:convert';
 
@@ -16,14 +12,15 @@ String basketProductModelToJson(BasketProductModel data) =>
 @JsonSerializable()
 class BasketProductModel {
   @JsonKey(name: "result")
-  Result result;
+  final Result result;
   @JsonKey(name: "error")
-  Map error;
+  final Error error;
 
   BasketProductModel({
-    required this.result,
-    this.error = const {},
-  });
+    Result? result, // Make result nullable
+    Error? error, // Make error nullable
+  })  : result = result ?? Result(), // Default to a new Result() if null
+        error = error ?? Error(); // Default to a new Error() if null
 
   factory BasketProductModel.fromJson(Map<String, dynamic> json) =>
       _$BasketProductModelFromJson(json);
@@ -32,45 +29,62 @@ class BasketProductModel {
 }
 
 @JsonSerializable()
+class Error {
+  @JsonKey(name: "errorCode")
+  final int errorCode;
+  @JsonKey(name: "errorMessage")
+  final String errorMessage;
+
+  Error({
+    this.errorCode = 0,
+    this.errorMessage = '',
+  });
+
+  factory Error.fromJson(Map<String, dynamic> json) => _$ErrorFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ErrorToJson(this);
+}
+
+@JsonSerializable()
 class Result {
   @JsonKey(name: "id")
-  int id;
+  final int id;
   @JsonKey(name: "period")
-  int period;
+  final int period;
   @JsonKey(name: "saleType")
-  int saleType;
+  final int saleType;
   @JsonKey(name: "products")
-  List<ProductElement> products;
+  final List<ProductElement> products;
   @JsonKey(name: "totalProductCount")
-  int totalProductCount;
+  final int totalProductCount;
   @JsonKey(name: "originPrice")
-  int originPrice;
+  final int originPrice;
   @JsonKey(name: "vatPrice")
-  int vatPrice;
+  final int vatPrice;
   @JsonKey(name: "compensationPrice")
-  int compensationPrice;
+  final int compensationPrice;
   @JsonKey(name: "installmentPrice")
-  int installmentPrice;
+  final int installmentPrice;
   @JsonKey(name: "oonCompensationMale")
-  int oonCompensationMale;
+  final int oonCompensationMale;
   @JsonKey(name: "oonCompensationFemale")
-  int oonCompensationFemale;
+  final int oonCompensationFemale;
   @JsonKey(name: "orgId")
-  int orgId;
+  final int orgId;
 
   Result({
-    this.id = -1,
-    this.period = -1,
-    this.saleType = -1,
+    this.id = 0,
+    this.period = 0,
+    this.saleType = 0,
     this.products = const [],
-    this.totalProductCount = -1,
-    this.originPrice = -1,
-    this.vatPrice = -1,
-    this.compensationPrice = -1,
-    this.installmentPrice = -1,
-    this.oonCompensationMale = -1,
-    this.oonCompensationFemale = -1,
-    this.orgId = -1,
+    this.totalProductCount = 0,
+    this.originPrice = 0,
+    this.vatPrice = 0,
+    this.compensationPrice = 0,
+    this.installmentPrice = 0,
+    this.oonCompensationMale = 0,
+    this.oonCompensationFemale = 0,
+    this.orgId = 0,
   });
 
   factory Result.fromJson(Map<String, dynamic> json) => _$ResultFromJson(json);
@@ -81,29 +95,29 @@ class Result {
 @JsonSerializable()
 class ProductElement {
   @JsonKey(name: "id")
-  String id;
+  final String id;
   @JsonKey(name: "count")
-  int count;
+  final int count;
   @JsonKey(name: "productId")
-  String productId;
+  final String productId;
   @JsonKey(name: "product")
-  ProductProduct product;
+  final ProductProduct product;
   @JsonKey(name: "prices")
-  List<Price> prices;
+  final List<Price> prices;
   @JsonKey(name: "files")
-  List<FileElement> files;
+  final List<FileElement> files;
   @JsonKey(name: "attributeValues")
-  List<AttributeValue> attributeValues;
+  final List<AttributeValue> attributeValues;
 
-  ProductElement(
-    this.product, {
+  ProductElement({
     this.id = '',
-    this.count = -1,
+    this.count = 0,
     this.productId = '',
+    ProductProduct? product,
     this.prices = const [],
     this.files = const [],
     this.attributeValues = const [],
-  });
+  }) : product = product ?? ProductProduct();
 
   factory ProductElement.fromJson(Map<String, dynamic> json) =>
       _$ProductElementFromJson(json);
@@ -114,35 +128,35 @@ class ProductElement {
 @JsonSerializable()
 class AttributeValue {
   @JsonKey(name: "id")
-  String id;
+  final String id;
   @JsonKey(name: "value")
-  String value;
+  final String value;
   @JsonKey(name: "valueTranslation")
-  String valueTranslation;
+  final String valueTranslation;
   @JsonKey(name: "valueTranslations")
-  List<ValueTranslation> valueTranslations;
+  final List<ValueTranslation> valueTranslations;
   @JsonKey(name: "attributeId")
-  int attributeId;
+  final int attributeId;
   @JsonKey(name: "attribute")
-  Attribute attribute;
+  final Attribute attribute;
   @JsonKey(name: "productId")
-  String productId;
+  final String productId;
   @JsonKey(name: "variationId")
-  String variationId;
+  final String variationId;
   @JsonKey(name: "isVisible")
-  bool isVisible;
+  final bool isVisible;
 
-  AttributeValue(
-    this.attribute, {
+  AttributeValue({
     this.id = '',
     this.value = '',
     this.valueTranslation = '',
     this.valueTranslations = const [],
-    this.attributeId = -1,
+    this.attributeId = 0,
+    Attribute? attribute,
     this.productId = '',
     this.variationId = '',
-    this.isVisible = false,
-  });
+    this.isVisible = true,
+  }) : attribute = attribute ?? Attribute();
 
   factory AttributeValue.fromJson(Map<String, dynamic> json) =>
       _$AttributeValueFromJson(json);
@@ -153,50 +167,56 @@ class AttributeValue {
 @JsonSerializable()
 class Attribute {
   @JsonKey(name: "id")
-  int id;
+  final int id;
   @JsonKey(name: "weight")
-  int weight;
+  final int weight;
   @JsonKey(name: "dataType")
-  String dataType;
+  final String dataType;
   @JsonKey(name: "hasFilter")
-  bool hasFilter;
+  final bool hasFilter;
   @JsonKey(name: "isValueTranslated")
-  bool isValueTranslated;
+  final bool isValueTranslated;
   @JsonKey(name: "isRequired")
-  bool isRequired;
+  final bool isRequired;
   @JsonKey(name: "name")
-  String name;
+  final String name;
+  @JsonKey(name: "names")
+  final List<ValueTranslation> names;
   @JsonKey(name: "description")
-  String description;
+  final String description;
   @JsonKey(name: "categoryId")
-  int categoryId;
+  final int categoryId;
   @JsonKey(name: "filterId")
-  int filterId;
+  final int filterId;
   @JsonKey(name: "filter")
-  Map filter;
+  final Filter filter;
   @JsonKey(name: "groupId")
-  int groupId;
+  final int groupId;
   @JsonKey(name: "isVisible")
-  bool isVisible;
+  final bool isVisible;
+  @JsonKey(name: "isAdditional")
+  final bool isAdditional;
   @JsonKey(name: "type")
-  String type;
+  final String type;
 
   Attribute({
-    this.id = -1,
-    this.weight = -1,
+    this.id = 0,
+    this.weight = 0,
     this.dataType = '',
     this.hasFilter = false,
     this.isValueTranslated = false,
     this.isRequired = false,
     this.name = '',
+    this.names = const [],
     this.description = '',
-    this.categoryId = -1,
-    this.filterId = -1,
-    this.filter = const {},
-    this.groupId = -1,
-    this.isVisible = false,
+    this.categoryId = 0,
+    this.filterId = 0,
+    Filter? filter,
+    this.groupId = 0,
+    this.isVisible = true,
+    this.isAdditional = false,
     this.type = '',
-  });
+  }) : filter = filter ?? Filter();
 
   factory Attribute.fromJson(Map<String, dynamic> json) =>
       _$AttributeFromJson(json);
@@ -205,11 +225,74 @@ class Attribute {
 }
 
 @JsonSerializable()
+class Filter {
+  @JsonKey(name: "id")
+  final int id;
+  @JsonKey(name: "name")
+  final String name;
+  @JsonKey(name: "filterType")
+  final String filterType;
+  @JsonKey(name: "values")
+  final String values;
+  @JsonKey(name: "dataType")
+  final String dataType;
+  @JsonKey(name: "weight")
+  final int weight;
+  @JsonKey(name: "categoryId")
+  final int categoryId;
+  @JsonKey(name: "category")
+  final Category category;
+  @JsonKey(name: "isVisible")
+  final bool isVisible;
+
+  Filter({
+    this.id = 0,
+    this.name = '',
+    this.filterType = '',
+    this.values = '',
+    this.dataType = '',
+    this.weight = 0,
+    this.categoryId = 0,
+    Category? category, // Make category nullable
+    this.isVisible = true,
+  }) : category = category ??
+            Category(); // Assign default value of Category() if null is passed
+
+  factory Filter.fromJson(Map<String, dynamic> json) => _$FilterFromJson(json);
+
+  Map<String, dynamic> toJson() => _$FilterToJson(this);
+}
+
+@JsonSerializable()
+class Category {
+  @JsonKey(name: "id")
+  final int id;
+  @JsonKey(name: "name")
+  final String name;
+  @JsonKey(name: "imageId")
+  final String imageId;
+  @JsonKey(name: "isVisible")
+  final bool isVisible;
+
+  Category({
+    this.id = 0,
+    this.name = '',
+    this.imageId = '',
+    this.isVisible = true,
+  });
+
+  factory Category.fromJson(Map<String, dynamic> json) =>
+      _$CategoryFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CategoryToJson(this);
+}
+
+@JsonSerializable()
 class ValueTranslation {
   @JsonKey(name: "languageCode")
-  String languageCode;
+  final String languageCode;
   @JsonKey(name: "text")
-  String text;
+  final String text;
 
   ValueTranslation({
     this.languageCode = '',
@@ -225,29 +308,31 @@ class ValueTranslation {
 @JsonSerializable()
 class FileElement {
   @JsonKey(name: "id")
-  String id;
+  final String id;
   @JsonKey(name: "order")
-  int order;
+  final int order;
   @JsonKey(name: "url")
-  String url;
+  final String url;
   @JsonKey(name: "fileInfo")
-  FileInfo fileInfo;
+  final FileInfo fileInfo;
   @JsonKey(name: "variationId")
-  String variationId;
+  final String variationId;
   @JsonKey(name: "productId")
-  String productId;
+  final String productId;
   @JsonKey(name: "isVisible")
-  bool isVisible;
+  final bool isVisible;
 
-  FileElement(
-    this.fileInfo, {
+  // Constructor without 'const' for fileInfo
+  FileElement({
     this.id = '',
-    this.order = -1,
+    this.order = 0,
     this.url = '',
+    FileInfo? fileInfo, // Make fileInfo nullable
     this.variationId = '',
     this.productId = '',
-    this.isVisible = false,
-  });
+    this.isVisible = true,
+  }) : fileInfo = fileInfo ??
+            FileInfo(); // Assign default FileInfo() if null is passed
 
   factory FileElement.fromJson(Map<String, dynamic> json) =>
       _$FileElementFromJson(json);
@@ -258,29 +343,29 @@ class FileElement {
 @JsonSerializable()
 class FileInfo {
   @JsonKey(name: "id")
-  String id;
+  final String id;
   @JsonKey(name: "url")
-  String url;
+  final String url;
   @JsonKey(name: "name")
-  String name;
+  final String name;
   @JsonKey(name: "extension")
-  String extension;
+  final String extension;
   @JsonKey(name: "contentType")
-  String contentType;
+  final String contentType;
   @JsonKey(name: "createdAt")
-  DateTime createdAt;
+  final DateTime createdAt;
   @JsonKey(name: "isVisible")
-  bool isVisible;
+  final bool isVisible;
 
-  FileInfo(
-    this.createdAt,
-    this.extension, {
+  FileInfo({
     this.id = '',
     this.url = '',
     this.name = '',
+    this.extension = '',
     this.contentType = '',
-    this.isVisible = false,
-  });
+    DateTime? createdAt,
+    this.isVisible = true,
+  }) : createdAt = createdAt ?? DateTime.now(); // Assign DateTime.now()
 
   factory FileInfo.fromJson(Map<String, dynamic> json) =>
       _$FileInfoFromJson(json);
@@ -291,21 +376,21 @@ class FileInfo {
 @JsonSerializable()
 class Price {
   @JsonKey(name: "id")
-  int id;
+  final int id;
   @JsonKey(name: "value")
-  int value;
+  final int value;
   @JsonKey(name: "type")
-  String type;
+  final String type;
   @JsonKey(name: "currencyId")
-  int currencyId;
+  final int currencyId;
   @JsonKey(name: "variationId")
-  String variationId;
+  final String variationId;
 
   Price({
-    this.id = -1,
-    this.value = -1,
+    this.id = 0,
+    this.value = 0,
     this.type = '',
-    this.currencyId = -1,
+    this.currencyId = 0,
     this.variationId = '',
   });
 
@@ -317,44 +402,32 @@ class Price {
 @JsonSerializable()
 class ProductProduct {
   @JsonKey(name: "id")
-  String id;
+  final String id;
   @JsonKey(name: "state")
-  String state;
+  final String state;
   @JsonKey(name: "name")
-  String name;
+  final String name;
   @JsonKey(name: "description")
-  String description;
+  final String description;
   @JsonKey(name: "categoryId")
-  int categoryId;
+  final int categoryId;
   @JsonKey(name: "organizationId")
-  int organizationId;
+  final int organizationId;
   @JsonKey(name: "isVisible")
-  bool isVisible;
+  final bool isVisible;
 
   ProductProduct({
     this.id = '',
     this.state = '',
     this.name = '',
     this.description = '',
-    this.categoryId = -1,
-    this.organizationId = -1,
-    this.isVisible = false,
+    this.categoryId = 0,
+    this.organizationId = 0,
+    this.isVisible = true,
   });
 
   factory ProductProduct.fromJson(Map<String, dynamic> json) =>
       _$ProductProductFromJson(json);
 
   Map<String, dynamic> toJson() => _$ProductProductToJson(this);
-}
-
-class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
 }

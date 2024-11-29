@@ -14,14 +14,13 @@ class SeeAllSevice {
 
   SeeAllSevice._init();
 
-  static Future<List<ProductModel>?> getAllProducts(
-      int categoryId) async {
+  static Future<List<ProductModel>?> getAllProducts(int categoryId) async {
     try {
-      final response = await DioConfig.inheritance.createRequest().post(
-          "https://arbuzmarket.com/api/v1/Products/filters",
-          data: {
-            "categoryId": categoryId,
-          });
+      final response = await DioConfig.inheritance
+          .createRequest()
+          .post("https://arbuzmarket.com/api/v1/Products/filters", data: {
+        "categoryId": categoryId,
+      });
       Log.i(response.data.toString());
       Log.i(response.statusCode.toString());
 
@@ -47,7 +46,6 @@ class SeeAllSevice {
     return null;
   }
 
-
   static Future<PostResponseBasketModel?> postBasketProducts(
       String productVariationId) async {
     try {
@@ -55,9 +53,9 @@ class SeeAllSevice {
         "https://client.arbuzmarket.com/api/basket",
         options: Options(
           headers: {
-           'Authorization':
-                userTokenBox.getAt(0)!.token.toString(),
-         },
+            'Authorization':
+                'Bearer ${userTokenBox.get('token')!.token.toString()}',
+          },
         ),
         data: {"productVariationId": productVariationId, "count": 1},
       );
@@ -85,9 +83,6 @@ class SeeAllSevice {
 
     return null;
   }
-
-
-
 
   static Future<List<FilteredSearchModel>?> getSearchFilters(
       int categoryId) async {

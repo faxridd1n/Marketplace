@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_application_1/di/DioClient.dart';
+import 'package:flutter_application_1/models/profile_model/editted_user_info_response_model.dart';
 import 'package:flutter_application_1/models/profile_model/user_orders_model.dart';
 import 'package:flutter_application_1/models/profile_model/user_profile_model.dart';
 import 'package:flutter_application_1/service/log_service/LogService.dart';
@@ -18,7 +19,8 @@ class ProfileService {
             "https://client.arbuzmarket.com/api/profile",
             options: Options(
               headers: {
-                'Authorization': 'Bearer ${userTokenBox.get('token')!.token.toString()}',
+                'Authorization':
+                    'Bearer ${userTokenBox.get('token')!.token.toString()}',
               },
             ),
           );
@@ -53,7 +55,7 @@ class ProfileService {
             "https://client.arbuzmarket.com/api/orders/m",
             options: Options(
               headers: {
-                'Authorization': userTokenBox.getAt(0)!.token.toString(),
+                'Authorization': 'Bearer ${userTokenBox.get('token')!.token.toString()}',
               },
             ),
           );
@@ -82,14 +84,15 @@ class ProfileService {
     return null;
   }
 
-  static Future<UserProfileModel?> editUserInfo(
+  static Future<EdittedUserInfoResponseModel?> editUserInfo(
       String firstname, String lastname) async {
     try {
       final response = await DioConfig.inheritance.createRequest().put(
         "https://client.arbuzmarket.com/api/profile/client-info",
         options: Options(
           headers: {
-            'Authorization': userTokenBox.getAt(0)!.token.toString(),
+            'Authorization':
+                'Bearer ${userTokenBox.get('token')!.token.toString()}',
           },
         ),
         data: {
@@ -97,14 +100,15 @@ class ProfileService {
           "lastname": lastname,
         },
       );
+      
       Log.i(response.data.toString());
       Log.i(response.statusCode.toString());
-
-      if (response.statusCode == 200) {
+      Log.e("${response.statusMessage} ${response.statusCode}");
+      if (response.statusCode! >= 200 && response.statusCode! <= 300) {
         // final data = (response.data['item'] as List)
         //     .map((e) => BasketProductModel.fromJson(e))
         //     .toList();
-        final data = UserProfileModel.fromJson(response.data);
+        final data = EdittedUserInfoResponseModel.fromJson(response.data);
         return data;
       } else {
         Log.e("${response.statusMessage} ${response.statusCode}");
@@ -112,6 +116,7 @@ class ProfileService {
     } on DioException catch (e) {
       if (e.response != null) {
         Log.e(e.response!.toString());
+        Log.e(e.response!.statusCode.toString());
       } else {
         rethrow;
       }

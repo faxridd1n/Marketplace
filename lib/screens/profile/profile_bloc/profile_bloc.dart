@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_application_1/models/profile_model/editted_user_info_response_model.dart';
 import 'package:flutter_application_1/models/profile_model/user_orders_model.dart';
 import 'package:flutter_application_1/models/profile_model/user_profile_model.dart';
 import 'package:flutter_application_1/service/profile_service/profile_service.dart';
@@ -39,17 +40,16 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     });
 
     on<EditUserInfoEvent>((event, emit) async {
-      emit(state.copyWith(
-          getUserProfileStatus: FormzSubmissionStatus.inProgress));
+      emit(
+          state.copyWith(editUserInfoStatus: FormzSubmissionStatus.inProgress));
       final result =
           await ProfileService.editUserInfo(event.firstName, event.lastName);
-      if (result is UserProfileModel) {
+      if (result is EdittedUserInfoResponseModel) {
         emit(state.copyWith(
-            userProfileModel: result,
-            getUserProfileStatus: FormzSubmissionStatus.success));
+            edittedUserInfoResponseModel: result,
+            editUserInfoStatus: FormzSubmissionStatus.success));
       } else {
-        emit(state.copyWith(
-            getUserProfileStatus: FormzSubmissionStatus.failure));
+        emit(state.copyWith(editUserInfoStatus: FormzSubmissionStatus.failure));
       }
     });
   }

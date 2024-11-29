@@ -17,9 +17,9 @@ class BuyNowService {
             "https://client.arbuzmarket.com/api/regions",
             options: Options(
               headers: {
-               'Authorization':
-                userTokenBox.getAt(0)!.token.toString(),
-         },
+                'Authorization':
+                    'Bearer ${userTokenBox.get('token')!.token.toString()}',
+              },
             ),
           );
       Log.i(response.data.toString());
@@ -47,16 +47,14 @@ class BuyNowService {
     return null;
   }
 
-
- static Future<LocationModel?> getDistricts(int regionId) async {
+  static Future<LocationModel?> getDistricts(int regionId) async {
     try {
       final response = await DioConfig.inheritance.createRequest().get(
             "https://client.arbuzmarket.com/api/regions/${regionId}/districts",
             options: Options(
               headers: {
-                'Authorization':
-                userTokenBox.getAt(0)!.token.toString(),
-          },
+                'Authorization': 'Bearer ${userTokenBox.get('token')!.token.toString()}',
+              },
             ),
           );
       Log.i(response.data.toString());
@@ -83,5 +81,4 @@ class BuyNowService {
 
     return null;
   }
-
 }
