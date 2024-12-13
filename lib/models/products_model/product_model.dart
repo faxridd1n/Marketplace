@@ -54,12 +54,12 @@ class ProductModel {
     this.state = -1,
     this.service = -1,
     this.tab = -1,
-    this.nameId =-1,
+    this.nameId = -1,
     this.name = '',
     this.descriptionId = -1,
     this.description = '',
     this.categoryId = -1,
-    required this.category,
+    Category? category,
     this.organizationId = -1,
     this.organizationName = '',
     this.variations = const [],
@@ -67,7 +67,7 @@ class ProductModel {
     this.rating = -1,
     this.reviewCount = -1,
     this.productNumber = -1,
-  });
+  }) : category = category ?? Category();
 
   factory ProductModel.fromJson(Map<String, dynamic> json) =>
       _$ProductModelFromJson(json);

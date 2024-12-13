@@ -16,14 +16,14 @@ String organizationContactModelToJson(OrganizationContactModel data) =>
 @JsonSerializable()
 class OrganizationContactModel {
   @JsonKey(name: "result")
-  Result result;
+  final Result result;
   @JsonKey(name: "error")
-  Map error;
+  final Map error;
 
-  OrganizationContactModel(
-    this.result, {
+  OrganizationContactModel({
+    Result? result,
     this.error = const {},
-  });
+  }) : result = result ?? Result();
 
   factory OrganizationContactModel.fromJson(Map<String, dynamic> json) =>
       _$OrganizationContactModelFromJson(json);
@@ -34,28 +34,31 @@ class OrganizationContactModel {
 @JsonSerializable()
 class Result {
   @JsonKey(name: "rating")
-  double rating;
+  final int rating;
   @JsonKey(name: "reviewCount")
-  int reviewCount;
+  final int reviewCount;
   @JsonKey(name: "id")
-  int id;
+  final int id;
   @JsonKey(name: "organizationId")
-  int organizationId;
+  final int organizationId;
   @JsonKey(name: "email")
-  String email;
+  final String email;
   @JsonKey(name: "organizationName")
-  String organizationName;
+  final String organizationName;
   @JsonKey(name: "address")
-  String address;
+  final String address;
   @JsonKey(name: "phone")
-  String phone;
+  final String phone;
   @JsonKey(name: "description")
-  String description;
+  final String description;
   @JsonKey(name: "region")
-  Region region;
+  final Region region;
+  @JsonKey(name: "latitude")
+  final int latitude;
+  @JsonKey(name: "longitude")
+  final int longitude;
 
-  Result(
-    this.region, {
+  Result({
     this.rating = -1,
     this.reviewCount = -1,
     this.id = -1,
@@ -65,7 +68,10 @@ class Result {
     this.address = '',
     this.phone = '',
     this.description = '',
-  });
+    Region? region,
+    this.latitude = -1,
+    this.longitude = -1,
+  }) : region = region ?? Region();
 
   factory Result.fromJson(Map<String, dynamic> json) => _$ResultFromJson(json);
 
@@ -75,13 +81,13 @@ class Result {
 @JsonSerializable()
 class Region {
   @JsonKey(name: "id")
-  int id;
+  final int id;
   @JsonKey(name: "name")
-  String name;
+  final String name;
   @JsonKey(name: "parentId")
-  int parentId;
+  final int parentId;
   @JsonKey(name: "regionType")
-  int regionType;
+  final int regionType;
 
   Region({
     this.id = -1,

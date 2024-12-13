@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/basket/basket_page.dart';
+// import 'package:flutter_application_1/screens/basket/basket_page.dart';
 import 'package:flutter_application_1/screens/category/category_page.dart';
 import 'package:flutter_application_1/screens/favorite/favorite_page.dart';
 import 'package:flutter_application_1/screens/home/home_page.dart';
@@ -38,19 +39,6 @@ class TabNavigator extends StatefulWidget {
 class _TabNavigatorState extends State<TabNavigator>
     with AutomaticKeepAliveClientMixin {
   @override
-  void initState() {
-    super.initState();
-    // userTokenBox.put(
-    //   'token',
-    //   UserTokenModel(
-    //     token:
-    //         'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0OTciLCJPcmdhbml6YXRpb25JZCI6IiIsIlVzZXJJZCI6IjQ5NyIsIkRldmljZUlkIjoiMTIyMSIsIlJvbGVJZCI6IjEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJ1c2VyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6Ijk5ODMzMDAyMDcwMCIsIm5iZiI6MTczMjI2NTk4NCwiZXhwIjoxNzMyODcwNzg0LCJpc3MiOiJ0YXFzaW0udXoiLCJhdWQiOiJIYWxhbFRhcXNpbSJ9.EgrlYd_q4TAfALdwPFVqwu9Tm2_ihz-_dm6HsdL25eg',
-    //   ),
-    // );
-    // setState(() {});
-  }
-
-  @override
   Widget build(BuildContext context) {
     super.build(context);
     return Navigator(
@@ -75,7 +63,13 @@ class _TabNavigatorState extends State<TabNavigator>
       return {'/': (context) => const CategoryPage()};
     }
     if (tabItem.isBasket) {
-      return {'/': (context) => const BasketPage()};
+      return {
+        '/': (context) => userTokenBox.isNotEmpty &&
+                userTokenBox.get('token') != null &&
+                userTokenBox.get('token')!.token.isNotEmpty
+            ? const BasketPage()
+            : const LoginPage()
+      };
     }
     if (tabItem.isFavorite) {
       return {'/': (context) => const FavoritePage()};

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/price_function.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
-import 'package:flutter_application_1/models/profile_model/user_orders_model.dart';
+import 'package:flutter_application_1/models/order_model/user_orders_model.dart';
 import 'package:flutter_application_1/screens/product_detail/product_detail_page1.dart';
 
 class OrderWidget extends StatefulWidget {
@@ -176,6 +176,8 @@ class _OrderWidgetState extends State<OrderWidget> {
                                   .items[index].variation.product.id,
                               categoryId: widget.ordersModel.subOrders[0]
                                   .items[index].variation.product.categoryId,
+                              organizationId: widget
+                                  .ordersModel.subOrders[0].organizationId,
                               // model: widget.ordersModel.subOrders[0].items[0],
                             );
                           },

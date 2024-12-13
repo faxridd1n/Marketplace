@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/components/hive/user_token.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_application_1/models/products_model/product_model.dart';
-import 'package:flutter_application_1/screens/basket/basket_page.dart';
 import 'package:flutter_application_1/screens/basket/basket_bloc/basket_bloc.dart';
 import 'package:flutter_application_1/screens/favorite/favorite_page.dart';
 // import 'package:flutter_application_1/screens/home/home_bloc/home_bloc.dart';
@@ -14,8 +14,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../assets_path/app_images_path.dart';
 import '../components/price_function.dart';
 import '../screens/katalog/katalog_bloc/katalog_bloc.dart';
+import 'login_dialog.dart';
 
-// ignore: must_be_immutable
 class MiniProductWidget extends StatefulWidget {
   MiniProductWidget(
       {required this.index,
@@ -24,22 +24,19 @@ class MiniProductWidget extends StatefulWidget {
       this.isDetailPage,
       this.isHomePage,
       this.isKatalogPage,
-      // this.tab,
       super.key});
-  bool? isSeeAllPage;
-  bool? isHomePage;
-  bool? isKatalogPage;
-  bool? isDetailPage;
-  int index;
-  ProductModel model;
-  // int? tab;
+  final bool? isSeeAllPage;
+  final bool? isHomePage;
+  final bool? isKatalogPage;
+  final bool? isDetailPage;
+  final int index;
+  final ProductModel model;
 
   @override
   State<MiniProductWidget> createState() => _MiniProductWidgetState();
 }
 
 class _MiniProductWidgetState extends State<MiniProductWidget> {
-  // bool isAddedBasket = false;
   int basketProductCount = 0;
   bool isSelected = false;
   @override
@@ -74,6 +71,7 @@ class _MiniProductWidgetState extends State<MiniProductWidget> {
                     builder: (context) => ProductDetailPage1(
                       productId: widget.model.id,
                       categoryId: widget.model.category.id,
+                      organizationId: widget.model.organizationId,
                       // model: widget.model,
                       // tab: widget.tab,
                     ),
@@ -140,7 +138,8 @@ class _MiniProductWidgetState extends State<MiniProductWidget> {
                       const SizedBox(height: 15),
                       Row(
                         children: [
-                          basketProductCount != 0
+                          basketProductCount != 0 &&
+                                  userTokenBox.get('token')!.token.isNotEmpty
                               ? Expanded(
                                   child: Row(
                                     mainAxisAlignment:
@@ -354,7 +353,7 @@ class _MiniProductWidgetState extends State<MiniProductWidget> {
                                     height: 35,
                                     child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                        padding: EdgeInsets.all(0),
+                                        padding: const EdgeInsets.all(0),
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(10),
@@ -362,26 +361,27 @@ class _MiniProductWidgetState extends State<MiniProductWidget> {
                                         backgroundColor: AppColors.green,
                                       ),
                                       onPressed: () {
-                                        basketProductCount += 1;
-                                        bool isAlreadyHave = false;
-                                        setState(() {});
-                                        if (basketProducts
-                                            .contains(widget.model)) {
-                                          isAlreadyHave = true;
+                                        final token =
+                                            userTokenBox.get('token')?.token;
+                                        if (token != null && token.isNotEmpty) {
+                                          final variationId =
+                                              widget.model.variations[0].id;
+                                          basketProductCount += 1;
+
                                           if (widget.isHomePage == true) {
                                             context.read<BasketBloc>().add(
                                                   PostBasketProductBasketEvent(
-                                                    productVariationId: widget
-                                                        .model.variations[0].id,
-                                                    count: basketProductCount,
+                                                    productVariationId:
+                                                        variationId,
+                                                    count: 2,
                                                   ),
                                                 );
                                           } else if (widget.isSeeAllPage ==
                                               true) {
                                             context.read<SeeAllBloc>().add(
                                                   PostBasketProductSeeAllEvent(
-                                                    productVariationId: widget
-                                                        .model.variations[0].id,
+                                                    productVariationId:
+                                                        variationId,
                                                     count: 1,
                                                   ),
                                                 );
@@ -389,8 +389,8 @@ class _MiniProductWidgetState extends State<MiniProductWidget> {
                                               true) {
                                             context.read<KatalogBloc>().add(
                                                   PostBasketProductKatalogEvent(
-                                                    productVariationId: widget
-                                                        .model.variations[0].id,
+                                                    productVariationId:
+                                                        variationId,
                                                     count: 1,
                                                   ),
                                                 );
@@ -400,75 +400,32 @@ class _MiniProductWidgetState extends State<MiniProductWidget> {
                                                 .read<ProductDetailBloc>()
                                                 .add(
                                                   PostBasketProductDetailEvent(
-                                                    productVariationId: widget
-                                                        .model.variations[0].id,
+                                                    productVariationId:
+                                                        variationId,
                                                   ),
                                                 );
                                           } else {
                                             context.read<BasketBloc>().add(
                                                   PostBasketProductBasketEvent(
-                                                    productVariationId: widget
-                                                        .model.variations[0].id,
+                                                    productVariationId:
+                                                        variationId,
                                                     count: 2,
                                                   ),
                                                 );
                                           }
-                                        }
-                                        if (!isAlreadyHave) {
-                                          if (widget.isHomePage == true) {
-                                            context.read<BasketBloc>().add(
-                                                  PostBasketProductBasketEvent(
-                                                    productVariationId: widget
-                                                        .model.variations[0].id,
-                                                    count: 1,
-                                                  ),
-                                                );
-                                          } else if (widget.isSeeAllPage ==
-                                              true) {
-                                            context.read<SeeAllBloc>().add(
-                                                  PostBasketProductSeeAllEvent(
-                                                    productVariationId: widget
-                                                        .model.variations[0].id,
-                                                    count: 1,
-                                                  ),
-                                                );
-                                          } else if (widget.isKatalogPage ==
-                                              true) {
-                                            context.read<KatalogBloc>().add(
-                                                  PostBasketProductKatalogEvent(
-                                                    productVariationId: widget
-                                                        .model.variations[0].id,
-                                                    count: 1,
-                                                  ),
-                                                );
-                                          } else if (widget.isDetailPage ==
-                                              true) {
-                                            context
-                                                .read<ProductDetailBloc>()
-                                                .add(
-                                                  PostBasketProductDetailEvent(
-                                                    productVariationId: widget
-                                                        .model.variations[0].id,
-                                                  ),
-                                                );
-                                          } else {
-                                            context.read<BasketBloc>().add(
-                                                  PostBasketProductBasketEvent(
-                                                    productVariationId: widget
-                                                        .model.variations[0].id,
-                                                    count: 1,
-                                                  ),
-                                                );
-                                          }
-                                        }
-                                        snackBar(
+                                          snackBar(
                                             isHomePage:
-                                                widget.isHomePage == true
-                                                    ? true
-                                                    : false,
+                                                widget.isHomePage == true,
                                             context: context,
                                             name: widget.model.name,
-                                            addProduct: true);
+                                            addProduct: true,
+                                          );
+                                          setState(() {});
+                                        } else {
+                                          loginDiolog(context, () {
+                                            setState(() {});
+                                          });
+                                        }
                                       },
                                       child: const Padding(
                                         padding: EdgeInsets.symmetric(
@@ -505,6 +462,8 @@ class _MiniProductWidgetState extends State<MiniProductWidget> {
                                     builder: (context) => ProductDetailPage1(
                                       productId: widget.model.id,
                                       categoryId: widget.model.category.id,
+                                      organizationId:
+                                          widget.model.organizationId,
                                       // model: widget.model,
                                       // tab: null,
                                     ),
@@ -524,28 +483,34 @@ class _MiniProductWidgetState extends State<MiniProductWidget> {
                   ),
                 ),
                 Positioned(
-                  right: 8,
-                  top: 8,
-                  child: SizedBox(
-                    height: 25,
-                    width: 25,
-                    child: IconButton(
-                      padding: const EdgeInsets.all(0),
-                      onPressed: () {
-                        isSelected = !isSelected;
-                        if (isSelected) {
-                          favoriteProducts.add(widget.model);
-                        } else {
-                          favoriteProducts.remove(widget.model);
-                        }
-                        setState(() {});
-                      },
-                      icon: Icon(
-                        isSelected
-                            ? Icons.favorite
-                            : Icons.favorite_border_rounded,
-                        color: isSelected ? AppColors.pink : AppColors.black,
-                        size: 22,
+                  right: 0,
+                  top: 0,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      color: AppColors.white,
+                    ),
+                    height: 40,
+                    width: 40,
+                    child: Center(
+                      child: IconButton(
+                        padding: const EdgeInsets.all(0),
+                        onPressed: () {
+                          isSelected = !isSelected;
+                          if (isSelected) {
+                            favoriteProducts.add(widget.model);
+                          } else {
+                            favoriteProducts.remove(widget.model);
+                          }
+                          setState(() {});
+                        },
+                        icon: Icon(
+                          isSelected
+                              ? Icons.favorite
+                              : Icons.favorite_border_rounded,
+                          color: isSelected ? AppColors.pink : AppColors.black,
+                          size: 22,
+                        ),
                       ),
                     ),
                   ),

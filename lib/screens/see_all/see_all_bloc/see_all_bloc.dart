@@ -24,7 +24,7 @@ class SeeAllBloc extends Bloc<SeeAllEvent, SeeAllState> {
     });
 
     on<GetSearchFiltersEvent>((event, emit) async {
-      emit(state.copyWith(getProductStatus: FormzSubmissionStatus.inProgress));
+      emit(state.copyWith(getFilteredProductStatus: FormzSubmissionStatus.inProgress));
       final result = await SeeAllSevice.getSearchFilters(event.categoryId);
       if (result is List<FilteredSearchModel>) {
         emit(state.copyWith(filteredProductModel: result, getFilteredProductStatus: FormzSubmissionStatus.success));

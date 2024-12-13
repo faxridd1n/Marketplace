@@ -9,6 +9,8 @@ class BasketState extends Equatable {
   final PostResponseBasketModel? postResponseBasketModel;
   final FormzSubmissionStatus postResponseBasketStatus;
   final List<ProductElement>? selectedProducts;
+  final OrganizationContactModel? organizationContactModel;
+  final FormzSubmissionStatus organizationContactStatus;
 
   const BasketState({
     this.basketResponseModel,
@@ -18,6 +20,8 @@ class BasketState extends Equatable {
     this.postResponseBasketModel,
     this.postResponseBasketStatus = FormzSubmissionStatus.initial,
     this.selectedProducts,
+    this.organizationContactModel,
+    this.organizationContactStatus = FormzSubmissionStatus.initial,
   });
 
   BasketState copyWith({
@@ -28,6 +32,8 @@ class BasketState extends Equatable {
     PostResponseBasketModel? postResponseBasketModel,
     FormzSubmissionStatus? postResponseBasketStatus,
     List<ProductElement>? selectedProducts,
+    OrganizationContactModel? organizationContactModel,
+    FormzSubmissionStatus? organizationContactStatus,
   }) {
     return BasketState(
       basketResponseModel: basketResponseModel ?? this.basketResponseModel,
@@ -41,6 +47,10 @@ class BasketState extends Equatable {
       postResponseBasketStatus:
           postResponseBasketStatus ?? this.postResponseBasketStatus,
       selectedProducts: selectedProducts ?? this.selectedProducts,
+      organizationContactModel:
+          organizationContactModel ?? this.organizationContactModel,
+      organizationContactStatus:
+          organizationContactStatus ?? this.organizationContactStatus,
     );
   }
 
@@ -53,5 +63,7 @@ class BasketState extends Equatable {
         basketDeleteResModel,
         basketDeleteResStatus,
         selectedProducts,
+        organizationContactModel,
+        organizationContactStatus,
       ];
 }

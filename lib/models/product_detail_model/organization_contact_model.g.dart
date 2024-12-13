@@ -9,7 +9,9 @@ part of 'organization_contact_model.dart';
 OrganizationContactModel _$OrganizationContactModelFromJson(
         Map<String, dynamic> json) =>
     OrganizationContactModel(
-      Result.fromJson(json['result'] as Map<String, dynamic>),
+      result: json['result'] == null
+          ? null
+          : Result.fromJson(json['result'] as Map<String, dynamic>),
       error: json['error'] as Map<String, dynamic>? ?? const {},
     );
 
@@ -21,8 +23,7 @@ Map<String, dynamic> _$OrganizationContactModelToJson(
     };
 
 Result _$ResultFromJson(Map<String, dynamic> json) => Result(
-      Region.fromJson(json['region'] as Map<String, dynamic>),
-      rating: (json['rating'] as num?)?.toDouble() ?? -1,
+      rating: (json['rating'] as num?)?.toInt() ?? -1,
       reviewCount: (json['reviewCount'] as num?)?.toInt() ?? -1,
       id: (json['id'] as num?)?.toInt() ?? -1,
       organizationId: (json['organizationId'] as num?)?.toInt() ?? -1,
@@ -31,6 +32,11 @@ Result _$ResultFromJson(Map<String, dynamic> json) => Result(
       address: json['address'] as String? ?? '',
       phone: json['phone'] as String? ?? '',
       description: json['description'] as String? ?? '',
+      region: json['region'] == null
+          ? null
+          : Region.fromJson(json['region'] as Map<String, dynamic>),
+      latitude: (json['latitude'] as num?)?.toInt() ?? -1,
+      longitude: (json['longitude'] as num?)?.toInt() ?? -1,
     );
 
 Map<String, dynamic> _$ResultToJson(Result instance) => <String, dynamic>{
@@ -44,6 +50,8 @@ Map<String, dynamic> _$ResultToJson(Result instance) => <String, dynamic>{
       'phone': instance.phone,
       'description': instance.description,
       'region': instance.region,
+      'latitude': instance.latitude,
+      'longitude': instance.longitude,
     };
 
 Region _$RegionFromJson(Map<String, dynamic> json) => Region(

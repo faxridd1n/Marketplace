@@ -20,8 +20,8 @@ class _MyDialogState extends State<MyDialog> {
   @override
   void initState() {
     super.initState();
-    for (var e in widget.model.result!.variations![0].files!) {
-      images.add(e.url!);
+    for (var e in widget.model.result.variations[0].files) {
+      images.add(e.url);
     }
     selectedImageIndex = widget.index;
   }

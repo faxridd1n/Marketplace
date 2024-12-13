@@ -90,11 +90,11 @@ void openLocationSheet(
               child: ListView.builder(
                 controller: controller,
                 physics: const BouncingScrollPhysics(),
-                itemCount: models.result!.regions!.length,
+                itemCount: models.result.regions.length,
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
-                      selectedRegion = models.result!.regions![index].name!;
+                      selectedRegion = models.result.regions[index].name;
                       Navigator.of(context).pop();
                     },
                     child: SizedBox(
@@ -116,7 +116,7 @@ void openLocationSheet(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                models.result!.regions![index].name!,
+                                models.result.regions[index].name,
                               ),
                               index == 0
                                   ? const Icon(

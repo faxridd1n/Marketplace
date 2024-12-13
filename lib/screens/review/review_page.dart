@@ -52,13 +52,13 @@ class _ReviewPageState extends State<ReviewPage> {
                       width: 90,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(5),
-                        child: (widget.productDetailModel.result!.variations!
+                        child: (widget.productDetailModel.result.variations
                                     .isNotEmpty &&
-                                widget.productDetailModel.result!.variations![0]
-                                    .files!.isNotEmpty)
+                                widget.productDetailModel.result.variations[0]
+                                    .files.isNotEmpty)
                             ? Image.network(
-                                widget.productDetailModel.result!.variations![0]
-                                    .files![0].url!,
+                                widget.productDetailModel.result.variations[0]
+                                    .files[0].url,
                                 fit: BoxFit.fitWidth,
                                 errorBuilder: (context, error, stackTrace) {
                                   return Image.asset(
@@ -76,7 +76,7 @@ class _ReviewPageState extends State<ReviewPage> {
                     const SizedBox(width: 15),
                     Expanded(
                       child: Text(
-                        widget.productDetailModel.result!.name!,
+                        widget.productDetailModel.result.name,
                         style: const TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 16,

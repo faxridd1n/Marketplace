@@ -4,10 +4,10 @@ import 'package:flutter_application_1/components/hive/user_token_model.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_application_1/screens/login/login_bloc/login_bloc.dart';
 import 'package:flutter_application_1/screens/login/widgets/login_otp_widget.dart';
+import 'package:flutter_application_1/user_auth_bloc/user_auth_bloc.dart';
+import 'package:flutter_application_1/user_auth_bloc/user_auth_event.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-
-import '../auth/qwqwqw.dart';
 
 class LoginOtpPage extends StatefulWidget {
   const LoginOtpPage({required this.phoneNumber, super.key});
@@ -78,6 +78,7 @@ class _LoginOtpPageState extends State<LoginOtpPage> {
     return BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state.putLoginResponseStatus == FormzSubmissionStatus.success) {
+          context.read<UserAuthBloc>().add(AuthLoginRequested());
           userTokenBox.put(
             'token',
             UserTokenModel(
@@ -98,17 +99,17 @@ class _LoginOtpPageState extends State<LoginOtpPage> {
               content: Text('Registration failed'),
             ),
           );
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (ctx) => Pagee(
-                      putLoginOtpResponseModel: state.putLoginOtpResponseModel,
-                    )
-                //     LoginOtpPage(
-                //   phoneNumber: numberController.text,
-                // ),
-                ),
-          );
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(
+          //       builder: (ctx) => Pagee(
+          //             putLoginOtpResponseModel: state.putLoginOtpResponseModel,
+          //           )
+          //       //     LoginOtpPage(
+          //       //   phoneNumber: numberController.text,
+          //       // ),
+          //       ),
+          // );
         }
       },
       builder: (context, state) {

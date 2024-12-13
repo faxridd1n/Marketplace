@@ -1,77 +1,90 @@
 // To parse this JSON data, do
 //
-//     final regionsModel = regionsModelFromJson(jsonString);
+//     final locationModel = locationModelFromJson(jsonString);
 
+import 'package:json_annotation/json_annotation.dart';
 import 'dart:convert';
 
-LocationModel locationsModelFromJson(String str) => LocationModel.fromJson(json.decode(str));
+part 'location_model.g.dart';
 
-String locationModelTojson(LocationModel data) => json.encode(data.toJson());
+LocationModel locationModelFromJson(String str) =>
+    LocationModel.fromJson(json.decode(str));
 
+String locationModelToJson(LocationModel data) => json.encode(data.toJson());
+
+@JsonSerializable()
 class LocationModel {
-    Result? result;
-    Map? error;
+  @JsonKey(name: "result")
+  final Result result;
+  @JsonKey(name: "error")
+  final Error error;
 
-    LocationModel({
-        this.result,
-        this.error,
-    });
+  LocationModel({
+    Result? result,
+    Error? error,
+  })  : result = result ?? Result(),
+        error = error ?? Error();
 
-    factory LocationModel.fromJson(Map<String, dynamic> json) => LocationModel(
-        result: json["result"] == null ? null : Result.fromJson(json["result"]),
-        error: json["error"],
-    );
+  factory LocationModel.fromJson(Map<String, dynamic> json) =>
+      _$LocationModelFromJson(json);
 
-    Map<String, dynamic> toJson() => {
-        "result": result?.toJson(),
-        "error": error,
-    };
+  Map<String, dynamic> toJson() => _$LocationModelToJson(this);
 }
 
+@JsonSerializable()
+class Error {
+  @JsonKey(name: "errorCode")
+  final int errorCode;
+  @JsonKey(name: "errorMessage")
+  final String errorMessage;
+
+  Error({
+    this.errorCode = -1,
+    this.errorMessage = '',
+  });
+
+  factory Error.fromJson(Map<String, dynamic> json) => _$ErrorFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ErrorToJson(this);
+}
+
+@JsonSerializable()
 class Result {
-    List<Location>? regions;
-    List<Location>? districts;
+  @JsonKey(name: "regions")
+  final List<District> regions;
+  @JsonKey(name: "districts")
+  final List<District> districts;
 
-    Result({
-        this.regions,
-        this.districts,
-    });
+  Result({
+    this.regions = const [],
+    this.districts = const [],
+  });
 
-    factory Result.fromJson(Map<String, dynamic> json) => Result(
-        regions: json["regions"] == null ? [] : List<Location>.from(json["regions"]!.map((x) => Location.fromJson(x))),
-        districts: json["districts"] == null ? [] : List<Location>.from(json["districts"]!.map((x) => Location.fromJson(x))),
-    );
+  factory Result.fromJson(Map<String, dynamic> json) => _$ResultFromJson(json);
 
-    Map<String, dynamic> toJson() => {
-        "regions": regions == null ? [] : List<dynamic>.from(regions!.map((x) => x.toJson())),
-        "districts": districts == null ? [] : List<dynamic>.from(districts!.map((x) => x.toJson())),
-    };
+  Map<String, dynamic> toJson() => _$ResultToJson(this);
 }
 
-class Location {
-    int? id;
-    String? name;
-    int? parentId;
-    int? regionType;
+@JsonSerializable()
+class District {
+  @JsonKey(name: "id")
+  final int id;
+  @JsonKey(name: "name")
+  final String name;
+  @JsonKey(name: "parentId")
+  final int parentId;
+  @JsonKey(name: "regionType")
+  final int regionType;
 
-    Location({
-        this.id,
-        this.name,
-        this.parentId,
-        this.regionType,
-    });
+  District({
+    this.id = -1,
+    this.name = '',
+    this.parentId = -1,
+    this.regionType = -1,
+  });
 
-    factory Location.fromJson(Map<String, dynamic> json) => Location(
-        id: json["id"],
-        name: json["name"],
-        parentId: json["parentId"],
-        regionType: json["regionType"],
-    );
+  factory District.fromJson(Map<String, dynamic> json) =>
+      _$DistrictFromJson(json);
 
-    Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "parentId": parentId,
-        "regionType": regionType,
-    };
+  Map<String, dynamic> toJson() => _$DistrictToJson(this);
 }

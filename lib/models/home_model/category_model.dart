@@ -15,7 +15,7 @@ String categoryModelToJson(CategoryModel data) => json.encode(data.toJson());
 @JsonSerializable()
 class CategoryModel {
   @JsonKey(name: "item")
-  List<Item> item;
+  final List<Item> item;
 
   CategoryModel({
     this.item = const [],
@@ -30,35 +30,36 @@ class CategoryModel {
 @JsonSerializable()
 class Item {
   @JsonKey(name: "id")
-  int id;
+  final int id;
   @JsonKey(name: "name")
-  String name;
+  final String name;
   @JsonKey(name: "parentId")
-  int parentId;
+  final int parentId;
   @JsonKey(name: "imageId")
-  String imageId;
+  final String imageId;
   @JsonKey(name: "image")
-  Image image;
+  final Icon image;
   @JsonKey(name: "iconId")
-  String iconId;
+  final String iconId;
   @JsonKey(name: "icon")
-  Map icon;
+  final Icon icon;
   @JsonKey(name: "childs")
-  List childs;
+  final List<Map> childs;
   @JsonKey(name: "isVisible")
-  bool isVisible;
+  final bool isVisible;
 
-  Item(
-    this.image, {
+  Item({
     this.id = -1,
     this.name = '',
     this.parentId = -1,
     this.imageId = '',
+    Icon? image,
     this.iconId = '',
-    this.icon = const {},
+    Icon? icon,
     this.childs = const [],
     this.isVisible = false,
-  });
+  })  : image = image ?? Icon(),
+        icon = icon ?? Icon();
 
   factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
 
@@ -66,33 +67,33 @@ class Item {
 }
 
 @JsonSerializable()
-class Image {
+class Icon {
   @JsonKey(name: "id")
-  String id;
+  final String id;
   @JsonKey(name: "url")
-  String url;
+  final String url;
   @JsonKey(name: "name")
-  String name;
+  final String name;
   @JsonKey(name: "extension")
-  String extension;
+  final String extension;
   @JsonKey(name: "contentType")
-  String contentType;
+  final String contentType;
   @JsonKey(name: "createdAt")
-  String createdAt;
+  final DateTime createdAt;
   @JsonKey(name: "isVisible")
-  bool isVisible;
+  final bool isVisible;
 
-  Image({
+  Icon({
     this.id = '',
     this.url = '',
     this.name = '',
     this.extension = '',
     this.contentType = '',
-    this.createdAt = '',
+    DateTime? createdAt,
     this.isVisible = false,
-  });
+  }) : createdAt = createdAt ?? DateTime.now();
 
-  factory Image.fromJson(Map<String, dynamic> json) => _$ImageFromJson(json);
+  factory Icon.fromJson(Map<String, dynamic> json) => _$IconFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ImageToJson(this);
+  Map<String, dynamic> toJson() => _$IconToJson(this);
 }

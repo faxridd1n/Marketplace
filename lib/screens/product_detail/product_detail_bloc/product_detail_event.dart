@@ -23,7 +23,7 @@ class PostBasketProductDetailEvent extends ProductDetailEvent {
 }
 
 class GetOrganizationContactEvent extends ProductDetailEvent {
-  final int categoryId;
+  final int organizationId;
 
-  GetOrganizationContactEvent({required this.categoryId});
+  GetOrganizationContactEvent({required this.organizationId});
 }

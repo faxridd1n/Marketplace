@@ -16,7 +16,9 @@ ProductModel _$ProductModelFromJson(Map<String, dynamic> json) => ProductModel(
       descriptionId: (json['descriptionId'] as num?)?.toInt() ?? -1,
       description: json['description'] as String? ?? '',
       categoryId: (json['categoryId'] as num?)?.toInt() ?? -1,
-      category: Category.fromJson(json['category'] as Map<String, dynamic>),
+      category: json['category'] == null
+          ? null
+          : Category.fromJson(json['category'] as Map<String, dynamic>),
       organizationId: (json['organizationId'] as num?)?.toInt() ?? -1,
       organizationName: json['organizationName'] as String? ?? '',
       variations: (json['variations'] as List<dynamic>?)

@@ -55,20 +55,20 @@ class ProductDetailBloc extends Bloc<ProductDetailEvent, ProductDetailState> {
       }
     });
 
-
     on<GetOrganizationContactEvent>((event, emit) async {
       emit(state.copyWith(
           organizationContactStatus: FormzSubmissionStatus.inProgress));
-      final result = await ProductDetailService.getOrganizationContact(event.categoryId);
+      final result = await ProductDetailService.getOrganizationContact(
+          event.organizationId);
       if (result is OrganizationContactModel) {
         emit(state.copyWith(
             organizationContactModel: result,
             organizationContactStatus: FormzSubmissionStatus.success));
       } else {
         emit(state.copyWith(
+            organizationContactModel: result,
             organizationContactStatus: FormzSubmissionStatus.failure));
       }
     });
-
   }
 }

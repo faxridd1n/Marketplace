@@ -19,6 +19,14 @@ class _BuyNowPageState extends State<BuyNowPage> {
   bool deliveryType2 = false;
   String selectedRegion = '';
   String selectedDistrict = '';
+  // late final BuyNowBloc buyNowBloc;
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   buyNowBloc = BuyNowBloc();
+  //   buyNowBloc.add(GetRegionsEvent());
+  // }
 
   @override
   Widget build(BuildContext context) {

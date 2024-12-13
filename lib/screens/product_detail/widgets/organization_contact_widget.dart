@@ -37,14 +37,8 @@ class OrganizationContactWidget extends StatelessWidget {
             children: [
               Container(
                 decoration: BoxDecoration(
-                  boxShadow: const [
-                    BoxShadow(
-                      blurRadius: 5,
-                      color: AppColors.appBarShadowColor,
-                    ),
-                  ],
                   borderRadius: BorderRadius.circular(12),
-                  color: isSingle ? AppColors.white : AppColors.white,
+                  color: AppColors.white,
                 ),
                 padding: const EdgeInsets.all(15),
                 child: Column(

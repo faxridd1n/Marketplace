@@ -6,9 +6,13 @@ abstract class BuyNowEvent {}
 class GetRegionsEvent extends BuyNowEvent {
   GetRegionsEvent();
 }
-// ignore: must_be_immutable
+
 class GetDistrictsEvent extends BuyNowEvent {
-  int regionId;
+  final int regionId;
   GetDistrictsEvent(this.regionId);
 }
 
+class PostUsersOrderEvent extends BuyNowEvent {
+  final PostOrderRequestModel postOrderRequestModel;
+  PostUsersOrderEvent({required this.postOrderRequestModel});
+}

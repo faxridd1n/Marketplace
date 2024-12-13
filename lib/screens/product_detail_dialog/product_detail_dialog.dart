@@ -63,7 +63,7 @@ class _ProductDetailDialogState extends State<ProductDetailDialog> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        state.productDetailModel!.result!.name!,
+                        state.productDetailModel!.result.name,
                         style: const TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 18,
@@ -93,7 +93,7 @@ class _ProductDetailDialogState extends State<ProductDetailDialog> {
                               ),
                               const SizedBox(width: 5),
                               Text(
-                                state.productDetailModel!.result!.rating!
+                                state.productDetailModel!.result.rating
                                     .toInt()
                                     .toString(),
                                 style: const TextStyle(
@@ -111,7 +111,7 @@ class _ProductDetailDialogState extends State<ProductDetailDialog> {
                               ),
                               const SizedBox(width: 5),
                               Text(
-                                  '${state.productDetailModel!.result!.reviewCount!.toInt().toString()} отзывов'),
+                                  '${state.productDetailModel!.result.reviewCount.toInt().toString()} отзывов'),
                             ],
                           ),
                         ],
@@ -149,8 +149,8 @@ class _ProductDetailDialogState extends State<ProductDetailDialog> {
                       ),
                       const SizedBox(height: 10),
                       Image.network(
-                        state.productDetailModel!.result!.variations![0]
-                            .files![0].url!,
+                        state.productDetailModel!.result.variations[0].files[0]
+                            .url,
                         height: 350,
                       ),
                       SizedBox(
@@ -159,8 +159,8 @@ class _ProductDetailDialogState extends State<ProductDetailDialog> {
                           alignment: Alignment.topLeft,
                           child: ListView.builder(
                             physics: const NeverScrollableScrollPhysics(),
-                            itemCount: state.productDetailModel!.result!
-                                .variations![0].files!.length,
+                            itemCount: state.productDetailModel!.result
+                                .variations[0].files.length,
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (context, index) => Container(
@@ -169,18 +169,18 @@ class _ProductDetailDialogState extends State<ProductDetailDialog> {
                               height: 120,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(5),
-                                child: (state.productDetailModel!.result!
-                                            .variations![0].files!.isNotEmpty &&
+                                child: (state.productDetailModel!.result
+                                            .variations[0].files.isNotEmpty &&
                                         state
                                             .productDetailModel!
-                                            .result!
-                                            .variations![0]
-                                            .files![0]
-                                            .url!
+                                            .result
+                                            .variations[0]
+                                            .files[0]
+                                            .url
                                             .isNotEmpty)
                                     ? Image.network(
-                                        state.productDetailModel!.result!
-                                            .variations![0].files![0].url!,
+                                        state.productDetailModel!.result
+                                            .variations[0].files[0].url,
                                         fit: BoxFit.fitWidth,
                                         errorBuilder:
                                             (context, error, stackTrace) {
@@ -200,12 +200,11 @@ class _ProductDetailDialogState extends State<ProductDetailDialog> {
                         ),
                       ),
                       Text(
-                        state.productDetailModel!.result!.description
-                            .toString(),
+                        state.productDetailModel!.result.description.toString(),
                       ),
                       const SizedBox(height: 15),
                       Text(
-                        '${state.productDetailModel!.result!.variations![0].prices![0].type == 'Price' ? state.productDetailModel!.result!.variations![0].prices![0].value!.toInt().toString() : state.productDetailModel!.result!.variations![0].prices![1].value!.toInt().toString()} AED',
+                        '${state.productDetailModel!.result.variations[0].prices[0].type == 'Price' ? state.productDetailModel!.result.variations[0].prices[0].value.toInt().toString() : state.productDetailModel!.result.variations[0].prices[1].value.toInt().toString()} AED',
                         style: const TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 20,

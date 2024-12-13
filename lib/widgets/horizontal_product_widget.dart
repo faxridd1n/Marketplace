@@ -5,9 +5,10 @@ import 'package:flutter_application_1/screens/basket/basket_bloc/basket_bloc.dar
 import 'package:flutter_application_1/screens/katalog/katalog_bloc/katalog_bloc.dart';
 import 'package:flutter_application_1/screens/see_all/see_all_bloc/see_all_bloc.dart';
 import '../assets_path/app_images_path.dart';
+import '../components/hive/user_token.dart';
 import '../components/price_function.dart';
-import '../screens/basket/basket_page.dart';
 import '../screens/favorite/favorite_page.dart';
+import 'login_dialog.dart';
 import 'snack_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -52,6 +53,7 @@ class _HorizontalProductWidgetState extends State<HorizontalProductWidget> {
             builder: (context) => ProductDetailPage1(
               productId: widget.model.id,
               categoryId: widget.model.category.id,
+              organizationId: widget.model.organizationId,
               // model: widget.model,
               // tab: widget.tab,
             ),
@@ -61,10 +63,10 @@ class _HorizontalProductWidgetState extends State<HorizontalProductWidget> {
       child: Container(
         decoration: BoxDecoration(
           boxShadow: const [
-             BoxShadow(blurRadius: 2, color: Color.fromARGB(90, 0, 0, 0))
+            BoxShadow(blurRadius: 2, color: Color.fromARGB(90, 0, 0, 0))
           ],
           borderRadius: BorderRadius.circular(12),
-          color:AppColors.white,
+          color: AppColors.white,
         ),
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         width: MediaQuery.of(context).size.width,
@@ -109,8 +111,8 @@ class _HorizontalProductWidgetState extends State<HorizontalProductWidget> {
                         ),
                         const SizedBox(width: 5),
                         SizedBox(
-                          height: 25,
-                          width: 25,
+                          height: 30,
+                          width: 30,
                           child: IconButton(
                             padding: const EdgeInsets.all(0),
                             onPressed: () {
@@ -129,7 +131,8 @@ class _HorizontalProductWidgetState extends State<HorizontalProductWidget> {
                               isSelected
                                   ? Icons.favorite
                                   : Icons.favorite_border_rounded,
-                              color: isSelected ? AppColors.pink :AppColors.black,
+                              color:
+                                  isSelected ? AppColors.pink : AppColors.black,
                             ),
                           ),
                         ),
@@ -195,9 +198,8 @@ class _HorizontalProductWidgetState extends State<HorizontalProductWidget> {
                           backgroundColor: AppColors.green,
                         ),
                         onPressed: () {
-                          bool isAlreadyHave = false;
-                          if (basketProducts.contains(widget.model)) {
-                            isAlreadyHave = true;
+                          final token = userTokenBox.get('token')?.token;
+                          if (token != null && token.isNotEmpty) {
                             if (widget.isSeeAllPage == true) {
                               context.read<SeeAllBloc>().add(
                                     PostBasketProductSeeAllEvent(
@@ -223,45 +225,22 @@ class _HorizontalProductWidgetState extends State<HorizontalProductWidget> {
                                     ),
                                   );
                             }
+                            snackBar(
+                              isHomePage: false,
+                              context: context,
+                              name: widget.model.name,
+                              addProduct: true,
+                            );
+                          } else {
+                            loginDiolog(context, () {
+                              setState(() {});
+                            });
                           }
-                          if (!isAlreadyHave) {
-                            if (widget.isSeeAllPage == true) {
-                              context.read<SeeAllBloc>().add(
-                                    PostBasketProductSeeAllEvent(
-                                      productVariationId:
-                                          widget.model.variations[0].id,
-                                      count: 1,
-                                    ),
-                                  );
-                            } else if (widget.isKatalogPage == true) {
-                              context.read<KatalogBloc>().add(
-                                    PostBasketProductKatalogEvent(
-                                      productVariationId:
-                                          widget.model.variations[0].id,
-                                      count: 1,
-                                    ),
-                                  );
-                            } else {
-                              context.read<BasketBloc>().add(
-                                    PostBasketProductBasketEvent(
-                                      productVariationId:
-                                          widget.model.variations[0].id,
-                                      count: 1,
-                                    ),
-                                  );
-                            }
-                          }
-                          snackBar(
-                            isHomePage: false,
-                            context: context,
-                            name: widget.model.name,
-                            addProduct: true,
-                          );
                         },
                         child: const Text(
                           'В корзину',
                           style: TextStyle(
-                            color:AppColors.white,
+                            color: AppColors.white,
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
                           ),

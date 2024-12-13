@@ -99,8 +99,8 @@ class ExpansionTileWidgetState extends State<CategoryExpansionWidget> {
       initiallyExpanded:
           isOpen[parentIndex], // Open/close based on isOpen state
       children: [
-        model.item[parentIndex].childs.isEmpty
-            ? GestureDetector(
+        // model.item[parentIndex].childs.isEmpty? 
+        GestureDetector(
               onTap: () {
               Navigator.of(context, rootNavigator: true).push(
                             MaterialPageRoute(
@@ -132,52 +132,52 @@ class ExpansionTileWidgetState extends State<CategoryExpansionWidget> {
                   ),
                 ),
             )
-            : SizedBox(
-                height: model.item[parentIndex].childs.length * 45,
-                child: ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: model.item[parentIndex].childs.length,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      padding: const EdgeInsets.only(left: 50),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.of(context, rootNavigator: true).push(
-                            MaterialPageRoute(
-                              builder: (context) => KatalogPage(
-                                model: model,
-                                index: parentIndex,
-                                // selectedSubCategory: index,
-                              ),
-                            ),
-                          );
-                          setState(() {});
-                        },
-                        child: ListTile(
-                          minTileHeight: 35,
-                          contentPadding: const EdgeInsets.symmetric(
-                            vertical: 0,
-                            horizontal: 20,
-                          ),
-                          title: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                model.item[parentIndex].childs[index].name!,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                              const SizedBox(height: 5),
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
+            // : SizedBox(
+            //     height: model.item[parentIndex].childs.length * 45,
+            //     child: ListView.builder(
+            //       physics: const NeverScrollableScrollPhysics(),
+            //       itemCount: model.item[parentIndex].childs.length,
+            //       itemBuilder: (context, index) {
+            //         return Container(
+            //           padding: const EdgeInsets.only(left: 50),
+            //           child: GestureDetector(
+            //             onTap: () {
+            //               Navigator.of(context, rootNavigator: true).push(
+            //                 MaterialPageRoute(
+            //                   builder: (context) => KatalogPage(
+            //                     model: model,
+            //                     index: parentIndex,
+            //                     // selectedSubCategory: index,
+            //                   ),
+            //                 ),
+            //               );
+            //               setState(() {});
+            //             },
+            //             child: ListTile(
+            //               minTileHeight: 35,
+            //               contentPadding: const EdgeInsets.symmetric(
+            //                 vertical: 0,
+            //                 horizontal: 20,
+            //               ),
+            //               title: Column(
+            //                 crossAxisAlignment: CrossAxisAlignment.start,
+            //                 children: [
+            //                   Text(
+            //                     model.item[parentIndex].childs[index].name!,
+            //                     style: const TextStyle(
+            //                       fontSize: 14,
+            //                       fontWeight: FontWeight.w400,
+            //                     ),
+            //                   ),
+            //                   const SizedBox(height: 5),
+            //                 ],
+            //               ),
+            //             ),
+            //           ),
+            //         );
+            //       },
+            //     ),
+            //   ),
       ],
     );
   }

@@ -23,11 +23,17 @@ class PostBasketProductCountBasketEvent extends BasketEvent {
   final int? count;
   PostBasketProductCountBasketEvent(this.productVariationId, this.count);
 }
+
 class PostBasketProductBasketEvent extends BasketEvent {
   final int count;
   final String productVariationId;
   PostBasketProductBasketEvent(
       {required this.productVariationId, required this.count});
+}
+
+class GetOrganizationEvent extends BasketEvent {
+  final int organizationId;
+  GetOrganizationEvent({required this.organizationId});
 }
 // class AddItemEvent extends BasketEvent {
 //   final BasketProductElement item;

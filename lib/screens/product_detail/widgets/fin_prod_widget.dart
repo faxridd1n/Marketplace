@@ -22,7 +22,7 @@ class _FinProdWidgetState extends State<FinProdWidget> {
   @override
   void initState() {
     price = addSpaceEveryThreeCharacters(
-        widget.model.result!.variations![0].prices![0].value.toString());
+        widget.model.result.variations[0].prices[0].value.toString());
 
     super.initState();
   }
@@ -31,14 +31,9 @@ class _FinProdWidgetState extends State<FinProdWidget> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: const [
-            BoxShadow(
-              color: AppColors.appBarShadowColor,
-              blurRadius: 5,
-            )
-          ]),
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(12),
+      ),
       child: Column(
         children: [
           // Padding(
@@ -206,7 +201,7 @@ class _FinProdWidgetState extends State<FinProdWidget> {
           //     ],
           //   ),
           // ),
-          
+
           Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 20,
@@ -216,15 +211,15 @@ class _FinProdWidgetState extends State<FinProdWidget> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  widget.model.result!.variations![0].prices![0].type == 'Price'
-                      ? addSpaceEveryThreeCharacters((widget.model.result!
-                                  .variations![0].prices![0].value!
+                  widget.model.result.variations[0].prices[0].type == 'Price'
+                      ? addSpaceEveryThreeCharacters((widget
+                                  .model.result.variations[0].prices[0].value
                                   .toInt() /
                               oy[selectedMonths])
                           .toInt()
                           .toString())
-                      : addSpaceEveryThreeCharacters((widget.model.result!
-                                  .variations![0].prices![1].value!
+                      : addSpaceEveryThreeCharacters((widget
+                                  .model.result.variations[0].prices[1].value
                                   .toInt() /
                               oy[selectedMonths])
                           .toInt()

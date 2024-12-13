@@ -1,35 +1,35 @@
 // To parse this JSON data, do
 //
-//     final productDetailModel = productDetailModelFromJson(jsonString);
+//     final postOrderResponseModel = postOrderResponseModelFromJson(jsonString);
 
 import 'package:json_annotation/json_annotation.dart';
 import 'dart:convert';
 
-part 'product_detail_model.g.dart';
+part 'post_order_response_model.g.dart';
 
-ProductDetailModel productDetailModelFromJson(String str) =>
-    ProductDetailModel.fromJson(json.decode(str));
+PostOrderResponseModel postOrderResponseModelFromJson(String str) =>
+    PostOrderResponseModel.fromJson(json.decode(str));
 
-String productDetailModelToJson(ProductDetailModel data) =>
+String postOrderResponseModelToJson(PostOrderResponseModel data) =>
     json.encode(data.toJson());
 
 @JsonSerializable()
-class ProductDetailModel {
+class PostOrderResponseModel {
   @JsonKey(name: "result")
   final Result result;
   @JsonKey(name: "error")
   final Error error;
 
-  ProductDetailModel({
+  PostOrderResponseModel({
     Result? result,
     Error? error,
-  })  : result = result ?? Result(),
+  })  : result = result ?? Result(), // Default to a new Result() if null
         error = error ?? Error();
 
-  factory ProductDetailModel.fromJson(Map<String, dynamic> json) =>
-      _$ProductDetailModelFromJson(json);
+  factory PostOrderResponseModel.fromJson(Map<String, dynamic> json) =>
+      _$PostOrderResponseModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ProductDetailModelToJson(this);
+  Map<String, dynamic> toJson() => _$PostOrderResponseModelToJson(this);
 }
 
 @JsonSerializable()
@@ -52,179 +52,119 @@ class Error {
 @JsonSerializable()
 class Result {
   @JsonKey(name: "id")
-  final String id;
-  @JsonKey(name: "state")
-  final int state;
-  @JsonKey(name: "names")
-  final List<Description> names;
-  @JsonKey(name: "name")
-  final String name;
-  @JsonKey(name: "descriptions")
-  final List<Description> descriptions;
-  @JsonKey(name: "description")
-  final String description;
-  @JsonKey(name: "categoryId")
-  final int categoryId;
-  @JsonKey(name: "category")
-  final Category category;
-  @JsonKey(name: "brandId")
-  final int brandId;
-  @JsonKey(name: "brand")
-  final Brand brand;
-  @JsonKey(name: "organizationId")
-  final int organizationId;
-  @JsonKey(name: "variations")
-  final List<Variation> variations;
-  @JsonKey(name: "isVisible")
-  final bool isVisible;
-  @JsonKey(name: "moderationStatus")
-  final String moderationStatus;
-  @JsonKey(name: "rating")
-  final int rating;
-  @JsonKey(name: "reviewCount")
-  final int reviewCount;
-  @JsonKey(name: "productNumber")
-  final int productNumber;
+  final int id;
   @JsonKey(name: "createdDate")
   final DateTime createdDate;
   @JsonKey(name: "updatedDate")
   final DateTime updatedDate;
+  @JsonKey(name: "paymentType")
+  final int paymentType;
+  @JsonKey(name: "deliveryType")
+  final int deliveryType;
+  @JsonKey(name: "userId")
+  final int userId;
+  @JsonKey(name: "fullName")
+  final String fullName;
+  @JsonKey(name: "phoneNumber")
+  final String phoneNumber;
+  @JsonKey(name: "regionId")
+  final int regionId;
+  @JsonKey(name: "regionName")
+  final String regionName;
+  @JsonKey(name: "destrictId")
+  final int destrictId;
+  @JsonKey(name: "destrictName")
+  final String destrictName;
+  @JsonKey(name: "address")
+  final String address;
+  @JsonKey(name: "comment")
+  final String comment;
+  @JsonKey(name: "subOrders")
+  final List<SubOrder> subOrders;
 
   Result({
-    this.id = '',
-    this.state = -1,
-    this.names = const [],
-    this.name = '',
-    this.descriptions = const [],
-    this.description = '',
-    this.categoryId = -1,
-    Category? category,
-    this.brandId = -1,
-    Brand? brand,
-    this.organizationId = -1,
-    this.variations = const [],
-    this.isVisible = false,
-    this.moderationStatus = '',
-    this.rating = -1,
-    this.reviewCount = -1,
-    this.productNumber = -1,
+    this.id = -1,
     DateTime? createdDate,
     DateTime? updatedDate,
+    this.paymentType = -1,
+    this.deliveryType = -1,
+    this.userId = -1,
+    this.fullName = '',
+    this.phoneNumber = '',
+    this.regionId = -1,
+    this.regionName = '',
+    this.destrictId = -1,
+    this.destrictName = '',
+    this.address = '',
+    this.comment = '',
+    this.subOrders = const [],
   })  : createdDate = createdDate ?? DateTime.now(),
-        updatedDate = updatedDate ?? DateTime.now(),
-        category = category ?? Category(),
-        brand = brand ?? Brand();
-
+        updatedDate = updatedDate ?? DateTime.now();
   factory Result.fromJson(Map<String, dynamic> json) => _$ResultFromJson(json);
 
   Map<String, dynamic> toJson() => _$ResultToJson(this);
 }
 
 @JsonSerializable()
-class Brand {
+class SubOrder {
   @JsonKey(name: "id")
   final int id;
-  @JsonKey(name: "imageId")
-  final String imageId;
-  @JsonKey(name: "image")
-  final ProductIcon image;
-  @JsonKey(name: "iconId")
-  final String iconId;
-  @JsonKey(name: "icon")
-  final ProductIcon icon;
-  @JsonKey(name: "name")
-  final String name;
-  @JsonKey(name: "isVisible")
-  final bool isVisible;
+  @JsonKey(name: "organizationId")
+  final int organizationId;
+  @JsonKey(name: "organizationName")
+  final String organizationName;
+  @JsonKey(name: "organizationPhoneNumber")
+  final String organizationPhoneNumber;
+  @JsonKey(name: "reason")
+  final String reason;
+  @JsonKey(name: "state")
+  final int state;
+  @JsonKey(name: "updatedDate")
+  final DateTime updatedDate;
+  @JsonKey(name: "items")
+  final List<Item> items;
 
-  Brand({
+  SubOrder({
     this.id = -1,
-    this.imageId = '',
-    ProductIcon? image,
-    this.iconId = '',
-    ProductIcon? icon,
-    this.name = '',
-    this.isVisible = false,
-  })  : icon = icon ?? ProductIcon(),
-        image = image ?? ProductIcon();
+    this.organizationId = -1,
+    this.organizationName = '',
+    this.organizationPhoneNumber = '',
+    this.reason = '',
+    this.state = -1,
+    DateTime? updatedDate,
+    this.items = const [],
+  }) : updatedDate = updatedDate ?? DateTime.now();
 
-  factory Brand.fromJson(Map<String, dynamic> json) => _$BrandFromJson(json);
+  factory SubOrder.fromJson(Map<String, dynamic> json) =>
+      _$SubOrderFromJson(json);
 
-  Map<String, dynamic> toJson() => _$BrandToJson(this);
+  Map<String, dynamic> toJson() => _$SubOrderToJson(this);
 }
 
 @JsonSerializable()
-class ProductIcon {
-  @JsonKey(name: "id")
-  final String id;
-  @JsonKey(name: "url")
-  final String url;
-  @JsonKey(name: "name")
-  final String name;
-  @JsonKey(name: "extension")
-  final String extension;
-  @JsonKey(name: "contentType")
-  final String contentType;
-  @JsonKey(name: "createdAt")
-  final DateTime createdAt;
-  @JsonKey(name: "isVisible")
-  final bool isVisible;
-
-  ProductIcon({
-    this.id = '',
-    this.url = '',
-    this.name = '',
-    this.extension = '',
-    this.contentType = '',
-    DateTime? createdAt,
-    this.isVisible = false,
-  }) : createdAt = createdAt ?? DateTime.now();
-
-  factory ProductIcon.fromJson(Map<String, dynamic> json) => _$IconFromJson(json);
-
-  Map<String, dynamic> toJson() => _$IconToJson(this);
-}
-
-@JsonSerializable()
-class Category {
+class Item {
   @JsonKey(name: "id")
   final int id;
-  @JsonKey(name: "name")
-  final String name;
-  @JsonKey(name: "imageId")
-  final String imageId;
-  @JsonKey(name: "isVisible")
-  final bool isVisible;
+  @JsonKey(name: "count")
+  final int count;
+  @JsonKey(name: "isAvailable")
+  final bool isAvailable;
+  @JsonKey(name: "variationId")
+  final String variationId;
+  @JsonKey(name: "variation")
+  final Variation variation;
 
-  Category({
+  Item({
     this.id = -1,
-    this.name = '',
-    this.imageId = '',
-    this.isVisible = false,
-  });
+    this.count = -1,
+    this.isAvailable = false,
+    this.variationId = '',
+    Variation? variation,
+  }) : variation = variation ?? Variation();
 
-  factory Category.fromJson(Map<String, dynamic> json) =>
-      _$CategoryFromJson(json);
+  factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
 
-  Map<String, dynamic> toJson() => _$CategoryToJson(this);
-}
-
-@JsonSerializable()
-class Description {
-  @JsonKey(name: "languageCode")
-  final String languageCode;
-  @JsonKey(name: "text")
-  final String text;
-
-  Description({
-    this.languageCode = '',
-    this.text = '',
-  });
-
-  factory Description.fromJson(Map<String, dynamic> json) =>
-      _$DescriptionFromJson(json);
-
-  Map<String, dynamic> toJson() => _$DescriptionToJson(this);
+  Map<String, dynamic> toJson() => _$ItemToJson(this);
 }
 
 @JsonSerializable()
@@ -287,7 +227,7 @@ class AttributeValue {
   @JsonKey(name: "valueTranslation")
   final String valueTranslation;
   @JsonKey(name: "valueTranslations")
-  final List<Description> valueTranslations;
+  final List<ValueTranslation> valueTranslations;
   @JsonKey(name: "attributeId")
   final int attributeId;
   @JsonKey(name: "attribute")
@@ -334,7 +274,7 @@ class Attribute {
   @JsonKey(name: "name")
   final String name;
   @JsonKey(name: "names")
-  final List<Description> names;
+  final List<ValueTranslation> names;
   @JsonKey(name: "description")
   final String description;
   @JsonKey(name: "categoryId")
@@ -416,6 +356,48 @@ class Filter {
 }
 
 @JsonSerializable()
+class Category {
+  @JsonKey(name: "id")
+  final int id;
+  @JsonKey(name: "name")
+  final String name;
+  @JsonKey(name: "imageId")
+  final String imageId;
+  @JsonKey(name: "isVisible")
+  final bool isVisible;
+
+  Category({
+    this.id = -1,
+    this.name = '',
+    this.imageId = '',
+    this.isVisible = false,
+  });
+
+  factory Category.fromJson(Map<String, dynamic> json) =>
+      _$CategoryFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CategoryToJson(this);
+}
+
+@JsonSerializable()
+class ValueTranslation {
+  @JsonKey(name: "languageCode")
+  final String languageCode;
+  @JsonKey(name: "text")
+  final String text;
+
+  ValueTranslation({
+    this.languageCode = '',
+    this.text = '',
+  });
+
+  factory ValueTranslation.fromJson(Map<String, dynamic> json) =>
+      _$ValueTranslationFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ValueTranslationToJson(this);
+}
+
+@JsonSerializable()
 class FileElement {
   @JsonKey(name: "id")
   final String id;
@@ -424,7 +406,7 @@ class FileElement {
   @JsonKey(name: "url")
   final String url;
   @JsonKey(name: "fileInfo")
-  final ProductIcon fileInfo;
+  final FileInfo fileInfo;
   @JsonKey(name: "variationId")
   final String variationId;
   @JsonKey(name: "productId")
@@ -436,16 +418,49 @@ class FileElement {
     this.id = '',
     this.order = -1,
     this.url = '',
-    ProductIcon? fileInfo,
+    FileInfo? fileInfo,
     this.variationId = '',
     this.productId = '',
     this.isVisible = false,
-  }) : fileInfo = fileInfo ?? ProductIcon();
+  }) : fileInfo = fileInfo ?? FileInfo();
 
   factory FileElement.fromJson(Map<String, dynamic> json) =>
       _$FileElementFromJson(json);
 
   Map<String, dynamic> toJson() => _$FileElementToJson(this);
+}
+
+@JsonSerializable()
+class FileInfo {
+  @JsonKey(name: "id")
+  final String id;
+  @JsonKey(name: "url")
+  final String url;
+  @JsonKey(name: "name")
+  final String name;
+  @JsonKey(name: "extension")
+  final String extension;
+  @JsonKey(name: "contentType")
+  final String contentType;
+  @JsonKey(name: "createdAt")
+  final DateTime createdAt;
+  @JsonKey(name: "isVisible")
+  final bool isVisible;
+
+  FileInfo({
+    this.id = '',
+    this.url = '',
+    this.name = '',
+    this.extension = '',
+    this.contentType = '',
+    DateTime? createdAt,
+    this.isVisible = false,
+  }) : createdAt = createdAt ?? DateTime.now();
+
+  factory FileInfo.fromJson(Map<String, dynamic> json) =>
+      _$FileInfoFromJson(json);
+
+  Map<String, dynamic> toJson() => _$FileInfoToJson(this);
 }
 
 @JsonSerializable()

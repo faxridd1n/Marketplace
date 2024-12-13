@@ -14,8 +14,8 @@ import 'package:flutter_application_1/screens/home/widgets/home_text_field_widge
 import 'package:flutter_application_1/widgets/product_list_widget.dart';
 import 'package:flutter_application_1/widgets/bottom_info_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:formz/formz.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../assets_path/app_icons_path.dart';
 // import 'widgets/home_pop_up.dart';
@@ -73,8 +73,8 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: AppColors.white,
       appBar: AppBar(
         title: SizedBox(
-          width: MediaQuery.of(context).size.width*0.5,
-          child: SvgPicture.asset(AppIcons.taqsimAppLogo)),
+            width: MediaQuery.of(context).size.width * 0.5,
+            child: SvgPicture.asset(AppIcons.taqsimAppLogo)),
         surfaceTintColor: AppColors.transparent,
         backgroundColor: AppColors.white,
         leading: Builder(builder: (context) {
@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
         }),
         elevation: 2,
         shadowColor: AppColors.appBarShadowColor,
-        actions: [
+        actions: const [
           // HomePopUpMenuWidget(true, AppIcons.language),
         ],
       ),
@@ -107,7 +107,7 @@ class _HomePageState extends State<HomePage> {
                     itemBuilder: (context, index) => Padding(
                       padding: const EdgeInsets.only(right: 15),
                       child: BannerWidget(
-                        banner: banners[index],
+                        assetBanner: banners[index],
                       ),
                     ),
                   ),
@@ -119,15 +119,15 @@ class _HomePageState extends State<HomePage> {
                         child: SmoothPageIndicator(
                           controller: _pageController,
                           count: banners.length,
-                          effect:  const ExpandingDotsEffect(
-                            // paintStyle: PaintingStyle.fill,
-                            activeDotColor: AppColors.green,
-                            dotColor: AppColors.dotColor,
-                            dotHeight: 5,
-                            dotWidth: 20,
-                            expansionFactor: 1.8
-                            // dotWidth: 20,
-                          ),
+                          effect: const ExpandingDotsEffect(
+                              // paintStyle: PaintingStyle.fill,
+                              activeDotColor: AppColors.green,
+                              dotColor: AppColors.dotColor,
+                              dotHeight: 5,
+                              dotWidth: 20,
+                              expansionFactor: 1.8
+                              // dotWidth: 20,
+                              ),
                         ),
                       ),
                     ),
@@ -146,10 +146,10 @@ class _HomePageState extends State<HomePage> {
               child: BlocBuilder<HomeBloc, HomeState>(
                 builder: (ctx, state) {
                   if (state.getCategoryStatus.isInProgress) {
-                    return  Center(
+                    return Center(
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
-                        child:CustomThicknessIndicator(),
+                        child: CustomThicknessIndicator(),
                       ),
                     );
                   }
@@ -180,11 +180,38 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             const ProductListWidget(index: 0),
-
             const ProductListWidget(index: 1),
+            const Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 15,
+                vertical: 10,
+              ),
+              child: SizedBox(
+                height: 140,
+                child: BannerWidget(
+                  assetBanner: null,
+                  urlBanner:
+                      'https://arbuzmarket.com/api/v1/Files/fc9b6b09-f5e6-4576-b363-87564182d368',
+                ),
+              ),
+            ),
             const ProductListWidget(index: 2),
             const ProductListWidget(index: 3),
-            // ProductListWidget(index: 4),
+            const Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 15,
+                vertical: 10,
+              ),
+              child: SizedBox(
+                height: 140,
+                child: BannerWidget(
+                  assetBanner: null,
+                  urlBanner:
+                      'https://arbuzmarket.com/api/v1/Files/60114ce6-0ccd-4c81-a3c5-5b24cf73b333',
+                ),
+              ),
+            ),
+            const ProductListWidget(index: 4),
             // ProductListWidget(index: 5),
             // ProductListWidget(index: 6),
             // ProductListWidget(index: 7),

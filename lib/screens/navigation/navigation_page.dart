@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/assets_path/app_icons_path.dart';
-// import 'package:flutter_application_1/components/hive/user_token_model.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_application_1/screens/basket/basket_bloc/basket_bloc.dart';
 import 'package:flutter_application_1/widgets/tab_navigator.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:formz/formz.dart';
 
 class NavigationPage extends StatefulWidget {
   const NavigationPage({super.key});
@@ -31,7 +29,7 @@ class _NavigationPageState extends State<NavigationPage>
         navigatorKey: _navigatorKeys[tabItem]!,
         tabItem: tabItem,
       );
-  late final BasketBloc bloc;
+  // late final BasketBloc bloc;
   @override
   void initState() {
     super.initState();
@@ -41,7 +39,11 @@ class _NavigationPageState extends State<NavigationPage>
     //   'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0OTciLCJPcmdhbml6YXRpb25JZCI6IiIsIlVzZXJJZCI6IjQ5NyIsIkRldmljZUlkIjoiMTIyMSIsIlJvbGVJZCI6IjEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJ1c2VyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6Ijk5ODMzMDAyMDcwMCIsIm5iZiI6MTczMjI2NTk4NCwiZXhwIjoxNzMyODcwNzg0LCJpc3MiOiJ0YXFzaW0udXoiLCJhdWQiOiJIYWxhbFRhcXNpbSJ9.EgrlYd_q4TAfALdwPFVqwu9Tm2_ihz-_dm6HsdL25eg' as UserTokenModel,
     // );
     // setState(() {});
-    bloc = BasketBloc()..add(GetBasketProductsEvent());
+    // if (userTokenBox.get('token')!.token.isNotEmpty) {
+    //   bloc = BasketBloc()..add(GetBasketProductsEvent());
+    // } else {
+    //   bloc = BasketBloc();
+    // }
     _tabController =
         TabController(length: 5, vsync: this, animationDuration: Duration.zero);
     // userTokenBox.delete('token');
@@ -50,7 +52,7 @@ class _NavigationPageState extends State<NavigationPage>
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: bloc,
+      value: BasketBloc(),
       child: PopScope(
         child: Scaffold(
           backgroundColor: AppColors.white,

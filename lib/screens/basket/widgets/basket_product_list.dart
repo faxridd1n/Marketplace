@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/assets_path/app_icons_path.dart';
+import 'package:flutter_application_1/components/number_function.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_application_1/models/basket_model/basket_product_model.dart';
+import 'package:flutter_application_1/models/product_detail_model/organization_contact_model.dart';
 import 'package:flutter_application_1/screens/basket/widgets/basket_product_widget.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class BasketProductListWidget extends StatefulWidget {
-  const BasketProductListWidget({required this.model, super.key});
+  const BasketProductListWidget(
+      {required this.model, required this.organizationContactModel, super.key});
   final BasketProductModel model;
+  final OrganizationContactModel organizationContactModel;
 
   @override
   BasketProductListWidgetState createState() => BasketProductListWidgetState();
@@ -44,6 +50,36 @@ class BasketProductListWidgetState extends State<BasketProductListWidget> {
         ),
         initiallyExpanded: true,
         children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(widget.organizationContactModel.result.address),
+              GestureDetector(
+                onTap: () {},
+                child: Row(
+                  children: [
+                    SvgPicture.asset(
+                      AppIcons.location,
+                      color: AppColors.green,
+                    ),
+                    const SizedBox(width: 5),
+                    const Text('Показать на карте'),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Text(
+              numberFunction(widget.organizationContactModel.result.phone),
+              style: const TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 14,
+              ),
+            ),
+          ),
           SizedBox(
             height: widget.model.result.products.length * 140,
             child: ListView.builder(

@@ -1,8 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_application_1/models/profile_model/editted_user_info_response_model.dart';
-import 'package:flutter_application_1/models/profile_model/user_orders_model.dart';
+import 'package:flutter_application_1/models/order_model/user_orders_model.dart';
 import 'package:flutter_application_1/models/profile_model/user_profile_model.dart';
+import 'package:flutter_application_1/service/order_service/order_service.dart';
 import 'package:flutter_application_1/service/profile_service/profile_service.dart';
 import 'package:formz/formz.dart';
 import 'package:meta/meta.dart';
@@ -28,7 +29,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<GetUserOrdersEvent>((event, emit) async {
       emit(state.copyWith(
           getUserOrdersStatus: FormzSubmissionStatus.inProgress));
-      final result = await ProfileService.getUserOrders();
+      final result = await OrderService.getUserOrders();
       if (result is UserOrdersModel) {
         emit(state.copyWith(
             userOrdersModel: result,

@@ -5,11 +5,10 @@ import 'package:flutter_application_1/screens/see_all/see_all_bloc/see_all_bloc.
 import 'package:flutter_application_1/screens/see_all/widgets/bottom_sheet_widget.dart';
 import 'package:flutter_application_1/widgets/horizontal_product_widget.dart';
 import 'package:flutter_application_1/widgets/indicator.dart';
-import 'package:flutter_application_1/widgets/paginator.dart';
+// import 'package:flutter_application_1/widgets/paginator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
-
 import '../../core/constants/app_colors.dart';
 import '../../widgets/mini_product.dart';
 
@@ -26,10 +25,15 @@ class _SeeAllPageState extends State<SeeAllPage> {
 
   @override
   void initState() {
-    bloc = SeeAllBloc()
-      ..add(GetAllProductsEvent(widget.categoryId))
-      ..add(GetSearchFiltersEvent(widget.categoryId));
     super.initState();
+    bloc = SeeAllBloc();
+    getProducts();
+  }
+
+  void getProducts() async {
+    bloc.add(GetAllProductsEvent(widget.categoryId));
+    await Future.delayed(const Duration(milliseconds: 200));
+    bloc.add(GetSearchFiltersEvent(widget.categoryId));
   }
 
   @override
@@ -68,7 +72,7 @@ class _SeeAllPageState extends State<SeeAllPage> {
                   )
                 ],
                 bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(55),
+                  preferredSize: const Size.fromHeight(55),
                   child: Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
@@ -119,7 +123,7 @@ class _SeeAllPageState extends State<SeeAllPage> {
                                 width: 40,
                                 height: 40,
                                 child: IconButton(
-                                  padding: EdgeInsets.all(0),
+                                  padding: const EdgeInsets.all(0),
                                   onPressed: () {
                                     isVerticalProduct = true;
                                     setState(() {});
@@ -138,7 +142,7 @@ class _SeeAllPageState extends State<SeeAllPage> {
                                 width: 40,
                                 height: 40,
                                 child: IconButton(
-                                  padding: EdgeInsets.all(0),
+                                  padding: const EdgeInsets.all(0),
                                   onPressed: () {
                                     isVerticalProduct = false;
                                     setState(() {});
@@ -164,86 +168,95 @@ class _SeeAllPageState extends State<SeeAllPage> {
               body: Column(
                 children: [
                   Expanded(
-                      child: Paginator(
-                    paginatorStatus: FormzSubmissionStatus.success,
-                    itemCount: state.productModel!.length,
-                    itemBuilder: (ctx, index) {
-                      return isVerticalProduct
-                          ? GridView.builder(
-                              shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
-                              padding: const EdgeInsets.all(10),
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisSpacing: 10,
-                                mainAxisSpacing: 10,
-                                crossAxisCount: 2,
-                                childAspectRatio: 0.55, // Adjust if needed
-                              ),
-                              itemCount: state.productModel!.length,
-                              itemBuilder: (context, index) {
-                                return BlocProvider.value(
-                                  value: BasketBloc(),
-                                  child: MiniProductWidget(
-                                    index: index,
-                                    model: state.productModel![index],
-                                  ),
-                                );
-                              },
-                            )
-                          : ListView.builder(
-                              physics: NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: state.productModel!.length,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 10,
-                                    vertical: 10,
-                                  ),
-                                  child: BlocProvider.value(
+                    child:
+                        //   Paginator(
+                        // paginatorStatus: FormzSubmissionStatus.success,
+                        // itemCount: state.productModel!.length,
+                        // itemBuilder: (ctx, index) {
+                        //   return
+                        isVerticalProduct
+                            ? GridView.builder(
+                                shrinkWrap: true,
+                                // physics: const NeverScrollableScrollPhysics(),
+                                padding: const EdgeInsets.all(10),
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisSpacing: 10,
+                                  mainAxisSpacing: 10,
+                                  crossAxisCount: 2,
+                                  childAspectRatio: 0.55, // Adjust if needed
+                                ),
+                                itemCount: state.productModel!.length,
+                                itemBuilder: (context, index) {
+                                  return BlocProvider.value(
                                     value: BasketBloc(),
-                                    child: HorizontalProductWidget(
-                                      model: state.productModel![index],
+                                    child: MiniProductWidget(
                                       index: index,
+                                      model: state.productModel![index],
                                     ),
-                                  ),
-                                );
-                              },
-                            );
-                    },
-                    fetchMoreFunction: () {},
-                    hasMoreToFetch: false,
-                  )
-                      // ListView.builder(
-                      //   shrinkWrap: true,
-                      //   itemCount: state.productModel!.length,
-                      //   itemBuilder: (context, index) {
-                      //     if (index >= state.productModel!.length) {
-                      //       return const Center(child: CircularProgressIndicator(color:AppColors.green,strokeWidth:3));
-                      //     }
-                      //     return Padding(
-                      //       padding: EdgeInsets.symmetric(
-                      //         horizontal: isVerticalProduct ? 30 : 10,
-                      //         vertical: 10,
-                      //       ),
-                      //       child: isVerticalProduct
-                      //           ? ProductWidget(
-                      //               isSeeAllPage: true,
-                      //               index: index,
-                      //               model: state.productModel![index],
-                      //             )
-                      //           : HorizontalProductWidget(
-                      //               isSeeAllPage: true,
-                      //               model: state.productModel![index],
-                      //               index: index,
-                      //             ),
-                      //     );
-                      //   },
-                      // ),
-                      ),
+                                  );
+                                },
+                              )
+                            : ListView.builder(
+                                // physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: state.productModel!.length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                      vertical: 10,
+                                    ),
+                                    child: BlocProvider.value(
+                                      value: BasketBloc(),
+                                      child: HorizontalProductWidget(
+                                        model: state.productModel![index],
+                                        index: index,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                    //   },
+                    //   fetchMoreFunction: () {},
+                    //   hasMoreToFetch: false,
+                    // )
+                    // ListView.builder(
+                    //   shrinkWrap: true,
+                    //   itemCount: state.productModel!.length,
+                    //   itemBuilder: (context, index) {
+                    //     if (index >= state.productModel!.length) {
+                    //       return const Center(child: CircularProgressIndicator(color:AppColors.green,strokeWidth:3));
+                    //     }
+                    //     return Padding(
+                    //       padding: EdgeInsets.symmetric(
+                    //         horizontal: isVerticalProduct ? 30 : 10,
+                    //         vertical: 10,
+                    //       ),
+                    //       child: isVerticalProduct
+                    //           ? ProductWidget(
+                    //               isSeeAllPage: true,
+                    //               index: index,
+                    //               model: state.productModel![index],
+                    //             )
+                    //           : HorizontalProductWidget(
+                    //               isSeeAllPage: true,
+                    //               model: state.productModel![index],
+                    //               index: index,
+                    //             ),
+                    //     );
+                    //   },
+                    // ),
+                  ),
                   const SizedBox(height: 10),
                 ],
+              ),
+            );
+          }
+          if (state.getProductStatus.isFailure) {
+            Scaffold(
+              body: Center(
+                child: Text(state.getProductStatus.toString()),
               ),
             );
           }

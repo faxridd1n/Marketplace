@@ -1,14 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/assets_path/app_icons_path.dart';
 import 'package:flutter_application_1/components/hive/user_token.dart';
+import 'package:flutter_application_1/screens/login/login_page.dart';
 import 'package:flutter_application_1/screens/profile/widgets/profile_elements.dart';
+import 'package:flutter_application_1/user_auth_bloc/user_auth_bloc.dart';
 import 'package:flutter_application_1/widgets/indicator.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../core/constants/app_colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
+import '../../user_auth_bloc/user_auth_state.dart';
 import 'profile_bloc/profile_bloc.dart';
+
+class Profile extends StatefulWidget {
+  const Profile({super.key});
+
+  @override
+  State<Profile> createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (ctx) => UserAuthBloc(),
+      child: BlocBuilder<UserAuthBloc, UserAuthState>(
+        builder: (context, state) {
+          if (state.userAuthStatus == AuthStatus.authenticated) {
+            return const ProfilePage();
+          }
+          if (state.userAuthStatus == AuthStatus.unAuthenticated) {
+            return const LoginPage();
+          }
+
+          return const Scaffold(
+            body: Center(
+              child: Text('Error'),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});

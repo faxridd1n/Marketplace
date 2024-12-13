@@ -88,7 +88,7 @@ class SeeAllSevice {
       int categoryId) async {
     try {
       final response = await DioConfig.inheritance.createRequest().get(
-          "https://arbuzmarket.com/api/v1/Filters?tab=${categoryId}",
+          "https://arbuzmarket.com/api/v1/Filters?tab=$categoryId",
           data: {
             "categoryId": categoryId,
           });

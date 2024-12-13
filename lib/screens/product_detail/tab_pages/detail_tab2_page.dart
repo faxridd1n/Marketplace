@@ -14,13 +14,12 @@ class _PDetailPageTab2State extends State<PDetailPageTab2> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 20),
           Text(
-            widget.model.result!.description!,
+            widget.model.result.description,
             style: const TextStyle(
               color: AppColors.grey2,
               fontSize: 14,
@@ -29,7 +28,6 @@ class _PDetailPageTab2State extends State<PDetailPageTab2> {
             maxLines: 10,
             overflow: TextOverflow.ellipsis,
           ),
-          const SizedBox(height: 20),
         ],
       ),
     );
