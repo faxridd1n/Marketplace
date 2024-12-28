@@ -61,15 +61,17 @@ class OrderService {
                       'Bearer ${userTokenBox.get('token')!.token.toString()}',
                 },
               ),
-              data: {
-            "paymentType": requestModel.paymentType,
-            "deliveryType": requestModel.deliveryType,
-            "regionId": requestModel.regionId,
-            "destrictId": requestModel.destrictId,
-            "address": "",
-            "comment": "",
-            "items": requestModel.items,
-          });
+              data: PostOrderRequestModel()
+          //     {
+          //   "paymentType": requestModel.paymentType,
+          //   "deliveryType": requestModel.deliveryType,
+          //   "regionId": requestModel.regionId,
+          //   "destrictId": requestModel.destrictId,
+          //   "address": "",
+          //   "comment": "",
+          //   "items": requestModel.items,
+          // }
+          );
       Log.i(response.data.toString());
       Log.i(response.statusCode.toString());
 

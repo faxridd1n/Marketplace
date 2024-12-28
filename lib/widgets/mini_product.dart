@@ -17,7 +17,7 @@ import '../screens/katalog/katalog_bloc/katalog_bloc.dart';
 import 'login_dialog.dart';
 
 class MiniProductWidget extends StatefulWidget {
-  MiniProductWidget(
+  const MiniProductWidget(
       {required this.index,
       required this.model,
       this.isSeeAllPage,
@@ -48,11 +48,6 @@ class _MiniProductWidgetState extends State<MiniProductWidget> {
     } else {
       isSelected = false;
     }
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   @override
@@ -118,24 +113,50 @@ class _MiniProductWidgetState extends State<MiniProductWidget> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 10),
+                      // const SizedBox(height: 10),
                       Text(
                         widget.model.variations[0].prices[0].type == 'Price'
-                            ? '${addSpaceEveryThreeCharacters(widget.model.variations[0].prices[0].value.toInt().toString())} сум'
-                            : '${addSpaceEveryThreeCharacters(widget.model.variations[0].prices[1].value.toInt().toString())} сум',
+                            ? '${addSpaceEveryThreeCharacters(widget.model.variations[0].prices[0].value.toInt().toString())} AED'
+                            : '${addSpaceEveryThreeCharacters(widget.model.variations[0].prices[1].value.toInt().toString())} AED',
                         style: const TextStyle(
-                          fontSize: 14,
+                          fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      const SizedBox(height: 10),
+                      // const SizedBox(height: 10),
                       Text(
                         widget.model.name,
                         maxLines: 3,
                         style: const TextStyle(fontSize: 14),
                         overflow: TextOverflow.ellipsis,
                       ),
-                      const SizedBox(height: 15),
+                      // const SizedBox(height: 15),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Row(
+                            children: List.generate(5, (index) {
+                              return const Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 1, vertical: 10),
+                                child: Icon(
+                                  Icons.star_rate_rounded,
+                                  color: AppColors.yellow,
+                                  size: 20,
+                                ),
+                              );
+                            }),
+                          ),
+                          const SizedBox(width: 2),
+                          const Text(
+                            '5',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
                       Row(
                         children: [
                           basketProductCount != 0 &&

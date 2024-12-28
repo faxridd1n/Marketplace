@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../widgets/product_widget.dart';
+import '../basket/basket_bloc/basket_bloc.dart';
 import 'product_detail_bloc/product_detail_bloc.dart';
 import 'tab_pages/detail_tab1_page.dart';
 import 'tab_pages/detail_tab2_page.dart';
@@ -19,12 +20,11 @@ import 'widgets/photo_dialog_widget.dart';
 
 // ignore: must_be_immutable
 class ProductDetailPage1 extends StatefulWidget {
-  const ProductDetailPage1(
+  ProductDetailPage1(
       {required this.productId,
       required this.categoryId,
       required this.organizationId,
       super.key});
-  // ProductModel model;
   final String productId;
   final int categoryId;
   final int organizationId;
@@ -44,13 +44,13 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
     tabController = TabController(length: 3, vsync: this);
     productDetailBloc = ProductDetailBloc();
     getProductDetail();
-    // similarProducts = ProductDetailBloc()..add(GetSimilarProductsEvent());
     super.initState();
   }
 
   void getProductDetail() async {
     productDetailBloc.add(GetProductDetailEvent(widget.productId));
     await Future.delayed(const Duration(milliseconds: 200));
+
     productDetailBloc.add(
         GetOrganizationContactEvent(organizationId: widget.organizationId));
     await Future.delayed(const Duration(milliseconds: 200));
@@ -67,14 +67,16 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
       value: productDetailBloc,
       child: BlocBuilder<ProductDetailBloc, ProductDetailState>(
         builder: (ctx, state) {
-          if (state.getDetailStatus.isInProgress) {
+          if (state.getDetailStatus.isInProgress ||
+              state.getProductStatus.isInProgress) {
             return Scaffold(
               body: Center(
                 child: CustomThicknessIndicator(),
               ),
             );
           }
-          if (state.getDetailStatus.isSuccess) {
+          if (state.getDetailStatus.isSuccess &&
+              state.getProductStatus.isSuccess) {
             return Scaffold(
               backgroundColor: AppColors.pageBgColor,
               appBar: AppBar(
@@ -248,8 +250,11 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          FinProdWidget(
-                            model: state.productDetailModel!,
+                          BlocProvider(
+                            create: (ctx) => BasketBloc(),
+                            child: FinProdWidget(
+                              model: state.productDetailModel!,
+                            ),
                           ),
                           const SizedBox(height: 20),
                           state.organizationContactStatus.isSuccess
@@ -257,7 +262,7 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
                                   isSingle: true,
                                   contactModel: state.organizationContactModel,
                                 )
-                              : CustomThicknessIndicator(),
+                              : Center(child: CustomThicknessIndicator()),
                         ],
                       ),
                     ),
@@ -319,41 +324,41 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
                       ),
                     ),
                     const SizedBox(height: 10),
-                    TitleWidget(
-                      titleText: 'Товары из той же линейки',
-                      withSeeAllButton: true,
-                      categoryId: widget.categoryId,
-                    ),
-                    state.getProductStatus.isInProgress
-                        ? Center(
-                            child: CustomThicknessIndicator(),
+                    state.getProductStatus.isSuccess
+                        ? TitleWidget(
+                            titleText: 'Товары из той же линейки',
+                            withSeeAllButton: true,
+                            categoryId:
+                                state.productDetailModel!.result.categoryId,
                           )
-                        : state.getProductStatus.isSuccess
-                            ? SizedBox(
-                                width: double.infinity,
-                                height: 550,
-                                child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  shrinkWrap: true,
-                                  itemCount: state.parentCategoryModel!.length,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 10),
-                                      child: ProductWidget(
-                                        isDetailPage: true,
-                                        index: index,
-                                        model:
-                                            state.parentCategoryModel![index],
-                                        // tab: widget.model.categoryId,
-                                      ),
-                                    );
-                                  },
-                                ),
-                              )
-                            : const Center(
-                                child: Text('Error1'),
-                              ),
+                        : Center(
+                            child: CustomThicknessIndicator(),
+                          ),
+                    state.getProductStatus.isSuccess
+                        ? SizedBox(
+                            width: double.infinity,
+                            height: 550,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              itemCount: state.parentCategoryModel!.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 10),
+                                  child: ProductWidget(
+                                    isDetailPage: true,
+                                    index: index,
+                                    model: state.parentCategoryModel![index],
+                                    // tab: widget.model.categoryId,
+                                  ),
+                                );
+                              },
+                            ),
+                          )
+                        : Center(
+                            child: CustomThicknessIndicator(),
+                          ),
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),

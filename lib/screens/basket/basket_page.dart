@@ -5,6 +5,7 @@ import 'package:flutter_application_1/screens/basket/basket_bloc/basket_bloc.dar
 import 'package:flutter_application_1/screens/basket/other_pages/empty_basket_page.dart';
 import 'package:flutter_application_1/screens/basket/widgets/basket_product_list.dart';
 import 'package:flutter_application_1/screens/basket/widgets/bottom_bar_widget.dart';
+import 'package:flutter_application_1/screens/login/login_page.dart';
 import 'package:flutter_application_1/widgets/indicator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -58,7 +59,7 @@ class _BasketPageState extends State<BasketPage> {
           if (state.getBasketProductStatus.isSuccess) {
             basketProducts = state.basketResponseModel!.result.products;
             return Scaffold(
-              backgroundColor: AppColors.white,
+              backgroundColor: AppColors.pageBgColor,
               appBar: AppBar(
                 surfaceTintColor: AppColors.transparent,
                 backgroundColor: AppColors.white,
@@ -250,10 +251,13 @@ class _BasketPageState extends State<BasketPage> {
                                 //     ],
                                 //   ),
                                 // ),
-                                BasketProductListWidget(
-                                  model: state.basketResponseModel!,
-                                  organizationContactModel:
-                                      state.organizationContactModel!,
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: BasketProductListWidget(
+                                    model: state.basketResponseModel!,
+                                    organizationContactModel:
+                                        state.organizationContactModel!,
+                                  ),
                                 )
                               ],
                             ),
@@ -295,11 +299,12 @@ class _BasketPageState extends State<BasketPage> {
             );
           }
           if (state.getBasketProductStatus.isFailure) {
-            return const Scaffold(
-              body: Center(
-                child: Text('fail'),
-              ),
-            );
+            return LoginPage();
+            // const Scaffold(
+            //   body: Center(
+            //     child: Text('Fail'),
+            //   ),
+            // );
           }
           return Scaffold(
             body: Center(

@@ -4,6 +4,8 @@ import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_application_1/models/order_model/user_orders_model.dart';
 import 'package:flutter_application_1/screens/product_detail/product_detail_page1.dart';
 
+import '../../../assets_path/app_images_path.dart';
+
 class OrderWidget extends StatefulWidget {
   const OrderWidget({required this.ordersModel, super.key});
   final ResultItem ordersModel;
@@ -173,12 +175,11 @@ class _OrderWidgetState extends State<OrderWidget> {
                           builder: (context) {
                             return ProductDetailPage1(
                               productId: widget.ordersModel.subOrders[0]
-                                  .items[index].variation.product.id,
+                                  .items[index].variation.productId,
                               categoryId: widget.ordersModel.subOrders[0]
                                   .items[index].variation.product.categoryId,
                               organizationId: widget
                                   .ordersModel.subOrders[0].organizationId,
-                              // model: widget.ordersModel.subOrders[0].items[0],
                             );
                           },
                         ),
@@ -189,20 +190,48 @@ class _OrderWidgetState extends State<OrderWidget> {
                         const SizedBox(height: 10),
                         Row(
                           children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                image: DecorationImage(
-                                  image: NetworkImage(
-                                    widget.ordersModel.subOrders[0].items[index]
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(5),
+                              child: SizedBox(
+                                height: 70,
+                                // width: 70,
+                                child: (widget.ordersModel.subOrders[0].items[index]
+                                        .variation.files.isNotEmpty &&
+                                       widget.ordersModel.subOrders[0].items[index]
+                                        .variation.files[0].url.isNotEmpty )
+                                    ? Image.network(
+                                        widget.ordersModel.subOrders[0].items[index]
                                         .variation.files[0].url,
-                                  ),
-                                  fit: BoxFit.cover,
-                                ),
+                                        fit: BoxFit.fitHeight,
+                                        errorBuilder:
+                                            (context, error, stackTrace) {
+                                          return Image.asset(
+                                            AppImages.noImage,
+                                            fit: BoxFit.fitHeight,
+                                          );
+                                        },
+                                      )
+                                    : Image.asset(
+                                        AppImages.noImage,
+                                        fit: BoxFit.fitWidth,
+                                      ),
                               ),
-                              width: 70,
-                              height: 70, // Flexible sizing
                             ),
+                            // Container(
+                            //   decoration: BoxDecoration(
+                            //     borderRadius: BorderRadius.circular(5),
+                            //     image: DecorationImage(
+                            //       image: NetworkImage(
+                            //         widget.ordersModel.subOrders[0].items[index]
+                            //             .variation.files[0].url,
+                            //       ),
+                            //       fit: BoxFit.cover,
+                            //     ),
+                            //   ),
+                            //   width: 70,
+                            //   height: 70, // Flexible sizing
+                            // ),
+                           
                             const SizedBox(width: 10),
                             Expanded(
                               child: Column(

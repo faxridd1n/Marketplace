@@ -46,10 +46,10 @@ class PaymentWidget extends StatelessWidget {
         margin: const EdgeInsets.only(
           top: 15,
         ),
-        width: isPaymentWidget
-            ? double.infinity
-            : MediaQuery.of(context).size.width * 0.43,
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        // width: isPaymentWidget
+        //     ? double.infinity
+        //     : MediaQuery.of(context).size.width * 0.43,
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           color: isSelected ? AppColors.selectedPayment : AppColors.white,
@@ -65,15 +65,15 @@ class PaymentWidget extends StatelessWidget {
             isPaymentWidget
                 ? paymentLogo[paymentType!]
                 : deliveryLogo[deliveryType!],
-            const SizedBox(width: 10),
+            const SizedBox(width: 8),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  width: isPaymentWidget
-                      ? MediaQuery.of(context).size.width * 0.6
-                      : MediaQuery.of(context).size.width * 0.25,
+                  // width: isPaymentWidget
+                  //     ? MediaQuery.of(context).size.width * 0.6
+                  //     : MediaQuery.of(context).size.width * 0.25,
                   child: Text(
                     isPaymentWidget
                         ? paymentTitle[paymentType!]
@@ -89,10 +89,10 @@ class PaymentWidget extends StatelessWidget {
                 const SizedBox(height: 5),
                 isPaymentWidget
                     ? SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.72,
+                        // width: MediaQuery.of(context).size.width * 0.72,
                         child: Text(
                           paymentText[paymentType!],
-                          maxLines: 3,
+                          maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             fontSize: 12,

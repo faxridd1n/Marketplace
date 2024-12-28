@@ -70,7 +70,7 @@ class _HorizontalProductWidgetState extends State<HorizontalProductWidget> {
         ),
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         width: MediaQuery.of(context).size.width,
-        height: 120,
+        height: 140,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -82,15 +82,13 @@ class _HorizontalProductWidgetState extends State<HorizontalProductWidget> {
                       ? NetworkImage(widget.model.variations[0].files[0].url)
                       : const AssetImage(AppImages.noImage)
                           as ImageProvider, // Fallback image
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fitWidth,
                 ),
               ),
-              width: 70,
+              width: 80,
               // height: 70, // Specify height for better layout control
             ),
-            const SizedBox(
-              width: 10,
-            ),
+            const SizedBox(width: 10),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -141,53 +139,98 @@ class _HorizontalProductWidgetState extends State<HorizontalProductWidget> {
                     ),
                   ),
                   Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        children: List.generate(5, (index) {
+                          return const Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 1, vertical: 5),
+                            child: Icon(
+                              Icons.star_rate_rounded,
+                              color: AppColors.yellow,
+                              size: 20,
+                            ),
+                          );
+                        }),
+                      ),
+                      const SizedBox(width: 2),
+                      const Text(
+                        '5',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                widget.model.variations[0].prices[0].type ==
-                                        'Price'
-                                    ? '${addSpaceEveryThreeCharacters(widget.model.variations[0].prices[0].value.toInt().toString())} сум'
-                                    : '${addSpaceEveryThreeCharacters(widget.model.variations[0].prices[1].value.toInt().toString())} сум',
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(100),
-                                  color: AppColors.yellow,
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 5,
-                                ),
-                                child: const Text(
-                                  'x 12 мес',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const Text(
-                            '180 000 сум',
-                            style: TextStyle(
-                              color: AppColors.grey3,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
+                      Text(
+                        widget.model.variations[0].prices[0].type == 'Price'
+                            ? '${addSpaceEveryThreeCharacters(widget.model.variations[0].prices[0].value.toInt().toString())} AED'
+                            : '${addSpaceEveryThreeCharacters(widget.model.variations[0].prices[1].value.toInt().toString())} AED',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
+                      // Column(
+                      //   crossAxisAlignment: CrossAxisAlignment.start,
+                      //   children: [
+                      //     // Row(
+                      //     //   children: [
+                      //     //     Text(
+                      //     //       widget.model.variations[0].prices[0].type ==
+                      //     //               'Price'
+                      //     //           ? '${addSpaceEveryThreeCharacters(widget.model.variations[0].prices[0].value.toInt().toString())} сум'
+                      //     //           : '${addSpaceEveryThreeCharacters(widget.model.variations[0].prices[1].value.toInt().toString())} сум',
+                      //     //       style: const TextStyle(
+                      //     //         fontSize: 14,
+                      //     //         fontWeight: FontWeight.w600,
+                      //     //       ),
+                      //     //     ),
+                      //     //     const SizedBox(
+                      //     //       width: 5,
+                      //     //     ),
+                      //     //     Container(
+                      //     //       decoration: BoxDecoration(
+                      //     //         borderRadius: BorderRadius.circular(100),
+                      //     //         color: AppColors.yellow,
+                      //     //       ),
+                      //     //       padding: const EdgeInsets.symmetric(
+                      //     //         horizontal: 5,
+                      //     //       ),
+                      //     //       child: const Text(
+                      //     //         'x 12 мес',
+                      //     //         style: TextStyle(
+                      //     //           fontSize: 12,
+                      //     //           fontWeight: FontWeight.w500,
+                      //     //         ),
+                      //     //       ),
+                      //     //     ),
+                      //     //   ],
+                      //     // ),
+                      //     Text(
+                      //       widget.model.variations[0].prices[0].type == 'Price'
+                      //           ? '${addSpaceEveryThreeCharacters(widget.model.variations[0].prices[0].value.toInt().toString())} AED'
+                      //           : '${addSpaceEveryThreeCharacters(widget.model.variations[0].prices[1].value.toInt().toString())} AED',
+                      //       style: const TextStyle(
+                      //         fontSize: 14,
+                      //         fontWeight: FontWeight.w600,
+                      //       ),
+                      //     ),
+                      //     // const Text(
+                      //     //   '180 000 сум',
+                      //     //   style: TextStyle(
+                      //     //     color: AppColors.grey3,
+                      //     //     fontWeight: FontWeight.w500,
+                      //     //   ),
+                      //     // ),
+                      //   ],
+                      // ),
+
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(

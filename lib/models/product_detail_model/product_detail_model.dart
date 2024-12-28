@@ -127,11 +127,11 @@ class Brand {
   @JsonKey(name: "imageId")
   final String imageId;
   @JsonKey(name: "image")
-  final ProductIcon image;
+  final String image;
   @JsonKey(name: "iconId")
   final String iconId;
   @JsonKey(name: "icon")
-  final ProductIcon icon;
+  final String icon;
   @JsonKey(name: "name")
   final String name;
   @JsonKey(name: "isVisible")
@@ -140,50 +140,18 @@ class Brand {
   Brand({
     this.id = -1,
     this.imageId = '',
-    ProductIcon? image,
+    this.image='',
     this.iconId = '',
-    ProductIcon? icon,
+    this.icon='',
     this.name = '',
     this.isVisible = false,
-  })  : icon = icon ?? ProductIcon(),
-        image = image ?? ProductIcon();
+  }) ;
 
   factory Brand.fromJson(Map<String, dynamic> json) => _$BrandFromJson(json);
 
   Map<String, dynamic> toJson() => _$BrandToJson(this);
 }
 
-@JsonSerializable()
-class ProductIcon {
-  @JsonKey(name: "id")
-  final String id;
-  @JsonKey(name: "url")
-  final String url;
-  @JsonKey(name: "name")
-  final String name;
-  @JsonKey(name: "extension")
-  final String extension;
-  @JsonKey(name: "contentType")
-  final String contentType;
-  @JsonKey(name: "createdAt")
-  final DateTime createdAt;
-  @JsonKey(name: "isVisible")
-  final bool isVisible;
-
-  ProductIcon({
-    this.id = '',
-    this.url = '',
-    this.name = '',
-    this.extension = '',
-    this.contentType = '',
-    DateTime? createdAt,
-    this.isVisible = false,
-  }) : createdAt = createdAt ?? DateTime.now();
-
-  factory ProductIcon.fromJson(Map<String, dynamic> json) => _$IconFromJson(json);
-
-  Map<String, dynamic> toJson() => _$IconToJson(this);
-}
 
 @JsonSerializable()
 class Category {
@@ -424,7 +392,7 @@ class FileElement {
   @JsonKey(name: "url")
   final String url;
   @JsonKey(name: "fileInfo")
-  final ProductIcon fileInfo;
+  final String fileInfo;
   @JsonKey(name: "variationId")
   final String variationId;
   @JsonKey(name: "productId")
@@ -436,11 +404,11 @@ class FileElement {
     this.id = '',
     this.order = -1,
     this.url = '',
-    ProductIcon? fileInfo,
+    this.fileInfo='',
     this.variationId = '',
     this.productId = '',
     this.isVisible = false,
-  }) : fileInfo = fileInfo ?? ProductIcon();
+  });
 
   factory FileElement.fromJson(Map<String, dynamic> json) =>
       _$FileElementFromJson(json);

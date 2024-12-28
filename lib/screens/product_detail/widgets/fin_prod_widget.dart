@@ -4,11 +4,17 @@ import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_application_1/models/product_detail_model/product_detail_model.dart';
 // import 'package:flutter_application_1/models/products_model/product_model.dart';
 import 'package:flutter_application_1/screens/buy_now/buy_now_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../components/hive/user_token.dart';
+import '../../../widgets/login_dialog.dart';
+import '../../../widgets/snack_bar.dart';
+import '../../basket/basket_bloc/basket_bloc.dart';
 
 // ignore: must_be_immutable
 class FinProdWidget extends StatefulWidget {
   FinProdWidget({required this.model, super.key});
   ProductDetailModel model;
+  // int index;
   @override
   State<FinProdWidget> createState() => _FinProdWidgetState();
 }
@@ -27,6 +33,7 @@ class _FinProdWidgetState extends State<FinProdWidget> {
     super.initState();
   }
 
+  int basketProductCount = 0;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -201,7 +208,7 @@ class _FinProdWidgetState extends State<FinProdWidget> {
           //     ],
           //   ),
           // ),
-
+    
           Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 20,
@@ -231,7 +238,7 @@ class _FinProdWidgetState extends State<FinProdWidget> {
                 ),
                 const SizedBox(width: 5),
                 const Text(
-                  'Сум',
+                  'AED',
                   style: TextStyle(
                     color: AppColors.grey2,
                   ),
@@ -243,37 +250,166 @@ class _FinProdWidgetState extends State<FinProdWidget> {
           //   height: 1,
           //   color: AppColors.borderColor,
           // ),
+    
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    backgroundColor: AppColors.green,
-                  ),
-                  onPressed: () {},
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 15,
-                    ),
-                    child: Text(
-                      'Купить в рассрочку',
-                      style: TextStyle(
-                        color: AppColors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
+                Row(
+                  children: [
+                    if (basketProductCount != 0 &&
+                        userTokenBox.get('token')!.token.isNotEmpty)
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              height: 50,
+                              width: 80,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.all(0),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  backgroundColor: AppColors.grey1,
+                                ),
+                                onPressed: () {
+                                  if (basketProductCount != 0) {
+                                    basketProductCount -= 1;
+                                    // isAddedBasket = true;
+                                    final variationId =
+                                        widget.model.result.variations[0].id;
+                                    context.read<BasketBloc>().add(
+                                          PostBasketProductBasketEvent(
+                                            productVariationId: variationId,
+                                            count: basketProductCount,
+                                          ),
+                                        );
+    
+                                    snackBar(
+                                      isHomePage: false,
+                                      context: context,
+                                      name: widget.model.result.name,
+                                      addProduct: false,
+                                    );
+                                    setState(() {});
+                                  }
+                                },
+                                child: const Icon(
+                                  Icons.remove,
+                                  color: AppColors.black,
+                                  size: 25,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              basketProductCount.toString(),
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 50,
+                              width: 80,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.all(0),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  backgroundColor: AppColors.grey1,
+                                ),
+                                onPressed: () {
+                                  basketProductCount += 1;
+                                  // isAddedBasket = true;
+                                  final variationId =
+                                      widget.model.result.variations[0].id;
+                                  context.read<BasketBloc>().add(
+                                        PostBasketProductBasketEvent(
+                                          productVariationId: variationId,
+                                          count: basketProductCount,
+                                        ),
+                                      );
+    
+                                  snackBar(
+                                      isHomePage: false,
+                                      context: context,
+                                      name: widget.model.result.name,
+                                      addProduct: true);
+    
+                                  setState(() {});
+                                },
+                                child: const Icon(
+                                  Icons.add,
+                                  color: AppColors.black,
+                                  size: 25,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    else
+                      Expanded(
+                        child: SizedBox(
+                          height: 50,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.all(0),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              backgroundColor: AppColors.green,
+                            ),
+                            onPressed: () {
+                              final token = userTokenBox.get('token')?.token;
+                              if (token != null && token.isNotEmpty) {
+                                final variationId =
+                                    widget.model.result.variations[0].id;
+                                basketProductCount += 1;
+                                context.read<BasketBloc>().add(
+                                      PostBasketProductBasketEvent(
+                                        productVariationId: variationId,
+                                        count: basketProductCount,
+                                      ),
+                                    );
+    
+                                snackBar(
+                                  isHomePage: false,
+                                  context: context,
+                                  name: widget.model.result.name,
+                                  addProduct: true,
+                                );
+                                setState(() {});
+                              } else {
+                                loginDiolog(context, () {
+                                  setState(() {});
+                                });
+                              }
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 15,
+                              ),
+                              child: Text(
+                                'в корзину',
+                                style: TextStyle(
+                                  color: AppColors.white,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
+                     ],
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(

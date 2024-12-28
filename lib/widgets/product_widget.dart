@@ -115,58 +115,99 @@ class _ProductwidgetState extends State<ProductWidget> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 20),
-                        Row(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  widget.model.variations[0].prices[0].type ==
-                                          'Price'
-                                      ? '${addSpaceEveryThreeCharacters(widget.model.variations[0].prices[0].value.toInt().toString())} сум'
-                                      : '${addSpaceEveryThreeCharacters(widget.model.variations[0].prices[1].value.toInt().toString())} сум',
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                const Text(
-                                  '180 000 сум',
-                                  style: TextStyle(
-                                    color: AppColors.grey3,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
+                        // const SizedBox(height: 20),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            widget.model.variations[0].prices[0].type == 'Price'
+                                ? '${addSpaceEveryThreeCharacters(widget.model.variations[0].prices[0].value.toInt().toString())} AED'
+                                : '${addSpaceEveryThreeCharacters(widget.model.variations[0].prices[1].value.toInt().toString())} AED',
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
                             ),
-                            const SizedBox(width: 10),
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(100),
-                                color: AppColors.yellow,
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 5,
-                                vertical: 2,
-                              ),
-                              child: const Text(
-                                'x 12 мес',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            )
-                          ],
+                          ),
                         ),
-                        const SizedBox(height: 15),
+                        // Row(
+                        //   children: [
+                        //     Column(
+                        //       crossAxisAlignment: CrossAxisAlignment.start,
+                        //       children: [
+                        //         Text(
+                        //           widget.model.variations[0].prices[0].type ==
+                        //                   'Price'
+                        //               ? '${addSpaceEveryThreeCharacters(widget.model.variations[0].prices[0].value.toInt().toString())} сум'
+                        //               : '${addSpaceEveryThreeCharacters(widget.model.variations[0].prices[1].value.toInt().toString())} сум',
+                        //           style: const TextStyle(
+                        //             fontSize: 14,
+                        //             fontWeight: FontWeight.w600,
+                        //           ),
+                        //         ),
+                        //         const Text(
+                        //           '180 000 сум',
+                        //           style: TextStyle(
+                        //             color: AppColors.grey3,
+                        //             fontWeight: FontWeight.w500,
+                        //           ),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //     const SizedBox(width: 10),
+                        //     Container(
+                        //       decoration: BoxDecoration(
+                        //         borderRadius: BorderRadius.circular(100),
+                        //         color: AppColors.yellow,
+                        //       ),
+                        //       padding: const EdgeInsets.symmetric(
+                        //         horizontal: 5,
+                        //         vertical: 2,
+                        //       ),
+                        //       child: const Text(
+                        //         'x 12 мес',
+                        //         style: TextStyle(
+                        //           fontWeight: FontWeight.w500,
+                        //         ),
+                        //       ),
+                        //     )
+                        //   ],
+                        // ),
+
+                        // const SizedBox(height: 15),
                         Text(
                           widget.model.name,
                           maxLines: 3,
-                          style: const TextStyle(fontSize: 16),
+                          style: const TextStyle(fontSize: 14),
                           overflow: TextOverflow.ellipsis,
                         ),
-                        const SizedBox(height: 15),
+                        // const SizedBox(height: 15),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Row(
+                              children: List.generate(5, (index) {
+                                return const Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 1, vertical: 10),
+                                  child: Icon(
+                                    Icons.star_rate_rounded,
+                                    color: AppColors.yellow,
+                                    size: 25,
+                                  ),
+                                );
+                              }),
+                            ),
+                            const SizedBox(width: 2),
+                            const Text(
+                              '5',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        // const SizedBox(height: 15),
                         Row(
                           children: [
                             if (basketProductCount != 0 &&
@@ -503,7 +544,7 @@ class _ProductwidgetState extends State<ProductWidget> {
                             ? Icons.favorite
                             : Icons.favorite_border_rounded,
                         color: isFavorite ? AppColors.pink : AppColors.black,
-                        size: 27,
+                        size: 25,
                       ),
                     ),
                   ),

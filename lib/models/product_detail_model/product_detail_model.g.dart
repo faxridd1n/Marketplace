@@ -96,13 +96,9 @@ Map<String, dynamic> _$ResultToJson(Result instance) => <String, dynamic>{
 Brand _$BrandFromJson(Map<String, dynamic> json) => Brand(
       id: (json['id'] as num?)?.toInt() ?? -1,
       imageId: json['imageId'] as String? ?? '',
-      image: json['image'] == null
-          ? null
-          : ProductIcon.fromJson(json['image'] as Map<String, dynamic>),
+      image: json['image'] as String? ?? '',
       iconId: json['iconId'] as String? ?? '',
-      icon: json['icon'] == null
-          ? null
-          : ProductIcon.fromJson(json['icon'] as Map<String, dynamic>),
+      icon: json['icon'] as String? ?? '',
       name: json['name'] as String? ?? '',
       isVisible: json['isVisible'] as bool? ?? false,
     );
@@ -114,28 +110,6 @@ Map<String, dynamic> _$BrandToJson(Brand instance) => <String, dynamic>{
       'iconId': instance.iconId,
       'icon': instance.icon,
       'name': instance.name,
-      'isVisible': instance.isVisible,
-    };
-
-ProductIcon _$IconFromJson(Map<String, dynamic> json) => ProductIcon(
-      id: json['id'] as String? ?? '',
-      url: json['url'] as String? ?? '',
-      name: json['name'] as String? ?? '',
-      extension: json['extension'] as String? ?? '',
-      contentType: json['contentType'] as String? ?? '',
-      createdAt: json['createdAt'] == null
-          ? null
-          : DateTime.parse(json['createdAt'] as String),
-      isVisible: json['isVisible'] as bool? ?? false,
-    );
-
-Map<String, dynamic> _$IconToJson(ProductIcon instance) => <String, dynamic>{
-      'id': instance.id,
-      'url': instance.url,
-      'name': instance.name,
-      'extension': instance.extension,
-      'contentType': instance.contentType,
-      'createdAt': instance.createdAt.toIso8601String(),
       'isVisible': instance.isVisible,
     };
 
@@ -311,9 +285,7 @@ FileElement _$FileElementFromJson(Map<String, dynamic> json) => FileElement(
       id: json['id'] as String? ?? '',
       order: (json['order'] as num?)?.toInt() ?? -1,
       url: json['url'] as String? ?? '',
-      fileInfo: json['fileInfo'] == null
-          ? null
-          : ProductIcon.fromJson(json['fileInfo'] as Map<String, dynamic>),
+      fileInfo: json['fileInfo'] as String? ?? '',
       variationId: json['variationId'] as String? ?? '',
       productId: json['productId'] as String? ?? '',
       isVisible: json['isVisible'] as bool? ?? false,

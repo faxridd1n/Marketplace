@@ -328,7 +328,7 @@ class _OrganizationPageState extends State<OrganizationPage> {
                                       crossAxisSpacing: 10,
                                       mainAxisSpacing: 10,
                                       crossAxisCount: 2,
-                                      childAspectRatio: 0.55,
+                                      childAspectRatio: 0.5,
                                     ),
                                     itemCount: state.productModel!.length,
                                     itemBuilder: (context, index) {

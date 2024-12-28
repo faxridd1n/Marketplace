@@ -18,34 +18,45 @@ class BasketProductListWidget extends StatefulWidget {
 }
 
 class BasketProductListWidgetState extends State<BasketProductListWidget> {
+  bool isExpanded = true;
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        boxShadow: const [
-          BoxShadow(
-            blurRadius: 2,
-            color: Color.fromARGB(91, 0, 0, 0),
-          ),
-        ],
+        // boxShadow: const [
+        //   BoxShadow(
+        //     blurRadius: 2,
+        //     color: Color.fromARGB(91, 0, 0, 0),
+        //   ),
+        // ],
         color: AppColors.white,
         borderRadius: BorderRadius.circular(12),
       ),
-      margin: const EdgeInsets.all(10),
+      // margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.symmetric(
         horizontal: 8,
         vertical: 5,
       ),
       child: ExpansionTile(
+        onExpansionChanged: (value) {
+          isExpanded = value;
+          setState(() {});
+        },
+        trailing: isExpanded
+            ? const Icon(Icons.keyboard_arrow_down_rounded,size: 30,)
+            : const Icon(Icons.keyboard_arrow_right_rounded,size: 30,),
         iconColor: AppColors.grey2,
         collapsedIconColor: AppColors.grey2,
-        tilePadding: const EdgeInsets.all(0),
+        tilePadding: const EdgeInsets.only(left: 15),
         shape: Border.all(color: AppColors.transparent),
-        title: const Text(
-          'Solara',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
+        title: const Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            'Solara',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
         initiallyExpanded: true,

@@ -5,7 +5,6 @@ abstract class ProductDetailEvent {}
 
 class GetProductDetailEvent extends ProductDetailEvent {
   final String productId;
-
   GetProductDetailEvent(this.productId);
 }
 

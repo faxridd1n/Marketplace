@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/assets_path/app_icons_path.dart';
-import 'package:flutter_application_1/components/hive/user_token.dart';
 import 'package:flutter_application_1/screens/login/login_page.dart';
 import 'package:flutter_application_1/screens/profile/widgets/profile_elements.dart';
 import 'package:flutter_application_1/user_auth_bloc/user_auth_bloc.dart';
@@ -149,20 +148,15 @@ class _ProfilePageState extends State<ProfilePage> {
             );
           }
           if (state.getUserProfileStatus.isFailure) {
-            return Scaffold(
-              body: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    children: [
-                      Text(userTokenBox.get('token')!.token),
-                      const SizedBox(height: 10),
-                      Text('${state.userProfileModel?.result}')
-                    ],
-                  ),
-                ),
-              ),
-            );
+            return LoginPage();
+            // const Scaffold(
+            //   body: Center(
+            //     child: Padding(
+            //       padding: EdgeInsets.all(20.0),
+            //       child: Text('Error'),
+            //     ),
+            //   ),
+            // );
           }
           return const Scaffold(
             body: Center(

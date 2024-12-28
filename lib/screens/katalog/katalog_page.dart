@@ -274,7 +274,7 @@ class _KatalogPageState extends State<KatalogPage> {
                                           crossAxisSpacing: 10,
                                           mainAxisSpacing: 10,
                                           crossAxisCount: 2,
-                                          childAspectRatio: 0.55,
+                                          childAspectRatio: 0.5,
                                         ),
                                         itemCount:
                                             state.filteredProductModel!.length,

@@ -43,26 +43,27 @@ class TitleWidget extends StatelessWidget {
                       left: 5,
                       bottom: 10,
                     ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          'Смотреть всё',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color:AppColors.black,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
+                    child: 
+                    // Row(
+                    //   mainAxisSize: MainAxisSize.min,
+                    //   children: [
+                        // Text(
+                        //   'Смотреть всё',
+                        //   style: TextStyle(
+                        //     fontSize: 12,
+                        //     color:AppColors.black,
+                        //   ),
+                        // ),
+                        // SizedBox(
+                        //   width: 5,
+                        // ),
                         Icon(
                           Icons.arrow_forward,
                           color: AppColors.grey2,
-                          size: 20,
-                        )
-                      ],
-                    ),
+                          size: 30,
+                        ),
+                    //   ],
+                    // ),
                   ),
                 )
               : const SizedBox()
