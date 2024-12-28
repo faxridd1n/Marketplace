@@ -14,21 +14,19 @@ import 'package:formz/formz.dart';
 import '../../widgets/mini_product.dart';
 
 // ignore: must_be_immutable
-class KatalogPage extends StatefulWidget {
-  KatalogPage(
+class CatalogPage extends StatefulWidget {
+  CatalogPage(
       {required this.model,
       required this.index,
-      // this.selectedSubCategory,
       super.key});
   CategoryModel model;
-  // int? selectedSubCategory;
   int index;
 
   @override
-  State<KatalogPage> createState() => _KatalogPageState();
+  State<CatalogPage> createState() => _CatalogPageState();
 }
 
-class _KatalogPageState extends State<KatalogPage> {
+class _CatalogPageState extends State<CatalogPage> {
   bool isVerticalProduct = true;
   int selectedSubCategory = 0;
   String selectedItem = '';
@@ -75,7 +73,7 @@ class _KatalogPageState extends State<KatalogPage> {
           if (state.getFilteredProductStatus.isInProgress) {
             return Scaffold(
               body: Center(
-                child: CustomThicknessIndicator(),
+                child: CustomLoadingIndicator(),
               ),
             );
           }

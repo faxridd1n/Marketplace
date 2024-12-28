@@ -1,84 +1,83 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/home/blocs/section_products_bloc/section_products_bloc.dart';
+import 'package:flutter_application_1/screens/see_all/see_all_page.dart';
 import 'package:flutter_application_1/widgets/indicator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'product_widget.dart';
-import '../screens/home/home_bloc/home_bloc.dart';
 import 'title_widget.dart';
 
-class ProductListWidget extends StatefulWidget {
-  const ProductListWidget({required this.index, super.key});
+class SectionProductsListWidget extends StatefulWidget {
+  const SectionProductsListWidget({
+    super.key,
+    required this.sectionId,
+    required this.sectionName,
+  });
 
-  final int index;
+  final String sectionName;
+  final int sectionId;
 
   @override
-  State<ProductListWidget> createState() => _ProductListWidgetState();
+  State<SectionProductsListWidget> createState() => _SectionProductsListWidgetState();
 }
 
-class _ProductListWidgetState extends State<ProductListWidget> {
-  late HomeBloc homeBloc;
-  List tab = [53,54,55,56,57];
-  List tabsName = [];
+class _SectionProductsListWidgetState extends State<SectionProductsListWidget> {
+  late final SectionProductsBloc sectionProductsBloc;
 
   @override
   void initState() {
     super.initState();
-    homeBloc = HomeBloc();
-    getProducts();
-  }
-
-  void getProducts() async {
-    homeBloc.add(GetTabsEvent());
-    await Future.delayed(const Duration(milliseconds: 200));
-    homeBloc.add(GetProduct1Event(tab[widget.index]));
+    sectionProductsBloc = SectionProductsBloc()..add(GetSectionProductsEvent(widget.sectionId));
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => homeBloc, // Bloc is created here.
-      child: BlocBuilder<HomeBloc, HomeState>(
+    return BlocProvider.value(
+      value: sectionProductsBloc,
+      child: BlocBuilder<SectionProductsBloc, SectionProductsState>(
         builder: (ctx, state) {
-          if (state.getProductStatus.isInProgress) {
-            return Center(
+          if (state.getProductsStatus.isInProgress) {
+            return const Center(
               child: Padding(
                 padding: EdgeInsets.all(20.0),
-                child:CustomThicknessIndicator(),
+                child: CustomLoadingIndicator(),
               ),
             );
           }
-          if (state.getProductStatus.isSuccess) {
-            for (var i in tab) {
-              for (var e in state.tabsModel!.result.items) {
-                if (i == e.id) {
-                  tabsName.add(e.name );
-                }
-              }
+          if (state.getProductsStatus.isSuccess) {
+            if (state.products.isEmpty) {
+              return const SizedBox.shrink();
             }
             return Column(
               children: [
                 TitleWidget(
-                  titleText: tabsName[widget.index],
-                  withSeeAllButton: true,
-                  categoryId: state.productModel1![0].categoryId,
+                  titleText: widget.sectionName,
+                  onSeaAllTap: () {
+                    Navigator.of(context, rootNavigator: true).push(
+                      MaterialPageRoute(
+                        builder: (context) => SeeAllPage(
+                          categoryId: widget.sectionId,
+                        ),
+                      ),
+                    );
+                  },
                 ),
                 SizedBox(
                   height: 480,
-                  child: ListView.builder(
+                  child: ListView.separated(
                     scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    itemCount: state.productModel1?.length ?? 0,
-                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    itemCount: state.products.length,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: ProductWidget(
-                          isHomePage: true,
-                          index: index,
-                          model: state.productModel1![index],
-                          // tab: tab[widget.index],
-                        ),
+                      return ProductWidget(
+                        isHomePage: true,
+                        index: index,
+                        model: state.products[index],
+                        // tab: tab[widget.index],
                       );
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return const SizedBox(width: 10);
                     },
                   ),
                 ),

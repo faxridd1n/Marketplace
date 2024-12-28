@@ -3,10 +3,6 @@ part of 'home_bloc.dart';
 @immutable
 abstract class HomeEvent {}
 
-class GetCategoriesEvent extends HomeEvent {
-  GetCategoriesEvent();
-}
-
 class GetTabsEvent extends HomeEvent {
   GetTabsEvent();
 }
@@ -23,7 +19,7 @@ class PostBasketProductHomeEvent extends HomeEvent {
       {required this.productVariationId, required this.count});
 }
 
-class GetProduct1Event extends HomeEvent {
+class GetProductEvent extends HomeEvent {
   final int tab;
-  GetProduct1Event(this.tab);
+  GetProductEvent(this.tab);
 }

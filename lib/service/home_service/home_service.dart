@@ -16,15 +16,13 @@ class HomeService {
 
   HomeService._init();
 
-  static Future<List<ProductModel>?> getProducts(int tab) async {
+  static Future<List<ProductModel>?> getSectionProducts(int tab) async {
     try {
       final response = await DioConfig.inheritance
           .createRequest()
           .get("https://arbuzmarket.com/api/v1/Products?size=5&page=1&tab=${tab}");
       Log.i(response.data.toString());
       Log.i(response.statusCode.toString());
-      print(response.data);
-
       if (response.statusCode == 200) {
         final data = (response.data['item'] as List)
             .map((e) => ProductModel.fromJson(e))

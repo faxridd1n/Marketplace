@@ -19,12 +19,18 @@ dependencies:
   logger: ^2.4.0
   json_annotation: ^4.9.0
   toggle_switch: ^2.3.0
-  connectivity_plus: ^6.0.5
   mask_text_input_formatter: ^2.9.0
   carousel_slider: ^5.0.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   flutter_rating_bar: ^4.0.1
+  equatable: ^2.0.5
+  flutter_bloc: ^8.1.6
+  bloc: ^8.1.4
+  formz: ^0.7.0
+  shimmer: ^3.0.0
+  cached_network_image: ^3.4.1
+
 
 
 dev_dependencies:
@@ -32,14 +38,8 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^2.4.12
   json_serializable: ^6.8.0
-  equatable: ^2.0.5
-  flutter_bloc: ^8.1.6
-  bloc: ^8.1.4
-  formz: ^0.7.0
-  hive_generator: ^2.0.1
-
-  
   flutter_lints: ^4.0.0
+  hive_generator: ^2.0.1
 
 flutter:
 

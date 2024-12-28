@@ -44,7 +44,7 @@ class _SeeAllPageState extends State<SeeAllPage> {
         builder: (context, state) {
           if (state.getProductStatus.isInProgress) {
             Center(
-              child: CustomThicknessIndicator(),
+              child: CustomLoadingIndicator(),
             );
           }
           if (state.getProductStatus.isSuccess) {

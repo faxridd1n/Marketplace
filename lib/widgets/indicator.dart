@@ -3,14 +3,14 @@ import 'dart:math';
 
 import 'package:flutter_application_1/core/constants/app_colors.dart';
 
-class CustomThicknessIndicator extends StatefulWidget {
+class CustomLoadingIndicator extends StatefulWidget {
+  const CustomLoadingIndicator({super.key});
+
   @override
-  _CustomThicknessIndicatorState createState() =>
-      _CustomThicknessIndicatorState();
+  State<CustomLoadingIndicator> createState() => _CustomLoadingIndicatorState();
 }
 
-class _CustomThicknessIndicatorState extends State<CustomThicknessIndicator>
-    with SingleTickerProviderStateMixin {
+class _CustomLoadingIndicatorState extends State<CustomLoadingIndicator> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _rotation;
 
@@ -67,34 +67,40 @@ class ThicknessPainter extends CustomPainter {
 
     // Draw the arc from 0 to 360 degrees
     for (double angle = 0; angle < 2 * pi; angle += 0.01) {
-      double currentAngleDegrees =
-          angle * (180 / pi); // Convert radian to degree
+      double currentAngleDegrees = angle * (180 / pi); // Convert radian to degree
       double thickness = 0;
-      if(currentAngleDegrees<5||currentAngleDegrees>355) thickness=2.5;
-      else if(currentAngleDegrees<10 ||currentAngleDegrees >350) thickness=2.6;
-
-      else if(currentAngleDegrees<15 || currentAngleDegrees>345) thickness=2.7;
-      
-      else if(currentAngleDegrees<25 || currentAngleDegrees>335) thickness=2.85;
+      if (currentAngleDegrees < 5 || currentAngleDegrees > 355)
+        thickness = 2.5;
+      else if (currentAngleDegrees < 10 || currentAngleDegrees > 350)
+        thickness = 2.6;
+      else if (currentAngleDegrees < 15 || currentAngleDegrees > 345)
+        thickness = 2.7;
+      else if (currentAngleDegrees < 25 || currentAngleDegrees > 335)
+        thickness = 2.85;
       // Increase thickness from 0 to 15 between 0 and 170 degrees
       else if (currentAngleDegrees < 160) {
         thickness = (currentAngleDegrees / 160) * 18; // From 0 to 15
       }
       // Keep thickness constant at 15 between 170 and 190 degrees
       else if (currentAngleDegrees >= 160 && currentAngleDegrees <= 200) {
-        if(currentAngleDegrees<=165) thickness=17.82;
-        else if(currentAngleDegrees<=170) thickness=17.86;
-        else if(currentAngleDegrees<=175) thickness=17.9;
-        else if(currentAngleDegrees>175&&currentAngleDegrees<185) thickness=17.95;
-        else if(currentAngleDegrees<=190) thickness=17.9;
-        else if(currentAngleDegrees<=195) thickness=17.86;
-        else if(currentAngleDegrees<=200) thickness=17.82;
+        if (currentAngleDegrees <= 165)
+          thickness = 17.82;
+        else if (currentAngleDegrees <= 170)
+          thickness = 17.86;
+        else if (currentAngleDegrees <= 175)
+          thickness = 17.9;
+        else if (currentAngleDegrees > 175 && currentAngleDegrees < 185)
+          thickness = 17.95;
+        else if (currentAngleDegrees <= 190)
+          thickness = 17.9;
+        else if (currentAngleDegrees <= 195)
+          thickness = 17.86;
+        else if (currentAngleDegrees <= 200) thickness = 17.82;
       }
 
       // Decrease thickness from 15 to 0 between 190 and 360 degrees
       else {
-        double progress =
-            (currentAngleDegrees - 200) / 160; // Normalize progress
+        double progress = (currentAngleDegrees - 200) / 160; // Normalize progress
         thickness = 18 * (1 - progress); // Decrease thickness from 15 to 0
       }
 
@@ -129,7 +135,7 @@ class _IndicatorPageState extends State<IndicatorPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: CustomThicknessIndicator(),
+        child: CustomLoadingIndicator(),
       ),
     );
   }

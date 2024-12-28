@@ -36,7 +36,7 @@ class Paginator extends StatelessWidget {
   Widget build(BuildContext context) {
     if (paginatorStatus == FormzSubmissionStatus.inProgress) {
       return Center(
-          child:CustomThicknessIndicator());
+          child:CustomLoadingIndicator());
     } else if (paginatorStatus == FormzSubmissionStatus.failure) {
       return errorWidget ?? const SizedBox.shrink();
     } else if (paginatorStatus == FormzSubmissionStatus.success) {
@@ -51,7 +51,7 @@ class Paginator extends StatelessWidget {
             if (hasMoreToFetch) {
               fetchMoreFunction();
               return Center(
-                  child:CustomThicknessIndicator());
+                  child:CustomLoadingIndicator());
             } else {
               return const SizedBox();
             }

@@ -104,7 +104,7 @@ class ExpansionTileWidgetState extends State<CategoryExpansionWidget> {
               onTap: () {
               Navigator.of(context, rootNavigator: true).push(
                             MaterialPageRoute(
-                              builder: (context) => KatalogPage(
+                              builder: (context) => CatalogPage(
                                 model: model,
                                 index: parentIndex,
                                 // selectedSubCategory: null,

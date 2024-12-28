@@ -32,7 +32,7 @@ class _CategoryPageState extends State<CategoryPage> {
           builder: (ctx, state) {
             if (state.getCategoryStatus.isInProgress) {
               return Center(
-                child:CustomThicknessIndicator(),
+                child:CustomLoadingIndicator(),
               );
             }
             if (state.getCategoryStatus.isSuccess) {

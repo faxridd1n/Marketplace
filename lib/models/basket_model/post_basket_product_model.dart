@@ -9,10 +9,10 @@ PostResponseBasketModel postResponseBasketProductModelFromJson(String str) => Po
 String postResponseBasketProductModelToJson(PostResponseBasketModel data) => json.encode(data.toJson());
 
 class PostResponseBasketModel {
-    Result? result;
-    Map? error;
+    final Result? result;
+    final Map? error;
 
-    PostResponseBasketModel({
+    const PostResponseBasketModel({
         this.result,
         this.error,
     });

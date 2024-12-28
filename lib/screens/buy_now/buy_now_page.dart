@@ -58,7 +58,7 @@ class _BuyNowPageState extends State<BuyNowPage> {
           if (state.getBasketProductStatus.isInProgress) {
             return Scaffold(
               body: Center(
-                child: CustomThicknessIndicator(),
+                child: CustomLoadingIndicator(),
               ),
             );
           }

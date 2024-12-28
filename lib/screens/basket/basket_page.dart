@@ -52,7 +52,7 @@ class _BasketPageState extends State<BasketPage> {
           if (state.getBasketProductStatus.isInProgress) {
             return Scaffold(
               body: Center(
-                child: CustomThicknessIndicator(),
+                child: CustomLoadingIndicator(),
               ),
             );
           }

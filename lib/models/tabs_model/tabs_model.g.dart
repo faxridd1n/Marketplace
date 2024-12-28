@@ -7,7 +7,9 @@ part of 'tabs_model.dart';
 // **************************************************************************
 
 TabsModel _$TabsModelFromJson(Map<String, dynamic> json) => TabsModel(
-      Result.fromJson(json['result'] as Map<String, dynamic>),
+      result: json['result'] == null
+          ? const Result()
+          : Result.fromJson(json['result'] as Map<String, dynamic>),
       error: json['error'] as Map<String, dynamic>? ?? const {},
     );
 

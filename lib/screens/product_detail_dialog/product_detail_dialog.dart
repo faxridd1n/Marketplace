@@ -41,7 +41,7 @@ class _ProductDetailDialogState extends State<ProductDetailDialog> {
           if (state.getDetailStatus.isInProgress) {
             return Scaffold(
               body: Center(
-                child: CustomThicknessIndicator(),
+                child: CustomLoadingIndicator(),
               ),
             );
           }

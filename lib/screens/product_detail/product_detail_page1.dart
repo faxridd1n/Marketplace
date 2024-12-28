@@ -4,6 +4,7 @@ import 'package:flutter_application_1/assets_path/app_images_path.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_application_1/screens/home/widgets/BottomCardWidget1.dart';
 import 'package:flutter_application_1/screens/product_detail/widgets/organization_contact_widget.dart';
+import 'package:flutter_application_1/screens/see_all/see_all_page.dart';
 import 'package:flutter_application_1/widgets/indicator.dart';
 import 'package:flutter_application_1/widgets/title_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,23 +21,21 @@ import 'widgets/photo_dialog_widget.dart';
 
 // ignore: must_be_immutable
 class ProductDetailPage1 extends StatefulWidget {
-  ProductDetailPage1(
-      {required this.productId,
-      required this.categoryId,
-      required this.organizationId,
-      super.key});
+  ProductDetailPage1({required this.productId, required this.categoryId, required this.organizationId, super.key});
+
   final String productId;
   final int categoryId;
   final int organizationId;
+
   @override
   State<ProductDetailPage1> createState() => _ProductDetailPage1State();
 }
 
-class _ProductDetailPage1State extends State<ProductDetailPage1>
-    with SingleTickerProviderStateMixin {
+class _ProductDetailPage1State extends State<ProductDetailPage1> with SingleTickerProviderStateMixin {
   final controller = PageController(viewportFraction: 1, keepPage: true);
   late TabController tabController;
   late final ProductDetailBloc productDetailBloc;
+
   // late final ProductDetailBloc similarProducts;
 
   @override
@@ -51,32 +50,29 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
     productDetailBloc.add(GetProductDetailEvent(widget.productId));
     await Future.delayed(const Duration(milliseconds: 200));
 
-    productDetailBloc.add(
-        GetOrganizationContactEvent(organizationId: widget.organizationId));
+    productDetailBloc.add(GetOrganizationContactEvent(organizationId: widget.organizationId));
     await Future.delayed(const Duration(milliseconds: 200));
-    productDetailBloc
-        .add(GetSimilarProductsEvent(categoryId: widget.categoryId));
+    productDetailBloc.add(GetSimilarProductsEvent(categoryId: widget.categoryId));
   }
 
   bool isLess1 = true;
   bool isLess2 = true;
   int selectedTab = 0;
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: productDetailBloc,
       child: BlocBuilder<ProductDetailBloc, ProductDetailState>(
         builder: (ctx, state) {
-          if (state.getDetailStatus.isInProgress ||
-              state.getProductStatus.isInProgress) {
-            return Scaffold(
+          if (state.getDetailStatus.isInProgress || state.getProductStatus.isInProgress) {
+            return const Scaffold(
               body: Center(
-                child: CustomThicknessIndicator(),
+                child: CustomLoadingIndicator(),
               ),
             );
           }
-          if (state.getDetailStatus.isSuccess &&
-              state.getProductStatus.isSuccess) {
+          if (state.getDetailStatus.isSuccess && state.getProductStatus.isSuccess) {
             return Scaffold(
               backgroundColor: AppColors.pageBgColor,
               appBar: AppBar(
@@ -121,8 +117,7 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
                               height: 300,
                               child: PageView.builder(
                                   controller: controller,
-                                  itemCount: state.productDetailModel!.result
-                                      .variations[0].files.length,
+                                  itemCount: state.productDetailModel!.result.variations[0].files.length,
                                   itemBuilder: (context, index) {
                                     return InkWell(
                                       onTap: () async {
@@ -131,8 +126,7 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
                                             builder: (BuildContext context) {
                                               return MyDialog(
                                                 index: index,
-                                                model:
-                                                    state.productDetailModel!,
+                                                model: state.productDetailModel!,
                                               );
                                             });
                                       },
@@ -140,31 +134,13 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
                                         child: SizedBox(
                                           height: 300,
                                           child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            child: (state
-                                                        .productDetailModel!
-                                                        .result
-                                                        .variations[0]
-                                                        .files
-                                                        .isNotEmpty &&
-                                                    state
-                                                        .productDetailModel!
-                                                        .result
-                                                        .variations[0]
-                                                        .files[index]
-                                                        .url
-                                                        .isNotEmpty)
+                                            borderRadius: BorderRadius.circular(10),
+                                            child: (state.productDetailModel!.result.variations[0].files.isNotEmpty &&
+                                                    state.productDetailModel!.result.variations[0].files[index].url.isNotEmpty)
                                                 ? Image.network(
-                                                    state
-                                                        .productDetailModel!
-                                                        .result
-                                                        .variations[0]
-                                                        .files[index]
-                                                        .url,
+                                                    state.productDetailModel!.result.variations[0].files[index].url,
                                                     fit: BoxFit.fitHeight,
-                                                    errorBuilder: (context,
-                                                        error, stackTrace) {
+                                                    errorBuilder: (context, error, stackTrace) {
                                                       return Image.asset(
                                                         AppImages.noImage,
                                                         fit: BoxFit.fitHeight,
@@ -188,32 +164,18 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
                             child: ListView.builder(
                               physics: const NeverScrollableScrollPhysics(),
                               scrollDirection: Axis.horizontal,
-                              itemCount: state.productDetailModel!.result
-                                  .variations[0].files.length,
+                              itemCount: state.productDetailModel!.result.variations[0].files.length,
                               itemBuilder: (context, index) {
                                 return SizedBox(
                                   height: 80,
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(5),
-                                    child: (state
-                                                .productDetailModel!
-                                                .result
-                                                .variations[0]
-                                                .files
-                                                .isNotEmpty &&
-                                            state
-                                                .productDetailModel!
-                                                .result
-                                                .variations[0]
-                                                .files[index]
-                                                .url
-                                                .isNotEmpty)
+                                    child: (state.productDetailModel!.result.variations[0].files.isNotEmpty &&
+                                            state.productDetailModel!.result.variations[0].files[index].url.isNotEmpty)
                                         ? Image.network(
-                                            state.productDetailModel!.result
-                                                .variations[0].files[index].url,
+                                            state.productDetailModel!.result.variations[0].files[index].url,
                                             fit: BoxFit.fitHeight,
-                                            errorBuilder:
-                                                (context, error, stackTrace) {
+                                            errorBuilder: (context, error, stackTrace) {
                                               return Image.asset(
                                                 AppImages.noImage,
                                                 fit: BoxFit.fitHeight,
@@ -262,7 +224,7 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
                                   isSingle: true,
                                   contactModel: state.organizationContactModel,
                                 )
-                              : Center(child: CustomThicknessIndicator()),
+                              : const Center(child: CustomLoadingIndicator()),
                         ],
                       ),
                     ),
@@ -302,22 +264,16 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
                             ),
                           ),
                           AnimatedCrossFade(
-                            firstChild: PDetailPageTab1(
-                                model: state.productDetailModel!),
+                            firstChild: PDetailPageTab1(model: state.productDetailModel!),
                             secondChild: AnimatedCrossFade(
-                              firstChild: PDetailPageTab2(
-                                  model: state.productDetailModel!),
+                              firstChild: PDetailPageTab2(model: state.productDetailModel!),
                               secondChild: PDetailPageTab3(
                                 productDetailModel: state.productDetailModel!,
                               ),
-                              crossFadeState: selectedTab == 1
-                                  ? CrossFadeState.showFirst
-                                  : CrossFadeState.showSecond,
+                              crossFadeState: selectedTab == 1 ? CrossFadeState.showFirst : CrossFadeState.showSecond,
                               duration: const Duration(milliseconds: 200),
                             ),
-                            crossFadeState: selectedTab == 0
-                                ? CrossFadeState.showFirst
-                                : CrossFadeState.showSecond,
+                            crossFadeState: selectedTab == 0 ? CrossFadeState.showFirst : CrossFadeState.showSecond,
                             duration: const Duration(milliseconds: 200),
                           ),
                         ],
@@ -327,12 +283,18 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
                     state.getProductStatus.isSuccess
                         ? TitleWidget(
                             titleText: 'Товары из той же линейки',
-                            withSeeAllButton: true,
-                            categoryId:
-                                state.productDetailModel!.result.categoryId,
+                            onSeaAllTap: () {
+                              Navigator.of(context, rootNavigator: true).push(
+                                MaterialPageRoute(
+                                  builder: (context) => SeeAllPage(
+                                    categoryId: state.productDetailModel!.result.categoryId,
+                                  ),
+                                ),
+                              );
+                            },
                           )
-                        : Center(
-                            child: CustomThicknessIndicator(),
+                        : const Center(
+                            child: CustomLoadingIndicator(),
                           ),
                     state.getProductStatus.isSuccess
                         ? SizedBox(
@@ -344,8 +306,7 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
                               itemCount: state.parentCategoryModel!.length,
                               itemBuilder: (context, index) {
                                 return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 10),
+                                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                                   child: ProductWidget(
                                     isDetailPage: true,
                                     index: index,
@@ -356,8 +317,8 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
                               },
                             ),
                           )
-                        : Center(
-                            child: CustomThicknessIndicator(),
+                        : const Center(
+                            child: CustomLoadingIndicator(),
                           ),
                     Container(
                       decoration: BoxDecoration(

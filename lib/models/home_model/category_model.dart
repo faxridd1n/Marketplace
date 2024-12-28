@@ -17,7 +17,7 @@ class CategoryModel {
   @JsonKey(name: "item")
   final List<Item> item;
 
-  CategoryModel({
+  const CategoryModel({
     this.item = const [],
   });
 

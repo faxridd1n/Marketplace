@@ -82,7 +82,7 @@ class _ProfilePageState extends State<ProfilePage> {
               body: Center(
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
-                  child: CustomThicknessIndicator(),
+                  child: CustomLoadingIndicator(),
                 ),
               ),
             );

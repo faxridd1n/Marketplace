@@ -33,7 +33,7 @@ class _OrdersPageState extends State<OrdersPage> {
               body: Center(
                 child: Padding(
                   padding: EdgeInsets.all(20.0),
-                  child:CustomThicknessIndicator(),
+                  child:CustomLoadingIndicator(),
                 ),
               ),
             );
