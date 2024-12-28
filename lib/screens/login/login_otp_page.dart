@@ -6,6 +6,7 @@ import 'package:flutter_application_1/screens/login/login_bloc/login_bloc.dart';
 import 'package:flutter_application_1/screens/login/widgets/login_otp_widget.dart';
 import 'package:flutter_application_1/user_auth_bloc/user_auth_bloc.dart';
 import 'package:flutter_application_1/user_auth_bloc/user_auth_event.dart';
+import 'package:flutter_application_1/user_auth_bloc/user_auth_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
@@ -59,11 +60,7 @@ class _LoginOtpPageState extends State<LoginOtpPage> {
                   children: [
                     LoginOtpWidget(otpController: otpController),
                     const SizedBox(height: 20),
-                    Row(
-                      children: [
-                        Expanded(child: _buildSubmitButton()),
-                      ],
-                    ),
+                    _buildSubmitButton(),
                   ],
                 ),
               ),
@@ -78,7 +75,6 @@ class _LoginOtpPageState extends State<LoginOtpPage> {
     return BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state.putLoginResponseStatus == FormzSubmissionStatus.success) {
-          context.read<UserAuthBloc>().add(AuthLoginRequested());
           userTokenBox.put(
             'token',
             UserTokenModel(
@@ -90,7 +86,7 @@ class _LoginOtpPageState extends State<LoginOtpPage> {
               content: Text('Registration successful'),
             ),
           );
-          setState(() {});
+          context.read<AuthenticationBloc>().add(const AuthenticationStatusChanged(AuthStatus.authenticated));
           Navigator.pop(context);
         } else if (state.putLoginResponseStatus ==
             FormzSubmissionStatus.failure) {

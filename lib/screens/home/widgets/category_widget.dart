@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/assets_path/app_icons_path.dart';
 import 'package:flutter_application_1/assets_path/app_images_path.dart';
 import 'package:flutter_application_1/models/home_model/category_model.dart';
-import 'package:flutter_application_1/screens/katalog/katalog_page.dart';
+import 'package:flutter_application_1/screens/home/category_products_page.dart';
+import 'package:flutter_application_1/screens/see_all/see_all_page.dart';
 import 'package:flutter_application_1/widgets/custom_cachedd_image.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -18,13 +19,16 @@ class CategoryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigator.of(context, rootNavigator: true).push(
-        //   MaterialPageRoute(
-        //     builder: (context) {
-        //       return CatalogPage(model: widget.model, index: widget.index);
-        //     },
-        //   ),
-        // );
+        Navigator.of(context, rootNavigator: true).push(
+          MaterialPageRoute(
+            builder: (context) {
+              return SeeAllPage(
+                categoryId: model.id,
+                title: model.name,
+              );
+            },
+          ),
+        );
       },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 5),
@@ -40,7 +44,7 @@ class CategoryWidget extends StatelessWidget {
             ),
             const SizedBox(height: 5),
             Text(
-              model.name ,
+              model.name,
               style: const TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w500,

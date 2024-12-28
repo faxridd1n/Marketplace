@@ -28,11 +28,8 @@ class _ProfileElementsState extends State<ProfileElements> {
           onTap: () {
             Navigator.of(context, rootNavigator: true).push(
               MaterialPageRoute(
-                builder: (context) => BlocProvider(
-                  create: (_) => ProfileBloc(),
-                  child: EditPersonalDataPage(
-                    userProfileModel: widget.userProfileModel,
-                  ),
+                builder: (context) => EditPersonalDataPage(
+                  userProfileModel: widget.userProfileModel,
                 ),
               ),
             );

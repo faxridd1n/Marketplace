@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/navigation/navigation_page.dart';
 
 import '../../../assets_path/app_images_path.dart';
 import '../../../core/constants/app_colors.dart';
@@ -51,7 +52,9 @@ class EmptyBasketPage extends StatelessWidget {
               ),
               backgroundColor: AppColors.green,
             ),
-            onPressed: () {},
+            onPressed: () {
+              HomeTabControllerProvider.of(context).controller.animateTo(1);
+            },
             child: const Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: 20,

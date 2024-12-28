@@ -70,7 +70,6 @@ Widget buildSubmitButton(
   return BlocConsumer<LoginBloc, LoginState>(
     listener: (context, state) {
       if (state.putLoginResponseStatus == FormzSubmissionStatus.success) {
-        context.read<UserAuthBloc>().add(AuthLoginRequested());
         userTokenBox.put(
           'token',
           UserTokenModel(
@@ -110,11 +109,11 @@ Widget buildSubmitButton(
         child: ElevatedButton(
           onPressed: () {
             context.read<LoginBloc>().add(
-                  PutLoginOtpEvent(
-                    phoneNumber: phoneNumber,
-                    otp: otpController.text,
-                  ),
-                );
+              PutLoginOtpEvent(
+                phoneNumber: phoneNumber,
+                otp: otpController.text,
+              ),
+            );
           },
           style: ElevatedButton.styleFrom(
             padding: const EdgeInsets.symmetric(vertical: 0),
@@ -125,21 +124,21 @@ Widget buildSubmitButton(
           ),
           child: state.putLoginResponseStatus.isInProgress
               ? const SizedBox(
-                  height: 30,
-                  width: 30,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 3,
-                    color: AppColors.white,
-                  ),
-                )
+            height: 30,
+            width: 30,
+            child: CircularProgressIndicator(
+              strokeWidth: 3,
+              color: AppColors.white,
+            ),
+          )
               : const Text(
-                  'Войти',
-                  style: TextStyle(
-                    color: AppColors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+            'Войти',
+            style: TextStyle(
+              color: AppColors.white,
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
         ),
       );
     },

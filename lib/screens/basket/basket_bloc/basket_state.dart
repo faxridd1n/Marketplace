@@ -1,26 +1,26 @@
 part of 'basket_bloc.dart';
 
 class BasketState extends Equatable {
-  final BasketProductModel? basketResponseModel;
+  final BasketProductModel basketResponseModel;
   final FormzSubmissionStatus getBasketProductStatus;
 
-  final BasketDeleteResModel? basketDeleteResModel;
+  final BasketDeleteResModel basketDeleteResModel;
   final FormzSubmissionStatus basketDeleteResStatus;
-  final PostResponseBasketModel? postResponseBasketModel;
+  final PostResponseBasketModel postResponseBasketModel;
   final FormzSubmissionStatus postResponseBasketStatus;
-  final List<ProductElement>? selectedProducts;
-  final OrganizationContactModel? organizationContactModel;
+  final List<ProductElement> selectedProducts;
+  final OrganizationContactModel organizationContactModel;
   final FormzSubmissionStatus organizationContactStatus;
 
   const BasketState({
-    this.basketResponseModel,
+    this.basketResponseModel = const BasketProductModel(),
     this.getBasketProductStatus = FormzSubmissionStatus.initial,
-    this.basketDeleteResModel,
+    this.basketDeleteResModel = const BasketDeleteResModel(),
     this.basketDeleteResStatus = FormzSubmissionStatus.initial,
-    this.postResponseBasketModel,
+    this.postResponseBasketModel = const PostResponseBasketModel(),
     this.postResponseBasketStatus = FormzSubmissionStatus.initial,
-    this.selectedProducts,
-    this.organizationContactModel,
+    this.selectedProducts = const [],
+    this.organizationContactModel = const OrganizationContactModel(),
     this.organizationContactStatus = FormzSubmissionStatus.initial,
   });
 

@@ -5,6 +5,7 @@ import 'package:flutter_application_1/models/home_model/category_model.dart';
 import 'package:flutter_application_1/screens/basket/basket_bloc/basket_bloc.dart';
 import 'package:flutter_application_1/screens/katalog/katalog_bloc/katalog_bloc.dart';
 import 'package:flutter_application_1/screens/katalog/widgets/katalog_empty_page.dart';
+import 'package:flutter_application_1/screens/navigation/navigation_page.dart';
 import 'package:flutter_application_1/widgets/horizontal_product_widget.dart';
 import 'package:flutter_application_1/widgets/indicator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,26 +14,31 @@ import 'package:formz/formz.dart';
 
 import '../../widgets/mini_product.dart';
 
-// ignore: must_be_immutable
-class CatalogPage extends StatefulWidget {
-  CatalogPage(
-      {required this.model,
-      required this.index,
-      super.key});
-  CategoryModel model;
-  int index;
+class CategoryProductsPage extends StatefulWidget {
+  const CategoryProductsPage({
+    required this.categoryId,
+    required this.categoryName,
+    this.subCategoryId,
+    super.key,
+  });
+
+  final int categoryId;
+  final String categoryName;
+  final int? subCategoryId;
 
   @override
-  State<CatalogPage> createState() => _CatalogPageState();
+  State<CategoryProductsPage> createState() => _CategoryProductsPageState();
 }
 
-class _CatalogPageState extends State<CatalogPage> {
+class _CategoryProductsPageState extends State<CategoryProductsPage> {
   bool isVerticalProduct = true;
   int selectedSubCategory = 0;
   String selectedItem = '';
   bool popUpIsOpen = false;
+
   // List<String> subCategories = [];
   late final KatalogBloc katalogBloc;
+
   // ProductModel products = ProductModel(category: Category());
 
   @override
@@ -42,7 +48,7 @@ class _CatalogPageState extends State<CatalogPage> {
     katalogBloc = KatalogBloc()
       ..add(
         GetKatalogEvent(
-          widget.model.item[widget.index].id,
+          widget.categoryId,
           10,
         ),
       );
@@ -71,7 +77,7 @@ class _CatalogPageState extends State<CatalogPage> {
       child: BlocBuilder<KatalogBloc, KatalogState>(
         builder: (ctx, state) {
           if (state.getFilteredProductStatus.isInProgress) {
-            return Scaffold(
+            return const Scaffold(
               body: Center(
                 child: CustomLoadingIndicator(),
               ),
@@ -79,9 +85,12 @@ class _CatalogPageState extends State<CatalogPage> {
           }
           if (state.getFilteredProductStatus.isSuccess) {
             return state.filteredProductModel!.isEmpty
-                ? const KatalogEmptyPage(
-                    withScaffold: true,
-                  )
+                ? HomeTabControllerProvider(
+                  controller: HomeTabControllerProvider.of(context).controller,
+                  child: const KatalogEmptyPage(
+                      withScaffold: true,
+                    ),
+                )
                 : Scaffold(
                     backgroundColor: AppColors.white,
                     appBar: AppBar(
@@ -171,8 +180,7 @@ class _CatalogPageState extends State<CatalogPage> {
                       bottom: PreferredSize(
                         preferredSize: const Size.fromHeight(55),
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 10),
+                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -227,9 +235,7 @@ class _CatalogPageState extends State<CatalogPage> {
                                           height: 28,
                                           width: 28,
                                           AppIcons.verticalIcon,
-                                          color: isVerticalProduct
-                                              ? AppColors.green
-                                              : AppColors.grey2,
+                                          color: isVerticalProduct ? AppColors.green : AppColors.grey2,
                                         ),
                                       ),
                                     ),
@@ -246,9 +252,7 @@ class _CatalogPageState extends State<CatalogPage> {
                                           height: 28,
                                           width: 28,
                                           AppIcons.horizontalIcon,
-                                          color: isVerticalProduct
-                                              ? AppColors.grey2
-                                              : AppColors.green,
+                                          color: isVerticalProduct ? AppColors.grey2 : AppColors.green,
                                         ),
                                       ),
                                     ),
@@ -267,44 +271,32 @@ class _CatalogPageState extends State<CatalogPage> {
                                 child: isVerticalProduct
                                     ? GridView.builder(
                                         padding: const EdgeInsets.all(10),
-                                        gridDelegate:
-                                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                           crossAxisSpacing: 10,
                                           mainAxisSpacing: 10,
                                           crossAxisCount: 2,
                                           childAspectRatio: 0.5,
                                         ),
-                                        itemCount:
-                                            state.filteredProductModel!.length,
+                                        itemCount: state.filteredProductModel!.length,
                                         itemBuilder: (context, index) {
-                                          return BlocProvider.value(
-                                            value: BasketBloc(),
-                                            child: MiniProductWidget(
-                                              index: index,
-                                              model: state
-                                                  .filteredProductModel![index],
-                                            ),
+                                          return MiniProductWidget(
+                                            index: index,
+                                            model: state.filteredProductModel![index],
                                           );
                                         },
                                       )
                                     : ListView.builder(
                                         shrinkWrap: true,
-                                        itemCount:
-                                            state.filteredProductModel!.length,
+                                        itemCount: state.filteredProductModel!.length,
                                         itemBuilder: (context, index) {
                                           return Padding(
                                             padding: const EdgeInsets.symmetric(
                                               horizontal: 10,
                                               vertical: 10,
                                             ),
-                                            child: BlocProvider.value(
-                                              value: BasketBloc(),
-                                              child: HorizontalProductWidget(
-                                                model:
-                                                    state.filteredProductModel![
-                                                        index],
-                                                index: index,
-                                              ),
+                                            child: HorizontalProductWidget(
+                                              model: state.filteredProductModel![index],
+                                              index: index,
                                             ),
                                           );
                                         },

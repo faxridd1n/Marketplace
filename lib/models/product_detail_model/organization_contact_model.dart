@@ -1,6 +1,3 @@
-// To parse this JSON data, do
-//
-//     final organizationContactModel = organizationContactModelFromJson(jsonString);
 
 import 'package:json_annotation/json_annotation.dart';
 import 'dart:convert';
@@ -20,10 +17,10 @@ class OrganizationContactModel {
   @JsonKey(name: "error")
   final Map error;
 
-  OrganizationContactModel({
-    Result? result,
+  const OrganizationContactModel({
+    this.result = const Result(),
     this.error = const {},
-  }) : result = result ?? Result();
+  }) ;
 
   factory OrganizationContactModel.fromJson(Map<String, dynamic> json) =>
       _$OrganizationContactModelFromJson(json);
@@ -58,7 +55,7 @@ class Result {
   @JsonKey(name: "longitude")
   final int longitude;
 
-  Result({
+  const Result({
     this.rating = -1,
     this.reviewCount = -1,
     this.id = -1,
@@ -68,10 +65,10 @@ class Result {
     this.address = '',
     this.phone = '',
     this.description = '',
-    Region? region,
+    this.region = const Region(),
     this.latitude = -1,
     this.longitude = -1,
-  }) : region = region ?? Region();
+  }) ;
 
   factory Result.fromJson(Map<String, dynamic> json) => _$ResultFromJson(json);
 
@@ -89,7 +86,7 @@ class Region {
   @JsonKey(name: "regionType")
   final int regionType;
 
-  Region({
+  const Region({
     this.id = -1,
     this.name = '',
     this.parentId = -1,

@@ -85,21 +85,22 @@ class _HomePageState extends State<HomePage> {
           ),
           surfaceTintColor: AppColors.transparent,
           backgroundColor: AppColors.white,
-          leading: Builder(builder: (context) {
-            return IconButton(
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-              icon: const Icon(Icons.menu),
-            );
-          }),
+          // leading: Builder(builder: (context) {
+          //   return IconButton(
+          //     onPressed: () {
+          //       Scaffold.of(context).openDrawer();
+          //     },
+          //     icon: const Icon(Icons.menu),
+          //   );
+          // }),
           elevation: 0,
           shadowColor: AppColors.appBarShadowColor,
           actions: const [
             // HomePopUpMenuWidget(true, AppIcons.language),
           ],
         ),
-        drawer: const DrawerPage(),
+
+        // drawer: const DrawerPage(),
         body: SingleChildScrollView(
           child: Column(
             children: [

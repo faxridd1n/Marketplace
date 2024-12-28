@@ -1,9 +1,18 @@
 part of 'section_products_bloc.dart';
 
 @immutable
-sealed class SectionProductsEvent {}
+sealed class ProductsEvent {}
 
-class GetSectionProductsEvent extends SectionProductsEvent {
+class GetProductsEvent extends ProductsEvent {
+  GetProductsEvent();
+}
+
+class SetSectionIdEvent extends ProductsEvent {
   final int sectionId;
-  GetSectionProductsEvent(this.sectionId);
+  SetSectionIdEvent(this.sectionId);
+}
+
+class SetCategoryIdEvent extends ProductsEvent {
+  final int categoryId;
+  SetCategoryIdEvent(this.categoryId);
 }

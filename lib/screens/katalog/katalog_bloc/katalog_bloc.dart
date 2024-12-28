@@ -12,9 +12,6 @@ part 'katalog_state.dart';
 
 class KatalogBloc extends Bloc<KatalogEvent, KatalogState> {
   KatalogBloc() : super(const KatalogState()) {
-
-
-
     on<GetKatalogEvent>((event, emit) async {
       emit(state.copyWith(getFilteredProductStatus: FormzSubmissionStatus.inProgress));
       final result = await KatalogService.getFilteredProducts(event.categoryId,10);
@@ -40,21 +37,5 @@ class KatalogBloc extends Bloc<KatalogEvent, KatalogState> {
             postResponseBasketStatus: FormzSubmissionStatus.failure));
       }
     });
-
-
-
-
-
-// on<FetchNextPage>((event, emit)async {
-//   emit(state.copyWith(getFilteredProductStatus: FormzSubmissionStatus.inProgress));
-//   var res=await KatalogService.getFilteredProducts(event.categoryId,event.page);
-//   if (res is List<ParentCategoryModel>) {
-//         emit(state.copyWith(filteredProductModel: res, getFilteredProductStatus: FormzSubmissionStatus.success,));
-//       } else {
-//         emit(state.copyWith(getFilteredProductStatus: FormzSubmissionStatus.failure));
-//       }
-// },);
-
-
   }
 }

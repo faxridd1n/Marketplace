@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/basket/basket_page.dart';
 // import 'package:flutter_application_1/screens/basket/basket_page.dart';
-import 'package:flutter_application_1/screens/category/category_page.dart';
+import 'package:flutter_application_1/screens/category/catalog_page.dart';
 import 'package:flutter_application_1/screens/favorite/favorite_page.dart';
 import 'package:flutter_application_1/screens/home/home_page.dart';
 // import 'package:flutter_application_1/screens/profile/login_page.dart';
@@ -60,15 +60,11 @@ class _TabNavigatorState extends State<TabNavigator>
       return {'/': (context) => const HomePage()};
     }
     if (tabItem.isCategory) {
-      return {'/': (context) => const CategoryPage()};
+      return {'/': (context) => const CatalogPage()};
     }
     if (tabItem.isBasket) {
       return {
-        '/': (context) => userTokenBox.isNotEmpty &&
-                userTokenBox.get('token') != null &&
-                userTokenBox.get('token')!.token.isNotEmpty
-            ? const BasketPage()
-            : const LoginPage()
+        '/': (context) => const BasketPage()
       };
     }
     if (tabItem.isFavorite) {
@@ -76,11 +72,7 @@ class _TabNavigatorState extends State<TabNavigator>
     }
     if (tabItem.isProfile) {
       return {
-        '/': (context) => userTokenBox.isNotEmpty &&
-                userTokenBox.get('token') != null &&
-                userTokenBox.get('token')!.token.isNotEmpty
-            ? const ProfilePage()
-            : const LoginPage()
+        '/': (context) => const ProfilePage()
       };
     }
     return {};

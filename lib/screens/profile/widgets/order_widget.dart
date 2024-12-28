@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/price_function.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_application_1/models/order_model/user_orders_model.dart';
-import 'package:flutter_application_1/screens/product_detail/product_detail_page1.dart';
+import 'package:flutter_application_1/screens/product_detail/product_detail_page.dart';
 
 import '../../../assets_path/app_images_path.dart';
 

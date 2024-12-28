@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_application_1/di/DioClient.dart';
+import 'package:flutter_application_1/models/product_detail_model/product_detail_model.dart';
 import 'package:flutter_application_1/models/products_model/product_model.dart';
 import 'package:flutter_application_1/service/log_service/LogService.dart';
 import '../../components/hive/user_token.dart';
@@ -7,25 +8,23 @@ import '../../components/hive/user_token.dart';
 import '../../models/basket_model/post_basket_product_model.dart';
 import '../../models/product_detail_model/organization_contact_model.dart';
 
-class ProductDetailService {
-  static final ProductDetailService _inheritance = ProductDetailService._init();
+class ProductService {
+  static final ProductService _inheritance = ProductService._init();
 
-  static ProductDetailService get inheritance => _inheritance;
+  static ProductService get inheritance => _inheritance;
 
-  ProductDetailService._init();
+  ProductService._init();
 
-  static Future<List<ProductModel>?> getProducts() async {
+  static Future<List<ProductModel>?> getProducts(GetProductParams params) async {
     try {
-      final response = await DioConfig.inheritance
-          .createRequest()
-          .get("https://arbuzmarket.com/api/v1/Products?size=10&page=1&tab=34");
+      final response = await DioConfig.inheritance.createRequest().get(
+        "https://arbuzmarket.com/api/v1/Products",
+        queryParameters: params.toJson(),
+      );
       Log.i(response.data.toString());
       Log.i(response.statusCode.toString());
-
       if (response.statusCode == 200) {
-        final data = (response.data['item'] as List)
-            .map((e) => ProductModel.fromJson(e))
-            .toList();
+        final data = (response.data['item'] as List).map((e) => ProductModel.fromJson(e)).toList();
 
         return data;
       } else {
@@ -43,6 +42,37 @@ class ProductDetailService {
 
     return null;
   }
+
+  static Future<ProductDetailModel?> getProductDetail(String id) async {
+    try {
+      final response = await DioConfig.inheritance
+          .createRequest()
+          .get("https://arbuzmarket.com/api/v1/Products/$id");
+      Log.i(response.data.toString());
+      Log.i(response.statusCode.toString());
+
+      if (response.statusCode == 200) {
+        Log.i(response.data.toString());
+        Log.i(response.statusCode.toString());
+        final data = ProductDetailModel.fromJson(response.data);
+
+        return data;
+      } else {
+        Log.e("${response.statusMessage} ${response.statusCode}");
+      }
+    } on DioException catch (e) {
+      if (e.response != null) {
+        Log.e(e.response!.toString());
+      } else {
+        rethrow;
+      }
+    } catch (e) {
+      Log.e(e.toString());
+    }
+
+    return null;
+  }
+
 
   static Future<List<ProductModel>?> getFilteredProducts(int categoryId) async {
     try {

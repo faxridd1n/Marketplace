@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
+import 'package:flutter_application_1/screens/basket/basket_bloc/basket_bloc.dart';
+import 'package:flutter_application_1/screens/basket/basket_bloc/basket_bloc.dart';
 import 'package:flutter_application_1/screens/buy_now/buy_now_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../components/price_function.dart';
 import '../basket_page.dart';
@@ -28,13 +31,15 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
                 fontSize: 16,
               ),
             ),
-            Text(
-              addSpaceEveryThreeCharacters(dealSum.toString()),
-              style: const TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 16,
-              ),
-            )
+            BlocBuilder<BasketBloc, BasketState>(builder: (context, state) {
+              return Text(
+                addSpaceEveryThreeCharacters(state.basketResponseModel.result.originPrice.toString()),
+                style: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                ),
+              );
+            })
           ],
         ),
         const SizedBox(
@@ -47,16 +52,21 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
         const SizedBox(
           height: 10,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Товары, ${selectedProducts.length} шт.',
-            ),
-            Text(
-              addSpaceEveryThreeCharacters(dealSum.toString()),
-            )
-          ],
+        BlocBuilder<BasketBloc, BasketState>(
+          builder: (context, state) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+
+                Text(
+                  'Товары, ${state.basketResponseModel.result.products.length} шт.',
+                ),
+                Text(
+                  addSpaceEveryThreeCharacters(state.basketResponseModel.result.originPrice.toString()),
+                )
+              ],
+            );
+          },
         ),
         const SizedBox(
           height: 10,

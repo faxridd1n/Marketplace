@@ -9,10 +9,10 @@ BasketDeleteResModel basketDeleteResModelFromJson(String str) => BasketDeleteRes
 String basketDeleteResModelToJson(BasketDeleteResModel data) => json.encode(data.toJson());
 
 class BasketDeleteResModel {
-    Result? result;
-    Map? error;
+    final Result? result;
+    final Map? error;
 
-    BasketDeleteResModel({
+    const BasketDeleteResModel({
         this.result,
         this.error,
     });

@@ -7,9 +7,8 @@ class GetBasketProductsEvent extends BasketEvent {
   GetBasketProductsEvent();
 }
 
-// ignore: must_be_immutable
 class SelectBasketProductsEvent extends BasketEvent {
-  ProductElement selectedProducts;
+  final ProductElement selectedProducts;
   SelectBasketProductsEvent({required this.selectedProducts});
 }
 

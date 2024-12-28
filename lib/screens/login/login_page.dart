@@ -186,13 +186,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget _buildSubmitButton() {
     return BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
-        if (state.postLoginUserResponseStatus ==
-            FormzSubmissionStatus.success) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Registration successful'),
-            ),
-          );
+        if (state.postLoginUserResponseStatus == FormzSubmissionStatus.success) {
+
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -208,8 +203,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           );
-        } else if (state.postLoginUserResponseStatus ==
-            FormzSubmissionStatus.failure) {
+        } else if (state.postLoginUserResponseStatus == FormzSubmissionStatus.failure) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Registration failed'),

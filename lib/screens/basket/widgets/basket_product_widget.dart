@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/assets_path/app_icons_path.dart';
 import 'package:flutter_application_1/assets_path/app_images_path.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
+import 'package:flutter_application_1/core/utils/build_context_extension.dart';
 import 'package:flutter_application_1/models/basket_model/basket_product_model.dart';
 import 'package:flutter_application_1/screens/basket/basket_page.dart';
 import 'package:flutter_application_1/screens/basket/basket_bloc/basket_bloc.dart';
@@ -11,16 +12,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../components/price_function.dart';
 
-// ignore: must_be_immutable
 class BasketProductWidget extends StatefulWidget {
-  BasketProductWidget(
+  const BasketProductWidget(
       {required this.model,
       required this.index,
       required this.isSelected,
       super.key});
-  ProductElement model;
-  int index;
-  bool isSelected;
+  final ProductElement model;
+  final int index;
+  final bool isSelected;
   @override
   State<BasketProductWidget> createState() => _BasketProductWidgetState();
 }
@@ -98,19 +98,12 @@ class _BasketProductWidgetState extends State<BasketProductWidget> {
                               ),
                             );
 
-                        snackBar(
-                          isHomePage: false,
-                          context: context,
-                          name: widget.model.product.name,
-                          addProduct: false,
+                        context.showPopUp(
+                          context,
+                          title: 'Удалено успешно!',
+                          message: "${widget.model.product.name} удалено из корзины",
                         );
-                        setState(() {
-                          for (var e in basketProducts) {
-                            if (e.id == widget.model.id) {
-                              basketProducts.remove(e);
-                            }
-                          }
-                        });
+
                       },
                       child: SizedBox(
                         height: 25,
@@ -197,19 +190,12 @@ class _BasketProductWidgetState extends State<BasketProductWidget> {
                                       ),
                                     );
 
-                                snackBar(
-                                  isHomePage: false,
-                                  context: context,
-                                  name: widget.model.product.name,
-                                  addProduct: false,
+                                context.showPopUp(
+                                  context,
+                                  title: "Удалено успешно!",
+                                  message: "${widget.model.product.name} удалено из корзины",
                                 );
-                                setState(() {
-                                  for (var e in basketProducts) {
-                                    if (e.id == widget.model.id) {
-                                      basketProducts.remove(e);
-                                    }
-                                  }
-                                });
+
                               }
                             });
                           },

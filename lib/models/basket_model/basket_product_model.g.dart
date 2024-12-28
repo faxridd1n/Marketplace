@@ -9,10 +9,10 @@ part of 'basket_product_model.dart';
 BasketProductModel _$BasketProductModelFromJson(Map<String, dynamic> json) =>
     BasketProductModel(
       result: json['result'] == null
-          ? null
+          ? const Result()
           : Result.fromJson(json['result'] as Map<String, dynamic>),
       error: json['error'] == null
-          ? null
+          ? const Error()
           : Error.fromJson(json['error'] as Map<String, dynamic>),
     );
 

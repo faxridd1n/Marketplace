@@ -1,17 +1,17 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_application_1/models/basket_model/basket_product_model.dart';
+import 'package:flutter_application_1/models/buy_now_model/location_model.dart';
 import 'package:flutter_application_1/models/order_model/post_order_request_model.dart';
 import 'package:flutter_application_1/models/order_model/post_order_response_model.dart';
+import 'package:flutter_application_1/models/product_detail_model/organization_contact_model.dart';
+import 'package:flutter_application_1/service/basket_service/basket_service.dart';
 import 'package:flutter_application_1/service/buy_now_service/buy_now_service.dart';
 import 'package:flutter_application_1/service/order_service/order_service.dart';
+import 'package:flutter_application_1/service/product_service/product_service.dart';
 import 'package:formz/formz.dart';
 import 'package:meta/meta.dart';
 
-import '../../../models/basket_model/basket_product_model.dart';
-import '../../../models/buy_now_model/location_model.dart';
-import '../../../models/product_detail_model/organization_contact_model.dart';
-import '../../../service/basket_service/basket_service.dart';
-import '../../../service/product_detail_service/product_detail_service.dart';
 
 part 'buy_now_event.dart';
 part 'buy_now_state.dart';
@@ -78,7 +78,7 @@ class BuyNowBloc extends Bloc<BuyNowEvent, BuyNowState> {
     on<GetOrganizationEvent>((event, emit) async {
       emit(state.copyWith(
           organizationContactStatus: FormzSubmissionStatus.inProgress));
-      final result = await ProductDetailService.getOrganizationContact(
+      final result = await ProductService.getOrganizationContact(
           event.organizationId);
       if (result is OrganizationContactModel) {
         emit(state.copyWith(

@@ -4,7 +4,7 @@ import 'package:flutter_application_1/models/product_detail_model/organization_c
 import 'package:flutter_application_1/models/product_detail_model/product_detail_model.dart';
 import 'package:flutter_application_1/models/products_model/product_model.dart';
 import 'package:flutter_application_1/service/home_service/home_service.dart';
-import 'package:flutter_application_1/service/product_detail_service/product_detail_service.dart';
+import 'package:flutter_application_1/service/product_service/product_service.dart';
 import 'package:formz/formz.dart';
 import 'package:meta/meta.dart';
 
@@ -17,7 +17,7 @@ class ProductDetailBloc extends Bloc<ProductDetailEvent, ProductDetailState> {
   ProductDetailBloc() : super(const ProductDetailState()) {
     on<GetProductDetailEvent>((event, emit) async {
       emit(state.copyWith(getDetailStatus: FormzSubmissionStatus.inProgress));
-      final result = await HomeService.getProductDetail(event.productId);
+      final result = await ProductService.getProductDetail(event.productId);
       if (result is ProductDetailModel) {
         emit(state.copyWith(
             productDetailModel: result,
@@ -30,7 +30,7 @@ class ProductDetailBloc extends Bloc<ProductDetailEvent, ProductDetailState> {
     on<GetSimilarProductsEvent>((event, emit) async {
       emit(state.copyWith(getProductStatus: FormzSubmissionStatus.inProgress));
       final result =
-          await ProductDetailService.getFilteredProducts(event.categoryId);
+          await ProductService.getFilteredProducts(event.categoryId);
       if (result is List<ProductModel>) {
         emit(state.copyWith(
             parentCategoryModel: result,
@@ -43,7 +43,7 @@ class ProductDetailBloc extends Bloc<ProductDetailEvent, ProductDetailState> {
     on<PostBasketProductDetailEvent>((event, emit) async {
       emit(state.copyWith(
           postResponseBasketStatus: FormzSubmissionStatus.inProgress));
-      final result = await ProductDetailService.postBasketProducts(
+      final result = await ProductService.postBasketProducts(
           event.productVariationId);
       if (result is PostResponseBasketModel) {
         emit(state.copyWith(
@@ -58,7 +58,7 @@ class ProductDetailBloc extends Bloc<ProductDetailEvent, ProductDetailState> {
     on<GetOrganizationContactEvent>((event, emit) async {
       emit(state.copyWith(
           organizationContactStatus: FormzSubmissionStatus.inProgress));
-      final result = await ProductDetailService.getOrganizationContact(
+      final result = await ProductService.getOrganizationContact(
           event.organizationId);
       if (result is OrganizationContactModel) {
         emit(state.copyWith(

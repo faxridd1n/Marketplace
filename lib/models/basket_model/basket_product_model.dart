@@ -1,3 +1,4 @@
+import 'package:flutter_application_1/models/product_detail_model/organization_contact_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'dart:convert';
 
@@ -16,11 +17,11 @@ class BasketProductModel {
   @JsonKey(name: "error")
   final Error error;
 
-  BasketProductModel({
-    Result? result, // Make result nullable
-    Error? error, // Make error nullable
-  })  : result = result ?? Result(), // Default to a new Result() if null
-        error = error ?? Error(); // Default to a new Error() if null
+
+  const BasketProductModel({
+    this.result = const Result(), // Make result nullable
+    this.error = const Error(),
+  })  ; // Default to a new Error() if null
 
   factory BasketProductModel.fromJson(Map<String, dynamic> json) =>
       _$BasketProductModelFromJson(json);
@@ -35,7 +36,7 @@ class Error {
   @JsonKey(name: "errorMessage")
   final String errorMessage;
 
-  Error({
+  const Error({
     this.errorCode = 0,
     this.errorMessage = '',
   });
@@ -72,7 +73,7 @@ class Result {
   @JsonKey(name: "orgId")
   final int orgId;
 
-  Result({
+  const Result({
     this.id = 0,
     this.period = 0,
     this.saleType = 0,

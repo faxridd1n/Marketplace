@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/price_function.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
+import 'package:flutter_application_1/core/utils/build_context_extension.dart';
 import 'package:flutter_application_1/models/product_detail_model/product_detail_model.dart';
 // import 'package:flutter_application_1/models/products_model/product_model.dart';
 import 'package:flutter_application_1/screens/buy_now/buy_now_page.dart';
@@ -287,14 +288,12 @@ class _FinProdWidgetState extends State<FinProdWidget> {
                                             count: basketProductCount,
                                           ),
                                         );
-    
-                                    snackBar(
-                                      isHomePage: false,
-                                      context: context,
-                                      name: widget.model.result.name,
-                                      addProduct: false,
+
+                                    context.showPopUp(
+                                      context,
+                                      title: 'Удалено успешно!',
+                                      message: "${widget.model.result.name} удалено из корзины",
                                     );
-                                    setState(() {});
                                   }
                                 },
                                 child: const Icon(
@@ -333,13 +332,12 @@ class _FinProdWidgetState extends State<FinProdWidget> {
                                           count: basketProductCount,
                                         ),
                                       );
-    
-                                  snackBar(
-                                      isHomePage: false,
-                                      context: context,
-                                      name: widget.model.result.name,
-                                      addProduct: true);
-    
+
+                                  context.showPopUp(
+                                    context,
+                                    title: 'Добавлено успешно!',
+                                    message: "${widget.model.result.name} добавлено в корзину",
+                                  );
                                   setState(() {});
                                 },
                                 child: const Icon(
@@ -376,12 +374,11 @@ class _FinProdWidgetState extends State<FinProdWidget> {
                                         count: basketProductCount,
                                       ),
                                     );
-    
-                                snackBar(
-                                  isHomePage: false,
-                                  context: context,
-                                  name: widget.model.result.name,
-                                  addProduct: true,
+
+                                context.showPopUp(
+                                  context,
+                                  title: 'Добавлено успешно!',
+                                  message: "${widget.model.result.name} добавлено в корзину",
                                 );
                                 setState(() {});
                               } else {

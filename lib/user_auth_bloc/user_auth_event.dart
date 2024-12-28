@@ -1,17 +1,17 @@
 // auth_event.dart
 import 'package:equatable/equatable.dart';
+import 'package:flutter_application_1/user_auth_bloc/user_auth_state.dart';
 
-abstract class UserAuthEvent extends Equatable {
-  const UserAuthEvent();
+abstract class AuthenticationEvent extends Equatable {
+  const AuthenticationEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class AuthAppStarted extends UserAuthEvent {}
+class AuthenticationStatusChanged extends AuthenticationEvent {
+  final AuthStatus status;
 
-class AuthLoginRequested extends UserAuthEvent {}
+  const AuthenticationStatusChanged( this.status);
+}
 
-class AuthLogoutRequested extends UserAuthEvent {}
-
-class AuthStatusChecked extends UserAuthEvent {}

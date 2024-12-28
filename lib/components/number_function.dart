@@ -1,4 +1,7 @@
 String numberFunction(String value) {
+  if (value.length < 11) {
+    return value;
+  }
   String number = '';
   for (var i = 0; i <= 11; i++) {
     if (i == 0) {

@@ -45,15 +45,19 @@ class _NavigationPageState extends State<NavigationPage>
     //   bloc = BasketBloc();
     // }
     _tabController =
-        TabController(length: 5, vsync: this, animationDuration: Duration.zero);
+        TabController(length: 5, vsync: this, animationDuration: Duration.zero)..addListener((){
+          setState(() {
+            _selectedIndex = _tabController.index;
+          });
+        });
     // userTokenBox.delete('token');
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: BasketBloc(),
-      child: PopScope(
+    return PopScope(
+      child: HomeTabControllerProvider(
+        controller: _tabController,
         child: Scaffold(
           backgroundColor: AppColors.white,
           body: TabBarView(
@@ -71,9 +75,7 @@ class _NavigationPageState extends State<NavigationPage>
             backgroundColor: AppColors.white,
             onTap: (value) {
               _tabController.animateTo(value);
-              setState(() {
-                _selectedIndex = value;
-              });
+
             },
             currentIndex: _selectedIndex,
             type: BottomNavigationBarType.fixed,
@@ -156,4 +158,23 @@ class _NavigationPageState extends State<NavigationPage>
       ),
     );
   }
+}
+
+class HomeTabControllerProvider extends InheritedWidget {
+  final TabController controller;
+
+  const HomeTabControllerProvider({
+    super.key,
+    required super.child,
+    required this.controller,
+  });
+
+  static HomeTabControllerProvider of(BuildContext context) {
+    final result = context.dependOnInheritedWidgetOfExactType<HomeTabControllerProvider>();
+    assert(result != null, 'No HomeTabControllerProvider found in context');
+    return result!;
+  }
+
+  @override
+  bool updateShouldNotify(HomeTabControllerProvider oldWidget) => false;
 }

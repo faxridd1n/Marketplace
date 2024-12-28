@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../assets_path/app_images_path.dart';
 import '../../../core/constants/app_colors.dart';
+import '../../navigation/navigation_page.dart';
 
 class KatalogEmptyPage extends StatefulWidget {
   const KatalogEmptyPage({required this.withScaffold, super.key});
@@ -66,7 +67,11 @@ class _KatalogEmptyPageState extends State<KatalogEmptyPage> {
                       ),
                       backgroundColor: AppColors.green,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pop(context);
+                      HomeTabControllerProvider.of(context).controller.animateTo(1);
+
+                    },
                     child: const Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: 20,
@@ -130,7 +135,9 @@ class _KatalogEmptyPageState extends State<KatalogEmptyPage> {
                     ),
                     backgroundColor: AppColors.green,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    HomeTabControllerProvider.of(context).controller.animateTo(1);
+                  },
                   child: const Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: 20,

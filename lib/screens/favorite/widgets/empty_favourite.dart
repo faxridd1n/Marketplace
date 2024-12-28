@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/assets_path/app_images_path.dart';
+import 'package:flutter_application_1/screens/navigation/navigation_page.dart';
 import '../../../core/constants/app_colors.dart';
 
 class EmptyFavouritePage extends StatefulWidget {
@@ -56,7 +57,9 @@ class _EmptyFavouritePageState extends State<EmptyFavouritePage> {
               ),
               backgroundColor: AppColors.green,
             ),
-            onPressed: () {},
+            onPressed: () {
+              HomeTabControllerProvider.of(context).controller.animateTo(0);
+            },
             child: const Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: 20,

@@ -32,145 +32,142 @@ class _EditPersonalDataPageState extends State<EditPersonalDataPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (ctx) => ProfileBloc(),
-      child: Scaffold(
+    return Scaffold(
+      backgroundColor: AppColors.white,
+      appBar: AppBar(
+        shadowColor: AppColors.appBarShadowColor,
+        surfaceTintColor: AppColors.transparent,
         backgroundColor: AppColors.white,
-        appBar: AppBar(
-          shadowColor: AppColors.appBarShadowColor,
-          surfaceTintColor: AppColors.transparent,
-          backgroundColor: AppColors.white,
-          elevation: 2,
-          centerTitle: true,
-          title: const Text(
-            'Личные данные',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-            ),
+        elevation: 2,
+        centerTitle: true,
+        title: const Text(
+          'Личные данные',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
           ),
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
-            child: Column(
-              children: [
-                const SizedBox(height: 20),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const Text(
-                      'Имя',
-                      style: TextStyle(
-                        color: AppColors.grey2,
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
+          child: Column(
+            children: [
+              const SizedBox(height: 20),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const Text(
+                    'Имя',
+                    style: TextStyle(
+                      color: AppColors.grey2,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    height: 60,
+                    child: TextFormField(
+                      onTapOutside: (event) {
+                        FocusScope.of(context).unfocus();
+                      },
+                      onChanged: (value) {},
+                      cursorWidth: 1.5,
+                      keyboardType: TextInputType.text,
+                      controller: nameController,
+                      style: const TextStyle(
+                        fontSize: 16,
                         fontWeight: FontWeight.w500,
-                        fontSize: 14,
                       ),
-                    ),
-                    const SizedBox(height: 10),
-                    SizedBox(
-                      height: 60,
-                      child: TextFormField(
-                        onTapOutside: (event) {
-                          FocusScope.of(context).unfocus();
-                        },
-                        onChanged: (value) {},
-                        cursorWidth: 1.5,
-                        keyboardType: TextInputType.text,
-                        controller: nameController,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
+                      textAlignVertical: TextAlignVertical.top,
+                      decoration: const InputDecoration(
+                        filled: true,
+                        fillColor: AppColors.grey1,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                          borderSide:
+                              BorderSide(color: AppColors.grey3, width: 0.5),
                         ),
-                        textAlignVertical: TextAlignVertical.top,
-                        decoration: const InputDecoration(
-                          filled: true,
-                          fillColor: AppColors.grey1,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                            borderSide:
-                                BorderSide(color: AppColors.grey3, width: 0.5),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
                           ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                            borderSide:
-                                BorderSide(color: AppColors.grey3, width: 0.5),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                            borderSide:
-                                BorderSide(color: AppColors.grey3, width: 0.5),
-                          ),
+                          borderSide:
+                              BorderSide(color: AppColors.grey3, width: 0.5),
                         ),
-                        cursorColor: AppColors.green,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                          borderSide:
+                              BorderSide(color: AppColors.grey3, width: 0.5),
+                        ),
                       ),
+                      cursorColor: AppColors.green,
                     ),
-                    const SizedBox(height: 20),
-                    const Text(
-                      'Фамилия',
-                      style: TextStyle(
-                        color: AppColors.grey2,
+                  ),
+                  const SizedBox(height: 20),
+                  const Text(
+                    'Фамилия',
+                    style: TextStyle(
+                      color: AppColors.grey2,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    height: 60,
+                    child: TextFormField(
+                      onTapOutside: (event) {
+                        FocusScope.of(context).unfocus();
+                      },
+                      onChanged: (value) {},
+                      cursorWidth: 1.5,
+                      keyboardType: TextInputType.text,
+                      controller: surnameController,
+                      style: const TextStyle(
+                        fontSize: 16,
                         fontWeight: FontWeight.w500,
-                        fontSize: 14,
                       ),
-                    ),
-                    const SizedBox(height: 10),
-                    SizedBox(
-                      height: 60,
-                      child: TextFormField(
-                        onTapOutside: (event) {
-                          FocusScope.of(context).unfocus();
-                        },
-                        onChanged: (value) {},
-                        cursorWidth: 1.5,
-                        keyboardType: TextInputType.text,
-                        controller: surnameController,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
+                      textAlignVertical: TextAlignVertical.top,
+                      decoration: const InputDecoration(
+                        filled: true,
+                        fillColor: AppColors.grey1,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                          borderSide:
+                              BorderSide(color: AppColors.grey3, width: 0.5),
                         ),
-                        textAlignVertical: TextAlignVertical.top,
-                        decoration: const InputDecoration(
-                          filled: true,
-                          fillColor: AppColors.grey1,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                            borderSide:
-                                BorderSide(color: AppColors.grey3, width: 0.5),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
                           ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                            borderSide:
-                                BorderSide(color: AppColors.grey3, width: 0.5),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                            borderSide:
-                                BorderSide(color: AppColors.green, width: 0.5),
-                          ),
+                          borderSide:
+                              BorderSide(color: AppColors.grey3, width: 0.5),
                         ),
-                        cursorColor: AppColors.green,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                          borderSide:
+                              BorderSide(color: AppColors.green, width: 0.5),
+                        ),
                       ),
+                      cursorColor: AppColors.green,
                     ),
-                    const SizedBox(height: 20),
-                    buildSubmitButton(),
-                    const SizedBox(height: 10),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                  const SizedBox(height: 20),
+                  buildSubmitButton(),
+                  const SizedBox(height: 10),
+                ],
+              ),
+            ],
           ),
         ),
       ),

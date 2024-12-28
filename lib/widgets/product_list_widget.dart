@@ -22,19 +22,19 @@ class SectionProductsListWidget extends StatefulWidget {
 }
 
 class _SectionProductsListWidgetState extends State<SectionProductsListWidget> {
-  late final SectionProductsBloc sectionProductsBloc;
+  late final ProductsBloc sectionProductsBloc;
 
   @override
   void initState() {
     super.initState();
-    sectionProductsBloc = SectionProductsBloc()..add(GetSectionProductsEvent(widget.sectionId));
+    sectionProductsBloc = ProductsBloc()..add(SetSectionIdEvent(widget.sectionId));
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: sectionProductsBloc,
-      child: BlocBuilder<SectionProductsBloc, SectionProductsState>(
+      child: BlocBuilder<ProductsBloc, ProductsState>(
         builder: (ctx, state) {
           if (state.getProductsStatus.isInProgress) {
             return const Center(
@@ -57,6 +57,7 @@ class _SectionProductsListWidgetState extends State<SectionProductsListWidget> {
                       MaterialPageRoute(
                         builder: (context) => SeeAllPage(
                           categoryId: widget.sectionId,
+                          title: widget.sectionName,
                         ),
                       ),
                     );

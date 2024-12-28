@@ -303,62 +303,59 @@ class _OrganizationPageState extends State<OrganizationPage> {
                         ),
                       ],
                     ),
-                    BlocProvider(
-                      create: (ctx) => BasketBloc(),
-                      child: Column(
-                        children: [
-                          // Product Grid/List
-                          ConstrainedBox(
-                            constraints: BoxConstraints(
-                              maxHeight: isVerticalProduct
-                                  ? state.productModel!.length *
-                                      MediaQuery.of(context).size.height *
-                                      0.55
-                                  : state.productModel!.length *
-                                      140, // Constrain height
-                            ),
-                            child: isVerticalProduct
-                                ? GridView.builder(
-                                    shrinkWrap: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    padding: const EdgeInsets.all(10),
-                                    gridDelegate:
-                                        const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisSpacing: 10,
-                                      mainAxisSpacing: 10,
-                                      crossAxisCount: 2,
-                                      childAspectRatio: 0.5,
-                                    ),
-                                    itemCount: state.productModel!.length,
-                                    itemBuilder: (context, index) {
-                                      return MiniProductWidget(
-                                        index: index,
-                                        model: state.productModel![index],
-                                      );
-                                    },
-                                  )
-                                : ListView.builder(
-                                    shrinkWrap: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    itemCount: state.productModel!.length,
-                                    itemBuilder: (context, index) {
-                                      return Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 10,
-                                          vertical: 10,
-                                        ),
-                                        child: HorizontalProductWidget(
-                                          model: state.productModel![index],
-                                          index: index,
-                                        ),
-                                      );
-                                    },
-                                  ),
+                    Column(
+                      children: [
+                        // Product Grid/List
+                        ConstrainedBox(
+                          constraints: BoxConstraints(
+                            maxHeight: isVerticalProduct
+                                ? state.productModel!.length *
+                                    MediaQuery.of(context).size.height *
+                                    0.55
+                                : state.productModel!.length *
+                                    140, // Constrain height
                           ),
-                        ],
-                      ),
+                          child: isVerticalProduct
+                              ? GridView.builder(
+                                  shrinkWrap: true,
+                                  physics:
+                                      const NeverScrollableScrollPhysics(),
+                                  padding: const EdgeInsets.all(10),
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisSpacing: 10,
+                                    mainAxisSpacing: 10,
+                                    crossAxisCount: 2,
+                                    childAspectRatio: 0.5,
+                                  ),
+                                  itemCount: state.productModel!.length,
+                                  itemBuilder: (context, index) {
+                                    return MiniProductWidget(
+                                      index: index,
+                                      model: state.productModel![index],
+                                    );
+                                  },
+                                )
+                              : ListView.builder(
+                                  shrinkWrap: true,
+                                  physics:
+                                      const NeverScrollableScrollPhysics(),
+                                  itemCount: state.productModel!.length,
+                                  itemBuilder: (context, index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 10,
+                                        vertical: 10,
+                                      ),
+                                      child: HorizontalProductWidget(
+                                        model: state.productModel![index],
+                                        index: index,
+                                      ),
+                                    );
+                                  },
+                                ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 10),
                   ],

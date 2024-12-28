@@ -10,7 +10,7 @@ OrganizationContactModel _$OrganizationContactModelFromJson(
         Map<String, dynamic> json) =>
     OrganizationContactModel(
       result: json['result'] == null
-          ? null
+          ? const Result()
           : Result.fromJson(json['result'] as Map<String, dynamic>),
       error: json['error'] as Map<String, dynamic>? ?? const {},
     );
@@ -33,7 +33,7 @@ Result _$ResultFromJson(Map<String, dynamic> json) => Result(
       phone: json['phone'] as String? ?? '',
       description: json['description'] as String? ?? '',
       region: json['region'] == null
-          ? null
+          ? const Region()
           : Region.fromJson(json['region'] as Map<String, dynamic>),
       latitude: (json['latitude'] as num?)?.toInt() ?? -1,
       longitude: (json['longitude'] as num?)?.toInt() ?? -1,

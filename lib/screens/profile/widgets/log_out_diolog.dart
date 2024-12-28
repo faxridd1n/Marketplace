@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/hive/user_token.dart';
 import 'package:flutter_application_1/user_auth_bloc/user_auth_bloc.dart';
 import 'package:flutter_application_1/user_auth_bloc/user_auth_event.dart';
+import 'package:flutter_application_1/user_auth_bloc/user_auth_state.dart';
 // import 'package:flutter_application_1/screens/login/login_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/constants/app_colors.dart';
@@ -50,34 +51,24 @@ logOutDiolog(BuildContext context, Function() setState) {
                   ),
                 ),
                 const SizedBox(width: 10),
-                BlocProvider(
-                  create: (ctx) => UserAuthBloc(),
-                  child: Expanded(
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.green,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
+                Expanded(
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.green,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                      onPressed: () {
-                        context.read<UserAuthBloc>().add(AuthLogoutRequested());
-                        userTokenBox.delete('token');
-                        setState();
-                        Navigator.pop(context);
-                        // Navigator.of(context, rootNavigator: true)
-                        //     .pushAndRemoveUntil(
-                        //   MaterialPageRoute(
-                        //     builder: (context) => const LoginPage(),
-                        //   ),
-                        //   (Route<dynamic> route) => false,
-                        // );
-                      },
-                      child: const Text(
-                        'Да, выйти',
-                        style: TextStyle(
-                          color: AppColors.white,
-                        ),
+                    ),
+                    onPressed: () {
+                      userTokenBox.delete('token');
+                      context.read<AuthenticationBloc>().add(const AuthenticationStatusChanged(AuthStatus.unAuthenticated));
+                      Navigator.pop(context);
+
+                    },
+                    child: const Text(
+                      'Да, выйти',
+                      style: TextStyle(
+                        color: AppColors.white,
                       ),
                     ),
                   ),
