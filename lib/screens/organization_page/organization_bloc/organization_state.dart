@@ -5,7 +5,7 @@ class OrganizationState extends Equatable {
   final FormzSubmissionStatus getProductStatus;
   final bool hasMoreProducts;
   final String next;
-  final PostResponseBasketModel? postResponseBasketModel;
+  final GeneralResponseModel postResponseBasketModel;
   final FormzSubmissionStatus postResponseBasketStatus;
   // final bool? hasMore;
   // final int? size;
@@ -16,7 +16,7 @@ class OrganizationState extends Equatable {
     this.getProductStatus = FormzSubmissionStatus.initial,
     this.hasMoreProducts = true,
     this.next = '',
-    this.postResponseBasketModel,
+    this.postResponseBasketModel=const GeneralResponseModel(),
     this.postResponseBasketStatus = FormzSubmissionStatus.initial,
 
     // this.hasMore=true,
@@ -30,7 +30,7 @@ class OrganizationState extends Equatable {
    
     bool? hasMoreProducts,
     String? next,
-    PostResponseBasketModel? postResponseBasketModel,
+    GeneralResponseModel? postResponseBasketModel,
     FormzSubmissionStatus? postResponseBasketStatus,
     // bool? hasMore,
     // int? size,

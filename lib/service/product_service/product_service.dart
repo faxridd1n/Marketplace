@@ -4,9 +4,8 @@ import 'package:flutter_application_1/models/product_detail_model/product_detail
 import 'package:flutter_application_1/models/products_model/product_model.dart';
 import 'package:flutter_application_1/service/log_service/LogService.dart';
 import '../../components/hive/user_token.dart';
-
-import '../../models/basket_model/post_basket_product_model.dart';
 import '../../models/product_detail_model/organization_contact_model.dart';
+import '../../models/profile_model/user_cards/general_response_model.dart';
 
 class ProductService {
   static final ProductService _inheritance = ProductService._init();
@@ -15,16 +14,19 @@ class ProductService {
 
   ProductService._init();
 
-  static Future<List<ProductModel>?> getProducts(GetProductParams params) async {
+  static Future<List<ProductModel>?> getProducts(
+      GetProductParams params) async {
     try {
       final response = await DioConfig.inheritance.createRequest().get(
-        "https://arbuzmarket.com/api/v1/Products",
-        queryParameters: params.toJson(),
-      );
+            "https://arbuzmarket.com/api/v1/Products",
+            queryParameters: params.toJson(),
+          );
       Log.i(response.data.toString());
       Log.i(response.statusCode.toString());
       if (response.statusCode == 200) {
-        final data = (response.data['item'] as List).map((e) => ProductModel.fromJson(e)).toList();
+        final data = (response.data['item'] as List)
+            .map((e) => ProductModel.fromJson(e))
+            .toList();
 
         return data;
       } else {
@@ -73,12 +75,15 @@ class ProductService {
     return null;
   }
 
-
-  static Future<List<ProductModel>?> getFilteredProducts(int categoryId) async {
+  static Future<List<ProductModel>?> getSimilarProducts(
+      int categoryId, int size) async {
     try {
-      final response = await DioConfig.inheritance.createRequest().post(
-          "https://arbuzmarket.com/api/v1/Products/filters",
-          data: {"categoryId": categoryId, "size": 5});
+      final response = await DioConfig.inheritance
+          .createRequest()
+          .post("https://arbuzmarket.com/api/v1/Products/filters", data: {
+        "categoryId": categoryId,
+        "size": size,
+      });
       Log.i(response.data.toString());
       Log.i(response.statusCode.toString());
 
@@ -104,7 +109,43 @@ class ProductService {
     return null;
   }
 
-  static Future<PostResponseBasketModel?> postBasketProducts(
+  static Future<List<ProductModel>?> getFilteredProducts(
+      String? sectionId, String? categoryId, int page, int size) async {
+    try {
+      final response = await DioConfig.inheritance
+          .createRequest()
+          .post("https://arbuzmarket.com/api/v1/Products/filters", data: {
+        "tab": sectionId,
+        "categoryId": categoryId,
+        "page": page,
+        "size": size,
+      });
+      Log.i(response.data.toString());
+      Log.i(response.statusCode.toString());
+
+      if (response.statusCode == 200) {
+        final data = (response.data['item'] as List)
+            .map((e) => ProductModel.fromJson(e))
+            .toList();
+        // final data = FilteredProductModel.fromJson(response.data);
+        return data;
+      } else {
+        Log.e("${response.statusMessage} ${response.statusCode}");
+      }
+    } on DioException catch (e) {
+      if (e.response != null) {
+        Log.e(e.response!.toString());
+      } else {
+        rethrow;
+      }
+    } catch (e) {
+      Log.e(e.toString());
+    }
+
+    return null;
+  }
+
+  static Future<GeneralResponseModel?> postBasketProducts(
       String productVariationId) async {
     try {
       final response = await DioConfig.inheritance.createRequest().post(
@@ -124,7 +165,7 @@ class ProductService {
         // final data = (response.data['item'] as List)
         //     .map((e) => BasketProductModel.fromJson(e))
         //     .toList();
-        final data = PostResponseBasketModel.fromJson(response.data);
+        final data = GeneralResponseModel.fromJson(response.data);
         return data;
       } else {
         Log.e("${response.statusMessage} ${response.statusCode}");
@@ -145,15 +186,16 @@ class ProductService {
   static Future<OrganizationContactModel?> getOrganizationContact(
       int organizationId) async {
     try {
-      final response = await DioConfig.inheritance.createRequest().get(
-          "https://arbuzmarket.com/api/Organizations/9/contact");
+      final response = await DioConfig.inheritance
+          .createRequest()
+          .get("https://arbuzmarket.com/api/Organizations/9/contact");
       Log.i(response.data.toString());
       Log.i(response.statusCode.toString());
 
       if (response.statusCode == 200) {
         Log.i(response.data.toString());
         Log.i(response.statusCode.toString());
-        
+
         // final data = (response.data['item'] as List)
         //     .map((e) => ParentCategoryModel.fromJson(e))
         //     .toList();

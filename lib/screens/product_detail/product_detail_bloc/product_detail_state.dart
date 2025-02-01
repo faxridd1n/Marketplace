@@ -1,35 +1,48 @@
 part of 'product_detail_bloc.dart';
 
 class ProductDetailState extends Equatable {
-  final ProductDetailModel? productDetailModel;
+  final ProductDetailModel productDetailModel;
   final FormzSubmissionStatus getDetailStatus;
-  final PostResponseBasketModel? postResponseBasketModel;
+  final GeneralResponseModel postResponseBasketModel;
   final FormzSubmissionStatus postResponseBasketStatus;
   final List<ProductModel>? parentCategoryModel;
   final FormzSubmissionStatus getProductStatus;
   final OrganizationContactModel? organizationContactModel;
   final FormzSubmissionStatus organizationContactStatus;
+  final ProductsGetReviewResponseModel productsGetReviewResponseModel;
+  final FormzSubmissionStatus getProductsReviewResponseStatus;
+  final GeneralResponseModel postReviewResponseModel;
+  final FormzSubmissionStatus postReviewResponseStatus;
 
   const ProductDetailState({
-    this.productDetailModel,
+    this.productDetailModel = const ProductDetailModel(),
     this.getDetailStatus = FormzSubmissionStatus.initial,
-    this.postResponseBasketModel,
+    this.postResponseBasketModel = const GeneralResponseModel(),
     this.postResponseBasketStatus = FormzSubmissionStatus.initial,
     this.parentCategoryModel,
     this.getProductStatus = FormzSubmissionStatus.initial,
     this.organizationContactModel,
     this.organizationContactStatus = FormzSubmissionStatus.initial,
+    this.productsGetReviewResponseModel =
+        const ProductsGetReviewResponseModel(),
+    this.getProductsReviewResponseStatus = FormzSubmissionStatus.initial,
+    this.postReviewResponseModel = const GeneralResponseModel(),
+    this.postReviewResponseStatus = FormzSubmissionStatus.initial,
   });
 
   ProductDetailState copyWith({
     ProductDetailModel? productDetailModel,
     FormzSubmissionStatus? getDetailStatus,
-    PostResponseBasketModel? postResponseBasketModel,
+    GeneralResponseModel? postResponseBasketModel,
     FormzSubmissionStatus? postResponseBasketStatus,
     List<ProductModel>? parentCategoryModel,
     FormzSubmissionStatus? getProductStatus,
     OrganizationContactModel? organizationContactModel,
     FormzSubmissionStatus? organizationContactStatus,
+    ProductsGetReviewResponseModel? productsGetReviewResponseModel,
+    FormzSubmissionStatus? getProductsReviewResponseStatus,
+    GeneralResponseModel? postReviewResponseModel,
+    FormzSubmissionStatus? postReviewResponseStatus,
   }) {
     return ProductDetailState(
       productDetailModel: productDetailModel ?? this.productDetailModel,
@@ -44,6 +57,15 @@ class ProductDetailState extends Equatable {
           organizationContactModel ?? this.organizationContactModel,
       organizationContactStatus:
           organizationContactStatus ?? this.organizationContactStatus,
+      productsGetReviewResponseModel:
+          productsGetReviewResponseModel ?? this.productsGetReviewResponseModel,
+      getProductsReviewResponseStatus: getProductsReviewResponseStatus ??
+          this.getProductsReviewResponseStatus,
+
+           postReviewResponseModel:
+          postReviewResponseModel ?? this.postReviewResponseModel,
+      postReviewResponseStatus: postReviewResponseStatus ??
+          this.postReviewResponseStatus,
     );
   }
 
@@ -57,5 +79,9 @@ class ProductDetailState extends Equatable {
         getProductStatus,
         organizationContactModel,
         organizationContactStatus,
+        productsGetReviewResponseModel,
+        getProductsReviewResponseStatus,
+        postReviewResponseModel,
+        postReviewResponseStatus,
       ];
 }

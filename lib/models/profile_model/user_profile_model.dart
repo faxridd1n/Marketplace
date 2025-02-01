@@ -16,12 +16,12 @@ String userProfileModelToJson(UserProfileModel data) =>
 @JsonSerializable()
 class UserProfileModel {
   @JsonKey(name: "result")
-  Result result;
+  final Result result;
   @JsonKey(name: "error")
-  Map error;
+  final Map error;
 
-  UserProfileModel(
-    this.result, {
+  const UserProfileModel({
+    this.result=const Result(),
     this.error = const {},
   });
 
@@ -34,73 +34,73 @@ class UserProfileModel {
 @JsonSerializable()
 class Result {
   @JsonKey(name: "id")
-  int id;
+  final int id;
   @JsonKey(name: "phoneNumber")
-  String phoneNumber;
+  final String phoneNumber;
   @JsonKey(name: "firstName")
-  String firstName;
+  final String firstName;
   @JsonKey(name: "lastName")
-  String lastName;
+  final String lastName;
   @JsonKey(name: "middleName")
-  String middleName;
+  final String middleName;
   @JsonKey(name: "email")
-  String email;
+  final String email;
   @JsonKey(name: "inn")
-  String inn;
+  final String inn;
   @JsonKey(name: "pinfl")
-  String pinfl;
+  final String pinfl;
   @JsonKey(name: "bioPassportSerial")
-  String bioPassportSerial;
+  final String bioPassportSerial;
   @JsonKey(name: "bioPassportNumber")
-  String bioPassportNumber;
+  final String bioPassportNumber;
   @JsonKey(name: "bioPassportIssueDate")
-  String bioPassportIssueDate;
+  final String bioPassportIssueDate;
   @JsonKey(name: "bioPassportExpireDate")
-  String bioPassportExpireDate;
+  final String bioPassportExpireDate;
   @JsonKey(name: "bioPassportWhomGiven")
-  String bioPassportWhomGiven;
+  final String bioPassportWhomGiven;
   @JsonKey(name: "birthDate")
-  String birthDate;
+  final String birthDate;
   @JsonKey(name: "countryOfBirth")
-  String countryOfBirth;
+  final String countryOfBirth;
   @JsonKey(name: "cityOfBirth")
-  String cityOfBirth;
+  final String cityOfBirth;
   @JsonKey(name: "countryOfResidence")
-  String countryOfResidence;
+  final String countryOfResidence;
   @JsonKey(name: "cityOfResidence")
-  String cityOfResidence;
+  final String cityOfResidence;
   @JsonKey(name: "address")
-  String address;
+  final String address;
   @JsonKey(name: "temporarilyAddress")
-  String temporarilyAddress;
+  final String temporarilyAddress;
   @JsonKey(name: "gender")
-  int gender;
+  final int gender;
   @JsonKey(name: "userFamilyStatus")
-  int userFamilyStatus;
+  final int userFamilyStatus;
   @JsonKey(name: "userType")
-  String userType;
+  final String userType;
   @JsonKey(name: "createdDate")
-  DateTime createdDate;
+  final String createdDate;
   @JsonKey(name: "deletedDate")
-  String deletedDate;
+  final String deletedDate;
   @JsonKey(name: "lastLoginDate")
-  String lastLoginDate;
+  final String lastLoginDate;
   @JsonKey(name: "organizationId")
-  int organizationId;
+  final int organizationId;
   @JsonKey(name: "positionId")
-  int positionId;
+  final int positionId;
   @JsonKey(name: "position")
-  Position position;
+  final Position position;
   @JsonKey(name: "stateText")
-  String stateText;
+  final String stateText;
   @JsonKey(name: "state")
-  int state;
+  final int state;
   @JsonKey(name: "myIdConfirmed")
-  bool myIdConfirmed;
+  final bool myIdConfirmed;
   @JsonKey(name: "organization")
-  Map organization;
+  final Map organization;
 
-  Result({
+ const Result({
     this.id = -1,
     this.phoneNumber = '',
     this.firstName = '',
@@ -124,12 +124,12 @@ class Result {
     this.gender = -1,
     this.userFamilyStatus = -1,
     this.userType = '',
-    required this.createdDate,
+    this.createdDate='',
     this.deletedDate = '',
     this.lastLoginDate = '',
     this.organizationId = -1,
     this.positionId = -1,
-    required this.position,
+    this.position=const Position(),
     this.stateText = '',
     this.state = -1,
     this.myIdConfirmed = false,
@@ -144,11 +144,11 @@ class Result {
 @JsonSerializable()
 class Position {
   @JsonKey(name: "id")
-  int id;
+  final int id;
   @JsonKey(name: "name")
-  String name;
+  final String name;
 
-  Position({
+  const Position({
     this.id = -1,
     this.name = '',
   });

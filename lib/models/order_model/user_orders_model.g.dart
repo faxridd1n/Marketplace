@@ -9,10 +9,10 @@ part of 'user_orders_model.dart';
 UserOrdersModel _$UserOrdersModelFromJson(Map<String, dynamic> json) =>
     UserOrdersModel(
       result: json['result'] == null
-          ? null
+          ? const Result()
           : Result.fromJson(json['result'] as Map<String, dynamic>),
       error: json['error'] == null
-          ? null
+          ? const Error()
           : Error.fromJson(json['error'] as Map<String, dynamic>),
     );
 
@@ -47,12 +47,8 @@ Map<String, dynamic> _$ResultToJson(Result instance) => <String, dynamic>{
 
 ResultItem _$ResultItemFromJson(Map<String, dynamic> json) => ResultItem(
       id: (json['id'] as num?)?.toInt() ?? -1,
-      createdDate: json['createdDate'] == null
-          ? null
-          : DateTime.parse(json['createdDate'] as String),
-      updatedDate: json['updatedDate'] == null
-          ? null
-          : DateTime.parse(json['updatedDate'] as String),
+      createdDate: json['createdDate'] as String? ?? '',
+      updatedDate: json['updatedDate'] as String? ?? '',
       paymentType: (json['paymentType'] as num?)?.toInt() ?? -1,
       deliveryType: (json['deliveryType'] as num?)?.toInt() ?? -1,
       userId: (json['userId'] as num?)?.toInt() ?? -1,
@@ -73,8 +69,8 @@ ResultItem _$ResultItemFromJson(Map<String, dynamic> json) => ResultItem(
 Map<String, dynamic> _$ResultItemToJson(ResultItem instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'createdDate': instance.createdDate.toIso8601String(),
-      'updatedDate': instance.updatedDate.toIso8601String(),
+      'createdDate': instance.createdDate,
+      'updatedDate': instance.updatedDate,
       'paymentType': instance.paymentType,
       'deliveryType': instance.deliveryType,
       'userId': instance.userId,
@@ -96,9 +92,7 @@ SubOrder _$SubOrderFromJson(Map<String, dynamic> json) => SubOrder(
       organizationPhoneNumber: json['organizationPhoneNumber'] as String? ?? '',
       reason: json['reason'] as String? ?? '',
       state: (json['state'] as num?)?.toInt() ?? -1,
-      updatedDate: json['updatedDate'] == null
-          ? null
-          : DateTime.parse(json['updatedDate'] as String),
+      updatedDate: json['updatedDate'] as String? ?? '',
       items: (json['items'] as List<dynamic>?)
               ?.map((e) => SubOrderItem.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -112,7 +106,7 @@ Map<String, dynamic> _$SubOrderToJson(SubOrder instance) => <String, dynamic>{
       'organizationPhoneNumber': instance.organizationPhoneNumber,
       'reason': instance.reason,
       'state': instance.state,
-      'updatedDate': instance.updatedDate.toIso8601String(),
+      'updatedDate': instance.updatedDate,
       'items': instance.items,
     };
 
@@ -122,7 +116,7 @@ SubOrderItem _$SubOrderItemFromJson(Map<String, dynamic> json) => SubOrderItem(
       isAvailable: json['isAvailable'] as bool? ?? false,
       variationId: json['variationId'] as String? ?? '',
       variation: json['variation'] == null
-          ? null
+          ? const Variation()
           : Variation.fromJson(json['variation'] as Map<String, dynamic>),
     );
 
@@ -141,7 +135,7 @@ Variation _$VariationFromJson(Map<String, dynamic> json) => Variation(
       productId: json['productId'] as String? ?? '',
       idForOrder: (json['idForOrder'] as num?)?.toInt() ?? -1,
       product: json['product'] == null
-          ? null
+          ? const Product()
           : Product.fromJson(json['product'] as Map<String, dynamic>),
       prices: (json['prices'] as List<dynamic>?)
               ?.map((e) => Price.fromJson(e as Map<String, dynamic>))
@@ -189,7 +183,7 @@ AttributeValue _$AttributeValueFromJson(Map<String, dynamic> json) =>
           const [],
       attributeId: (json['attributeId'] as num?)?.toInt() ?? -1,
       attribute: json['attribute'] == null
-          ? null
+          ? const Attribute()
           : Attribute.fromJson(json['attribute'] as Map<String, dynamic>),
       productId: json['productId'] as String? ?? '',
       variationId: json['variationId'] as String? ?? '',
@@ -225,7 +219,7 @@ Attribute _$AttributeFromJson(Map<String, dynamic> json) => Attribute(
       categoryId: (json['categoryId'] as num?)?.toInt() ?? -1,
       filterId: (json['filterId'] as num?)?.toInt() ?? -1,
       filter: json['filter'] == null
-          ? null
+          ? const Filter()
           : Filter.fromJson(json['filter'] as Map<String, dynamic>),
       groupId: (json['groupId'] as num?)?.toInt() ?? -1,
       isVisible: json['isVisible'] as bool? ?? false,
@@ -261,7 +255,7 @@ Filter _$FilterFromJson(Map<String, dynamic> json) => Filter(
       weight: (json['weight'] as num?)?.toInt() ?? -1,
       categoryId: (json['categoryId'] as num?)?.toInt() ?? -1,
       category: json['category'] == null
-          ? null
+          ? const Category()
           : Category.fromJson(json['category'] as Map<String, dynamic>),
       isVisible: json['isVisible'] as bool? ?? false,
     );
@@ -309,7 +303,7 @@ FileElement _$FileElementFromJson(Map<String, dynamic> json) => FileElement(
       order: (json['order'] as num?)?.toInt() ?? -1,
       url: json['url'] as String? ?? '',
       fileInfo: json['fileInfo'] == null
-          ? null
+          ? const FileInfo()
           : FileInfo.fromJson(json['fileInfo'] as Map<String, dynamic>),
       variationId: json['variationId'] as String? ?? '',
       productId: json['productId'] as String? ?? '',
@@ -333,9 +327,7 @@ FileInfo _$FileInfoFromJson(Map<String, dynamic> json) => FileInfo(
       name: json['name'] as String? ?? '',
       extension: json['extension'] as String? ?? '',
       contentType: json['contentType'] as String? ?? '',
-      createdAt: json['createdAt'] == null
-          ? null
-          : DateTime.parse(json['createdAt'] as String),
+      createdAt: json['createdAt'] as String? ?? '',
       isVisible: json['isVisible'] as bool? ?? false,
     );
 
@@ -345,7 +337,7 @@ Map<String, dynamic> _$FileInfoToJson(FileInfo instance) => <String, dynamic>{
       'name': instance.name,
       'extension': instance.extension,
       'contentType': instance.contentType,
-      'createdAt': instance.createdAt.toIso8601String(),
+      'createdAt': instance.createdAt,
       'isVisible': instance.isVisible,
     };
 

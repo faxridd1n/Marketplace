@@ -8,7 +8,9 @@ part of 'user_profile_model.dart';
 
 UserProfileModel _$UserProfileModelFromJson(Map<String, dynamic> json) =>
     UserProfileModel(
-      Result.fromJson(json['result'] as Map<String, dynamic>),
+      result: json['result'] == null
+          ? const Result()
+          : Result.fromJson(json['result'] as Map<String, dynamic>),
       error: json['error'] as Map<String, dynamic>? ?? const {},
     );
 
@@ -42,12 +44,14 @@ Result _$ResultFromJson(Map<String, dynamic> json) => Result(
       gender: (json['gender'] as num?)?.toInt() ?? -1,
       userFamilyStatus: (json['userFamilyStatus'] as num?)?.toInt() ?? -1,
       userType: json['userType'] as String? ?? '',
-      createdDate: DateTime.parse(json['createdDate'] as String),
+      createdDate: json['createdDate'] as String? ?? '',
       deletedDate: json['deletedDate'] as String? ?? '',
       lastLoginDate: json['lastLoginDate'] as String? ?? '',
       organizationId: (json['organizationId'] as num?)?.toInt() ?? -1,
       positionId: (json['positionId'] as num?)?.toInt() ?? -1,
-      position: Position.fromJson(json['position'] as Map<String, dynamic>),
+      position: json['position'] == null
+          ? const Position()
+          : Position.fromJson(json['position'] as Map<String, dynamic>),
       stateText: json['stateText'] as String? ?? '',
       state: (json['state'] as num?)?.toInt() ?? -1,
       myIdConfirmed: json['myIdConfirmed'] as bool? ?? false,
@@ -78,7 +82,7 @@ Map<String, dynamic> _$ResultToJson(Result instance) => <String, dynamic>{
       'gender': instance.gender,
       'userFamilyStatus': instance.userFamilyStatus,
       'userType': instance.userType,
-      'createdDate': instance.createdDate.toIso8601String(),
+      'createdDate': instance.createdDate,
       'deletedDate': instance.deletedDate,
       'lastLoginDate': instance.lastLoginDate,
       'organizationId': instance.organizationId,

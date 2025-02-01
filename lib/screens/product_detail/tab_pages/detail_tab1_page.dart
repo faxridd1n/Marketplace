@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_application_1/models/product_detail_model/product_detail_model.dart';
 
+import '../../../core/language/language_constants.dart';
+
 class PDetailPageTab1 extends StatefulWidget {
   final ProductDetailModel model;
 
@@ -21,12 +23,12 @@ class _PDetailPageTab1State extends State<PDetailPageTab1> {
 
     // If no attributes, display a message
     if (attributeValues == null || attributeValues.isEmpty) {
-      return const Center(
+      return Center(
         child: Padding(
-          padding: EdgeInsets.only(bottom: 30, top: 20),
+          padding: const EdgeInsets.only(bottom: 30, top: 20),
           child: Text(
-            'Характеристики не найден',
-            style: TextStyle(
+            translation(context).specificationsNotFound,
+            style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w500,
             ),
@@ -57,6 +59,7 @@ class _PDetailPageTab1State extends State<PDetailPageTab1> {
                   flex: 4,
                   child: Text(
                     attribute.name.isNotEmpty ? attribute.name : 'N/A',
+                    textAlign: TextAlign.end,
                     style: const TextStyle(
                       color: AppColors.grey2,
                       fontSize: 12,
@@ -71,6 +74,7 @@ class _PDetailPageTab1State extends State<PDetailPageTab1> {
                   flex: 5,
                   child: Text(
                     value.isNotEmpty ? value : 'N/A',
+                    textAlign: TextAlign.end,
                     style: const TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w400,

@@ -20,12 +20,10 @@ class PostOrderResponseModel {
   @JsonKey(name: "error")
   final Error error;
 
-  PostOrderResponseModel({
-    Result? result,
-    Error? error,
-  })  : result = result ?? Result(), // Default to a new Result() if null
-        error = error ?? Error();
-
+  const PostOrderResponseModel({
+    this.result = const Result(),
+    this.error = const Error(),
+  });
   factory PostOrderResponseModel.fromJson(Map<String, dynamic> json) =>
       _$PostOrderResponseModelFromJson(json);
 
@@ -39,7 +37,7 @@ class Error {
   @JsonKey(name: "errorMessage")
   final String errorMessage;
 
-  Error({
+  const Error({
     this.errorCode = -1,
     this.errorMessage = '',
   });
@@ -54,9 +52,9 @@ class Result {
   @JsonKey(name: "id")
   final int id;
   @JsonKey(name: "createdDate")
-  final DateTime createdDate;
+  final String createdDate;
   @JsonKey(name: "updatedDate")
-  final DateTime updatedDate;
+  final String updatedDate;
   @JsonKey(name: "paymentType")
   final int paymentType;
   @JsonKey(name: "deliveryType")
@@ -82,10 +80,10 @@ class Result {
   @JsonKey(name: "subOrders")
   final List<SubOrder> subOrders;
 
-  Result({
+  const Result({
     this.id = -1,
-    DateTime? createdDate,
-    DateTime? updatedDate,
+    this.createdDate = '',
+    this.updatedDate = '',
     this.paymentType = -1,
     this.deliveryType = -1,
     this.userId = -1,
@@ -98,8 +96,7 @@ class Result {
     this.address = '',
     this.comment = '',
     this.subOrders = const [],
-  })  : createdDate = createdDate ?? DateTime.now(),
-        updatedDate = updatedDate ?? DateTime.now();
+  });
   factory Result.fromJson(Map<String, dynamic> json) => _$ResultFromJson(json);
 
   Map<String, dynamic> toJson() => _$ResultToJson(this);
@@ -120,20 +117,20 @@ class SubOrder {
   @JsonKey(name: "state")
   final int state;
   @JsonKey(name: "updatedDate")
-  final DateTime updatedDate;
+  final String updatedDate;
   @JsonKey(name: "items")
-  final List<Item> items;
+  final List<ProductItem> items;
 
-  SubOrder({
+  const SubOrder({
     this.id = -1,
     this.organizationId = -1,
     this.organizationName = '',
     this.organizationPhoneNumber = '',
     this.reason = '',
     this.state = -1,
-    DateTime? updatedDate,
+    this.updatedDate = '',
     this.items = const [],
-  }) : updatedDate = updatedDate ?? DateTime.now();
+  });
 
   factory SubOrder.fromJson(Map<String, dynamic> json) =>
       _$SubOrderFromJson(json);
@@ -142,7 +139,7 @@ class SubOrder {
 }
 
 @JsonSerializable()
-class Item {
+class ProductItem {
   @JsonKey(name: "id")
   final int id;
   @JsonKey(name: "count")
@@ -154,17 +151,17 @@ class Item {
   @JsonKey(name: "variation")
   final Variation variation;
 
-  Item({
+  const ProductItem({
     this.id = -1,
     this.count = -1,
     this.isAvailable = false,
     this.variationId = '',
-    Variation? variation,
-  }) : variation = variation ?? Variation();
+    this.variation = const Variation(),
+  });
 
-  factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
+  factory ProductItem.fromJson(Map<String, dynamic> json) => _$ProductItemFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ItemToJson(this);
+  Map<String, dynamic> toJson() => _$ProductItemToJson(this);
 }
 
 @JsonSerializable()
@@ -196,12 +193,12 @@ class Variation {
   @JsonKey(name: "oonModerationStatus")
   final int oonModerationStatus;
 
-  Variation({
+  const Variation({
     this.id = '',
     this.count = -1,
     this.productId = '',
     this.idForOrder = -1,
-    Product? product,
+    this.product = const Product(),
     this.prices = const [],
     this.files = const [],
     this.attributeValues = const [],
@@ -210,7 +207,7 @@ class Variation {
     this.compensationOnly = false,
     this.saleType = -1,
     this.oonModerationStatus = -1,
-  }) : product = product ?? Product();
+  });
 
   factory Variation.fromJson(Map<String, dynamic> json) =>
       _$VariationFromJson(json);
@@ -239,17 +236,17 @@ class AttributeValue {
   @JsonKey(name: "isVisible")
   final bool isVisible;
 
-  AttributeValue({
+  const AttributeValue({
     this.id = '',
     this.value = '',
     this.valueTranslation = '',
     this.valueTranslations = const [],
     this.attributeId = -1,
-    Attribute? attribute,
+    this.attribute = const Attribute(),
     this.productId = '',
     this.variationId = '',
     this.isVisible = false,
-  }) : attribute = attribute ?? Attribute();
+  });
 
   factory AttributeValue.fromJson(Map<String, dynamic> json) =>
       _$AttributeValueFromJson(json);
@@ -292,7 +289,7 @@ class Attribute {
   @JsonKey(name: "type")
   final String type;
 
-  Attribute({
+  const Attribute({
     this.id = -1,
     this.weight = -1,
     this.dataType = '',
@@ -304,12 +301,12 @@ class Attribute {
     this.description = '',
     this.categoryId = -1,
     this.filterId = -1,
-    Filter? filter,
+    this.filter = const Filter(),
     this.groupId = -1,
     this.isVisible = false,
     this.isAdditional = false,
     this.type = '',
-  }) : filter = filter ?? Filter();
+  });
 
   factory Attribute.fromJson(Map<String, dynamic> json) =>
       _$AttributeFromJson(json);
@@ -338,7 +335,7 @@ class Filter {
   @JsonKey(name: "isVisible")
   final bool isVisible;
 
-  Filter({
+  const Filter({
     this.id = -1,
     this.name = '',
     this.filterType = '',
@@ -346,9 +343,9 @@ class Filter {
     this.dataType = '',
     this.weight = -1,
     this.categoryId = -1,
-    Category? category,
+    this.category = const Category(),
     this.isVisible = false,
-  }) : category = category ?? Category();
+  });
 
   factory Filter.fromJson(Map<String, dynamic> json) => _$FilterFromJson(json);
 
@@ -366,7 +363,7 @@ class Category {
   @JsonKey(name: "isVisible")
   final bool isVisible;
 
-  Category({
+  const Category({
     this.id = -1,
     this.name = '',
     this.imageId = '',
@@ -414,15 +411,15 @@ class FileElement {
   @JsonKey(name: "isVisible")
   final bool isVisible;
 
-  FileElement({
+  const FileElement({
     this.id = '',
     this.order = -1,
     this.url = '',
-    FileInfo? fileInfo,
+    this.fileInfo = const FileInfo(),
     this.variationId = '',
     this.productId = '',
     this.isVisible = false,
-  }) : fileInfo = fileInfo ?? FileInfo();
+  });
 
   factory FileElement.fromJson(Map<String, dynamic> json) =>
       _$FileElementFromJson(json);
@@ -443,19 +440,19 @@ class FileInfo {
   @JsonKey(name: "contentType")
   final String contentType;
   @JsonKey(name: "createdAt")
-  final DateTime createdAt;
+  final String createdAt;
   @JsonKey(name: "isVisible")
   final bool isVisible;
 
-  FileInfo({
+  const FileInfo({
     this.id = '',
     this.url = '',
     this.name = '',
     this.extension = '',
     this.contentType = '',
-    DateTime? createdAt,
+    this.createdAt = '',
     this.isVisible = false,
-  }) : createdAt = createdAt ?? DateTime.now();
+  });
 
   factory FileInfo.fromJson(Map<String, dynamic> json) =>
       _$FileInfoFromJson(json);
@@ -476,7 +473,7 @@ class Price {
   @JsonKey(name: "variationId")
   final String variationId;
 
-  Price({
+  const Price({
     this.id = -1,
     this.value = -1,
     this.type = '',
@@ -506,7 +503,7 @@ class Product {
   @JsonKey(name: "isVisible")
   final bool isVisible;
 
-  Product({
+  const Product({
     this.id = '',
     this.state = '',
     this.name = '',

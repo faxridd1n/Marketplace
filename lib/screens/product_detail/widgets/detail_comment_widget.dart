@@ -8,7 +8,7 @@ class DetailPageCommentWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -21,10 +21,10 @@ class DetailPageCommentWidget extends StatelessWidget {
                   fit: BoxFit.fill,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
-              Column(
+              const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
@@ -52,29 +52,25 @@ class DetailPageCommentWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(100),
                   color: AppColors.grey1,
                 ),
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-                child: Row(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                child: const Row(
                   children: [
                     Icon(
                       Icons.star_rounded,
                       color: AppColors.yellow,
                     ),
-                  
                     Icon(
                       Icons.star_rounded,
                       color: AppColors.yellow,
                     ),
-                  
                     Icon(
                       Icons.star_rounded,
                       color: AppColors.yellow,
                     ),
-                  
                     Icon(
                       Icons.star_rounded,
                       color: AppColors.yellow,
                     ),
-                  
                     Icon(
                       Icons.star_border_rounded,
                       color: AppColors.grey2,
@@ -84,10 +80,10 @@ class DetailPageCommentWidget extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
-          Text(
+          const Text(
             'We suggest youSony α, is a camera system introduced on 5 June 2006. It uses and expands upon Konica Minolta camera technologies, including the Minolta AF SLR lens mount…',
             style: TextStyle(
               color: AppColors.grey2,
@@ -95,16 +91,16 @@ class DetailPageCommentWidget extends StatelessWidget {
             maxLines: 4,
             overflow: TextOverflow.ellipsis,
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Wrap(
             children: [
               Container(
-                margin: EdgeInsets.only(right: 5),
+                margin: const EdgeInsets.only(right: 5),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                  image: DecorationImage(
+                  image: const DecorationImage(
                     image: AssetImage(
                       AppImages.commentImage2,
                     ),
@@ -117,7 +113,7 @@ class DetailPageCommentWidget extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                  image: DecorationImage(
+                  image: const DecorationImage(
                     image: AssetImage(
                       AppImages.commentImage1,
                     ),
@@ -129,12 +125,13 @@ class DetailPageCommentWidget extends StatelessWidget {
               )
             ],
           ),
-        SizedBox(height: 15,),
-        Divider(
-          height: 1,
-          color: AppColors.grey3,
-        )
-        
+          const SizedBox(
+            height: 15,
+          ),
+          const Divider(
+            height: 1,
+            color: AppColors.grey3,
+          )
         ],
       ),
     );

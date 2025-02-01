@@ -1,137 +1,135 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/assets_path/app_icons_path.dart';
+import 'package:flutter_application_1/core/language/language.dart';
+import 'package:flutter_application_1/core/language/language_constants.dart';
+import 'package:flutter_application_1/main.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/constants/app_colors.dart';
 
-// ignore: must_be_immutable
-class HomePopUpMenuWidget extends StatefulWidget {
-  bool isLanguagePopUp;
-  String icon;
+class HomeLanguageChangeDropDownWidget extends StatefulWidget {
+  final bool isLanguagePopUp;
 
-  HomePopUpMenuWidget(this.isLanguagePopUp, this.icon, {super.key});
+  const HomeLanguageChangeDropDownWidget({
+    required this.isLanguagePopUp,
+    super.key,
+  });
 
   @override
-  State<HomePopUpMenuWidget> createState() => _HomePopUpMenuWidgetState();
+  State<HomeLanguageChangeDropDownWidget> createState() =>
+      _HomeLanguageChangeDropDownWidgetState();
 }
 
-class _HomePopUpMenuWidgetState extends State<HomePopUpMenuWidget> {
-  String selectedItem = '';
-  bool popUpIsOpen = false;
+class _HomeLanguageChangeDropDownWidgetState
+    extends State<HomeLanguageChangeDropDownWidget> {
+  late Language selectedLanguage;
+  List<String> lanuages = ['en', 'ru'];
+
+  @override
+  void initState() {
+    super.initState();
+    selectedLanguage = Language(0, AppIcons.languageEn, 'English', 'en');
+    _initializeLanguage();
+  }
+
+  Future<void> _initializeLanguage() async {
+    final initial = await getLocale();
+
+    setState(() {
+      selectedLanguage = Language(
+        initial.languageCode == lanuages[0] ? 0 : 1,
+        initial.languageCode == lanuages[0]
+            ? AppIcons.languageEn
+            : AppIcons.languageRu,
+        initial.languageCode == lanuages[0] ? 'English' : 'Русский',
+        initial.languageCode,
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton(
+    final languages = Language.languageList();
+
+    return PopupMenuButton<Language>(
       color: AppColors.white,
+      elevation: 5,
+      constraints: const BoxConstraints.tightFor(width: 150),
+      offset: const Offset(0, 40),
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(10),
-        ),
+        borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
-      padding: const EdgeInsets.symmetric(
-        horizontal: 10,
-        vertical: 5,
-      ),
-      offset: const Offset(0, 50),
-      onSelected: (value) {
-        selectedItem = value.toString();
-        popUpIsOpen = false;
-        setState(() {});
+      onSelected: (Language? value) async {
+        if (value != null) {
+          Locale _locale = await setLocale(value.languageCode);
+          MyApp.setLocale(
+            context,
+            _locale,
+          );
+          setState(() {
+            selectedLanguage = value;
+          });
+        }
       },
-      onOpened: () {
-        popUpIsOpen = true;
-        setState(() {});
-      },
-      onCanceled: () {
-        popUpIsOpen = false;
-        setState(() {});
-      },
-      initialValue: selectedItem.length < 1
-          ? widget.isLanguagePopUp
-              ? 'O\'zbekcha'
-              : 'Toshkent shahri'
-          : selectedItem,
-      icon: popUpIsOpen
-          ? Row(
+      itemBuilder: (BuildContext context) {
+        return languages.map((Language language) {
+          return PopupMenuItem<Language>(
+            padding: const EdgeInsets.only(left: 8),
+            value: language,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                SvgPicture.asset(widget.icon),
-                const SizedBox(
-                  width: 5,
+                SizedBox(
+                  height: 18,
+                  width: 24,
+                  child: SvgPicture.asset(language.flag),
                 ),
-                Text(
-                  selectedItem.length < 1
-                      ? widget.isLanguagePopUp
-                          ? 'O\'zbekcha'
-                          : 'Toshkent shahri'
-                      : selectedItem,
-                  style: const TextStyle(
-                    fontSize: 12,
+                const SizedBox(width: 8),
+                Container(
+                  decoration: BoxDecoration(
+                    border:
+                        language.languageCode == selectedLanguage.languageCode
+                            ? const Border(
+                                bottom: BorderSide(
+                                  color: AppColors.black,
+                                  width: 1,
+                                ),
+                              )
+                            : null,
+                  ),
+                  child: Text(
+                    language.name,
+                    style: const TextStyle(
+                      height: 1.15,
+                      fontSize: 12,
+                    ),
                   ),
                 ),
-                const SizedBox(
-                  width: 5,
-                ),
-                const Icon(
-                  Icons.keyboard_arrow_up,
-                )
-              ],
-            )
-          : Row(
-              children: [
-                SvgPicture.asset(widget.icon),
-                const SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  selectedItem.length < 1
-                      ? widget.isLanguagePopUp
-                          ? 'O\'zbekcha'
-                          : 'Toshkent shahri'
-                      : selectedItem,
-                  style: const TextStyle(
-                    fontSize: 12,
-                  ),
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                const Icon(
-                  Icons.keyboard_arrow_down,
-                )
               ],
             ),
-      itemBuilder: (BuildContext context) {
-        return widget.isLanguagePopUp
-            ? {
-                'O\'zbekcha',
-                'English',
-                'Русский',
-              }.map((String choice) {
-                return PopupMenuItem<String>(
-                  value: choice,
-                  child: Text(choice),
-                );
-              }).toList()
-            : {
-                'Toshkent shahri',
-                'Qoraqalpog\'iston Respublikasi',
-                'Andijon viloyati',
-                'Buxoro viloyati',
-                'Jizzax viloyati',
-                'Qashqadaryo viloyati',
-                'Navoiy viloyati',
-                'Namangan viloyati',
-                'Samarqand viloyati',
-                'Surxandaryo viloyati',
-                'Sirdaryo viloyati',
-                'Toshkent viloyati',
-                'Xorazm viloyati',
-                'Farg\'ona viloyati',
-              }.map((String choice) {
-                return PopupMenuItem<String>(
-                  value: choice,
-                  child: Text(choice),
-                );
-              }).toList();
+          );
+        }).toList();
       },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 5),
+        child: Row(
+          children: [
+            SizedBox(
+              height: 18,
+              width: 24,
+              child: SvgPicture.asset(selectedLanguage.flag),
+            ),
+            const SizedBox(width: 8),
+            Text(
+              selectedLanguage.name,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+            const SizedBox(width: 15),
+          ],
+        ),
+      ),
     );
   }
 }

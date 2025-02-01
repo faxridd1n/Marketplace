@@ -15,3 +15,7 @@ class AuthenticationStatusChanged extends AuthenticationEvent {
   const AuthenticationStatusChanged( this.status);
 }
 
+class AuthenticationStatusCheck extends AuthenticationEvent {
+
+  const AuthenticationStatusCheck();
+}

@@ -1,13 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_application_1/models/basket_model/basket_delete_res_model.dart';
 import 'package:flutter_application_1/models/basket_model/basket_product_model.dart';
-import 'package:flutter_application_1/models/basket_model/post_basket_product_model.dart';
 import 'package:flutter_application_1/models/product_detail_model/organization_contact_model.dart';
+import 'package:flutter_application_1/models/profile_model/user_cards/general_response_model.dart';
 import 'package:flutter_application_1/service/basket_service/basket_service.dart';
 import 'package:flutter_application_1/service/product_service/product_service.dart';
 import 'package:formz/formz.dart';
+
 
 part 'basket_event.dart';
 part 'basket_state.dart';
@@ -34,8 +34,8 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
     on<GetOrganizationEvent>((event, emit) async {
       emit(state.copyWith(
           organizationContactStatus: FormzSubmissionStatus.inProgress));
-      final result = await ProductService.getOrganizationContact(
-          event.organizationId);
+      final result =
+          await ProductService.getOrganizationContact(event.organizationId);
       if (result is OrganizationContactModel) {
         emit(state.copyWith(
             organizationContactModel: result,
@@ -52,7 +52,7 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
       ));
       final result =
           await BasketService.deleteBasketProducts(event.productVariationId);
-      if (result is BasketDeleteResModel) {
+      if (result is GeneralResponseModel) {
         emit(state.copyWith(
           basketDeleteResModel: result,
           basketDeleteResStatus: FormzSubmissionStatus.success,
@@ -65,28 +65,36 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
       }
     });
 
+    on<DeleteAllBasketProductsEvent>((event, emit) async {
+      emit(state.copyWith(
+          deleteBasketAllResponseStatus: FormzSubmissionStatus.inProgress));
+      final result = await BasketService.deleteBasketAllProducts(
+          event.productsVariationId);
+      if (result is GeneralResponseModel) {
+        emit(state.copyWith(
+            deleteBasketAllResponseModel: result,
+            deleteBasketAllResponseStatus: FormzSubmissionStatus.success));
+        add(GetBasketProductsEvent());
+      } else {
+        emit(state.copyWith(
+            deleteBasketAllResponseStatus: FormzSubmissionStatus.failure));
+      }
+    });
+
     on<PostBasketProductCountBasketEvent>((event, emit) async {
       emit(state.copyWith(
           postResponseBasketStatus: FormzSubmissionStatus.inProgress));
       final result = await BasketService.postBasketProducts(
           event.productVariationId!, event.count!);
-      if (result is PostResponseBasketModel) {
+      if (result is GeneralResponseModel) {
         emit(state.copyWith(
             postResponseBasketModel: result,
             postResponseBasketStatus: FormzSubmissionStatus.success));
         add(GetBasketProductsEvent());
-
       } else {
         emit(state.copyWith(
             postResponseBasketStatus: FormzSubmissionStatus.failure));
       }
-    });
-
-    on<SelectBasketProductsEvent>((event, emit) {
-      final updatedList =
-          List<ProductElement>.from(state.selectedProducts as Iterable)
-            ..add(event.selectedProducts);
-      emit(state.copyWith(selectedProducts: updatedList));
     });
 
     on<PostBasketProductBasketEvent>((event, emit) async {
@@ -94,12 +102,11 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
           postResponseBasketStatus: FormzSubmissionStatus.inProgress));
       final result = await BasketService.postBasketProducts(
           event.productVariationId, event.count);
-      if (result is PostResponseBasketModel) {
+      if (result is GeneralResponseModel) {
         emit(state.copyWith(
             postResponseBasketModel: result,
             postResponseBasketStatus: FormzSubmissionStatus.success));
         add(GetBasketProductsEvent());
-
       } else {
         emit(state.copyWith(
             postResponseBasketStatus: FormzSubmissionStatus.failure));

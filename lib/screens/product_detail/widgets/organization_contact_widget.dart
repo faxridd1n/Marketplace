@@ -5,6 +5,9 @@ import 'package:flutter_application_1/models/product_detail_model/organization_c
 import 'package:flutter_application_1/screens/organization_page/organization_page.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../core/language/language_constants.dart';
+import '../../../widgets/custom_cachedd_image.dart';
+
 // import '../../../models/home_model/organization_model.dart';
 
 // ignore: must_be_immutable
@@ -48,12 +51,19 @@ class OrganizationContactWidget extends StatelessWidget {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const CircleAvatar(
-                            radius: 28,
-                            backgroundImage: NetworkImage(
-                                'https://business.energymarket.uz/api/v1/files/69431af3-7645-4837-98bb-cfa2931e317c'),
-                            // backgroundImage: AssetImage(AppImages.partner),
+                          CustomCachedImage(
+                            height: 60,
+                            width: 60,
+                            borderRadius: BorderRadius.circular(100),
+                            imageUrl:
+                                'https://business.energymarket.uz/api/v1/files/69431af3-7645-4837-98bb-cfa2931e317c',
                           ),
+                          // const CircleAvatar(
+                          //   radius: 28,
+                          //   backgroundImage: NetworkImage(
+                          //       'https://business.energymarket.uz/api/v1/files/69431af3-7645-4837-98bb-cfa2931e317c'),
+                          //   // backgroundImage: AssetImage(AppImages.partner),
+                          // ),
                           const SizedBox(width: 15),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,7 +91,7 @@ class OrganizationContactWidget extends StatelessWidget {
                                   ),
                                   const SizedBox(width: 10),
                                   Text(
-                                    '(${contactModel?.result.reviewCount.toInt()} ta izohlar)',
+                                    '(${contactModel?.result.reviewCount.toInt()} ${translation(context).comments})',
                                     style: const TextStyle(
                                       color: AppColors.grey2,
                                     ),
@@ -110,9 +120,9 @@ class OrganizationContactWidget extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              'Telefon raqam',
-                              style: TextStyle(color: AppColors.grey2),
+                             Text(
+                              translation(context).phoneNumber,
+                              style: const TextStyle(color: AppColors.grey2),
                             ),
                             Text(
                               contactModel!.result.phone,
@@ -133,9 +143,9 @@ class OrganizationContactWidget extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              'Email adres',
-                              style: TextStyle(color: AppColors.grey2),
+                           Text(
+                              translation(context).emailAddress,
+                              style: const TextStyle(color: AppColors.grey2),
                             ),
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.55,
@@ -161,9 +171,9 @@ class OrganizationContactWidget extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              'Manzil',
-                              style: TextStyle(color: AppColors.grey2),
+                             Text(
+                              translation(context).address,
+                              style: const TextStyle(color: AppColors.grey2),
                             ),
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.55,

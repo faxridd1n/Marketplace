@@ -84,7 +84,7 @@ class _AuthPasswordFieldState extends State<AuthPasswordField> {
             cursorColor: AppColors.green,
           ),
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         const Text(
           'Подтвердите пароль',
           style: TextStyle(

@@ -17,7 +17,7 @@ class EdittedUserInfoResponseModel {
   @JsonKey(name: "error")
   final Error error;
 
-  EdittedUserInfoResponseModel({
+  const EdittedUserInfoResponseModel({
     this.result = const Result(),
     this.error = const Error(),
   });

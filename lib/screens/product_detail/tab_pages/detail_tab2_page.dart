@@ -21,8 +21,8 @@ class _PDetailPageTab2State extends State<PDetailPageTab2> {
           Text(
             widget.model.result.description,
             style: const TextStyle(
-              color: AppColors.grey2,
-              fontSize: 14,
+              color: AppColors.black,
+              fontSize: 15,
               fontWeight: FontWeight.w400,
             ),
             maxLines: 10,

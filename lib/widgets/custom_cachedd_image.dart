@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/assets_path/app_images_path.dart';
 import 'package:flutter_application_1/widgets/image_preloader.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomCachedImage extends StatelessWidget {
   final String imageUrl;
@@ -14,7 +13,7 @@ class CustomCachedImage extends StatelessWidget {
   final Widget? placeholder;
   final Widget? errorWidget;
 
-  const CustomCachedImage({
+  const   CustomCachedImage({
     this.imageUrl = "",
     this.width,
     this.height,

@@ -17,13 +17,12 @@ class LocationModel {
   @JsonKey(name: "result")
   final Result result;
   @JsonKey(name: "error")
-  final Error error;
+  final Map error;
 
-  LocationModel({
-    Result? result,
-    Error? error,
-  })  : result = result ?? Result(),
-        error = error ?? Error();
+  const LocationModel({
+    this.result = const Result(),
+    this.error = const {},
+  });
 
   factory LocationModel.fromJson(Map<String, dynamic> json) =>
       _$LocationModelFromJson(json);
@@ -32,30 +31,13 @@ class LocationModel {
 }
 
 @JsonSerializable()
-class Error {
-  @JsonKey(name: "errorCode")
-  final int errorCode;
-  @JsonKey(name: "errorMessage")
-  final String errorMessage;
-
-  Error({
-    this.errorCode = -1,
-    this.errorMessage = '',
-  });
-
-  factory Error.fromJson(Map<String, dynamic> json) => _$ErrorFromJson(json);
-
-  Map<String, dynamic> toJson() => _$ErrorToJson(this);
-}
-
-@JsonSerializable()
 class Result {
   @JsonKey(name: "regions")
-  final List<District> regions;
+  final List<Region> regions;
   @JsonKey(name: "districts")
-  final List<District> districts;
+  final List<Region> districts;
 
-  Result({
+  const Result({
     this.regions = const [],
     this.districts = const [],
   });
@@ -66,7 +48,7 @@ class Result {
 }
 
 @JsonSerializable()
-class District {
+class Region {
   @JsonKey(name: "id")
   final int id;
   @JsonKey(name: "name")
@@ -76,15 +58,14 @@ class District {
   @JsonKey(name: "regionType")
   final int regionType;
 
-  District({
+  const Region({
     this.id = -1,
     this.name = '',
     this.parentId = -1,
     this.regionType = -1,
   });
 
-  factory District.fromJson(Map<String, dynamic> json) =>
-      _$DistrictFromJson(json);
+  factory Region.fromJson(Map<String, dynamic> json) => _$RegionFromJson(json);
 
-  Map<String, dynamic> toJson() => _$DistrictToJson(this);
+  Map<String, dynamic> toJson() => _$RegionToJson(this);
 }

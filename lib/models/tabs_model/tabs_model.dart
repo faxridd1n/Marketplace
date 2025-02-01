@@ -3,7 +3,6 @@
 //     final tabsModel = tabsModelFromJson(jsonString);
 
 import 'package:json_annotation/json_annotation.dart';
-import 'dart:convert';
 
 part 'tabs_model.g.dart';
 

@@ -28,7 +28,7 @@ class ExpansionTileWidgetState extends State<ExpansionTileWidget> {
   Widget build(BuildContext context) {
     return ListView(
       shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       children: <Widget>[
         _buildExpansionTile(0, 'Покупателям', [
           'Доставка',

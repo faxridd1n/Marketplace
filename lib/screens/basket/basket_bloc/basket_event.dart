@@ -7,14 +7,14 @@ class GetBasketProductsEvent extends BasketEvent {
   GetBasketProductsEvent();
 }
 
-class SelectBasketProductsEvent extends BasketEvent {
-  final ProductElement selectedProducts;
-  SelectBasketProductsEvent({required this.selectedProducts});
-}
-
 class DeleteBasketProductsEvent extends BasketEvent {
   final String productVariationId;
   DeleteBasketProductsEvent(this.productVariationId);
+}
+
+class DeleteAllBasketProductsEvent extends BasketEvent {
+  final List<String> productsVariationId;
+  DeleteAllBasketProductsEvent(this.productsVariationId);
 }
 
 class PostBasketProductCountBasketEvent extends BasketEvent {

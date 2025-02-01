@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 import '../../../core/constants/app_colors.dart';
 
@@ -16,8 +15,8 @@ class _SwitchWidgetState extends State<SwitchWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(bottom: 20),
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        margin: const EdgeInsets.only(bottom: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           color:AppColors.white,
@@ -46,7 +45,7 @@ class _SwitchWidgetState extends State<SwitchWidget> {
                     isSwitched = value;
                   });
                 },
-                activeColor: AppColors.green,
+                activeTrackColor: AppColors.green,
               ),
             )
           ],

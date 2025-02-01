@@ -7,7 +7,8 @@ import 'dart:convert';
 
 part 'product_model.g.dart';
 
-ProductModel productModelFromJson(String str) => ProductModel.fromJson(json.decode(str));
+ProductModel productModelFromJson(String str) =>
+    ProductModel.fromJson(json.decode(str));
 
 String productModelToJson(ProductModel data) => json.encode(data.toJson());
 
@@ -68,7 +69,8 @@ class ProductModel {
     this.productNumber = -1,
   }) : category = category ?? Category();
 
-  factory ProductModel.fromJson(Map<String, dynamic> json) => _$ProductModelFromJson(json);
+  factory ProductModel.fromJson(Map<String, dynamic> json) =>
+      _$ProductModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$ProductModelToJson(this);
 }
@@ -91,7 +93,8 @@ class Category {
     this.isVisible = false,
   });
 
-  factory Category.fromJson(Map<String, dynamic> json) => _$CategoryFromJson(json);
+  factory Category.fromJson(Map<String, dynamic> json) =>
+      _$CategoryFromJson(json);
 
   Map<String, dynamic> toJson() => _$CategoryToJson(this);
 }
@@ -135,7 +138,8 @@ class Variation {
     this.oonModerationStatus = -1,
   });
 
-  factory Variation.fromJson(Map<String, dynamic> json) => _$VariationFromJson(json);
+  factory Variation.fromJson(Map<String, dynamic> json) =>
+      _$VariationFromJson(json);
 
   Map<String, dynamic> toJson() => _$VariationToJson(this);
 }
@@ -167,7 +171,8 @@ class FileElement {
     this.isVisible = false,
   });
 
-  factory FileElement.fromJson(Map<String, dynamic> json) => _$FileElementFromJson(json);
+  factory FileElement.fromJson(Map<String, dynamic> json) =>
+      _$FileElementFromJson(json);
 
   Map<String, dynamic> toJson() => _$FileElementToJson(this);
 }
@@ -201,22 +206,40 @@ class Price {
 class GetProductParams {
   final int sectionId;
   final int categoryId;
-
+  final int page;
+  final int size;
+  final String forId;
+  final List subOrderState;
 
   GetProductParams({
-    this.sectionId =-1,
+    this.sectionId = -1,
     this.categoryId = -1,
+    this.page = -1,
+    this.size = -1,
+    this.forId = '',
+    this.subOrderState = const [],
   });
 
   Map<String, dynamic> toJson() {
-    final params = <String,dynamic>{};
+    final params = <String, dynamic>{};
     if (sectionId != -1) {
       params.putIfAbsent("tab", () => sectionId);
     }
     if (categoryId != -1) {
       params.putIfAbsent("categoryId", () => categoryId);
     }
-
+    if (page != -1) {
+      params.putIfAbsent("page", () => page);
+    }
+    if (size != -1) {
+      params.putIfAbsent("size", () => size);
+    }
+    if (forId != '') {
+      params.putIfAbsent("forId", () => forId);
+    }
+    if (subOrderState != []) {
+      params.putIfAbsent("subOrderState", () => subOrderState);
+    }
     return params;
   }
 }

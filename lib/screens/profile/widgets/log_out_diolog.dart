@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/hive/user_token.dart';
+import 'package:flutter_application_1/core/language/language_constants.dart';
 import 'package:flutter_application_1/user_auth_bloc/user_auth_bloc.dart';
 import 'package:flutter_application_1/user_auth_bloc/user_auth_event.dart';
 import 'package:flutter_application_1/user_auth_bloc/user_auth_state.dart';
@@ -20,9 +21,11 @@ logOutDiolog(BuildContext context, Function() setState) {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'Вы уверены что хотите выйти?',
-              style: TextStyle(
+           Text(
+              translation(context).doYouWantToLogOutOfYourProfile,
+             textAlign: TextAlign.center,
+              style: const TextStyle(
+                
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
               ),
@@ -33,6 +36,7 @@ logOutDiolog(BuildContext context, Function() setState) {
                 Expanded(
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.all(0),
                       backgroundColor: AppColors.white,
                       shape: RoundedRectangleBorder(
                         side: const BorderSide(color: AppColors.green),
@@ -42,9 +46,9 @@ logOutDiolog(BuildContext context, Function() setState) {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: const Text(
-                      'Отмена',
-                      style: TextStyle(
+                    child: Text(
+                      translation(context).cancel,
+                      style: const TextStyle(
                         color: AppColors.green,
                       ),
                     ),
@@ -54,6 +58,7 @@ logOutDiolog(BuildContext context, Function() setState) {
                 Expanded(
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.all(0),
                       backgroundColor: AppColors.green,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
@@ -65,9 +70,9 @@ logOutDiolog(BuildContext context, Function() setState) {
                       Navigator.pop(context);
 
                     },
-                    child: const Text(
-                      'Да, выйти',
-                      style: TextStyle(
+                    child: Text(
+                      translation(context).yesLogout,
+                      style: const TextStyle(
                         color: AppColors.white,
                       ),
                     ),

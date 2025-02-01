@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/hive/user_token.dart';
 import 'package:flutter_application_1/components/hive/user_token_model.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
+import 'package:flutter_application_1/core/language/language_constants.dart';
 import 'package:flutter_application_1/screens/login/login_bloc/login_bloc.dart';
 import 'package:flutter_application_1/screens/login/widgets/login_otp_widget.dart';
 import 'package:flutter_application_1/user_auth_bloc/user_auth_bloc.dart';
@@ -32,9 +33,9 @@ class _LoginOtpPageState extends State<LoginOtpPage> {
           elevation: 2,
           shadowColor: AppColors.appBarShadowColor,
           centerTitle: true,
-          title: const Text(
-            'Смс с кодом',
-            style: TextStyle(
+          title: Text(
+            translation(context).smsWithCode,
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w500,
             ),
@@ -82,17 +83,19 @@ class _LoginOtpPageState extends State<LoginOtpPage> {
             ),
           );
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Registration successful'),
+             SnackBar(
+              content: Text(translation(context).successful),
             ),
           );
-          context.read<AuthenticationBloc>().add(const AuthenticationStatusChanged(AuthStatus.authenticated));
+          context
+              .read<AuthenticationBloc>()
+              .add(const AuthenticationStatusChanged(AuthStatus.authenticated));
           Navigator.pop(context);
         } else if (state.putLoginResponseStatus ==
             FormzSubmissionStatus.failure) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Registration failed'),
+            SnackBar(
+              content: Text(translation(context).failed),
             ),
           );
           // Navigator.push(
@@ -137,9 +140,9 @@ class _LoginOtpPageState extends State<LoginOtpPage> {
                       color: AppColors.white,
                     ),
                   )
-                : const Text(
-                    'Подтвердить',
-                    style: TextStyle(
+                : Text(
+                    translation(context).confirm,
+                    style: const TextStyle(
                       color: AppColors.white,
                       fontSize: 14,
                       fontWeight: FontWeight.w500,

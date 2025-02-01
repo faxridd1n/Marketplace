@@ -1,10 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_application_1/di/DioClient.dart';
 import 'package:flutter_application_1/service/log_service/LogService.dart';
-
-import '../../models/basket_model/post_basket_product_model.dart';
 import '../../models/home_model/category_model.dart';
 import '../../models/products_model/product_model.dart';
+import '../../models/profile_model/user_cards/general_response_model.dart';
 
 class CategoryService {
   static final CategoryService _inheritance = CategoryService._init();
@@ -77,7 +76,7 @@ class CategoryService {
     return null;
   }
 
-  static Future<PostResponseBasketModel?> postBasketProducts(
+  static Future<GeneralResponseModel?> postBasketProducts(
       String productVariationId) async {
     try {
       final response = await DioConfig.inheritance.createRequest().post(
@@ -97,7 +96,7 @@ class CategoryService {
         // final data = (response.data['item'] as List)
         //     .map((e) => BasketProductModel.fromJson(e))
         //     .toList();
-        final data = PostResponseBasketModel.fromJson(response.data);
+        final data = GeneralResponseModel.fromJson(response.data);
         return data;
       } else {
         Log.e("${response.statusMessage} ${response.statusCode}");

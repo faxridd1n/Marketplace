@@ -69,9 +69,9 @@ class ThicknessPainter extends CustomPainter {
     for (double angle = 0; angle < 2 * pi; angle += 0.01) {
       double currentAngleDegrees = angle * (180 / pi); // Convert radian to degree
       double thickness = 0;
-      if (currentAngleDegrees < 5 || currentAngleDegrees > 355)
+      if (currentAngleDegrees < 5 || currentAngleDegrees > 355) {
         thickness = 2.5;
-      else if (currentAngleDegrees < 10 || currentAngleDegrees > 350)
+      } else if (currentAngleDegrees < 10 || currentAngleDegrees > 350)
         thickness = 2.6;
       else if (currentAngleDegrees < 15 || currentAngleDegrees > 345)
         thickness = 2.7;
@@ -83,9 +83,9 @@ class ThicknessPainter extends CustomPainter {
       }
       // Keep thickness constant at 15 between 170 and 190 degrees
       else if (currentAngleDegrees >= 160 && currentAngleDegrees <= 200) {
-        if (currentAngleDegrees <= 165)
+        if (currentAngleDegrees <= 165) {
           thickness = 17.82;
-        else if (currentAngleDegrees <= 170)
+        } else if (currentAngleDegrees <= 170)
           thickness = 17.86;
         else if (currentAngleDegrees <= 175)
           thickness = 17.9;
@@ -133,7 +133,7 @@ class IndicatorPage extends StatefulWidget {
 class _IndicatorPageState extends State<IndicatorPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: CustomLoadingIndicator(),
       ),

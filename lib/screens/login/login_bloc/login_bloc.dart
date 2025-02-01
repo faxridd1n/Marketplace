@@ -4,7 +4,6 @@ import 'package:flutter_application_1/models/login_model/post_login_response_mod
 import 'package:flutter_application_1/service/auth_service/auth_service.dart';
 import 'package:formz/formz.dart';
 import 'package:meta/meta.dart';
-
 import '../../../models/login_model/put_login_otp_response_model.dart';
 part 'login_event.dart';
 part 'login_state.dart';

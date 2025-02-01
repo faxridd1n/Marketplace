@@ -9,10 +9,10 @@ part of 'product_detail_model.dart';
 ProductDetailModel _$ProductDetailModelFromJson(Map<String, dynamic> json) =>
     ProductDetailModel(
       result: json['result'] == null
-          ? null
+          ? const Result()
           : Result.fromJson(json['result'] as Map<String, dynamic>),
       error: json['error'] == null
-          ? null
+          ? const Error()
           : Error.fromJson(json['error'] as Map<String, dynamic>),
     );
 
@@ -47,11 +47,11 @@ Result _$ResultFromJson(Map<String, dynamic> json) => Result(
       description: json['description'] as String? ?? '',
       categoryId: (json['categoryId'] as num?)?.toInt() ?? -1,
       category: json['category'] == null
-          ? null
+          ? const Category()
           : Category.fromJson(json['category'] as Map<String, dynamic>),
       brandId: (json['brandId'] as num?)?.toInt() ?? -1,
       brand: json['brand'] == null
-          ? null
+          ? const Brand()
           : Brand.fromJson(json['brand'] as Map<String, dynamic>),
       organizationId: (json['organizationId'] as num?)?.toInt() ?? -1,
       variations: (json['variations'] as List<dynamic>?)
@@ -63,12 +63,8 @@ Result _$ResultFromJson(Map<String, dynamic> json) => Result(
       rating: (json['rating'] as num?)?.toInt() ?? -1,
       reviewCount: (json['reviewCount'] as num?)?.toInt() ?? -1,
       productNumber: (json['productNumber'] as num?)?.toInt() ?? -1,
-      createdDate: json['createdDate'] == null
-          ? null
-          : DateTime.parse(json['createdDate'] as String),
-      updatedDate: json['updatedDate'] == null
-          ? null
-          : DateTime.parse(json['updatedDate'] as String),
+      createdDate: json['createdDate'] as String? ?? '',
+      updatedDate: json['updatedDate'] as String? ?? '',
     );
 
 Map<String, dynamic> _$ResultToJson(Result instance) => <String, dynamic>{
@@ -89,8 +85,8 @@ Map<String, dynamic> _$ResultToJson(Result instance) => <String, dynamic>{
       'rating': instance.rating,
       'reviewCount': instance.reviewCount,
       'productNumber': instance.productNumber,
-      'createdDate': instance.createdDate.toIso8601String(),
-      'updatedDate': instance.updatedDate.toIso8601String(),
+      'createdDate': instance.createdDate,
+      'updatedDate': instance.updatedDate,
     };
 
 Brand _$BrandFromJson(Map<String, dynamic> json) => Brand(
@@ -144,7 +140,7 @@ Variation _$VariationFromJson(Map<String, dynamic> json) => Variation(
       productId: json['productId'] as String? ?? '',
       idForOrder: (json['idForOrder'] as num?)?.toInt() ?? -1,
       product: json['product'] == null
-          ? null
+          ? const Product()
           : Product.fromJson(json['product'] as Map<String, dynamic>),
       prices: (json['prices'] as List<dynamic>?)
               ?.map((e) => Price.fromJson(e as Map<String, dynamic>))
@@ -192,7 +188,7 @@ AttributeValue _$AttributeValueFromJson(Map<String, dynamic> json) =>
           const [],
       attributeId: (json['attributeId'] as num?)?.toInt() ?? -1,
       attribute: json['attribute'] == null
-          ? null
+          ? const Attribute()
           : Attribute.fromJson(json['attribute'] as Map<String, dynamic>),
       productId: json['productId'] as String? ?? '',
       variationId: json['variationId'] as String? ?? '',
@@ -228,7 +224,7 @@ Attribute _$AttributeFromJson(Map<String, dynamic> json) => Attribute(
       categoryId: (json['categoryId'] as num?)?.toInt() ?? -1,
       filterId: (json['filterId'] as num?)?.toInt() ?? -1,
       filter: json['filter'] == null
-          ? null
+          ? const Filter()
           : Filter.fromJson(json['filter'] as Map<String, dynamic>),
       groupId: (json['groupId'] as num?)?.toInt() ?? -1,
       isVisible: json['isVisible'] as bool? ?? false,
@@ -264,7 +260,7 @@ Filter _$FilterFromJson(Map<String, dynamic> json) => Filter(
       weight: (json['weight'] as num?)?.toInt() ?? -1,
       categoryId: (json['categoryId'] as num?)?.toInt() ?? -1,
       category: json['category'] == null
-          ? null
+          ? const Category()
           : Category.fromJson(json['category'] as Map<String, dynamic>),
       isVisible: json['isVisible'] as bool? ?? false,
     );

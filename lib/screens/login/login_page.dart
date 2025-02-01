@@ -1,12 +1,15 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/login_model/post_login_request_model.dart';
 import 'package:flutter_application_1/screens/auth/auth_page.dart';
 import 'package:flutter_application_1/screens/forgot_password/forgot_password_page.dart';
 import 'package:flutter_application_1/screens/login/login_bloc/login_bloc.dart';
+import 'package:flutter_application_1/screens/login/privacy_policy_page.dart';
 import 'package:flutter_application_1/screens/login/widgets/login_number_field.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import '../../core/constants/app_colors.dart';
+import '../../core/language/language_constants.dart';
 import 'login_otp_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -31,9 +34,9 @@ class _LoginPageState extends State<LoginPage> {
           centerTitle: true,
           surfaceTintColor: AppColors.transparent,
           backgroundColor: AppColors.white,
-          title: const Text(
-            'Profile',
-            style: TextStyle(
+          title: Text(
+            translation(context).profile,
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w500,
             ),
@@ -45,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 40),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const Align(
                   alignment: Alignment.center,
@@ -62,17 +65,27 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                const Align(
+                Align(
                   alignment: Alignment.center,
                   child: Text(
-                    'Авторизация',
-                    style: TextStyle(
+                    translation(context).authorization,
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
                 const SizedBox(height: 30),
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    translation(context).weWillSendAVerificationCodeViaSMS,
+                    style: const TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 5),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   decoration: BoxDecoration(
@@ -130,9 +143,9 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       );
                     },
-                    child: const Text(
-                      'Забыли пароль?',
-                      style: TextStyle(
+                    child: Text(
+                      translation(context).forgotYourPassword,
+                      style: const TextStyle(
                         color: AppColors.green,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
@@ -153,9 +166,9 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       );
                     },
-                    child: const Text(
-                      'Зарегистрироваться',
-                      style: TextStyle(
+                    child: Text(
+                      translation(context).register,
+                      style: const TextStyle(
                         color: AppColors.green,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
@@ -163,9 +176,34 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 20),
+                RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    text: translation(context).byAuthorizingYouAgreeTo,
+                    style: const TextStyle(color: AppColors.black),
+                    children: <TextSpan>[
+                      TextSpan(
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.of(context, rootNavigator: true).push(
+                              MaterialPageRoute(
+                                builder: (context) => const PrivacyPolicyPage(),
+                              ),
+                            );
+                          },
+                        text: translation(context)
+                            .thePersonalDataProcessingPolicy,
+                        style: const TextStyle(
+                          color: AppColors.blue,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
                 const Align(
-                  alignment: Alignment.topCenter,
+                  alignment: Alignment.bottomCenter,
                   child: Text(
                     'v1.0.0',
                     style: TextStyle(
@@ -186,8 +224,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget _buildSubmitButton() {
     return BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
-        if (state.postLoginUserResponseStatus == FormzSubmissionStatus.success) {
-
+        if (state.postLoginUserResponseStatus ==
+            FormzSubmissionStatus.success) {
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -203,10 +241,11 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           );
-        } else if (state.postLoginUserResponseStatus == FormzSubmissionStatus.failure) {
+        } else if (state.postLoginUserResponseStatus ==
+            FormzSubmissionStatus.failure) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Registration failed'),
+            SnackBar(
+              content: Text(translation(context).failed),
             ),
           );
         }
@@ -239,9 +278,9 @@ class _LoginPageState extends State<LoginPage> {
                       color: AppColors.white,
                     ),
                   )
-                : const Text(
-                    'Войти',
-                    style: TextStyle(
+                : Text(
+                    translation(context).login,
+                    style: const TextStyle(
                       color: AppColors.white,
                       fontSize: 14,
                       fontWeight: FontWeight.w500,

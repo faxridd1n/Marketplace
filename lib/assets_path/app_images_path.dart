@@ -51,5 +51,6 @@ class AppImages {
   static const String banner3 = 'assets/images/banner_3.jpg';
   static const String noImage = 'assets/images/no_image.png';
   static const String noItems = 'assets/images/no_items.png';
-    static const String review = 'assets/images/review.png';
+  static const String review = 'assets/images/review.png';
+  static const String emptyReview = 'assets/images/empty_reviews.webp';
 }

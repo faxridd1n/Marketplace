@@ -33,7 +33,7 @@ class _BottomInfoWidgetState extends State<BottomInfoWidget> {
           const SizedBox(
             height: 20,
           ),
-          BottomCardWidget(),
+          const BottomCardWidget(),
           const SizedBox(
             height: 20,
           ),
@@ -65,10 +65,10 @@ class _BottomCardWidgetState extends State<BottomCardWidget> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             blurRadius: 5,
-            color: const Color.fromARGB(39, 0, 0, 0),
+            color: Color.fromARGB(39, 0, 0, 0),
           ),
         ],
         borderRadius: BorderRadius.circular(15),
@@ -78,7 +78,7 @@ class _BottomCardWidgetState extends State<BottomCardWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ExpansionTileWidget(),
+          const ExpansionTileWidget(),
           const SizedBox(height: 20),
           const Text(
             '998 97 123-45-67',

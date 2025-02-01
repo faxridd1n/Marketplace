@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/assets_path/app_icons_path.dart';
-import 'package:flutter_application_1/assets_path/app_images_path.dart';
 import 'package:flutter_application_1/models/home_model/category_model.dart';
-import 'package:flutter_application_1/screens/home/category_products_page.dart';
 import 'package:flutter_application_1/screens/see_all/see_all_page.dart';
 import 'package:flutter_application_1/widgets/custom_cachedd_image.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../navigation/navigation_page.dart';
 
 class CategoryWidget extends StatelessWidget {
   final Item model;
@@ -21,10 +19,16 @@ class CategoryWidget extends StatelessWidget {
       onTap: () {
         Navigator.of(context, rootNavigator: true).push(
           MaterialPageRoute(
-            builder: (context) {
-              return SeeAllPage(
-                categoryId: model.id,
-                title: model.name,
+            builder: (ctx) {
+              return HomeTabControllerProvider(
+                controller: HomeTabControllerProvider.of(context).controller,
+                child: SeeAllPage(
+                  categoryId: model.id.toString(),
+                  sectionId: null,
+                  page: 1,
+                  size: 16,
+                  title: model.name,
+                ),
               );
             },
           ),

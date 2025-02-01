@@ -2,9 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter_application_1/di/DioClient.dart';
 import 'package:flutter_application_1/service/log_service/LogService.dart';
 import '../../components/hive/user_token.dart';
-
-import '../../models/basket_model/post_basket_product_model.dart';
 import '../../models/products_model/product_model.dart';
+import '../../models/profile_model/user_cards/general_response_model.dart';
 
 class KatalogService {
   static final KatalogService _inheritance = KatalogService._init();
@@ -14,13 +13,14 @@ class KatalogService {
   KatalogService._init();
 
   static Future<List<ProductModel>?> getFilteredProducts(
-      int categoryId, int size) async {
+      int categoryId, int size, int page) async {
     try {
       final response = await DioConfig.inheritance.createRequest().post(
-          "https://arbuzmarket.com/api/v1/Products/filters?size=$size",
+          "https://arbuzmarket.com/api/v1/Products/filters?size=$size?page=$page",
           data: {
             "categoryId": categoryId,
-            "size":size,
+            "size": size,
+            "page": page,
           });
       Log.i(response.data.toString());
       Log.i(response.statusCode.toString());
@@ -47,17 +47,16 @@ class KatalogService {
     return null;
   }
 
-
-  static Future<PostResponseBasketModel?> postBasketProducts(
+  static Future<GeneralResponseModel?> postBasketProducts(
       String productVariationId) async {
     try {
       final response = await DioConfig.inheritance.createRequest().post(
         "https://client.arbuzmarket.com/api/basket",
         options: Options(
           headers: {
-         'Authorization':
+            'Authorization':
                 'Bearer ${userTokenBox.get('token')!.token.toString()}',
-            },
+          },
         ),
         data: {"productVariationId": productVariationId, "count": 1},
       );
@@ -68,7 +67,7 @@ class KatalogService {
         // final data = (response.data['item'] as List)
         //     .map((e) => BasketProductModel.fromJson(e))
         //     .toList();
-        final data = PostResponseBasketModel.fromJson(response.data);
+        final data = GeneralResponseModel.fromJson(response.data);
         return data;
       } else {
         Log.e("${response.statusMessage} ${response.statusCode}");
@@ -85,5 +84,4 @@ class KatalogService {
 
     return null;
   }
-
 }

@@ -3,21 +3,21 @@ part of 'home_bloc.dart';
 class HomeState extends Equatable {
   final List<OrganizationModel> organizationModel;
   final FormzSubmissionStatus getOrganizationStatus;
-  final PostResponseBasketModel postResponseBasketModel;
+  final GeneralResponseModel postResponseBasketModel;
   final FormzSubmissionStatus postResponseBasketStatus;
 
 
   const HomeState({
     this.organizationModel = const [],
     this.getOrganizationStatus = FormzSubmissionStatus.initial,
-    this.postResponseBasketModel = const PostResponseBasketModel(),
+    this.postResponseBasketModel = const GeneralResponseModel(),
     this.postResponseBasketStatus = FormzSubmissionStatus.initial,
   });
 
   HomeState copyWith({
     List<OrganizationModel>? organizationModel,
     FormzSubmissionStatus? getOrganizationStatus,
-    PostResponseBasketModel? postResponseBasketModel,
+    GeneralResponseModel? postResponseBasketModel,
     FormzSubmissionStatus? postResponseBasketStatus,
   }) {
     return HomeState(

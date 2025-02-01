@@ -1,8 +1,6 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
-import 'package:flutter_application_1/screens/see_all/see_all_page.dart';
+import 'package:flutter_application_1/core/language/language_constants.dart';
 
 class TitleWidget extends StatelessWidget {
   const TitleWidget({
@@ -34,29 +32,30 @@ class TitleWidget extends StatelessWidget {
           if (onSeaAllTap != null) ...{
             GestureDetector(
               onTap: onSeaAllTap,
-              child: const Padding(
-                padding: EdgeInsets.only(
+              child: Padding(
+                padding: const EdgeInsets.only(
                   left: 5,
                   bottom: 10,
                 ),
-                child:
-                    // Row(
-                    //   mainAxisSize: MainAxisSize.min,
-                    //   children: [
-                    // Text(
-                    //   'Смотреть всё',
-                    //   style: TextStyle(
-                    //     fontSize: 12,
-                    //     color:AppColors.black,
-                    //   ),
-                    // ),
-                    // SizedBox(
-                    //   width: 5,
-                    // ),
-                    Icon(
-                  Icons.arrow_forward,
-                  color: AppColors.grey2,
-                  size: 30,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      translation(context).seeAll,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: AppColors.black,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    const Icon(
+                      Icons.arrow_forward,
+                      color: AppColors.grey2,
+                      size: 25,
+                    )
+                  ],
                 ),
               ),
             )

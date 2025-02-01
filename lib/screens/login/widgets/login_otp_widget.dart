@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_application_1/core/language/language_constants.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../forgot_password/widgets/otp_timer.dart';
 
@@ -60,7 +61,7 @@ class _LoginOtpWidgetState extends State<LoginOtpWidget>
         decoration: InputDecoration(
           filled: true,
           fillColor: AppColors.grey1,
-          hintText: 'Код смс',
+          hintText: translation(context).smsCode,
           hintStyle: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w500,

@@ -24,7 +24,7 @@ class _BottomInfoWidget1State extends State<BottomInfoWidget1> {
           const SizedBox(
             height: 20,
           ),
-          BottomCardWidget1(),
+          const BottomCardWidget1(),
           const SizedBox(
             height: 20,
           ),
@@ -44,7 +44,7 @@ class _BottomInfoWidget1State extends State<BottomInfoWidget1> {
 
 // ignore: must_be_immutable
 class BottomCardWidget1 extends StatefulWidget {
-  BottomCardWidget1({super.key});
+  const BottomCardWidget1({super.key});
 
   @override
   State<BottomCardWidget1> createState() => _BottomCardWidget1State();

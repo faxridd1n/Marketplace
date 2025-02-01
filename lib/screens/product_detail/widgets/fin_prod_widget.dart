@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/price_function.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
+import 'package:flutter_application_1/core/language/language_constants.dart';
 import 'package:flutter_application_1/core/utils/build_context_extension.dart';
 import 'package:flutter_application_1/models/product_detail_model/product_detail_model.dart';
-// import 'package:flutter_application_1/models/products_model/product_model.dart';
 import 'package:flutter_application_1/screens/buy_now/buy_now_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../components/hive/user_token.dart';
+import '../../../user_auth_bloc/user_auth_bloc.dart';
+import '../../../user_auth_bloc/user_auth_state.dart';
 import '../../../widgets/login_dialog.dart';
-import '../../../widgets/snack_bar.dart';
 import '../../basket/basket_bloc/basket_bloc.dart';
 
-// ignore: must_be_immutable
 class FinProdWidget extends StatefulWidget {
-  FinProdWidget({required this.model, super.key});
-  ProductDetailModel model;
+  const FinProdWidget({
+    required this.model,
+    // required this.authStatus,
+    super.key,
+  });
+  final ProductDetailModel model;
+  // final AuthStatus authStatus;
+
   // int index;
   @override
   State<FinProdWidget> createState() => _FinProdWidgetState();
@@ -209,7 +214,7 @@ class _FinProdWidgetState extends State<FinProdWidget> {
           //     ],
           //   ),
           // ),
-    
+
           Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 20,
@@ -240,18 +245,11 @@ class _FinProdWidgetState extends State<FinProdWidget> {
                 const SizedBox(width: 5),
                 const Text(
                   'AED',
-                  style: TextStyle(
-                    color: AppColors.grey2,
-                  ),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
               ],
             ),
           ),
-          // const Divider(
-          //   height: 1,
-          //   color: AppColors.borderColor,
-          // ),
-    
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
             child: Column(
@@ -259,8 +257,7 @@ class _FinProdWidgetState extends State<FinProdWidget> {
               children: [
                 Row(
                   children: [
-                    if (basketProductCount != 0 &&
-                        userTokenBox.get('token')!.token.isNotEmpty)
+                    if (basketProductCount != 0)
                       Expanded(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -278,7 +275,6 @@ class _FinProdWidgetState extends State<FinProdWidget> {
                                 ),
                                 onPressed: () {
                                   if (basketProductCount != 0) {
-                                    basketProductCount -= 1;
                                     // isAddedBasket = true;
                                     final variationId =
                                         widget.model.result.variations[0].id;
@@ -288,11 +284,13 @@ class _FinProdWidgetState extends State<FinProdWidget> {
                                             count: basketProductCount,
                                           ),
                                         );
-
+                                    setState(() {
+                                      basketProductCount -= 1;
+                                    });
                                     context.showPopUp(
                                       context,
-                                      title: 'Удалено успешно!',
-                                      message: "${widget.model.result.name} удалено из корзины",
+                                      title: translation(context).successful,
+                                      message: widget.model.result.name,
                                     );
                                   }
                                 },
@@ -322,8 +320,8 @@ class _FinProdWidgetState extends State<FinProdWidget> {
                                   backgroundColor: AppColors.grey1,
                                 ),
                                 onPressed: () {
-                                  basketProductCount += 1;
                                   // isAddedBasket = true;
+                                  basketProductCount += 1;
                                   final variationId =
                                       widget.model.result.variations[0].id;
                                   context.read<BasketBloc>().add(
@@ -332,13 +330,12 @@ class _FinProdWidgetState extends State<FinProdWidget> {
                                           count: basketProductCount,
                                         ),
                                       );
-
+                                  setState(() {});
                                   context.showPopUp(
                                     context,
-                                    title: 'Добавлено успешно!',
-                                    message: "${widget.model.result.name} добавлено в корзину",
+                                    title: translation(context).successful,
+                                    message: widget.model.result.name,
                                   );
-                                  setState(() {});
                                 },
                                 child: const Icon(
                                   Icons.add,
@@ -363,38 +360,42 @@ class _FinProdWidgetState extends State<FinProdWidget> {
                               backgroundColor: AppColors.green,
                             ),
                             onPressed: () {
-                              final token = userTokenBox.get('token')?.token;
-                              if (token != null && token.isNotEmpty) {
+                              if (context
+                                      .read<AuthenticationBloc>()
+                                      .state
+                                      .userAuthStatus ==
+                                  AuthStatus.authenticated) {
                                 final variationId =
                                     widget.model.result.variations[0].id;
-                                basketProductCount += 1;
+
                                 context.read<BasketBloc>().add(
                                       PostBasketProductBasketEvent(
                                         productVariationId: variationId,
                                         count: basketProductCount,
                                       ),
                                     );
-
+                                setState(() {
+                                  basketProductCount = 1;
+                                });
                                 context.showPopUp(
                                   context,
-                                  title: 'Добавлено успешно!',
-                                  message: "${widget.model.result.name} добавлено в корзину",
+                                  title: translation(context).successful,
+                                  message: widget.model.result.name,
                                 );
-                                setState(() {});
                               } else {
                                 loginDiolog(context, () {
                                   setState(() {});
                                 });
                               }
                             },
-                            child: const Padding(
-                              padding: EdgeInsets.symmetric(
+                            child:  Padding(
+                              padding: const EdgeInsets.symmetric(
                                 horizontal: 20,
                                 vertical: 15,
                               ),
                               child: Text(
-                                'в корзину',
-                                style: TextStyle(
+                                translation(context).goToBasket,
+                                style: const TextStyle(
                                   color: AppColors.white,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
@@ -404,7 +405,7 @@ class _FinProdWidgetState extends State<FinProdWidget> {
                           ),
                         ),
                       ),
-                     ],
+                  ],
                 ),
                 const SizedBox(height: 10),
                 ElevatedButton(
@@ -415,20 +416,56 @@ class _FinProdWidgetState extends State<FinProdWidget> {
                     backgroundColor: AppColors.grey1,
                   ),
                   onPressed: () {
-                    Navigator.of(context, rootNavigator: true).push(
-                      MaterialPageRoute(
-                        builder: (context) => const BuyNowPage(),
-                      ),
-                    );
+                    if (context
+                            .read<AuthenticationBloc>()
+                            .state
+                            .userAuthStatus ==
+                        AuthStatus.authenticated) {
+                      final variationId = widget.model.result.variations[0].id;
+                      basketProductCount += 1;
+                      context.read<BasketBloc>().add(
+                            PostBasketProductBasketEvent(
+                              productVariationId: variationId,
+                              count: basketProductCount,
+                            ),
+                          );
+
+                      context.showPopUp(
+                        context,
+                        title: translation(context).successful,
+                        message: widget.model.result.name,
+                      );
+                      Navigator.of(context, rootNavigator: true).push(
+                        MaterialPageRoute(
+                          builder: (context) => const BuyNowPage(),
+                        ),
+                      );
+                      setState(() {});
+                    } else {
+                      loginDiolog(context, () {
+                        setState(() {});
+                      });
+                    }
+                    // if (widget.authStatus == AuthStatus.authenticated) {
+                    //   Navigator.of(context, rootNavigator: true).push(
+                    //     MaterialPageRoute(
+                    //       builder: (context) => const BuyNowPage(),
+                    //     ),
+                    //   );
+                    // } else {
+                    //   loginDiolog(context, () {
+                    //     setState(() {});
+                    //   });
+                    // }
                   },
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
                       horizontal: 20,
                       vertical: 15,
                     ),
                     child: Text(
-                      'Купить сразу',
-                      style: TextStyle(
+                      translation(context).buyNow,
+                      style: const TextStyle(
                         color: AppColors.black,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,

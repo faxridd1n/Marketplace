@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/assets_path/app_icons_path.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
+import 'package:flutter_application_1/core/language/language_constants.dart';
 import 'package:flutter_application_1/models/products_model/product_model.dart';
 import 'package:flutter_application_1/screens/favorite/widgets/empty_favourite.dart';
 import 'package:flutter_application_1/widgets/mini_product.dart';
 import 'package:flutter_svg/flutter_svg.dart';
- import '../../widgets/horizontal_product_widget.dart';
+import '../../widgets/horizontal_product_widget.dart';
 
 List<ProductModel> favoriteProducts = [];
+
 class FavoritePage extends StatefulWidget {
   const FavoritePage({super.key});
 
@@ -21,15 +23,16 @@ class _FavoritePageState extends State<FavoritePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor:
+          favoriteProducts.isEmpty ? AppColors.white : AppColors.pageBgColor,
       appBar: AppBar(
         surfaceTintColor: AppColors.transparent,
         backgroundColor: AppColors.white,
         shadowColor: AppColors.appBarShadowColor,
         elevation: 2,
-        title: const Text(
-          'Saqlanganlar',
-          style: TextStyle(
+        title: Text(
+          translation(context).favoritePage,
+          style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w500,
           ),
@@ -75,7 +78,7 @@ class _FavoritePageState extends State<FavoritePage> {
         ],
       ),
       body: favoriteProducts.isEmpty
-          ? const EmptyFavouritePage()
+          ? const Center(child: EmptyFavouritePage())
           : Column(
               children: [
                 Expanded(
@@ -92,7 +95,7 @@ class _FavoritePageState extends State<FavoritePage> {
                           itemCount: favoriteProducts.length,
                           itemBuilder: (context, index) {
                             return MiniProductWidget(
-                              index: index,
+                              // index: index,
                               model: favoriteProducts[index],
                             );
                           },
@@ -108,7 +111,7 @@ class _FavoritePageState extends State<FavoritePage> {
                               ),
                               child: HorizontalProductWidget(
                                 model: favoriteProducts[index],
-                                index: index,
+                                // index: index,
                               ),
                             );
                           },

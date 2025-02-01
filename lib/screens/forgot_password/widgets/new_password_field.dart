@@ -49,7 +49,7 @@ class _NewPasswordFieldState extends State<NewPasswordField> {
                 ),
               ),
               hintText: 'Новый пароль',
-              hintStyle: TextStyle(
+              hintStyle: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
                 color: AppColors.grey2,

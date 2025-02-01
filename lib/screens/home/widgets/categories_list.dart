@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/home/blocs/categories_bloc/categories_bloc.dart';
+import 'package:flutter_application_1/core/language/language_constants.dart';
+import 'package:flutter_application_1/screens/category/blocs/category_bloc/category_bloc.dart';
 import 'package:flutter_application_1/screens/home/widgets/category_widget.dart';
 import 'package:flutter_application_1/widgets/indicator.dart';
 import 'package:flutter_application_1/widgets/title_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
+import '../../navigation/navigation_page.dart';
+
 class CategoriesListWidget extends StatelessWidget {
-  const CategoriesListWidget  ({super.key});
-
-
+  const CategoriesListWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const TitleWidget(
-          titleText: 'Kategoriyalar',
+        TitleWidget(
+          titleText: translation(context).categories,
         ),
         BlocBuilder<CategoriesBloc, CategoriesState>(
           builder: (ctx, state) {
@@ -35,8 +36,12 @@ class CategoriesListWidget extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   itemCount: state.categories.item.length,
                   itemBuilder: (context, index) {
-                    return CategoryWidget(
-                      model:state.categories.item[index],
+                    return HomeTabControllerProvider(
+                      controller:
+                          HomeTabControllerProvider.of(context).controller,
+                      child: CategoryWidget(
+                        model: state.categories.item[index],
+                      ),
                     );
                   },
                 ),
@@ -53,5 +58,4 @@ class CategoriesListWidget extends StatelessWidget {
       ],
     );
   }
-
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/home/blocs/section_products_bloc/section_products_bloc.dart';
 import 'package:flutter_application_1/screens/see_all/see_all_page.dart';
-import 'package:flutter_application_1/widgets/indicator.dart';
+import 'package:flutter_application_1/widgets/product_widget_shimmer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'product_widget.dart';
@@ -10,15 +10,21 @@ import 'title_widget.dart';
 class SectionProductsListWidget extends StatefulWidget {
   const SectionProductsListWidget({
     super.key,
-    required this.sectionId,
+    this.categoryId,
+    this.sectionId,
+    required this.size,
+    this.page,
     required this.sectionName,
   });
 
   final String sectionName;
-  final int sectionId;
-
+  final String? sectionId;
+  final String? categoryId;
+  final int size;
+  final int? page;
   @override
-  State<SectionProductsListWidget> createState() => _SectionProductsListWidgetState();
+  State<SectionProductsListWidget> createState() =>
+      _SectionProductsListWidgetState();
 }
 
 class _SectionProductsListWidgetState extends State<SectionProductsListWidget> {
@@ -27,7 +33,18 @@ class _SectionProductsListWidgetState extends State<SectionProductsListWidget> {
   @override
   void initState() {
     super.initState();
-    sectionProductsBloc = ProductsBloc()..add(SetSectionIdEvent(widget.sectionId));
+    sectionProductsBloc = ProductsBloc();
+    if (widget.sectionId != null) {
+      sectionProductsBloc
+          .add(SetSectionIdEvent(widget.sectionId!, widget.page!, widget.size));
+    } else if (widget.categoryId != null) {
+      sectionProductsBloc.add(
+        SetCategoryIdEvent(
+          int.parse(widget.categoryId!),
+          widget.size,
+        ),
+      );
+    }
   }
 
   @override
@@ -37,12 +54,7 @@ class _SectionProductsListWidgetState extends State<SectionProductsListWidget> {
       child: BlocBuilder<ProductsBloc, ProductsState>(
         builder: (ctx, state) {
           if (state.getProductsStatus.isInProgress) {
-            return const Center(
-              child: Padding(
-                padding: EdgeInsets.all(20.0),
-                child: CustomLoadingIndicator(),
-              ),
-            );
+            return const ShimmerLoading();
           }
           if (state.getProductsStatus.isSuccess) {
             if (state.products.isEmpty) {
@@ -56,7 +68,10 @@ class _SectionProductsListWidgetState extends State<SectionProductsListWidget> {
                     Navigator.of(context, rootNavigator: true).push(
                       MaterialPageRoute(
                         builder: (context) => SeeAllPage(
-                          categoryId: widget.sectionId,
+                          categoryId: widget.categoryId,
+                          sectionId: widget.sectionId,
+                          page: 1,
+                          size: 16,
                           title: widget.sectionName,
                         ),
                       ),
@@ -64,17 +79,15 @@ class _SectionProductsListWidgetState extends State<SectionProductsListWidget> {
                   },
                 ),
                 SizedBox(
-                  height: 480,
+                  height: 450,
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,
                     itemCount: state.products.length,
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     itemBuilder: (context, index) {
                       return ProductWidget(
-                        isHomePage: true,
-                        index: index,
                         model: state.products[index],
-                        // tab: tab[widget.index],
                       );
                     },
                     separatorBuilder: (BuildContext context, int index) {
@@ -85,12 +98,7 @@ class _SectionProductsListWidgetState extends State<SectionProductsListWidget> {
               ],
             );
           }
-          return const Center(
-            child: Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Text('Error'),
-            ),
-          );
+          return const SizedBox.shrink();
         },
       ),
     );

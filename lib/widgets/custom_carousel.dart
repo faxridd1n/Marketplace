@@ -21,6 +21,7 @@ class CustomCarouselController extends CarouselController {
     _pageController.jumpToPage(page);
   }
 
+  @override
   void dispose() {
     _pageController.dispose();
     super.dispose(); // Ensure super class's dispose is called

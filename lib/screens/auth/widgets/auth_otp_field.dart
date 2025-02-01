@@ -64,7 +64,7 @@ class _AuthOtpFieldState extends State<AuthOtpField>
           filled: true,
           fillColor: AppColors.grey1,
           hintText: 'Код смс',
-          hintStyle: TextStyle(
+          hintStyle: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w500,
             color: AppColors.grey2,

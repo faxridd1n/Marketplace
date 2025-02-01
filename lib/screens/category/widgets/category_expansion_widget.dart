@@ -3,9 +3,8 @@ import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_application_1/models/home_model/category_model.dart';
 import 'package:flutter_application_1/screens/navigation/navigation_page.dart';
 import 'package:flutter_application_1/widgets/custom_cachedd_image.dart';
-
-import '../../../assets_path/app_images_path.dart';
-import '../../home/category_products_page.dart';
+import '../../../core/language/language_constants.dart';
+import '../category_products_page.dart';
 
 class CategoryExpansionWidget extends StatelessWidget {
   final Item category;
@@ -46,7 +45,7 @@ class CategoryExpansionWidget extends StatelessWidget {
           return ListTile(
             contentPadding: const EdgeInsets.only(left: 82),
             title: Text(
-              index == 0 ? 'Все' : category.childs[index]['name'] ?? '',
+              index == 0 ? translation(context).all : category.childs[index]['name'] ?? '',
               style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
@@ -56,10 +55,13 @@ class CategoryExpansionWidget extends StatelessWidget {
               Navigator.of(context, rootNavigator: true).push(
                 MaterialPageRoute(
                   builder: (ctx) => HomeTabControllerProvider(
-                    controller: HomeTabControllerProvider.of(context).controller,
+                    controller:
+                        HomeTabControllerProvider.of(context).controller,
                     child: CategoryProductsPage(
                       categoryId: category.id,
-                      subCategoryId: index == 0 ? null : category.childs[index]['id'], categoryName: category.name,
+                      subCategoryId:
+                          index == 0 ? null : category.childs[index]['id'],
+                      categoryName: category.name,
                     ),
                   ),
                 ),

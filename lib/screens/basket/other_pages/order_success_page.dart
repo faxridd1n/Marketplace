@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/assets_path/app_icons_path.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
+import 'package:flutter_application_1/models/order_model/post_order_response_model.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class OrderSuccessPage extends StatefulWidget {
-  const OrderSuccessPage({super.key});
-
+  const OrderSuccessPage({required this.responseModel, super.key});
+  final PostOrderResponseModel responseModel;
   @override
   State<OrderSuccessPage> createState() => _OrderSuccessPageState();
 }
@@ -42,6 +43,17 @@ class _OrderSuccessPageState extends State<OrderSuccessPage> {
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: AppColors.grey2,
+              ),
+            ),
+            GestureDetector(
+              onTap: () {},
+              child: Text(
+                '#${widget.responseModel.result.id.toString()}',
+                style: const TextStyle(
+                  color: AppColors.blue,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                ),
               ),
             ),
             const SizedBox(height: 20),

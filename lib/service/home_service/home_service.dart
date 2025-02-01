@@ -1,13 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_application_1/di/DioClient.dart';
 import 'package:flutter_application_1/models/home_model/organization_model.dart';
-import 'package:flutter_application_1/models/product_detail_model/product_detail_model.dart';
 import 'package:flutter_application_1/models/home_model/category_model.dart';
 import 'package:flutter_application_1/models/tabs_model/tabs_model.dart';
 import 'package:flutter_application_1/service/log_service/LogService.dart';
-import '../../models/basket_model/post_basket_product_model.dart';
 import '../../models/products_model/product_model.dart';
 import '../../components/hive/user_token.dart';
+import '../../models/profile_model/user_cards/general_response_model.dart';
 
 class HomeService {
   static final HomeService _inheritance = HomeService._init();
@@ -16,10 +15,11 @@ class HomeService {
 
   HomeService._init();
 
-
   static Future<List<OrganizationModel>?> getOrganizations() async {
     try {
-      final response = await DioConfig.inheritance.createRequest().get("https://arbuzmarket.com/api/Organizations");
+      final response = await DioConfig.inheritance
+          .createRequest()
+          .get("https://arbuzmarket.com/api/Organizations");
       Log.i(response.data.toString());
       Log.i(response.statusCode.toString());
       print(response.data);
@@ -28,7 +28,9 @@ class HomeService {
         Log.i(response.data.toString());
         Log.i(response.statusCode.toString());
         print(response.data);
-        final data = (response.data as List).map((e) => OrganizationModel.fromJson(e)).toList();
+        final data = (response.data as List)
+            .map((e) => OrganizationModel.fromJson(e))
+            .toList();
         // final data = OrganizationContactModel.fromJson(response.data);
 
         return data;
@@ -50,7 +52,9 @@ class HomeService {
 
   static Future<CategoryModel?> getCategories() async {
     try {
-      final response = await DioConfig.inheritance.createRequest().get("https://arbuzmarket.com/api/v1/Categories");
+      final response = await DioConfig.inheritance
+          .createRequest()
+          .get("https://arbuzmarket.com/api/v1/Categories");
       Log.i(response.data.toString());
       Log.i(response.statusCode.toString());
 
@@ -78,14 +82,18 @@ class HomeService {
 
   static Future<List<ProductModel>?> getFilteredProducts(int categoryId) async {
     try {
-      final response = await DioConfig.inheritance.createRequest().post("https://arbuzmarket.com/api/v1/Products/filters", data: {
+      final response = await DioConfig.inheritance
+          .createRequest()
+          .post("https://arbuzmarket.com/api/v1/Products/filters", data: {
         "categoryId": categoryId,
       });
       Log.i(response.data.toString());
       Log.i(response.statusCode.toString());
 
       if (response.statusCode == 200) {
-        final data = (response.data['item'] as List).map((e) => ProductModel.fromJson(e)).toList();
+        final data = (response.data['item'] as List)
+            .map((e) => ProductModel.fromJson(e))
+            .toList();
         // final data = FilteredProductModel.fromJson(response.data);
         return data;
       } else {
@@ -104,13 +112,15 @@ class HomeService {
     return null;
   }
 
-  static Future<PostResponseBasketModel?> postBasketProducts(String productVariationId, int count) async {
+  static Future<GeneralResponseModel?> postBasketProducts(
+      String productVariationId, int count) async {
     try {
       final response = await DioConfig.inheritance.createRequest().post(
         "https://client.arbuzmarket.com/api/basket",
         options: Options(
           headers: {
-            'Authorization': 'Bearer ${userTokenBox.get('token')!.token.toString()}',
+            'Authorization':
+                'Bearer ${userTokenBox.get('token')!.token.toString()}',
           },
         ),
         data: {"productVariationId": productVariationId, "count": count},
@@ -122,7 +132,7 @@ class HomeService {
         // final data = (response.data['item'] as List)
         //     .map((e) => BasketProductModel.fromJson(e))
         //     .toList();
-        final data = PostResponseBasketModel.fromJson(response.data);
+        final data = GeneralResponseModel.fromJson(response.data);
         return data;
       } else {
         Log.e("${response.statusMessage} ${response.statusCode}");
@@ -142,7 +152,9 @@ class HomeService {
 
   static Future<TabsModel?> getTabs() async {
     try {
-      final response = await DioConfig.inheritance.createRequest().get("https://arbuzmarket.com/api/Tabs");
+      final response = await DioConfig.inheritance
+          .createRequest()
+          .get("https://arbuzmarket.com/api/Tabs");
       Log.i(response.data.toString());
       Log.i(response.statusCode.toString());
 

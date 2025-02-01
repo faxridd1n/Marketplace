@@ -1,4 +1,3 @@
-import 'package:flutter_application_1/models/product_detail_model/organization_contact_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'dart:convert';
 
@@ -17,11 +16,10 @@ class BasketProductModel {
   @JsonKey(name: "error")
   final Error error;
 
-
   const BasketProductModel({
     this.result = const Result(), // Make result nullable
     this.error = const Error(),
-  })  ; // Default to a new Error() if null
+  }); // Default to a new Error() if null
 
   factory BasketProductModel.fromJson(Map<String, dynamic> json) =>
       _$BasketProductModelFromJson(json);
@@ -110,15 +108,15 @@ class ProductElement {
   @JsonKey(name: "attributeValues")
   final List<AttributeValue> attributeValues;
 
-  ProductElement({
+  const ProductElement({
     this.id = '',
     this.count = 0,
     this.productId = '',
-    ProductProduct? product,
+    this.product = const ProductProduct(),
     this.prices = const [],
     this.files = const [],
     this.attributeValues = const [],
-  }) : product = product ?? ProductProduct();
+  });
 
   factory ProductElement.fromJson(Map<String, dynamic> json) =>
       _$ProductElementFromJson(json);
@@ -147,17 +145,17 @@ class AttributeValue {
   @JsonKey(name: "isVisible")
   final bool isVisible;
 
-  AttributeValue({
+  const AttributeValue({
     this.id = '',
     this.value = '',
     this.valueTranslation = '',
     this.valueTranslations = const [],
     this.attributeId = 0,
-    Attribute? attribute,
+    this.attribute = const Attribute(),
     this.productId = '',
     this.variationId = '',
     this.isVisible = true,
-  }) : attribute = attribute ?? Attribute();
+  });
 
   factory AttributeValue.fromJson(Map<String, dynamic> json) =>
       _$AttributeValueFromJson(json);
@@ -200,7 +198,7 @@ class Attribute {
   @JsonKey(name: "type")
   final String type;
 
-  Attribute({
+  const Attribute({
     this.id = 0,
     this.weight = 0,
     this.dataType = '',
@@ -212,12 +210,12 @@ class Attribute {
     this.description = '',
     this.categoryId = 0,
     this.filterId = 0,
-    Filter? filter,
+    this.filter = const Filter(),
     this.groupId = 0,
     this.isVisible = true,
     this.isAdditional = false,
     this.type = '',
-  }) : filter = filter ?? Filter();
+  });
 
   factory Attribute.fromJson(Map<String, dynamic> json) =>
       _$AttributeFromJson(json);
@@ -246,7 +244,7 @@ class Filter {
   @JsonKey(name: "isVisible")
   final bool isVisible;
 
-  Filter({
+  const Filter({
     this.id = 0,
     this.name = '',
     this.filterType = '',
@@ -254,10 +252,9 @@ class Filter {
     this.dataType = '',
     this.weight = 0,
     this.categoryId = 0,
-    Category? category, // Make category nullable
+    this.category = const Category(), // Make category nullable
     this.isVisible = true,
-  }) : category = category ??
-            Category(); // Assign default value of Category() if null is passed
+  }); // Assign default value of Category() if null is passed
 
   factory Filter.fromJson(Map<String, dynamic> json) => _$FilterFromJson(json);
 
@@ -275,7 +272,7 @@ class Category {
   @JsonKey(name: "isVisible")
   final bool isVisible;
 
-  Category({
+  const Category({
     this.id = 0,
     this.name = '',
     this.imageId = '',
@@ -295,7 +292,7 @@ class ValueTranslation {
   @JsonKey(name: "text")
   final String text;
 
-  ValueTranslation({
+  const ValueTranslation({
     this.languageCode = '',
     this.text = '',
   });
@@ -324,16 +321,15 @@ class FileElement {
   final bool isVisible;
 
   // Constructor without 'const' for fileInfo
-  FileElement({
+  const FileElement({
     this.id = '',
     this.order = 0,
     this.url = '',
-    FileInfo? fileInfo, // Make fileInfo nullable
+    this.fileInfo = const FileInfo(), // Make fileInfo nullable
     this.variationId = '',
     this.productId = '',
     this.isVisible = true,
-  }) : fileInfo = fileInfo ??
-            FileInfo(); // Assign default FileInfo() if null is passed
+  }); // Assign default FileInfo() if null is passed
 
   factory FileElement.fromJson(Map<String, dynamic> json) =>
       _$FileElementFromJson(json);
@@ -354,19 +350,19 @@ class FileInfo {
   @JsonKey(name: "contentType")
   final String contentType;
   @JsonKey(name: "createdAt")
-  final DateTime createdAt;
+  final String createdAt;
   @JsonKey(name: "isVisible")
   final bool isVisible;
 
-  FileInfo({
+  const FileInfo({
     this.id = '',
     this.url = '',
     this.name = '',
     this.extension = '',
     this.contentType = '',
-    DateTime? createdAt,
+    this.createdAt = '',
     this.isVisible = true,
-  }) : createdAt = createdAt ?? DateTime.now(); // Assign DateTime.now()
+  }); // Assign DateTime.now()
 
   factory FileInfo.fromJson(Map<String, dynamic> json) =>
       _$FileInfoFromJson(json);
@@ -387,7 +383,7 @@ class Price {
   @JsonKey(name: "variationId")
   final String variationId;
 
-  Price({
+  const Price({
     this.id = 0,
     this.value = 0,
     this.type = '',
@@ -417,7 +413,7 @@ class ProductProduct {
   @JsonKey(name: "isVisible")
   final bool isVisible;
 
-  ProductProduct({
+  const ProductProduct({
     this.id = '',
     this.state = '',
     this.name = '',

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/core/language/language_constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../assets_path/app_icons_path.dart';
@@ -27,15 +28,15 @@ class _HomeTextFieldWidgetState extends State<HomeTextFieldWidget> {
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
       child: TextFormField(
         cursorWidth: 1.5,
-       onTapOutside: (event) {
-        FocusScope.of(context).unfocus();
-       },
+        onTapOutside: (event) {
+          FocusScope.of(context).unfocus();
+        },
         decoration: InputDecoration(
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: const BorderSide(
               width: 1,
-              color:AppColors.white,
+              color: AppColors.white,
             ),
           ),
           enabledBorder: OutlineInputBorder(
@@ -46,14 +47,14 @@ class _HomeTextFieldWidgetState extends State<HomeTextFieldWidget> {
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide.none,
           ),
-          hintText: 'Mahsulot qidirish...',
+          hintText: translation(context).searchProduct,
           hintStyle: const TextStyle(
             color: AppColors.grey3,
             fontSize: 14,
             fontWeight: FontWeight.w500,
           ),
           filled: true,
-          fillColor:AppColors.white,
+          fillColor: AppColors.white,
           prefixIcon: SvgPicture.asset(
             AppIcons.search,
             width: 22,

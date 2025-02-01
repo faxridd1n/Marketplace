@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/core/language/language_constants.dart';
 import 'package:flutter_application_1/screens/navigation/navigation_page.dart';
 
 import '../../../assets_path/app_images_path.dart';
@@ -22,10 +23,10 @@ class EmptyBasketPage extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          const Text(
-            'В корзине пока ничего нет',
-            style: TextStyle(
-              fontSize: 18,
+          Text(
+            translation(context).yourBasketIsEmpty,
+            style: const TextStyle(
+              fontSize: 20,
               fontWeight: FontWeight.w600,
             ),
             maxLines: 2,
@@ -33,18 +34,16 @@ class EmptyBasketPage extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          const Text(
-            'Вы можете начать покупки с главной страницы или воспользоваться поиском, если ищете что-то конкретное.',
-            style: TextStyle(
+          Text(
+            translation(context).youCanStartShopping,
+            style: const TextStyle(
               fontSize: 14,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w400,
             ),
             textAlign: TextAlign.center,
             maxLines: 2,
           ),
-          const SizedBox(
-            height: 20,
-          ),
+          const SizedBox(height: 20),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
@@ -53,17 +52,17 @@ class EmptyBasketPage extends StatelessWidget {
               backgroundColor: AppColors.green,
             ),
             onPressed: () {
-              HomeTabControllerProvider.of(context).controller.animateTo(1);
+              HomeTabControllerProvider.of(context).controller.animateTo(0);
             },
-            child: const Padding(
-              padding: EdgeInsets.symmetric(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
                 horizontal: 20,
                 vertical: 15,
               ),
               child: Text(
-                'Перейти в каталог',
-                style: TextStyle(
-                  color:AppColors.white,
+                translation(context).startShopping,
+                style: const TextStyle(
+                  color: AppColors.white,
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),
@@ -73,6 +72,5 @@ class EmptyBasketPage extends StatelessWidget {
         ],
       ),
     );
-    
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/hive/user_token.dart';
 import 'package:flutter_application_1/components/hive/user_token_model.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
+import 'package:flutter_application_1/core/language/language_constants.dart';
 import 'package:flutter_application_1/models/register_model/register_confirm_model/register_confirm_request_model.dart';
 import 'package:flutter_application_1/models/register_model/register_model/register_user_response_model.dart';
 import 'package:flutter_application_1/screens/auth/auth_bloc/auth_bloc.dart';
@@ -89,78 +90,7 @@ class _AuthOtpPageState extends State<AuthOtpPage> {
                     const SizedBox(height: 20),
                     Row(
                       children: [
-                        Expanded(child: _buildSubmitButton()
-                            // BlocConsumer<AuthBloc, AuthState>(
-                            //   listener: (context, state) {
-                            //     if (state.registerConfirmResponseStatus ==
-                            //         FormzSubmissionStatus.success) {
-                            //       userTokenBox.putAt(
-                            //         0,
-                            //         UserTokenModel(
-                            //           token: state.registerConfirmResponseModel!
-                            //               .result.token
-                            //               .toString(),
-                            //         ),
-                            //       );
-                            //       Navigator.pushAndRemoveUntil(context,
-                            //           MaterialPageRoute(
-                            //         builder: (context) {
-                            //           return
-                            //               // const ProfilePage();
-                            //               Pagee(
-                            //             // userResponseModel: requestModel,
-                            //             registerConfirmRequestModel: requestModel,
-                            //             registerConfirmResponseModel:
-                            //                 state.registerConfirmResponseModel,
-                            //           );
-                            //         },
-                            //       ), (Route<dynamic> route) => false);
-                            //       ScaffoldMessenger.of(context).showSnackBar(
-                            //         const SnackBar(
-                            //           content: Text('Registration successful'),
-                            //         ),
-                            //       );
-                            //     } else if (state.registerConfirmResponseStatus ==
-                            //         FormzSubmissionStatus.failure) {
-                            //       ScaffoldMessenger.of(context).showSnackBar(
-                            //         const SnackBar(
-                            //           content: Text('Registration failed'),
-                            //         ),
-                            //       );
-                            //     }
-                            //   },
-                            //   builder: (context, state) {
-                            //     return ElevatedButton(
-                            //       onPressed: () {
-                            //         context.read<AuthBloc>().add(
-                            //               RegisterConfirmRequestEvent(
-                            //                 confirmRequestModel: requestModel,
-                            //               ),
-                            //             );
-                            //       },
-                            //       style: ElevatedButton.styleFrom(
-                            //         padding:
-                            //             const EdgeInsets.symmetric(vertical: 18),
-                            //         shape: RoundedRectangleBorder(
-                            //           borderRadius: BorderRadius.circular(10),
-                            //         ),
-                            //         backgroundColor: AppColors.green,
-                            //       ),
-                            //       child: state.registerConfirmResponseStatus
-                            //               .isInProgress
-                            //           ? CustomThicknessIndicator()
-                            //           : const Text(
-                            //               'Подтвердить',
-                            //               style: TextStyle(
-                            //                 color: AppColors.white,
-                            //                 fontSize: 14,
-                            //                 fontWeight: FontWeight.w500,
-                            //               ),
-                            //             ),
-                            //     );
-                            //   },
-                            // ),
-                            ),
+                        Expanded(child: _buildSubmitButton()),
                       ],
                     ),
                   ],
@@ -185,28 +115,28 @@ class _AuthOtpPageState extends State<AuthOtpPage> {
                   state.registerConfirmResponseModel!.result.token.toString(),
             ),
           );
-          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
-            builder: (context) {
-              return
-                  // const ProfilePage();
-                  Pagee(
-                // userResponseModel: requestModel,
-                registerConfirmRequestModel: requestModel,
-                registerConfirmResponseModel:
-                    state.registerConfirmResponseModel,
-              );
-            },
-          ), (Route<dynamic> route) => false);
+          // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+          //   builder: (context) {
+          //     return
+          //         // const ProfilePage();
+          //         Pagee(
+          //       // userResponseModel: requestModel,
+          //       registerConfirmRequestModel: requestModel,
+          //       registerConfirmResponseModel:
+          //           state.registerConfirmResponseModel,
+          //     );
+          //   },
+          // ), (Route<dynamic> route) => false);
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Registration successful'),
+            SnackBar(
+              content: Text(translation(context).successful),
             ),
           );
         } else if (state.registerConfirmResponseStatus ==
             FormzSubmissionStatus.failure) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Registration failed'),
+            SnackBar(
+              content: Text(translation(context).failed),
             ),
           );
         }

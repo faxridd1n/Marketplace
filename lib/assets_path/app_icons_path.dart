@@ -25,8 +25,8 @@ class AppIcons {
   static const String shop = 'assets/icons/shop.svg';
   static const String search = 'assets/icons/search.svg';
   static const String language = 'assets/icons/language.svg';
-  // static const String category1 = 'assets/icons/category1.svg';
-  // static const String category2 = 'assets/icons/category2.svg';
+  static const String languageRu = 'assets/icons/ru.svg';
+  static const String languageEn = 'assets/icons/en.svg';
   // static const String category3 = 'assets/icons/category3.svg';
   static const String mail = 'assets/icons/mail.svg';
   static const String call = 'assets/icons/call.svg';
@@ -74,7 +74,8 @@ class AppIcons {
   static const String terminal = 'assets/icons/terminal.svg';
   static const String horizontalIcon = 'assets/icons/horizontal_icon.svg';
   static const String verticalIcon = 'assets/icons/vertical_icon.svg';
-  static const String productPlaceholder ='assets/icons/product_placeholder.svg';
+  static const String productPlaceholder =
+      'assets/icons/product_placeholder.svg';
   static const String calendar = 'assets/icons/calendar.svg';
   static const String wallet = 'assets/icons/wallet.svg';
   static const String profileCard = 'assets/icons/profile_card.svg';
@@ -83,6 +84,9 @@ class AppIcons {
   static const String taqsimAppLogo = 'assets/icons/taqsimAppLogo.svg';
   static const String avatar = 'assets/icons/avatar.svg';
   static const String review = 'assets/icons/review.svg';
-    static const String orderSuccess = 'assets/icons/order_success.svg';
-
+  static const String orderSuccess = 'assets/icons/order_success.svg';
+  static const String emptyCards = 'assets/icons/empty_cards.svg';
+  static const String humo = 'assets/icons/humo.svg';
+  static const String uzcard = 'assets/icons/uzcard.svg';
+  static const String smsVerify = 'assets/icons/sms_verify.svg';
 }

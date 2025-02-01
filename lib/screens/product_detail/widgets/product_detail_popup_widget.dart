@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../core/constants/app_colors.dart';
 
 class ProductDetailPopUpWidget extends StatefulWidget {
-  ProductDetailPopUpWidget({super.key});
+  const ProductDetailPopUpWidget({super.key});
 
   @override
   State<ProductDetailPopUpWidget> createState() =>
@@ -37,11 +37,11 @@ class _ProductDetailPopUpWidgetState extends State<ProductDetailPopUpWidget> {
         popUpIsOpen = false;
         setState(() {});
       },
-      initialValue: selectedItem.length < 1 ? 'So\'ngilari' : selectedItem,
+      initialValue: selectedItem.isEmpty ? 'So\'ngilari' : selectedItem,
       icon: Row(
         children: [
           Text(
-            selectedItem.length < 1 ? 'So\'ngilari' : selectedItem,
+            selectedItem.isEmpty ? 'So\'ngilari' : selectedItem,
             style: const TextStyle(
               fontSize: 12,
             ),

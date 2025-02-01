@@ -47,11 +47,11 @@ class _SingleSelectWidgetState extends State<SingleSelectWidget> {
           const SizedBox(
             height: 10,
           ),
-          Container(
+          SizedBox(
             // color:AppColors.red,
             height: values!.length * 40,
             child: ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: values!.length,
               itemBuilder: (context, index) {
                 return Container(

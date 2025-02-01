@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/hive/user_token.dart';
-import 'package:flutter_application_1/user_auth_bloc/user_auth_bloc.dart';
-import 'package:flutter_application_1/user_auth_bloc/user_auth_event.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import '../../../core/constants/app_colors.dart';
 import '../components/hive/user_token_model.dart';
 import '../screens/login/login_bloc/login_bloc.dart';
 import '../screens/login/widgets/login_otp_widget.dart';
+import '../user_auth_bloc/user_auth_bloc.dart';
+import '../user_auth_bloc/user_auth_event.dart';
+import '../user_auth_bloc/user_auth_state.dart';
 
 loginOtpDiolog(BuildContext context, Function() setState, String phoneNumber) {
   TextEditingController otpController = TextEditingController();
@@ -78,15 +79,19 @@ Widget buildSubmitButton(
         );
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Registration successful'),
+            content: Text('Successful'),
           ),
         );
+        context
+            .read<AuthenticationBloc>()
+            .add(const AuthenticationStatusChanged(AuthStatus.authenticated));
+
         Navigator.pop(context);
       } else if (state.putLoginResponseStatus ==
           FormzSubmissionStatus.failure) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Registration failed'),
+            content: Text('Failed'),
           ),
         );
         // Navigator.push(
@@ -109,11 +114,11 @@ Widget buildSubmitButton(
         child: ElevatedButton(
           onPressed: () {
             context.read<LoginBloc>().add(
-              PutLoginOtpEvent(
-                phoneNumber: phoneNumber,
-                otp: otpController.text,
-              ),
-            );
+                  PutLoginOtpEvent(
+                    phoneNumber: phoneNumber,
+                    otp: otpController.text,
+                  ),
+                );
           },
           style: ElevatedButton.styleFrom(
             padding: const EdgeInsets.symmetric(vertical: 0),
@@ -124,21 +129,21 @@ Widget buildSubmitButton(
           ),
           child: state.putLoginResponseStatus.isInProgress
               ? const SizedBox(
-            height: 30,
-            width: 30,
-            child: CircularProgressIndicator(
-              strokeWidth: 3,
-              color: AppColors.white,
-            ),
-          )
+                  height: 30,
+                  width: 30,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 3,
+                    color: AppColors.white,
+                  ),
+                )
               : const Text(
-            'Войти',
-            style: TextStyle(
-              color: AppColors.white,
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
+                  'Войти',
+                  style: TextStyle(
+                    color: AppColors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
         ),
       );
     },

@@ -5,9 +5,9 @@ class Countdown extends AnimatedWidget {
   final Animation<int>? animation;
 
   Countdown({
-    Key? key,
+    super.key,
     this.animation,
-  }) : super(key: key, listenable: animation!);
+  }) : super(listenable: animation!);
 
   @override
   build(BuildContext context) {
@@ -18,7 +18,7 @@ class Countdown extends AnimatedWidget {
 
     return Text(
       timerText,
-      style: TextStyle(
+      style: const TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w500,
         color: AppColors.green,

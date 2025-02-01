@@ -35,7 +35,7 @@ class _OtpFieldState extends State<OtpField> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 20,right: 20,top: 15),
+      margin: const EdgeInsets.only(left: 20,right: 20,top: 15),
       height: 60,
       child: TextFormField(
         onTapOutside: (event) {
@@ -57,7 +57,7 @@ class _OtpFieldState extends State<OtpField> with TickerProviderStateMixin {
           filled: true,
           fillColor: AppColors.grey1,
           hintText: 'Код смс',
-          hintStyle: TextStyle(
+          hintStyle: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w500,
             color: AppColors.grey2,

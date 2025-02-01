@@ -4,22 +4,29 @@ class BasketState extends Equatable {
   final BasketProductModel basketResponseModel;
   final FormzSubmissionStatus getBasketProductStatus;
 
-  final BasketDeleteResModel basketDeleteResModel;
+  final GeneralResponseModel basketDeleteResModel;
   final FormzSubmissionStatus basketDeleteResStatus;
-  final PostResponseBasketModel postResponseBasketModel;
+
+  final GeneralResponseModel deleteBasketAllResponseModel;
+  final FormzSubmissionStatus deleteBasketAllResponseStatus;
+
+  final GeneralResponseModel postResponseBasketModel;
   final FormzSubmissionStatus postResponseBasketStatus;
-  final List<ProductElement> selectedProducts;
+
+  // final List<ProductElement> selectedProducts;
   final OrganizationContactModel organizationContactModel;
   final FormzSubmissionStatus organizationContactStatus;
 
   const BasketState({
     this.basketResponseModel = const BasketProductModel(),
     this.getBasketProductStatus = FormzSubmissionStatus.initial,
-    this.basketDeleteResModel = const BasketDeleteResModel(),
+    this.basketDeleteResModel = const GeneralResponseModel(),
     this.basketDeleteResStatus = FormzSubmissionStatus.initial,
-    this.postResponseBasketModel = const PostResponseBasketModel(),
+    this.deleteBasketAllResponseModel = const GeneralResponseModel(),
+    this.deleteBasketAllResponseStatus = FormzSubmissionStatus.initial,
+    this.postResponseBasketModel = const GeneralResponseModel(),
     this.postResponseBasketStatus = FormzSubmissionStatus.initial,
-    this.selectedProducts = const [],
+    // this.selectedProducts = const [],
     this.organizationContactModel = const OrganizationContactModel(),
     this.organizationContactStatus = FormzSubmissionStatus.initial,
   });
@@ -27,11 +34,13 @@ class BasketState extends Equatable {
   BasketState copyWith({
     BasketProductModel? basketResponseModel,
     FormzSubmissionStatus? getBasketProductStatus,
-    BasketDeleteResModel? basketDeleteResModel,
+    GeneralResponseModel? basketDeleteResModel,
     FormzSubmissionStatus? basketDeleteResStatus,
-    PostResponseBasketModel? postResponseBasketModel,
+    GeneralResponseModel? deleteBasketAllResponseModel,
+    FormzSubmissionStatus? deleteBasketAllResponseStatus,
+    GeneralResponseModel? postResponseBasketModel,
     FormzSubmissionStatus? postResponseBasketStatus,
-    List<ProductElement>? selectedProducts,
+    // List<ProductElement>? selectedProducts,
     OrganizationContactModel? organizationContactModel,
     FormzSubmissionStatus? organizationContactStatus,
   }) {
@@ -42,11 +51,15 @@ class BasketState extends Equatable {
       basketDeleteResModel: basketDeleteResModel ?? this.basketDeleteResModel,
       basketDeleteResStatus:
           basketDeleteResStatus ?? this.basketDeleteResStatus,
+      deleteBasketAllResponseModel:
+          deleteBasketAllResponseModel ?? this.deleteBasketAllResponseModel,
+      deleteBasketAllResponseStatus:
+          deleteBasketAllResponseStatus ?? this.deleteBasketAllResponseStatus,
       postResponseBasketModel:
           postResponseBasketModel ?? this.postResponseBasketModel,
       postResponseBasketStatus:
           postResponseBasketStatus ?? this.postResponseBasketStatus,
-      selectedProducts: selectedProducts ?? this.selectedProducts,
+      // selectedProducts: selectedProducts ?? this.selectedProducts,
       organizationContactModel:
           organizationContactModel ?? this.organizationContactModel,
       organizationContactStatus:
@@ -56,13 +69,15 @@ class BasketState extends Equatable {
 
   @override
   List<Object?> get props => [
+        postResponseBasketModel,
+        postResponseBasketStatus,
         basketResponseModel,
         getBasketProductStatus,
-        basketDeleteResModel,
         basketDeleteResStatus,
         basketDeleteResModel,
-        basketDeleteResStatus,
-        selectedProducts,
+        deleteBasketAllResponseModel,
+        deleteBasketAllResponseStatus,
+        // selectedProducts,
         organizationContactModel,
         organizationContactStatus,
       ];

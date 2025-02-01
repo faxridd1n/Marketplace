@@ -72,7 +72,7 @@ ProductElement _$ProductElementFromJson(Map<String, dynamic> json) =>
       count: (json['count'] as num?)?.toInt() ?? 0,
       productId: json['productId'] as String? ?? '',
       product: json['product'] == null
-          ? null
+          ? const ProductProduct()
           : ProductProduct.fromJson(json['product'] as Map<String, dynamic>),
       prices: (json['prices'] as List<dynamic>?)
               ?.map((e) => Price.fromJson(e as Map<String, dynamic>))
@@ -110,7 +110,7 @@ AttributeValue _$AttributeValueFromJson(Map<String, dynamic> json) =>
           const [],
       attributeId: (json['attributeId'] as num?)?.toInt() ?? 0,
       attribute: json['attribute'] == null
-          ? null
+          ? const Attribute()
           : Attribute.fromJson(json['attribute'] as Map<String, dynamic>),
       productId: json['productId'] as String? ?? '',
       variationId: json['variationId'] as String? ?? '',
@@ -146,7 +146,7 @@ Attribute _$AttributeFromJson(Map<String, dynamic> json) => Attribute(
       categoryId: (json['categoryId'] as num?)?.toInt() ?? 0,
       filterId: (json['filterId'] as num?)?.toInt() ?? 0,
       filter: json['filter'] == null
-          ? null
+          ? const Filter()
           : Filter.fromJson(json['filter'] as Map<String, dynamic>),
       groupId: (json['groupId'] as num?)?.toInt() ?? 0,
       isVisible: json['isVisible'] as bool? ?? true,
@@ -182,7 +182,7 @@ Filter _$FilterFromJson(Map<String, dynamic> json) => Filter(
       weight: (json['weight'] as num?)?.toInt() ?? 0,
       categoryId: (json['categoryId'] as num?)?.toInt() ?? 0,
       category: json['category'] == null
-          ? null
+          ? const Category()
           : Category.fromJson(json['category'] as Map<String, dynamic>),
       isVisible: json['isVisible'] as bool? ?? true,
     );
@@ -230,7 +230,7 @@ FileElement _$FileElementFromJson(Map<String, dynamic> json) => FileElement(
       order: (json['order'] as num?)?.toInt() ?? 0,
       url: json['url'] as String? ?? '',
       fileInfo: json['fileInfo'] == null
-          ? null
+          ? const FileInfo()
           : FileInfo.fromJson(json['fileInfo'] as Map<String, dynamic>),
       variationId: json['variationId'] as String? ?? '',
       productId: json['productId'] as String? ?? '',
@@ -254,9 +254,7 @@ FileInfo _$FileInfoFromJson(Map<String, dynamic> json) => FileInfo(
       name: json['name'] as String? ?? '',
       extension: json['extension'] as String? ?? '',
       contentType: json['contentType'] as String? ?? '',
-      createdAt: json['createdAt'] == null
-          ? null
-          : DateTime.parse(json['createdAt'] as String),
+      createdAt: json['createdAt'] as String? ?? '',
       isVisible: json['isVisible'] as bool? ?? true,
     );
 
@@ -266,7 +264,7 @@ Map<String, dynamic> _$FileInfoToJson(FileInfo instance) => <String, dynamic>{
       'name': instance.name,
       'extension': instance.extension,
       'contentType': instance.contentType,
-      'createdAt': instance.createdAt.toIso8601String(),
+      'createdAt': instance.createdAt,
       'isVisible': instance.isVisible,
     };
 

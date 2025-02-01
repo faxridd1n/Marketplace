@@ -3,15 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/assets_path/app_icons_path.dart';
 import 'package:flutter_application_1/assets_path/app_images_path.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
-import 'package:flutter_application_1/screens/drawer/DrawerPage.dart';
-import 'package:flutter_application_1/screens/home/blocs/categories_bloc/categories_bloc.dart';
 import 'package:flutter_application_1/screens/home/blocs/home_bloc/home_bloc.dart';
 import 'package:flutter_application_1/screens/home/blocs/section_list_bloc/section_list_bloc.dart';
 import 'package:flutter_application_1/screens/home/widgets/BannerWidget.dart';
 import 'package:flutter_application_1/screens/home/widgets/categories_list.dart';
-import 'package:flutter_application_1/screens/home/widgets/category_widget.dart';
 import 'package:flutter_application_1/widgets/indicator.dart';
-import 'package:flutter_application_1/widgets/title_widget.dart';
 import 'package:flutter_application_1/screens/home/widgets/home_text_field_widget.dart';
 import 'package:flutter_application_1/widgets/product_list_widget.dart';
 import 'package:flutter_application_1/widgets/bottom_info_widget.dart';
@@ -19,6 +15,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'widgets/home_pop_up.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -96,7 +93,13 @@ class _HomePageState extends State<HomePage> {
           elevation: 0,
           shadowColor: AppColors.appBarShadowColor,
           actions: const [
-            // HomePopUpMenuWidget(true, AppIcons.language),
+            HomeLanguageChangeDropDownWidget(
+              isLanguagePopUp: true,
+              // icon: [
+              //   AppIcons.languageRu,
+              //   AppIcons.languageEn,
+              // ],
+            ),
           ],
         ),
 
@@ -146,7 +149,8 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 10),
               const CategoriesListWidget(),
-              BlocBuilder<SectionListBloc, SectionListState>(builder: (ctx, state) {
+              BlocBuilder<SectionListBloc, SectionListState>(
+                  builder: (ctx, state) {
                 if (state.getTabsStatus.isInProgress) {
                   return const Padding(
                     padding: EdgeInsets.symmetric(vertical: 40),
@@ -156,10 +160,12 @@ class _HomePageState extends State<HomePage> {
                 if (state.getTabsStatus.isSuccess) {
                   final sections = state.tabModel.result.items;
                   return Column(
-                    children: List.generate(sections.length, (index){
-                      return  SectionProductsListWidget(
-                        sectionId: sections[index].id,
+                    children: List.generate(sections.length, (index) {
+                      return SectionProductsListWidget(
+                        sectionId: sections[index].id.toString(),
                         sectionName: sections[index].name,
+                        size: 10,
+                        page: 1,
                       );
                     }),
                   );

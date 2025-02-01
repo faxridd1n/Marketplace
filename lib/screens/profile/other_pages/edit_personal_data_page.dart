@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
+import 'package:flutter_application_1/core/language/language_constants.dart';
 import 'package:flutter_application_1/models/profile_model/user_profile_model.dart';
-import 'package:flutter_application_1/screens/profile/profile_bloc/profile_bloc.dart';
+import 'package:flutter_application_1/screens/profile/profile_bloc/profile_page_bloc/profile_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
@@ -40,9 +41,9 @@ class _EditPersonalDataPageState extends State<EditPersonalDataPage> {
         backgroundColor: AppColors.white,
         elevation: 2,
         centerTitle: true,
-        title: const Text(
-          'Личные данные',
-          style: TextStyle(
+        title: Text(
+          translation(context).editProfile,
+          style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w500,
           ),
@@ -57,9 +58,9 @@ class _EditPersonalDataPageState extends State<EditPersonalDataPage> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const Text(
-                    'Имя',
-                    style: TextStyle(
+                  Text(
+                    translation(context).firstName,
+                    style: const TextStyle(
                       color: AppColors.grey2,
                       fontWeight: FontWeight.w500,
                       fontSize: 14,
@@ -110,9 +111,9 @@ class _EditPersonalDataPageState extends State<EditPersonalDataPage> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  const Text(
-                    'Фамилия',
-                    style: TextStyle(
+                  Text(
+                    translation(context).lastName,
+                    style: const TextStyle(
                       color: AppColors.grey2,
                       fontWeight: FontWeight.w500,
                       fontSize: 14,
@@ -177,10 +178,10 @@ class _EditPersonalDataPageState extends State<EditPersonalDataPage> {
   Widget buildSubmitButton() {
     return BlocConsumer<ProfileBloc, ProfileState>(
       listener: (context, state) {
-        if (state.editUserInfoStatus == FormzSubmissionStatus.success) {
+        if (state.getUserProfileStatus == FormzSubmissionStatus.success) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Successful'),
+            SnackBar(
+              content: Text(translation(context).successful),
             ),
           );
           Navigator.pop(context);
@@ -199,10 +200,11 @@ class _EditPersonalDataPageState extends State<EditPersonalDataPage> {
           //     ),
           //   ),
           // );
-        } else if (state.editUserInfoStatus == FormzSubmissionStatus.failure) {
+        } else if (state.getUserProfileStatus ==
+            FormzSubmissionStatus.failure) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Failed'),
+            SnackBar(
+              content: Text(translation(context).failed),
             ),
           );
         }
@@ -227,7 +229,7 @@ class _EditPersonalDataPageState extends State<EditPersonalDataPage> {
               ),
               backgroundColor: AppColors.green,
             ),
-            child: state.editUserInfoStatus.isInProgress
+            child: state.getUserProfileStatus.isInProgress
                 ? const SizedBox(
                     height: 30,
                     width: 30,
@@ -236,9 +238,9 @@ class _EditPersonalDataPageState extends State<EditPersonalDataPage> {
                       color: AppColors.white,
                     ),
                   )
-                : const Text(
-                    'Сахранить',
-                    style: TextStyle(
+                : Text(
+                    translation(context).save,
+                    style: const TextStyle(
                       color: AppColors.white,
                       fontSize: 14,
                       fontWeight: FontWeight.w500,

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
+import 'package:flutter_application_1/core/language/language_constants.dart';
 import 'package:flutter_application_1/models/product_detail_model/product_detail_model.dart';
+import 'package:flutter_application_1/models/review_models/post_review_request_model.dart';
+import 'package:flutter_application_1/screens/product_detail/product_detail_bloc/product_detail_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-
-import '../../assets_path/app_images_path.dart';
+import 'package:formz/formz.dart';
+import '../../widgets/custom_cachedd_image.dart';
 
 class ReviewPage extends StatefulWidget {
   const ReviewPage({required this.productDetailModel, super.key});
@@ -13,6 +17,9 @@ class ReviewPage extends StatefulWidget {
 }
 
 class _ReviewPageState extends State<ReviewPage> {
+  TextEditingController reviewController = TextEditingController();
+  int givenRating = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +28,7 @@ class _ReviewPageState extends State<ReviewPage> {
         backgroundColor: AppColors.white,
         surfaceTintColor: AppColors.transparent,
         shadowColor: AppColors.appBarShadowColor,
-        elevation: 2,
+        elevation: 1,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -33,12 +40,6 @@ class _ReviewPageState extends State<ReviewPage> {
             children: [
               Container(
                 decoration: BoxDecoration(
-                  boxShadow: const [
-                    BoxShadow(
-                      blurRadius: 4,
-                      color: AppColors.appBarShadowColor,
-                    ),
-                  ],
                   borderRadius: BorderRadius.circular(8),
                   color: AppColors.white,
                 ),
@@ -48,30 +49,11 @@ class _ReviewPageState extends State<ReviewPage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(
+                    CustomCachedImage(
                       width: 90,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(5),
-                        child: (widget.productDetailModel.result.variations
-                                    .isNotEmpty &&
-                                widget.productDetailModel.result.variations[0]
-                                    .files.isNotEmpty)
-                            ? Image.network(
-                                widget.productDetailModel.result.variations[0]
-                                    .files[0].url,
-                                fit: BoxFit.fitWidth,
-                                errorBuilder: (context, error, stackTrace) {
-                                  return Image.asset(
-                                    AppImages.noImage,
-                                    fit: BoxFit.fitWidth,
-                                  );
-                                },
-                              )
-                            : Image.asset(
-                                AppImages.noImage,
-                                fit: BoxFit.fitWidth,
-                              ),
-                      ),
+                      borderRadius: BorderRadius.circular(8),
+                      imageUrl: widget
+                          .productDetailModel.result.variations[0].files[0].url,
                     ),
                     const SizedBox(width: 15),
                     Expanded(
@@ -89,12 +71,6 @@ class _ReviewPageState extends State<ReviewPage> {
               const SizedBox(height: 20),
               Container(
                 decoration: BoxDecoration(
-                  boxShadow: const [
-                    BoxShadow(
-                      color: AppColors.appBarShadowColor,
-                      blurRadius: 4,
-                    )
-                  ],
                   borderRadius: BorderRadius.circular(8),
                   color: AppColors.white,
                 ),
@@ -103,8 +79,8 @@ class _ReviewPageState extends State<ReviewPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Ваша оценка',
+                    Text(
+                      translation(context).yourRating,
                       style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 18,
@@ -121,11 +97,13 @@ class _ReviewPageState extends State<ReviewPage> {
                           color: AppColors.yellow,
                         );
                       },
-                      onRatingUpdate: (rating) {},
+                      onRatingUpdate: (rating) {
+                        givenRating = rating.toInt();
+                      },
                     ),
                     const SizedBox(height: 20),
-                    const Text(
-                      'Расскажите подробнее',
+                    Text(
+                      translation(context).tellMore,
                       style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 18,
@@ -141,6 +119,7 @@ class _ReviewPageState extends State<ReviewPage> {
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                       ),
+                      controller: reviewController,
                       maxLines: 5,
                       textAlignVertical: TextAlignVertical.center,
                       decoration: InputDecoration(
@@ -156,7 +135,7 @@ class _ReviewPageState extends State<ReviewPage> {
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide.none,
                         ),
-                        hintText: 'Shu yerga yozing...',
+                        hintText: translation(context).yourReview,
                         hintStyle: const TextStyle(
                           color: AppColors.grey2,
                           fontSize: 14,
@@ -171,28 +150,79 @@ class _ReviewPageState extends State<ReviewPage> {
                     Row(
                       children: [
                         Expanded(
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              backgroundColor: AppColors.green,
-                            ),
-                            onPressed: () {},
-                            child: const Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 20,
-                                vertical: 15,
-                              ),
-                              child: Text(
-                                'Опубликовать отзыв',
-                                style: TextStyle(
-                                  color: AppColors.white,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
+                          child: BlocConsumer<ProductDetailBloc,
+                              ProductDetailState>(
+                            listener: (context, state) {
+                              if (state.postReviewResponseStatus ==
+                                  FormzSubmissionStatus.success) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content:
+                                        Text(translation(context).successful),
+                                  ),
+                                );
+
+                                
+                                Navigator.pop(context);
+
+
+
+                              } 
+                              else if (state.postReviewResponseStatus ==
+                                  FormzSubmissionStatus.failure) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                        '${translation(context).failed} ${state.postReviewResponseStatus}'),
+                                  ),
+                                );
+                              }
+                            },
+                            listenWhen:(o,n)=>o.postReviewResponseStatus!=n.postReviewResponseStatus,
+                            builder: (context, state) {
+                              return ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  backgroundColor: AppColors.green,
                                 ),
-                              ),
-                            ),
+                                onPressed: () {
+                                  context.read<ProductDetailBloc>().add(
+                                        PostProductsReviewEvent(
+                                          postReviewRequestModel:
+                                              PostReviewRequestModel(
+                                            content: reviewController.text,
+                                            forId: widget
+                                                .productDetailModel.result.id,
+                                            isAnonymous: false,
+                                            rating: givenRating,
+                                          ),
+                                          forId: widget
+                                              .productDetailModel.result.id,
+                                        ),
+                                      );
+                                },
+                                child:
+                                    state.postReviewResponseStatus.isInProgress
+                                        ? const SizedBox(
+                                            height: 30,
+                                            width: 30,
+                                            child: CircularProgressIndicator(
+                                              strokeWidth: 3,
+                                              color: AppColors.white,
+                                            ),
+                                          )
+                                        : Text(
+                                            translation(context).publishReview,
+                                            style: const TextStyle(
+                                              color: AppColors.white,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                              );
+                            },
                           ),
                         ),
                       ],

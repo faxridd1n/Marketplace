@@ -10,7 +10,7 @@ import 'slider_widget.dart';
 
 void openFilterSheet(
   BuildContext context,
-  List<FilteredSearchModel>? models,
+  List<FilteredSearchModel> models,
 ) {
   showModalBottomSheet(
     backgroundColor:AppColors.transparent,
@@ -51,7 +51,7 @@ void openFilterSheet(
                   ),
                   const SizedBox(height: 15),
                   ...List.generate(
-                    models!.length,
+                    models.length,
                     (index) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15),

@@ -1,38 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/hive/user_token.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
+import 'package:flutter_application_1/core/language/language_constants.dart';
 import 'package:flutter_application_1/core/utils/build_context_extension.dart';
 import 'package:flutter_application_1/models/products_model/product_model.dart';
 import 'package:flutter_application_1/screens/basket/basket_bloc/basket_bloc.dart';
 import 'package:flutter_application_1/screens/favorite/favorite_page.dart';
+import 'package:flutter_application_1/user_auth_bloc/user_auth_bloc.dart';
+import 'package:flutter_application_1/user_auth_bloc/user_auth_state.dart';
+import 'package:flutter_application_1/widgets/custom_cachedd_image.dart';
 import 'package:flutter_application_1/widgets/login_dialog.dart';
-import 'package:flutter_application_1/widgets/snack_bar.dart';
 import 'package:flutter_application_1/screens/product_detail/product_detail_page.dart';
-import 'package:flutter_application_1/screens/product_detail/product_detail_bloc/product_detail_bloc.dart';
-import 'package:flutter_application_1/screens/see_all/see_all_bloc/see_all_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../assets_path/app_images_path.dart';
 import '../components/price_function.dart';
-import '../screens/katalog/katalog_bloc/katalog_bloc.dart';
 
-// ignore: must_be_immutable
 class ProductWidget extends StatefulWidget {
-  ProductWidget(
-      {required this.index,
-      required this.model,
-      this.isSeeAllPage,
-      this.isDetailPage,
-      this.isHomePage,
-      this.isKatalogPage,
-      // this.tab,
-      super.key});
-  bool? isSeeAllPage;
-  bool? isHomePage;
-  bool? isKatalogPage;
-  bool? isDetailPage;
-  int index;
-  ProductModel model;
-  // int? tab;
+  const ProductWidget({required this.model, super.key});
+
+  final ProductModel model;
 
   @override
   State<ProductWidget> createState() => _ProductwidgetState();
@@ -60,6 +45,7 @@ class _ProductwidgetState extends State<ProductWidget> {
       shadowColor: AppColors.black.withOpacity(0.5),
       color: AppColors.white,
       child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
         onTap: () {
           Navigator.of(context, rootNavigator: true).push(
             MaterialPageRoute(
@@ -75,8 +61,8 @@ class _ProductwidgetState extends State<ProductWidget> {
         },
         child: Stack(children: [
           Container(
-            width: MediaQuery.of(context).size.width * 0.6,
-            padding: const EdgeInsets.all(15),
+            width: MediaQuery.of(context).size.width * 0.55,
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,29 +71,15 @@ class _ProductwidgetState extends State<ProductWidget> {
                   alignment: Alignment.center,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(5),
-                    child: (widget.model.variations.isNotEmpty &&
-                            widget.model.variations[0].files
-                                .isNotEmpty &&
-                            widget.model.variations[0].files[0].url
-                                .isNotEmpty)
-                        ? Image.network(
-                            widget.model.variations[0].files[0].url,
-                            fit: BoxFit.fitHeight,
-                            errorBuilder:
-                                (context, error, stackTrace) {
-                              return Image.asset(
-                                AppImages.noImage,
-                                fit: BoxFit.fitHeight,
-                              );
-                            },
-                          )
-                        : Image.asset(
-                            AppImages.noImage,
-                            fit: BoxFit.fitWidth,
-                          ),
+                    child: CustomCachedImage(
+                      height: 190,
+                      width: double.infinity,
+                      fit: BoxFit.fill,
+                      borderRadius: BorderRadius.circular(8),
+                      imageUrl: widget.model.variations[0].files[0].url,
+                    ),
                   ),
                 ),
-                // const SizedBox(height: 20),
                 Align(
                   alignment: Alignment.topLeft,
                   child: Text(
@@ -120,54 +92,10 @@ class _ProductwidgetState extends State<ProductWidget> {
                     ),
                   ),
                 ),
-                // Row(
-                //   children: [
-                //     Column(
-                //       crossAxisAlignment: CrossAxisAlignment.start,
-                //       children: [
-                //         Text(
-                //           widget.model.variations[0].prices[0].type ==
-                //                   'Price'
-                //               ? '${addSpaceEveryThreeCharacters(widget.model.variations[0].prices[0].value.toInt().toString())} сум'
-                //               : '${addSpaceEveryThreeCharacters(widget.model.variations[0].prices[1].value.toInt().toString())} сум',
-                //           style: const TextStyle(
-                //             fontSize: 14,
-                //             fontWeight: FontWeight.w600,
-                //           ),
-                //         ),
-                //         const Text(
-                //           '180 000 сум',
-                //           style: TextStyle(
-                //             color: AppColors.grey3,
-                //             fontWeight: FontWeight.w500,
-                //           ),
-                //         ),
-                //       ],
-                //     ),
-                //     const SizedBox(width: 10),
-                //     Container(
-                //       decoration: BoxDecoration(
-                //         borderRadius: BorderRadius.circular(100),
-                //         color: AppColors.yellow,
-                //       ),
-                //       padding: const EdgeInsets.symmetric(
-                //         horizontal: 5,
-                //         vertical: 2,
-                //       ),
-                //       child: const Text(
-                //         'x 12 мес',
-                //         style: TextStyle(
-                //           fontWeight: FontWeight.w500,
-                //         ),
-                //       ),
-                //     )
-                //   ],
-                // ),
 
-                // const SizedBox(height: 15),
                 Text(
                   widget.model.name,
-                  maxLines: 3,
+                  maxLines: 2,
                   style: const TextStyle(fontSize: 14),
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -178,8 +106,8 @@ class _ProductwidgetState extends State<ProductWidget> {
                     Row(
                       children: List.generate(5, (index) {
                         return const Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 1, vertical: 10),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 1, vertical: 10),
                           child: Icon(
                             Icons.star_rate_rounded,
                             color: AppColors.yellow,
@@ -203,11 +131,14 @@ class _ProductwidgetState extends State<ProductWidget> {
                 Row(
                   children: [
                     if (basketProductCount != 0 &&
-                        userTokenBox.get('token')!.token.isNotEmpty)
+                        context
+                                .read<AuthenticationBloc>()
+                                .state
+                                .userAuthStatus ==
+                            AuthStatus.authenticated)
                       Expanded(
                         child: Row(
-                          mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             SizedBox(
                               height: 50,
@@ -216,76 +147,25 @@ class _ProductwidgetState extends State<ProductWidget> {
                                 style: ElevatedButton.styleFrom(
                                   padding: const EdgeInsets.all(0),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.circular(10),
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
                                   backgroundColor: AppColors.grey1,
                                 ),
                                 onPressed: () {
                                   if (basketProductCount != 0) {
                                     basketProductCount -= 1;
-                                    // isAddedBasket = true;
-
-                                    if (widget.isHomePage == true) {
-                                      context.read<BasketBloc>().add(
-                                            PostBasketProductBasketEvent(
-                                              productVariationId: widget
-                                                  .model
-                                                  .variations[0]
-                                                  .id,
-                                              count: basketProductCount,
-                                            ),
-                                          );
-                                    } else if (widget.isSeeAllPage ==
-                                        true) {
-                                      context.read<SeeAllBloc>().add(
-                                            PostBasketProductSeeAllEvent(
-                                              productVariationId: widget
-                                                  .model
-                                                  .variations[0]
-                                                  .id,
-                                              count: basketProductCount,
-                                            ),
-                                          );
-                                    } else if (widget.isKatalogPage ==
-                                        true) {
-                                      context.read<KatalogBloc>().add(
-                                            PostBasketProductKatalogEvent(
-                                              productVariationId: widget
-                                                  .model
-                                                  .variations[0]
-                                                  .id,
-                                              count: basketProductCount,
-                                            ),
-                                          );
-                                    } else if (widget.isDetailPage ==
-                                        true) {
-                                      context
-                                          .read<ProductDetailBloc>()
-                                          .add(
-                                            PostBasketProductDetailEvent(
-                                              productVariationId: widget
-                                                  .model
-                                                  .variations[0]
-                                                  .id,
-                                              count: basketProductCount,
-                                            ),
-                                          );
-                                    } else {
-                                      context.read<BasketBloc>().add(
-                                            PostBasketProductBasketEvent(
-                                              productVariationId: widget
-                                                  .model
-                                                  .variations[0]
-                                                  .id,
-                                              count: basketProductCount,
-                                            ),
-                                          );
-                                    }
+                                    final variationId =
+                                        widget.model.variations[0].id;
+                                    context.read<BasketBloc>().add(
+                                          PostBasketProductBasketEvent(
+                                            productVariationId: variationId,
+                                            count: basketProductCount,
+                                          ),
+                                        );
                                     context.showPopUp(
                                       context,
-                                      title: 'Удалено успешно!',
-                                      message: "${widget.model.name} удалено из корзины",
+                                      title: translation(context).successful,
+                                      message: widget.model.name,
                                     );
                                     setState(() {});
                                   }
@@ -311,66 +191,25 @@ class _ProductwidgetState extends State<ProductWidget> {
                                 style: ElevatedButton.styleFrom(
                                   padding: const EdgeInsets.all(0),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.circular(10),
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
                                   backgroundColor: AppColors.grey1,
                                 ),
                                 onPressed: () {
+                                  final variationId =
+                                      widget.model.variations[0].id;
                                   basketProductCount += 1;
-                                  // isAddedBasket = true;
-
-                                  if (widget.isHomePage == true) {
-                                    context.read<BasketBloc>().add(
-                                          PostBasketProductBasketEvent(
-                                            productVariationId: widget
-                                                .model.variations[0].id,
-                                            count: basketProductCount,
-                                          ),
-                                        );
-                                  } else if (widget.isSeeAllPage ==
-                                      true) {
-                                    context.read<SeeAllBloc>().add(
-                                          PostBasketProductSeeAllEvent(
-                                            productVariationId: widget
-                                                .model.variations[0].id,
-                                            count: basketProductCount,
-                                          ),
-                                        );
-                                  } else if (widget.isKatalogPage ==
-                                      true) {
-                                    context.read<KatalogBloc>().add(
-                                          PostBasketProductKatalogEvent(
-                                            productVariationId: widget
-                                                .model.variations[0].id,
-                                            count: basketProductCount,
-                                          ),
-                                        );
-                                  } else if (widget.isDetailPage ==
-                                      true) {
-                                    context
-                                        .read<ProductDetailBloc>()
-                                        .add(
-                                          PostBasketProductDetailEvent(
-                                            productVariationId: widget
-                                                .model.variations[0].id,
-                                            count: basketProductCount,
-                                          ),
-                                        );
-                                  } else {
-                                    context.read<BasketBloc>().add(
-                                          PostBasketProductBasketEvent(
-                                            productVariationId: widget
-                                                .model.variations[0].id,
-                                            count: basketProductCount,
-                                          ),
-                                        );
-                                  }
+                                  context.read<BasketBloc>().add(
+                                        PostBasketProductBasketEvent(
+                                          productVariationId: variationId,
+                                          count: basketProductCount,
+                                        ),
+                                      );
 
                                   context.showPopUp(
                                     context,
-                                    title: "Добавлено успешно!",
-                                    message: "${widget.model.name} добавлено в корзину",
+                                    title: translation(context).successful,
+                                    message: widget.model.name,
                                   );
 
                                   setState(() {});
@@ -398,12 +237,11 @@ class _ProductwidgetState extends State<ProductWidget> {
                               backgroundColor: AppColors.green,
                             ),
                             onPressed: () {
-                              final token =
-                                  userTokenBox.get('token')?.token;
+                              final token = userTokenBox.get('token')?.token;
                               if (token != null && token.isNotEmpty) {
                                 final variationId =
                                     widget.model.variations[0].id;
-                                basketProductCount += 1;
+                                basketProductCount = 1;
                                 context.read<BasketBloc>().add(
                                       PostBasketProductBasketEvent(
                                         productVariationId: variationId,
@@ -411,46 +249,10 @@ class _ProductwidgetState extends State<ProductWidget> {
                                       ),
                                     );
 
-                                // if (widget.isHomePage == true) {
-                                //   context.read<BasketBloc>().add(
-                                //         PostBasketProductBasketEvent(
-                                //           productVariationId: variationId,
-                                //           count: 2,
-                                //         ),
-                                //       );
-                                // } else if (widget.isSeeAllPage == true) {
-                                //   context.read<SeeAllBloc>().add(
-                                //         PostBasketProductSeeAllEvent(
-                                //           productVariationId: variationId,
-                                //           count: 1,
-                                //         ),
-                                //       );
-                                // } else if (widget.isKatalogPage == true) {
-                                //   context.read<KatalogBloc>().add(
-                                //         PostBasketProductKatalogEvent(
-                                //           productVariationId: variationId,
-                                //           count: 1,
-                                //         ),
-                                //       );
-                                // } else if (widget.isDetailPage == true) {
-                                //   context.read<ProductDetailBloc>().add(
-                                //         PostBasketProductDetailEvent(
-                                //           productVariationId: variationId,
-                                //         ),
-                                //       );
-                                // } else {
-                                //   context.read<BasketBloc>().add(
-                                //         PostBasketProductBasketEvent(
-                                //           productVariationId: variationId,
-                                //           count: 2,
-                                //         ),
-                                //       );
-                                // }
-
                                 context.showPopUp(
                                   context,
-                                  title: "Добавлено успешно!",
-                                  message: "${widget.model.name} добавлено в корзину",
+                                  title: translation(context).successful,
+                                  message: widget.model.name,
                                 );
 
                                 setState(() {});
@@ -460,14 +262,14 @@ class _ProductwidgetState extends State<ProductWidget> {
                                 });
                               }
                             },
-                            child: const Padding(
-                              padding: EdgeInsets.symmetric(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
                                 horizontal: 20,
                                 vertical: 15,
                               ),
                               child: Text(
-                                'в корзину',
-                                style: TextStyle(
+                                translation(context).goToBasket,
+                                style: const TextStyle(
                                   color: AppColors.white,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
@@ -477,35 +279,35 @@ class _ProductwidgetState extends State<ProductWidget> {
                           ),
                         ),
                       ),
-                    const SizedBox(width: 5),
-                    SizedBox(
-                      height: 50,
-                      width: 50,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.all(0),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          backgroundColor: AppColors.grey1,
-                        ),
-                        onPressed: () {
-                          // Navigator.of(context, rootNavigator: true)
-                          //     .push(
-                          //   MaterialPageRoute(
-                          //     builder: (context) => ProductDetailDialog(
-                          //      model: widget.model,
-                          //     ),
-                          //   ),
-                          // );
-                        },
-                        child: const Icon(
-                          Icons.remove_red_eye_outlined,
-                          color: AppColors.black,
-                          size: 20,
-                        ),
-                      ),
-                    ),
+                    // const SizedBox(width: 5),
+                    // SizedBox(
+                    //   height: 50,
+                    //   width: 50,
+                    //   child: ElevatedButton(
+                    //     style: ElevatedButton.styleFrom(
+                    //       padding: const EdgeInsets.all(0),
+                    //       shape: RoundedRectangleBorder(
+                    //         borderRadius: BorderRadius.circular(10),
+                    //       ),
+                    //       backgroundColor: AppColors.grey1,
+                    //     ),
+                    //     onPressed: () {
+                    //       // Navigator.of(context, rootNavigator: true)
+                    //       //     .push(
+                    //       //   MaterialPageRoute(
+                    //       //     builder: (context) => ProductDetailDialog(
+                    //       //      model: widget.model,
+                    //       //     ),
+                    //       //   ),
+                    //       // );
+                    //     },
+                    //     child: const Icon(
+                    //       Icons.remove_red_eye_outlined,
+                    //       color: AppColors.black,
+                    //       size: 20,
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 )
               ],
@@ -513,23 +315,31 @@ class _ProductwidgetState extends State<ProductWidget> {
           ),
           Positioned(
             right: 8,
-            child: IconButton(
-              padding: const EdgeInsets.all(0),
-              onPressed: () {
-                isFavorite = !isFavorite;
-                if (isFavorite) {
-                  favoriteProducts.add(widget.model);
-                } else {
-                  favoriteProducts.remove(widget.model);
-                }
-                setState(() {});
-              },
-              icon: Icon(
-                isFavorite
-                    ? Icons.favorite
-                    : Icons.favorite_border_rounded,
-                color: isFavorite ? AppColors.pink : AppColors.black,
-                size: 25,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100),
+                color: AppColors.white,
+              ),
+              height: 40,
+              width: 40,
+              child: Center(
+                child: IconButton(
+                  padding: const EdgeInsets.all(0),
+                  onPressed: () {
+                    isFavorite = !isFavorite;
+                    if (isFavorite) {
+                      favoriteProducts.add(widget.model);
+                    } else {
+                      favoriteProducts.remove(widget.model);
+                    }
+                    setState(() {});
+                  },
+                  icon: Icon(
+                    isFavorite ? Icons.favorite : Icons.favorite_border_rounded,
+                    color: isFavorite ? AppColors.pink : AppColors.black,
+                    size: 25,
+                  ),
+                ),
               ),
             ),
           ),

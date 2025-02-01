@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/assets_path/app_icons_path.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
-import 'package:flutter_application_1/screens/basket/basket_bloc/basket_bloc.dart';
+import 'package:flutter_application_1/core/language/language_constants.dart';
 import 'package:flutter_application_1/widgets/tab_navigator.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../components/hive/user_token.dart';
+import '../../widgets/login_dialog.dart';
 
 class NavigationPage extends StatefulWidget {
   const NavigationPage({super.key});
@@ -29,28 +30,16 @@ class _NavigationPageState extends State<NavigationPage>
         navigatorKey: _navigatorKeys[tabItem]!,
         tabItem: tabItem,
       );
-  // late final BasketBloc bloc;
   @override
   void initState() {
     super.initState();
-
-    // userTokenBox.put(
-    //   'token',
-    //   'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0OTciLCJPcmdhbml6YXRpb25JZCI6IiIsIlVzZXJJZCI6IjQ5NyIsIkRldmljZUlkIjoiMTIyMSIsIlJvbGVJZCI6IjEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJ1c2VyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6Ijk5ODMzMDAyMDcwMCIsIm5iZiI6MTczMjI2NTk4NCwiZXhwIjoxNzMyODcwNzg0LCJpc3MiOiJ0YXFzaW0udXoiLCJhdWQiOiJIYWxhbFRhcXNpbSJ9.EgrlYd_q4TAfALdwPFVqwu9Tm2_ihz-_dm6HsdL25eg' as UserTokenModel,
-    // );
-    // setState(() {});
-    // if (userTokenBox.get('token')!.token.isNotEmpty) {
-    //   bloc = BasketBloc()..add(GetBasketProductsEvent());
-    // } else {
-    //   bloc = BasketBloc();
-    // }
     _tabController =
-        TabController(length: 5, vsync: this, animationDuration: Duration.zero)..addListener((){
-          setState(() {
-            _selectedIndex = _tabController.index;
+        TabController(length: 5, vsync: this, animationDuration: Duration.zero)
+          ..addListener(() {
+            setState(() {
+              _selectedIndex = _tabController.index;
+            });
           });
-        });
-    // userTokenBox.delete('token');
   }
 
   @override
@@ -74,8 +63,19 @@ class _NavigationPageState extends State<NavigationPage>
           bottomNavigationBar: BottomNavigationBar(
             backgroundColor: AppColors.white,
             onTap: (value) {
+              if (value == 2) {
+                // Check if the token is empty
+                final tokenModel = userTokenBox.get('token');
+                if (tokenModel == null || tokenModel.token.isEmpty) {
+                  // Show login dialog and prevent navigation
+                  loginDiolog(context, () {
+                    setState(() {});
+                  });
+                  return;
+                }
+              }
+              // Change the tab if not blocked by the login dialog
               _tabController.animateTo(value);
-
             },
             currentIndex: _selectedIndex,
             type: BottomNavigationBarType.fixed,
@@ -90,7 +90,7 @@ class _NavigationPageState extends State<NavigationPage>
                   height: 24,
                   width: 24,
                 ),
-                label: 'Главная',
+                label: translation(context).homePage,
                 activeIcon: SvgPicture.asset(
                   AppIcons.home,
                   color: AppColors.green,
@@ -104,7 +104,7 @@ class _NavigationPageState extends State<NavigationPage>
                   height: 24,
                   width: 24,
                 ),
-                label: 'Каталог',
+                label: translation(context).catalogPage,
                 activeIcon: SvgPicture.asset(
                   AppIcons.category,
                   color: AppColors.green,
@@ -118,7 +118,7 @@ class _NavigationPageState extends State<NavigationPage>
                     height: 24,
                     width: 24,
                   ),
-                  label: 'Корзина',
+                  label: translation(context).basketPage,
                   activeIcon: SvgPicture.asset(
                     AppIcons.shop,
                     height: 24,
@@ -131,7 +131,7 @@ class _NavigationPageState extends State<NavigationPage>
                   size: 24,
                   color: AppColors.grey2,
                 ),
-                label: 'Избранное',
+                label: translation(context).favoritePage,
                 activeIcon: SvgPicture.asset(
                   AppIcons.likeFiilled,
                   height: 24,
@@ -144,7 +144,7 @@ class _NavigationPageState extends State<NavigationPage>
                   height: 24,
                   width: 24,
                 ),
-                label: 'Профиль',
+                label: translation(context).profilePage,
                 activeIcon: SvgPicture.asset(
                   AppIcons.profile,
                   color: AppColors.green,
@@ -170,7 +170,8 @@ class HomeTabControllerProvider extends InheritedWidget {
   });
 
   static HomeTabControllerProvider of(BuildContext context) {
-    final result = context.dependOnInheritedWidgetOfExactType<HomeTabControllerProvider>();
+    final result =
+        context.dependOnInheritedWidgetOfExactType<HomeTabControllerProvider>();
     assert(result != null, 'No HomeTabControllerProvider found in context');
     return result!;
   }

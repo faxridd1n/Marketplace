@@ -2,16 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/assets_path/app_icons_path.dart';
 import 'package:flutter_application_1/screens/login/login_page.dart';
 import 'package:flutter_application_1/screens/profile/widgets/profile_elements.dart';
-import 'package:flutter_application_1/user_auth_bloc/user_auth_bloc.dart';
 import 'package:flutter_application_1/widgets/indicator.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../core/constants/app_colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
-import '../../user_auth_bloc/user_auth_state.dart';
-import 'profile_bloc/profile_bloc.dart';
-
+import 'profile_bloc/profile_page_bloc/profile_bloc.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -21,30 +18,28 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-
-
   String numberFormatter(String number) {
     return '+${number.substring(0, 3)} (${number.substring(3, 5)}) ${number.substring(5, 8)}-${number.substring(8, 10)}-${number.substring(10)}';
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProfileBloc, ProfileState>(
-      builder: (ctx, state) {
-        if (state.getUserProfileStatus.isInProgress) {
-          return const Scaffold(
-            body: Center(
-              child: Padding(
-                padding: EdgeInsets.all(20.0),
-                child: CustomLoadingIndicator(),
+    return Scaffold(
+      backgroundColor: AppColors.white,
+      body: BlocBuilder<ProfileBloc, ProfileState>(
+        builder: (ctx, state) {
+          if (state.getUserProfileStatus.isInProgress) {
+            return const SafeArea(
+              child: Center(
+                child: Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: CustomLoadingIndicator(),
+                ),
               ),
-            ),
-          );
-        }
-        if (state.getUserProfileStatus.isSuccess) {
-          return Scaffold(
-            backgroundColor: AppColors.white,
-            body: SafeArea(
+            );
+          }
+          if (state.getUserProfileStatus.isSuccess) {
+            return SafeArea(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
@@ -98,21 +93,21 @@ class _ProfilePageState extends State<ProfilePage> {
                   ],
                 ),
               ),
+            );
+          }
+          if (state.getUserProfileStatus.isFailure) {
+            return const LoginPage();
+          }
+          return SafeArea(
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text(state.getUserProfileStatus.toString()),
+              ),
             ),
           );
-        }
-        if (state.getUserProfileStatus.isFailure) {
-          return const LoginPage();
-        }
-        return const Scaffold(
-          body: Center(
-            child: Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Text('Error'),
-            ),
-          ),
-        );
-      },
+        },
+      ),
     );
   }
 }

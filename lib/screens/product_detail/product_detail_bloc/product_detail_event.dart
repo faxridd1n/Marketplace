@@ -8,16 +8,27 @@ class GetProductDetailEvent extends ProductDetailEvent {
   GetProductDetailEvent(this.productId);
 }
 
-class GetSimilarProductsEvent extends ProductDetailEvent {
-  final int categoryId;
-
-  GetSimilarProductsEvent({required this.categoryId});
+class GetProductsReviewEvent extends ProductDetailEvent {
+  final String forId;
+  GetProductsReviewEvent({required this.forId});
 }
 
-// ignore: must_be_immutable
+class PostProductsReviewEvent extends ProductDetailEvent {
+  final PostReviewRequestModel postReviewRequestModel;
+  final String forId;
+  PostProductsReviewEvent(
+      {required this.postReviewRequestModel, required this.forId});
+}
+
+class GetSimilarProductsEvent extends ProductDetailEvent {
+  final int sectionId;
+
+  GetSimilarProductsEvent({required this.sectionId});
+}
+
 class PostBasketProductDetailEvent extends ProductDetailEvent {
   final String productVariationId;
-  int? count;
+  final int? count;
   PostBasketProductDetailEvent({required this.productVariationId, this.count});
 }
 

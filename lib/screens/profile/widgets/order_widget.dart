@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/price_function.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
+import 'package:flutter_application_1/core/language/language_constants.dart';
 import 'package:flutter_application_1/models/order_model/user_orders_model.dart';
 import 'package:flutter_application_1/screens/product_detail/product_detail_page.dart';
-
-import '../../../assets_path/app_images_path.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import '../../../assets_path/app_icons_path.dart';
+import '../../../widgets/custom_cachedd_image.dart';
 
 class OrderWidget extends StatefulWidget {
   const OrderWidget({required this.ordersModel, super.key});
@@ -20,41 +22,32 @@ class _OrderWidgetState extends State<OrderWidget> {
   @override
   void initState() {
     super.initState();
-    // '11:58, 09.10.2024'
 
     productCreatedDate +=
-        '${widget.ordersModel.updatedDate.hour < 10 ? 0 : ''}${widget.ordersModel.updatedDate.hour}:${widget.ordersModel.updatedDate.minute < 10 ? 0 : ''}${widget.ordersModel.updatedDate.minute}, ';
-    productCreatedDate +=
-        '${widget.ordersModel.updatedDate.day < 10 ? 0 : ''}${widget.ordersModel.updatedDate.day}.${widget.ordersModel.updatedDate.month < 10 ? 0 : ''}${widget.ordersModel.updatedDate.month}.${widget.ordersModel.updatedDate.year}';
+        '${widget.ordersModel.createdDate.substring(10, 16)},${widget.ordersModel.createdDate.substring(8, 10)}.${widget.ordersModel.createdDate.substring(5, 7)}.${widget.ordersModel.createdDate.substring(5, 7)}.${widget.ordersModel.createdDate.substring(0, 4)}';
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      // Removed fixed height
       margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
+        border: Border.all(color: AppColors.grey3),
         borderRadius: BorderRadius.circular(8),
-        color: AppColors.white,
-        boxShadow: const [
-          BoxShadow(
-            color: Color.fromARGB(82, 0, 0, 0),
-            blurRadius: 2,
-          ),
-        ],
+        color: AppColors.pageBgColor,
       ),
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start, // Ensures dynamic height
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
-                  const Text(
-                    'Заказ ID:',
-                    style: TextStyle(
+                  Text(
+                    translation(context).orderId,
+                    style: const TextStyle(
                       color: AppColors.grey2,
                       fontWeight: FontWeight.w400,
                     ),
@@ -71,9 +64,9 @@ class _OrderWidgetState extends State<OrderWidget> {
               ),
               Row(
                 children: [
-                  const Text(
-                    'Статус:',
-                    style: TextStyle(
+                  Text(
+                    translation(context).status,
+                    style: const TextStyle(
                       color: AppColors.grey2,
                       fontWeight: FontWeight.w400,
                     ),
@@ -85,14 +78,16 @@ class _OrderWidgetState extends State<OrderWidget> {
                       vertical: 2,
                     ),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: AppColors.red, width: 0.5),
-                      color: const Color.fromARGB(108, 254, 154, 147),
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(
+                          color: const Color.fromARGB(255, 57, 122, 244),
+                          width: 0.5),
+                      color: const Color.fromARGB(90, 192, 213, 251),
                     ),
-                    child: const Text(
-                      'Возврат денег',
-                      style: TextStyle(
-                        color: AppColors.red,
+                    child: Text(
+                      translation(context).orderCreated,
+                      style: const TextStyle(
+                        color: AppColors.blue,
                         fontSize: 12,
                         fontWeight: FontWeight.w200,
                       ),
@@ -116,10 +111,26 @@ class _OrderWidgetState extends State<OrderWidget> {
                           .prices[0].value
                           .toInt()
                           .toString(),
-                    )} сум',
-                    style: const TextStyle(color: AppColors.green),
+                    )} AED',
+                    style: const TextStyle(
+                      color: AppColors.green,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                  const SizedBox(height: 5),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      SvgPicture.asset(
+                        AppIcons.location,
+                        color: AppColors.grey2,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        widget.ordersModel.address,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
                   InkWell(
                     onTap: () {
                       setState(() {
@@ -128,14 +139,29 @@ class _OrderWidgetState extends State<OrderWidget> {
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 5, vertical: 5),
+                        horizontal: 5,
+                        vertical: 5,
+                      ),
                       child: Row(
                         children: [
-                          Text(
-                            showMore ? 'Коллапс' : 'Деталь',
-                            style: const TextStyle(
-                              color: AppColors.green,
-                              fontWeight: FontWeight.w500,
+                          Container(
+                            decoration: const BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
+                                  width: 1.5,
+                                  color: AppColors.green,
+                                ),
+                              ),
+                            ),
+                            child: Text(
+                              showMore
+                                  ? translation(context).collapse
+                                  : translation(context).details,
+                              style: const TextStyle(
+                                height: 1.15,
+                                color: AppColors.green,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                           const SizedBox(width: 5),
@@ -164,7 +190,7 @@ class _OrderWidgetState extends State<OrderWidget> {
             firstChild: SizedBox(
               height: 85.0 * widget.ordersModel.subOrders[0].items.length,
               child: ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: widget.ordersModel.subOrders[0].items.length,
                 itemBuilder: (context, index) {
                   return GestureDetector(
@@ -190,48 +216,13 @@ class _OrderWidgetState extends State<OrderWidget> {
                         const SizedBox(height: 10),
                         Row(
                           children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(5),
-                              child: SizedBox(
-                                height: 70,
-                                // width: 70,
-                                child: (widget.ordersModel.subOrders[0].items[index]
-                                        .variation.files.isNotEmpty &&
-                                       widget.ordersModel.subOrders[0].items[index]
-                                        .variation.files[0].url.isNotEmpty )
-                                    ? Image.network(
-                                        widget.ordersModel.subOrders[0].items[index]
-                                        .variation.files[0].url,
-                                        fit: BoxFit.fitHeight,
-                                        errorBuilder:
-                                            (context, error, stackTrace) {
-                                          return Image.asset(
-                                            AppImages.noImage,
-                                            fit: BoxFit.fitHeight,
-                                          );
-                                        },
-                                      )
-                                    : Image.asset(
-                                        AppImages.noImage,
-                                        fit: BoxFit.fitWidth,
-                                      ),
-                              ),
+                            CustomCachedImage(
+                              height: 70,
+                              width: 70,
+                              borderRadius: BorderRadius.circular(8),
+                              imageUrl: widget.ordersModel.subOrders[0]
+                                  .items[index].variation.files[0].url,
                             ),
-                            // Container(
-                            //   decoration: BoxDecoration(
-                            //     borderRadius: BorderRadius.circular(5),
-                            //     image: DecorationImage(
-                            //       image: NetworkImage(
-                            //         widget.ordersModel.subOrders[0].items[index]
-                            //             .variation.files[0].url,
-                            //       ),
-                            //       fit: BoxFit.cover,
-                            //     ),
-                            //   ),
-                            //   width: 70,
-                            //   height: 70, // Flexible sizing
-                            // ),
-                           
                             const SizedBox(width: 10),
                             Expanded(
                               child: Column(
@@ -248,14 +239,14 @@ class _OrderWidgetState extends State<OrderWidget> {
                                           .value
                                           .toInt()
                                           .toString(),
-                                    )} сум',
+                                    )} AED',
                                     style: const TextStyle(
                                       color: AppColors.black,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                   Text(
-                                    '${widget.ordersModel.subOrders[0].items[index].count} шт. х ${addSpaceEveryThreeCharacters(
+                                    '${widget.ordersModel.subOrders[0].items[index].count} ${translation(context).count} х ${addSpaceEveryThreeCharacters(
                                       widget
                                           .ordersModel
                                           .subOrders[0]
@@ -265,7 +256,7 @@ class _OrderWidgetState extends State<OrderWidget> {
                                           .value
                                           .toInt()
                                           .toString(),
-                                    )} сум',
+                                    )} AED',
                                     style: const TextStyle(
                                       color: AppColors.grey2,
                                       fontWeight: FontWeight.w500,

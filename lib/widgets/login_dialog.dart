@@ -1,5 +1,8 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/hive/user_token.dart';
+import 'package:flutter_application_1/core/language/language_constants.dart';
+import 'package:flutter_application_1/screens/login/privacy_policy_page.dart';
 import 'package:flutter_application_1/widgets/login_otp_dialog.dart';
 // import 'package:flutter_application_1/screens/login/login_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,22 +26,22 @@ loginDiolog(BuildContext context, Function() setState) {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Align(
+             Align(
               alignment: Alignment.topCenter,
               child: Text(
-                'Авторизация',
-                style: TextStyle(
+                translation(context).authorization,
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
                 ),
               ),
             ),
             const SizedBox(height: 30),
-            const Align(
+             Align(
               alignment: Alignment.topLeft,
               child: Text(
-                'Номер телефона',
-                style: TextStyle(
+                translation(context).phoneNumber,
+                style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w300,
                 ),
@@ -100,6 +103,30 @@ loginDiolog(BuildContext context, Function() setState) {
                 ),
               ],
             ),
+            const SizedBox(height: 20),
+            RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                text: translation(context).byAuthorizingYouAgreeTo,
+                style: const TextStyle(color: AppColors.black),
+                children: <TextSpan>[
+                  TextSpan(
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        Navigator.of(context, rootNavigator: true).push(
+                          MaterialPageRoute(
+                            builder: (context) => const PrivacyPolicyPage(),
+                          ),
+                        );
+                      },
+                    text: translation(context).thePersonalDataProcessingPolicy,
+                    style: const TextStyle(
+                      color: AppColors.blue,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -113,8 +140,8 @@ Widget buildSubmitButton(
     listener: (context, state) {
       if (state.postLoginUserResponseStatus == FormzSubmissionStatus.success) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Registration successful'),
+          SnackBar(
+            content: Text(translation(context).successful),
           ),
         );
         Navigator.pop(context);
@@ -126,8 +153,8 @@ Widget buildSubmitButton(
       } else if (state.postLoginUserResponseStatus ==
           FormzSubmissionStatus.failure) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Registration failed'),
+          SnackBar(
+            content: Text(translation(context).failed),
           ),
         );
       }
@@ -168,9 +195,9 @@ Widget buildSubmitButton(
                     color: AppColors.white,
                   ),
                 )
-              : const Text(
-                  'Войти',
-                  style: TextStyle(
+              : Text(
+                 translation(context).login,
+                  style: const TextStyle(
                     color: AppColors.white,
                   ),
                 ),

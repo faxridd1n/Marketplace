@@ -1,31 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
+import 'package:flutter_application_1/core/language/language_constants.dart';
 import 'package:flutter_application_1/core/utils/build_context_extension.dart';
 import 'package:flutter_application_1/models/products_model/product_model.dart';
 import 'package:flutter_application_1/screens/basket/basket_bloc/basket_bloc.dart';
-import 'package:flutter_application_1/screens/katalog/katalog_bloc/katalog_bloc.dart';
-import 'package:flutter_application_1/screens/see_all/see_all_bloc/see_all_bloc.dart';
-import '../assets_path/app_images_path.dart';
 import '../components/hive/user_token.dart';
 import '../components/price_function.dart';
 import '../screens/favorite/favorite_page.dart';
+import 'custom_cachedd_image.dart';
 import 'login_dialog.dart';
-import 'snack_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../screens/product_detail/product_detail_page.dart';
 
-// ignore: must_be_immutable
 class HorizontalProductWidget extends StatefulWidget {
-  HorizontalProductWidget({required this.model, required this.index, this.isKatalogPage, this.isSeeAllPage, super.key});
+  const HorizontalProductWidget({required this.model, super.key});
 
-  ProductModel model;
-  int index;
-  bool? isKatalogPage;
-  bool? isSeeAllPage;
+  final ProductModel model;
 
   @override
-  State<HorizontalProductWidget> createState() => _HorizontalProductWidgetState();
+  State<HorizontalProductWidget> createState() =>
+      _HorizontalProductWidgetState();
 }
 
 class _HorizontalProductWidgetState extends State<HorizontalProductWidget> {
@@ -45,6 +40,7 @@ class _HorizontalProductWidgetState extends State<HorizontalProductWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      behavior: HitTestBehavior.opaque,
       onTap: () {
         Navigator.of(context, rootNavigator: true).push(
           MaterialPageRoute(
@@ -60,7 +56,6 @@ class _HorizontalProductWidgetState extends State<HorizontalProductWidget> {
       },
       child: Container(
         decoration: BoxDecoration(
-          boxShadow: const [BoxShadow(blurRadius: 2, color: Color.fromARGB(90, 0, 0, 0))],
           borderRadius: BorderRadius.circular(12),
           color: AppColors.white,
         ),
@@ -70,18 +65,12 @@ class _HorizontalProductWidgetState extends State<HorizontalProductWidget> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                image: DecorationImage(
-                  image: widget.model.variations[0].files[0].url.isNotEmpty
-                      ? NetworkImage(widget.model.variations[0].files[0].url)
-                      : const AssetImage(AppImages.noImage) as ImageProvider, // Fallback image
-                  fit: BoxFit.fitWidth,
-                ),
-              ),
+            CustomCachedImage(
+              height: 120,
+              fit: BoxFit.fitWidth,
               width: 80,
-              // height: 70, // Specify height for better layout control
+              borderRadius: BorderRadius.circular(8),
+              imageUrl: widget.model.variations[0].files[0].url,
             ),
             const SizedBox(width: 10),
             Expanded(
@@ -121,8 +110,11 @@ class _HorizontalProductWidgetState extends State<HorizontalProductWidget> {
                               );
                             },
                             icon: Icon(
-                              isSelected ? Icons.favorite : Icons.favorite_border_rounded,
-                              color: isSelected ? AppColors.pink : AppColors.black,
+                              isSelected
+                                  ? Icons.favorite
+                                  : Icons.favorite_border_rounded,
+                              color:
+                                  isSelected ? AppColors.pink : AppColors.black,
                             ),
                           ),
                         ),
@@ -136,7 +128,8 @@ class _HorizontalProductWidgetState extends State<HorizontalProductWidget> {
                       Row(
                         children: List.generate(5, (index) {
                           return const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 1, vertical: 5),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 1, vertical: 5),
                             child: Icon(
                               Icons.star_rate_rounded,
                               color: AppColors.yellow,
@@ -146,9 +139,9 @@ class _HorizontalProductWidgetState extends State<HorizontalProductWidget> {
                         }),
                       ),
                       const SizedBox(width: 2),
-                      const Text(
-                        '5',
-                        style: TextStyle(
+                      Text(
+                        widget.model.rating.toInt().toString(),
+                        style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),
@@ -167,64 +160,10 @@ class _HorizontalProductWidgetState extends State<HorizontalProductWidget> {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      // Column(
-                      //   crossAxisAlignment: CrossAxisAlignment.start,
-                      //   children: [
-                      //     // Row(
-                      //     //   children: [
-                      //     //     Text(
-                      //     //       widget.model.variations[0].prices[0].type ==
-                      //     //               'Price'
-                      //     //           ? '${addSpaceEveryThreeCharacters(widget.model.variations[0].prices[0].value.toInt().toString())} сум'
-                      //     //           : '${addSpaceEveryThreeCharacters(widget.model.variations[0].prices[1].value.toInt().toString())} сум',
-                      //     //       style: const TextStyle(
-                      //     //         fontSize: 14,
-                      //     //         fontWeight: FontWeight.w600,
-                      //     //       ),
-                      //     //     ),
-                      //     //     const SizedBox(
-                      //     //       width: 5,
-                      //     //     ),
-                      //     //     Container(
-                      //     //       decoration: BoxDecoration(
-                      //     //         borderRadius: BorderRadius.circular(100),
-                      //     //         color: AppColors.yellow,
-                      //     //       ),
-                      //     //       padding: const EdgeInsets.symmetric(
-                      //     //         horizontal: 5,
-                      //     //       ),
-                      //     //       child: const Text(
-                      //     //         'x 12 мес',
-                      //     //         style: TextStyle(
-                      //     //           fontSize: 12,
-                      //     //           fontWeight: FontWeight.w500,
-                      //     //         ),
-                      //     //       ),
-                      //     //     ),
-                      //     //   ],
-                      //     // ),
-                      //     Text(
-                      //       widget.model.variations[0].prices[0].type == 'Price'
-                      //           ? '${addSpaceEveryThreeCharacters(widget.model.variations[0].prices[0].value.toInt().toString())} AED'
-                      //           : '${addSpaceEveryThreeCharacters(widget.model.variations[0].prices[1].value.toInt().toString())} AED',
-                      //       style: const TextStyle(
-                      //         fontSize: 14,
-                      //         fontWeight: FontWeight.w600,
-                      //       ),
-                      //     ),
-                      //     // const Text(
-                      //     //   '180 000 сум',
-                      //     //   style: TextStyle(
-                      //     //     color: AppColors.grey3,
-                      //     //     fontWeight: FontWeight.w500,
-                      //     //   ),
-                      //     // ),
-                      //   ],
-                      // ),
-
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 0),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -233,38 +172,28 @@ class _HorizontalProductWidgetState extends State<HorizontalProductWidget> {
                         onPressed: () {
                           final token = userTokenBox.get('token')?.token;
                           if (token != null && token.isNotEmpty) {
-                            if (widget.isSeeAllPage == true) {
-                              context.read<SeeAllBloc>().add(
-                                    PostBasketProductSeeAllEvent(
-                                      productVariationId: widget.model.variations[0].id,
-                                      count: 1,
-                                    ),
-                                  );
-                            } else if (widget.isKatalogPage == true) {
-                              context.read<KatalogBloc>().add(
-                                    PostBasketProductKatalogEvent(
-                                      productVariationId: widget.model.variations[0].id,
-                                      count: 1,
-                                    ),
-                                  );
-                            } else {
-                              context.read<BasketBloc>().add(
-                                    PostBasketProductBasketEvent(
-                                      productVariationId: widget.model.variations[0].id,
-                                      count: 1,
-                                    ),
-                                  );
-                            }
-                            context.showPopUp(context, message: "${widget.model.name} добавлено в корзину");
+                            context.read<BasketBloc>().add(
+                                  PostBasketProductBasketEvent(
+                                    productVariationId:
+                                        widget.model.variations[0].id,
+                                    count: 1,
+                                  ),
+                                );
+
+                            context.showPopUp(
+                              context,
+                              title: translation(context).successful,
+                              message: widget.model.name,
+                            );
                           } else {
                             loginDiolog(context, () {
                               setState(() {});
                             });
                           }
                         },
-                        child: const Text(
-                          'В корзину',
-                          style: TextStyle(
+                        child: Text(
+                          translation(context).goToBasket,
+                          style: const TextStyle(
                             color: AppColors.white,
                             fontSize: 12,
                             fontWeight: FontWeight.w500,

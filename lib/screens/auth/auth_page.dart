@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/core/language/language_constants.dart';
 import 'package:flutter_application_1/screens/auth/auth_bloc/auth_bloc.dart';
 import 'package:flutter_application_1/screens/auth/auth_otp_page.dart';
 import 'package:flutter_application_1/screens/auth/widgets/auth_birthday_field.dart';
@@ -93,8 +94,8 @@ class _AuthPageState extends State<AuthPage> {
         if (state.registerUserResponseStatus == FormzSubmissionStatus.success) {
           // Show success message
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Registration successful'),
+            SnackBar(
+              content: Text(translation(context).successful),
             ),
           );
           Navigator.push(
@@ -117,10 +118,9 @@ class _AuthPageState extends State<AuthPage> {
           );
         } else if (state.registerUserResponseStatus ==
             FormzSubmissionStatus.failure) {
-          // Show error message
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Registration failed'),
+            SnackBar(
+              content: Text(translation(context).failed),
             ),
           );
         }

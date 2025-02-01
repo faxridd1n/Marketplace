@@ -35,8 +35,7 @@ class Paginator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (paginatorStatus == FormzSubmissionStatus.inProgress) {
-      return Center(
-          child:CustomLoadingIndicator());
+      return const Center(child: CustomLoadingIndicator());
     } else if (paginatorStatus == FormzSubmissionStatus.failure) {
       return errorWidget ?? const SizedBox.shrink();
     } else if (paginatorStatus == FormzSubmissionStatus.success) {
@@ -47,11 +46,10 @@ class Paginator extends StatelessWidget {
         scrollDirection: scrollDirection,
         physics: physics ?? const BouncingScrollPhysics(),
         itemBuilder: (context, index) {
-          if (index == itemCount) {
+          if (index == itemCount-1) {
             if (hasMoreToFetch) {
               fetchMoreFunction();
-              return Center(
-                  child:CustomLoadingIndicator());
+              return const Center(child: CustomLoadingIndicator());
             } else {
               return const SizedBox();
             }
