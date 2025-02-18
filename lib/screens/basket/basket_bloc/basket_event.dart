@@ -7,9 +7,14 @@ class GetBasketProductsEvent extends BasketEvent {
   GetBasketProductsEvent();
 }
 
+class SetBasketProductCount extends BasketEvent {
+  final int basketProductCount;
+  SetBasketProductCount({required this.basketProductCount});
+}
+
 class DeleteBasketProductsEvent extends BasketEvent {
   final String productVariationId;
-  DeleteBasketProductsEvent(this.productVariationId);
+  DeleteBasketProductsEvent({required this.productVariationId});
 }
 
 class DeleteAllBasketProductsEvent extends BasketEvent {
@@ -18,8 +23,8 @@ class DeleteAllBasketProductsEvent extends BasketEvent {
 }
 
 class PostBasketProductCountBasketEvent extends BasketEvent {
-  final String? productVariationId;
-  final int? count;
+  final String productVariationId;
+  final int count;
   PostBasketProductCountBasketEvent(this.productVariationId, this.count);
 }
 
@@ -30,12 +35,14 @@ class PostBasketProductBasketEvent extends BasketEvent {
       {required this.productVariationId, required this.count});
 }
 
+class PostBasketProductBasketOnlyBuyNowEvent extends BasketEvent {
+  final int count;
+  final String productVariationId;
+  PostBasketProductBasketOnlyBuyNowEvent(
+      {required this.productVariationId, required this.count});
+}
+
 class GetOrganizationEvent extends BasketEvent {
   final int organizationId;
   GetOrganizationEvent({required this.organizationId});
 }
-// class AddItemEvent extends BasketEvent {
-//   final BasketProductElement item;
-
-//   AddItemEvent(this.item);
-// }

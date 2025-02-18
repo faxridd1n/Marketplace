@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_application_1/di/DioClient.dart';
+import 'package:flutter_application_1/models/order_model/post_order_response_model.dart';
 // import 'package:flutter_application_1/models/order_model/post_order_response_model.dart';
 import 'package:flutter_application_1/models/order_model/user_orders_model.dart';
 // import 'package:flutter_application_1/screens/profile/profile_bloc/profile_page_bloc/profile_bloc.dart';
@@ -49,9 +50,59 @@ class OrderService {
 
   //   return null;
   // }
-
-  static Future<UserOrdersModel?> postUserOrders(
+  static Future<PostOrderResponseModel?> postUserOrders(
       PostOrderRequestModel requestModel) async {
+    try {
+      final response = await DioConfig.inheritance.createRequest().post(
+        "https://client.arbuzmarket.com/api/orders/m",
+        options: Options(
+          headers: {
+            'Authorization':
+                'Bearer ${userTokenBox.get('token')!.token.toString()}',
+          },
+        ),
+        data: {
+          "address": requestModel.address,
+          "comment": requestModel.comment,
+          "deliveryType": 0,
+          // requestModel.deliveryType,
+          "destrictId": requestModel.destrictId,
+          "fullName": requestModel.fullName,
+          "items": requestModel.items,
+          "paymentType": 2,
+          // requestModel.paymentType,
+          "phone": requestModel.phone,
+          "regionId": requestModel.regionId,
+        },
+      );
+
+      Log.i(response.data.toString());
+      Log.i(response.statusCode.toString());
+
+      if (response.statusCode! >= 200 && response.statusCode! <= 300) {
+        // final data = (response.data['item'] as List)
+        //     .map((e) => BasketProductModel.fromJson(e))
+        //     .toList();
+        final data = response.data;
+        // PostOrderResponseModel.fromJson(response.data);
+        return data;
+      } else {
+        Log.e("${response.statusMessage} ${response.statusCode}");
+      }
+    } on DioException catch (e) {
+      if (e.response != null) {
+        Log.e(e.response!.toString());
+      } else {
+        rethrow;
+      }
+    } catch (e) {
+      Log.e(e.toString());
+    }
+
+    return null;
+  }
+
+  static Future<UserOrdersModel?> getUserOrders(int page) async {
     try {
       final response = await DioConfig.inheritance.createRequest().post(
         "https://client.arbuzmarket.com/api/orders/m/filter",
@@ -62,29 +113,54 @@ class OrderService {
           },
         ),
         data: {
-          "page": 1,
+          "page": page,
           "subOrderState": [0, 1, 2, 5],
         },
-        // requestModel.toJson(),
       );
-      //  requestModel
-      //         {
-      //   "paymentType": requestModel.paymentType,
-      //   "deliveryType": requestModel.deliveryType,
-      //   "regionId": requestModel.regionId,
-      //   "destrictId": requestModel.destrictId,
-      //   "address": requestModel.address,
-      //   "comment": requestModel.comment,
-      //   "items": requestModel.items,
-      // }
 
       Log.i(response.data.toString());
       Log.i(response.statusCode.toString());
 
       if (response.statusCode! >= 200 && response.statusCode! <= 300) {
-        // final data = (response.data['item'] as List)
-        //     .map((e) => BasketProductModel.fromJson(e))
-        //     .toList();
+        final data = UserOrdersModel.fromJson(response.data);
+        return data;
+      } else {
+        Log.e("${response.statusMessage} ${response.statusCode}");
+      }
+    } on DioException catch (e) {
+      if (e.response != null) {
+        Log.e(e.response!.toString());
+      } else {
+        rethrow;
+      }
+    } catch (e) {
+      Log.e(e.toString());
+    }
+
+    return null;
+  }
+
+
+static Future<UserOrdersModel?> showMoreOrders(int page) async {
+    try {
+      final response = await DioConfig.inheritance.createRequest().post(
+        "https://client.arbuzmarket.com/api/orders/m/filter",
+        options: Options(
+          headers: {
+            'Authorization':
+                'Bearer ${userTokenBox.get('token')!.token.toString()}',
+          },
+        ),
+        data: {
+          "page": page,
+          "subOrderState": [0, 1, 2, 5],
+        },
+      );
+
+      Log.i(response.data.toString());
+      Log.i(response.statusCode.toString());
+
+      if (response.statusCode! >= 200 && response.statusCode! <= 300) {
         final data = UserOrdersModel.fromJson(response.data);
         return data;
       } else {

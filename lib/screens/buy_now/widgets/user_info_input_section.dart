@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/models/profile_model/user_profile_model.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/language/language_constants.dart';
@@ -7,7 +8,9 @@ class UserInfoInputSection extends StatefulWidget {
   const UserInfoInputSection(
       {required this.nameController,
       required this.numberController,
+      required this.userProfileModel,
       super.key});
+  final UserProfileModel userProfileModel;
   final TextEditingController nameController;
   final TextEditingController numberController;
   @override
@@ -15,6 +18,22 @@ class UserInfoInputSection extends StatefulWidget {
 }
 
 class _UserInfoInputSectionState extends State<UserInfoInputSection> {
+  final maskFormatter = MaskTextInputFormatter(
+    mask: '+### ## ###-##-##',
+    filter: {"#": RegExp(r'[0-9]')},
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    widget.nameController.text = '';
+    widget.nameController.text +=
+        '${widget.userProfileModel.result.firstName} ${widget.userProfileModel.result.lastName}';
+    widget.numberController.text = maskFormatter.maskText(
+      widget.userProfileModel.result.phoneNumber,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -35,37 +54,16 @@ class _UserInfoInputSectionState extends State<UserInfoInputSection> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
-                width: 50,
-                child: Center(
-                  child: TextFormField(
-                    onTapOutside: (event) {
-                      FocusScope.of(context).unfocus();
-                    },
-                    cursorWidth: 1.5,
-                    readOnly: true,
-                    decoration: const InputDecoration(
-                      hintText: '+998 ',
-                      hintStyle: TextStyle(
-                        color: AppColors.black,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      border: UnderlineInputBorder(
-                        borderSide: BorderSide.none,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
               Expanded(
                 child: TextFormField(
                   onTapOutside: (event) {
                     FocusScope.of(context).unfocus();
                   },
                   onChanged: (value) {
+                    if (!value.startsWith("+")) {
+                      widget.numberController.text = "+";
+                    }
                     if (value.length == 12) {
-                      widget.numberController.text += '998';
                       var a = value.split('');
                       for (var e in a) {
                         if (e != ' ') widget.numberController.text += e;
@@ -75,14 +73,8 @@ class _UserInfoInputSectionState extends State<UserInfoInputSection> {
                   },
                   cursorWidth: 1.5,
                   controller: widget.numberController,
-                  // focusNode: focusNode,
-                  inputFormatters: [
-                    MaskTextInputFormatter(
-                      mask: "## ### ## ##",
-                      filter: {"#": RegExp(r'[0-9]')},
-                    )
-                  ],
-                  keyboardType: TextInputType.number,
+                  inputFormatters: [maskFormatter],
+                  keyboardType: TextInputType.phone,
                   style: const TextStyle(
                     wordSpacing: 0,
                     letterSpacing: 0,

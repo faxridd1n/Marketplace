@@ -95,7 +95,6 @@ class _FavoritePageState extends State<FavoritePage> {
                           itemCount: favoriteProducts.length,
                           itemBuilder: (context, index) {
                             return MiniProductWidget(
-                              // index: index,
                               model: favoriteProducts[index],
                             );
                           },

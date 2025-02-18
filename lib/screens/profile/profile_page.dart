@@ -55,7 +55,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '${state.userProfileModel!.result.firstName} ${state.userProfileModel!.result.lastName}',
+                              '${state.userProfileModel.result.firstName} ${state.userProfileModel.result.lastName}',
                               style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w600,
@@ -64,7 +64,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             const SizedBox(height: 5),
                             Text(
                               numberFormatter(
-                                  state.userProfileModel!.result.phoneNumber),
+                                  state.userProfileModel.result.phoneNumber),
                               style: const TextStyle(
                                 fontSize: 16,
                                 color: AppColors.grey2,
@@ -76,7 +76,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     const SizedBox(height: 40),
                     ProfileElements(
-                      userProfileModel: state.userProfileModel!,
+                      userProfileModel: state.userProfileModel,
                     ),
                     const SizedBox(height: 20),
                     const Align(

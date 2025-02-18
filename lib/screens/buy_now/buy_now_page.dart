@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_application_1/models/order_model/post_order_request_model.dart';
 import 'package:flutter_application_1/models/profile_model/user_profile_model.dart';
+import 'package:flutter_application_1/screens/auth/qwqwqw.dart';
 import 'package:flutter_application_1/screens/basket/other_pages/order_success_page.dart';
 import 'package:flutter_application_1/screens/basket/widgets/bottom_bar_widget.dart';
 import 'package:flutter_application_1/screens/buy_now/buy_now_bloc/buy_now_bloc.dart';
@@ -33,32 +34,18 @@ class _BuyNowPageState extends State<BuyNowPage> {
   bool deliveryType2 = false;
   String selectedRegion = '';
   String selectedDistrict = '';
-  List<Item> items = [];
+  List<Items> items = [];
   List<ProductElement> basketProducts = [];
   late final UserProfileModel userProfileModel;
   late final BuyNowBloc buyNowBloc;
   TextEditingController nameController = TextEditingController();
   TextEditingController numberController = TextEditingController();
 
-  numberFormatter(String number) {
-    String edittedNumber = '';
-    edittedNumber +=
-        '+${number.substring(0, 3)} (${number.substring(3, 5)}) ${number.substring(5, 8)}-${number.substring(8, 10)}-${number.substring(10)}';
-    return edittedNumber;
-  }
-
   @override
   void initState() {
     buyNowBloc = BuyNowBloc();
-    // if (widget.authStatus == AuthStatus.authenticated) {
     getData();
 
-    // }
-    // else if (widget.authStatus == AuthStatus.unAuthenticated) {
-    //   buyNowBloc.add(GetRegionsEvent());
-    // } else {
-    //   getData();
-    // }
     super.initState();
   }
 
@@ -95,11 +82,6 @@ class _BuyNowPageState extends State<BuyNowPage> {
             if (state.getUserProfileStatus.isSuccess &&
                 state.getBasketProductStatus.isSuccess &&
                 state.organizationContactStatus.isSuccess) {
-              nameController.text =
-                  '${state.userProfileModel.result.firstName} ${state.userProfileModel.result.lastName}';
-              numberController.text =
-                  state.userProfileModel.result.phoneNumber.substring(3);
-              basketProducts = state.basketResponseModel.result.products;
               return SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,7 +89,9 @@ class _BuyNowPageState extends State<BuyNowPage> {
                     Container(
                       margin: const EdgeInsets.all(10),
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 20),
+                        horizontal: 16,
+                        vertical: 20,
+                      ),
                       decoration: BoxDecoration(
                         color: AppColors.white,
                         borderRadius: BorderRadius.circular(10),
@@ -188,8 +172,10 @@ class _BuyNowPageState extends State<BuyNowPage> {
                           ),
                           const SizedBox(height: 20),
                           UserInfoInputSection(
-                              nameController: nameController,
-                              numberController: numberController),
+                            nameController: nameController,
+                            numberController: numberController,
+                            userProfileModel: state.userProfileModel,
+                          ),
                           const SizedBox(height: 20),
                           deliveryType1
                               ? const SelectAddresWidget()
@@ -253,6 +239,8 @@ class _BuyNowPageState extends State<BuyNowPage> {
 
   Widget _buildSubmitButton() {
     return BlocConsumer<BuyNowBloc, BuyNowState>(
+      listenWhen: (previous, current) =>
+          previous.postOrderResponseStatus != current.postOrderResponseStatus,
       listener: (context, state) {
         if (state.postOrderResponseStatus == FormzSubmissionStatus.success) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -263,7 +251,7 @@ class _BuyNowPageState extends State<BuyNowPage> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) {
+              builder: (ctx) {
                 return OrderSuccessPage(
                   responseModel: state.postOrderResponseModel,
                 );
@@ -274,27 +262,31 @@ class _BuyNowPageState extends State<BuyNowPage> {
             FormzSubmissionStatus.failure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(translation(context).failed),
+              content: Text(state.postOrderResponseStatus.toString()),
+              // Text(translation(context).failed),
             ),
           );
-
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (ctx) => Pagee(
-          //       postOrderResponseModel: state.postOrderResponseModel,
-          //       postOrderRequestModel: PostOrderRequestModel(
-          //         paymentType: state.paymentType,
-          //         deliveryType: state.deliveryType,
-          //         comment: state.comment,
-          //         address: state.address,
-          //         regionId: state.regionId,
-          //         destrictId: state.destrictId,
-          //         items: state.items,
-          //       ),
-          //     ),
-          //   ),
-          // );
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (ctx) {
+                return Pagee(
+                  postOrderRequestModel: PostOrderRequestModel(
+                    paymentType: state.paymentType,
+                    deliveryType: state.deliveryType,
+                    regionId: state.regionId,
+                    destrictId: state.destrictId,
+                    address: state.address,
+                    comment: state.comment,
+                    items: state.items,
+                    phone: state.phone,
+                    fullName: state.fullName,
+                  ),
+                  postOrderResponseModel: state.postOrderResponseModel,
+                );
+              },
+            ),
+          );
         }
       },
       builder: (context, state) {
@@ -304,16 +296,28 @@ class _BuyNowPageState extends State<BuyNowPage> {
           child: ElevatedButton(
             onPressed: () {
               if (state.basketResponseModel.result.products.isNotEmpty) {
-                final List<Item> itemsList = [];
+                final List<Items> itemsList = [];
                 for (var e in state.basketResponseModel.result.products) {
-                  itemsList.add(Item(
+                  itemsList.add(Items(
                     variationId: e.id,
                     count: e.count,
                   ));
                 }
+                var number = numberController.text.split('');
+
+                numberController.text = '';
+                for (var e in number) {
+                  if (e != '+' && e != '-' && e != ' ') {
+                    numberController.text += e;
+                  }
+                }
                 context
                     .read<BuyNowBloc>()
                     .add(GetVariationEvent(items: itemsList));
+                context.read<BuyNowBloc>().add(GetUserInfoEvent(
+                      phone: numberController.text,
+                      fullName: nameController.text,
+                    ));
 
                 context.read<BuyNowBloc>().add(SelectPaymentTypeEvent(
                       paymentType: paymentType1 == true ? 1 : 2,
@@ -331,6 +335,8 @@ class _BuyNowPageState extends State<BuyNowPage> {
                           address: state.address,
                           comment: state.comment,
                           items: state.items,
+                          phone: state.phone,
+                          fullName: state.fullName,
                         ),
                       ),
                     );

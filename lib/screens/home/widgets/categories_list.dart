@@ -47,12 +47,7 @@ class CategoriesListWidget extends StatelessWidget {
                 ),
               );
             }
-            return const Center(
-              child: Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Text('Error'),
-              ),
-            );
+            return const SizedBox.shrink();
           },
         ),
       ],

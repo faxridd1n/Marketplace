@@ -2,84 +2,83 @@
 //
 //     final filteredSearchModel = filteredSearchModelFromJson(jsonString);
 
+import 'package:json_annotation/json_annotation.dart';
 import 'dart:convert';
 
-FilteredSearchModel filteredSearchModelFromJson(String str) => FilteredSearchModel.fromJson(json.decode(str));
+part 'filtered_search_model.g.dart';
 
-String filteredSearchModelToJson(FilteredSearchModel data) => json.encode(data.toJson());
+FilteredSearchModel filteredSearchModelFromJson(String str) =>
+    FilteredSearchModel.fromJson(json.decode(str));
 
+String filteredSearchModelToJson(FilteredSearchModel data) =>
+    json.encode(data.toJson());
+
+@JsonSerializable()
 class FilteredSearchModel {
-    int? id;
-    String? name;
-    String? filterType;
-    String? values;
-    String? dataType;
-    int? weight;
-    int? categoryId;
-    Category? category;
-    bool? isVisible;
+  @JsonKey(name: "result")
+  final Result result;
+  @JsonKey(name: "error")
+  final Map error;
 
-    FilteredSearchModel({
-        this.id,
-        this.name,
-        this.filterType,
-        this.values,
-        this.dataType,
-        this.weight,
-        this.categoryId,
-        this.category,
-        this.isVisible,
-    });
+  const FilteredSearchModel({
+    this.result = const Result(),
+    this.error = const {},
+  });
 
-    factory FilteredSearchModel.fromJson(Map<String, dynamic> json) => FilteredSearchModel(
-        id: json["id"],
-        name: json["name"],
-        filterType: json["filterType"],
-        values: json["values"],
-        dataType: json["dataType"],
-        weight: json["weight"],
-        categoryId: json["categoryId"],
-        category: json["category"] == null ? null : Category.fromJson(json["category"]),
-        isVisible: json["isVisible"],
-    );
+  factory FilteredSearchModel.fromJson(Map<String, dynamic> json) =>
+      _$FilteredSearchModelFromJson(json);
 
-    Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "filterType": filterType,
-        "values": values,
-        "dataType": dataType,
-        "weight": weight,
-        "categoryId": categoryId,
-        "category": category?.toJson(),
-        "isVisible": isVisible,
-    };
+  Map<String, dynamic> toJson() => _$FilteredSearchModelToJson(this);
 }
 
-class Category {
-    int? id;
-    String? name;
-    String? imageId;
-    bool? isVisible;
+@JsonSerializable()
+class Result {
+  @JsonKey(name: "item")
+  final List<Item> item;
 
-    Category({
-        this.id,
-        this.name,
-        this.imageId,
-        this.isVisible,
-    });
+  const Result({
+    this.item = const [],
+  });
 
-    factory Category.fromJson(Map<String, dynamic> json) => Category(
-        id: json["id"],
-        name: json["name"],
-        imageId: json["imageId"],
-        isVisible: json["isVisible"],
-    );
+  factory Result.fromJson(Map<String, dynamic> json) => _$ResultFromJson(json);
 
-    Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "imageId": imageId,
-        "isVisible": isVisible,
-    };
+  Map<String, dynamic> toJson() => _$ResultToJson(this);
+}
+
+@JsonSerializable()
+class Item {
+  @JsonKey(name: "id")
+  final int id;
+  @JsonKey(name: "name")
+  final String name;
+  @JsonKey(name: "parentId")
+  final String parentId;
+  @JsonKey(name: "imageId")
+  final String imageId;
+  @JsonKey(name: "image")
+  final String image;
+  @JsonKey(name: "iconId")
+  final String iconId;
+  @JsonKey(name: "icon")
+  final String icon;
+  @JsonKey(name: "childs")
+  final List childs;
+  @JsonKey(name: "isVisible")
+  final bool isVisible;
+
+  const Item({
+    this.id = -1,
+    this.name = '',
+    this.parentId = '',
+    this.imageId = '',
+    this.image = '',
+    this.iconId = '',
+    this.icon = '',
+    this.childs = const [],
+    this.isVisible = false,
+  });
+
+  factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ItemToJson(this);
 }

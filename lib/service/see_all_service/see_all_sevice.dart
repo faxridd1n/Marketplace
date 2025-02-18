@@ -83,20 +83,21 @@ class SeeAllSevice {
     return null;
   }
 
-  static Future<List<FilteredSearchModel>?> getSearchFilters(
+  static Future<FilteredSearchModel?> getSearchFilters(
       GetProductParams queryParameters) async {
     try {
       final response = await DioConfig.inheritance.createRequest().get(
-          "https://arbuzmarket.com/api/v1/Filters",
-          queryParameters: queryParameters.toJson());
+            "https://arbuzmarket.com/api/v1/categories/tab/53",
+            // queryParameters: queryParameters.toJson(),
+          );
       Log.i(response.data.toString());
       Log.i(response.statusCode.toString());
 
       if (response.statusCode == 200) {
-        final data = (response.data['item'] as List)
-            .map((e) => FilteredSearchModel.fromJson(e))
-            .toList();
-        // final data = FilteredProductModel.fromJson(response.data);
+        // final data = (response.data['item'] as List)
+        //     .map((e) => FilteredSearchModel.fromJson(e))
+        //     .toList();
+        final data = FilteredSearchModel.fromJson(response.data);
         return data;
       } else {
         Log.e("${response.statusMessage} ${response.statusCode}");

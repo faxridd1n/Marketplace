@@ -8,6 +8,7 @@ class ShimmerLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.only(top: 30),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       height: 450,
       child: ListView.builder(
@@ -46,24 +47,27 @@ class ShimmerLoading extends StatelessWidget {
 }
 
 Widget buildShimmerItem({required double height, required double width}) {
-  return
-   Shimmer(
-          gradient: const LinearGradient(begin: Alignment.centerRight, end: Alignment.centerLeft, colors: <Color>[
-            Color.fromRGBO(231, 235, 240, 1),
-            Color.fromRGBO(231, 235, 240, 1),
-            Color.fromRGBO(251, 251, 251, 0.8),
-            Color.fromRGBO(231, 235, 240, 1),
-            Color.fromRGBO(231, 235, 240, 1),
-          ], stops: <double>[
-            0,
-            0.35,
-            0.5,
-            0.65,
-            2,
-          ]),
-          period: const Duration(seconds: 2),
-          direction: ShimmerDirection.ltr,
-          child: Container(
+  return Shimmer(
+    gradient: const LinearGradient(
+        begin: Alignment.centerRight,
+        end: Alignment.centerLeft,
+        colors: <Color>[
+          Color.fromRGBO(231, 235, 240, 1),
+          Color.fromRGBO(231, 235, 240, 1),
+          Color.fromRGBO(251, 251, 251, 0.8),
+          Color.fromRGBO(231, 235, 240, 1),
+          Color.fromRGBO(231, 235, 240, 1),
+        ],
+        stops: <double>[
+          0,
+          0.35,
+          0.5,
+          0.65,
+          2,
+        ]),
+    period: const Duration(seconds: 2),
+    direction: ShimmerDirection.ltr,
+    child: Container(
       width: width,
       height: height,
       decoration: BoxDecoration(
@@ -71,17 +75,5 @@ Widget buildShimmerItem({required double height, required double width}) {
         borderRadius: BorderRadius.circular(8),
       ),
     ),
-        );
-  //  Shimmer.fromColors(
-  //   baseColor: Colors.grey[300]!,
-  //   highlightColor: Colors.grey[100]!,
-  //   child: Container(
-  //     width: width,
-  //     height: height,
-  //     decoration: BoxDecoration(
-  //       color: Colors.white,
-  //       borderRadius: BorderRadius.circular(8),
-  //     ),
-  //   ),
-  // );
+  );
 }

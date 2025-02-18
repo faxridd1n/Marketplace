@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
-import 'package:flutter_application_1/screens/home/widgets/BottomCardWidget1.dart';
+import 'package:flutter_application_1/models/basket_model/basket_product_model.dart';
+import 'package:flutter_application_1/screens/home/widgets/botto_card_widget1.dart';
 import 'package:flutter_application_1/screens/product_detail/widgets/empty_review_section.dart';
 import 'package:flutter_application_1/screens/product_detail/widgets/organization_contact_widget.dart';
 import 'package:flutter_application_1/screens/product_detail/widgets/review_section.dart';
@@ -36,6 +37,7 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
   final controller = PageController(viewportFraction: 1, keepPage: true);
   late TabController tabController;
   late final ProductDetailBloc productDetailBloc;
+  late BasketProductModel basketProductModel;
   // late final AuthStatus authStatus;
 
   @override
@@ -53,7 +55,9 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
 
     productDetailBloc.add(
         GetOrganizationContactEvent(organizationId: widget.organizationId));
+    await Future.delayed(const Duration(milliseconds: 200));
     productDetailBloc.add(GetProductsReviewEvent(forId: widget.productId));
+    await Future.delayed(const Duration(milliseconds: 200));
   }
 
   int selectedTab = 0;
@@ -78,8 +82,7 @@ class _ProductDetailPage1State extends State<ProductDetailPage1>
               return const Center(
                 child: CustomLoadingIndicator(),
               );
-            }
-            if (state.getDetailStatus.isSuccess &&
+            } else if (state.getDetailStatus.isSuccess &&
                 state.organizationContactStatus.isSuccess) {
               return SingleChildScrollView(
                 child: Column(

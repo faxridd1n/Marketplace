@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/assets_path/app_icons_path.dart';
 import 'package:flutter_application_1/screens/home/blocs/section_products_bloc/section_products_bloc.dart';
+import 'package:flutter_application_1/screens/see_all/widgets/filter_bottom_sheet.dart';
 // import 'package:flutter_application_1/screens/see_all/see_all_bloc/see_all_bloc.dart';
 import 'package:flutter_application_1/widgets/horizontal_product_widget.dart';
 import 'package:flutter_application_1/widgets/indicator.dart';
@@ -79,29 +80,28 @@ class _SeeAllPageState extends State<SeeAllPage> {
           shadowColor: AppColors.appBarShadowColor,
           surfaceTintColor: AppColors.transparent,
           backgroundColor: AppColors.white,
-          // actions: [
-          //   Row(
-          //     children: [
-          //       const Text('Filters:'),
-          //       BlocBuilder<ProductsBloc, ProductsState>(
-          //         builder: (context, state) {
-          //           return IconButton(
-          //             onPressed: () {
-          //               if (state.getFilteredSerchStatus.isSuccess) {
-          //                 openFilterSheet(context, state.filteredSearchModel);
-          //               }
-          //             },
-          //             icon: SvgPicture.asset(
-          //               AppIcons.filter,
-          //             ),
-          //           );
-          //         },
-          //       ),
-          //       const SizedBox(width: 10),
-          //     ],
-          //   )
-          // ],
-
+          actions: [
+            Row(
+              children: [
+                const Text('Filters:'),
+                BlocBuilder<ProductsBloc, ProductsState>(
+                  builder: (context, state) {
+                    return IconButton(
+                      onPressed: () {
+                        if (state.getFilteredSerchStatus.isSuccess) {
+                          openFilterSheet(context, state.filteredSearchModel);
+                        }
+                      },
+                      icon: SvgPicture.asset(
+                        AppIcons.filter,
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(width: 10),
+              ],
+            )
+          ],
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(55),
             child: Padding(
@@ -125,7 +125,9 @@ class _SeeAllPageState extends State<SeeAllPage> {
                         builder: (context, state) {
                           if (state.filteredProductStatus.isSuccess) {
                             return Text(
-                              state.filteredProducts.length.toString(),
+                              state.filteredProducts.isEmpty
+                                  ? '0'
+                                  : state.filteredProducts.length.toString(),
                               style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
@@ -209,15 +211,9 @@ class _SeeAllPageState extends State<SeeAllPage> {
                 child: CustomLoadingIndicator(),
               );
             }
-            if (state.filteredProductStatus.isSuccess) {
-              return state.filteredProducts.isEmpty?
-              HomeTabControllerProvider(
-                      controller:
-                          HomeTabControllerProvider.of(context).controller,
-                      child: const CategoryEmptyPage(),
-                    ):
-              
-              Column(
+            if (state.filteredProductStatus.isSuccess &&
+                state.filteredProducts.isNotEmpty) {
+              return Column(
                 children: [
                   Expanded(
                     child:
@@ -311,9 +307,12 @@ class _SeeAllPageState extends State<SeeAllPage> {
                 ],
               );
             }
-            if (state.filteredProductStatus.isFailure) {
-              return Center(
-                child: Text(translation(context).failed),
+            if ((state.filteredProductStatus.isSuccess &&
+                    state.filteredProducts.isEmpty) ||
+                state.filteredProductStatus.isFailure) {
+              return HomeTabControllerProvider(
+                controller: HomeTabControllerProvider.of(context).controller,
+                child: const CategoryEmptyPage(),
               );
             }
             return const SizedBox.shrink();

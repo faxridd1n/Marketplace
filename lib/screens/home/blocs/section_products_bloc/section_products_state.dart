@@ -5,15 +5,13 @@ class ProductsState extends Equatable {
   final int categoryId;
   final List<ProductModel> products;
   final FormzSubmissionStatus getProductsStatus;
-   final List<ProductModel> filteredProducts;
+  final List<ProductModel> filteredProducts;
   final FormzSubmissionStatus filteredProductStatus;
   final String getProductsErrorMessage;
   final bool hasMoreProducts;
   final String next;
-  final List<FilteredSearchModel> filteredSearchModel;
+  final FilteredSearchModel filteredSearchModel;
   final FormzSubmissionStatus getFilteredSerchStatus;
-  final GeneralResponseModel postResponseBasketModel;
-  final FormzSubmissionStatus postResponseBasketStatus;
 
   const ProductsState({
     this.sectionId = -1,
@@ -25,10 +23,8 @@ class ProductsState extends Equatable {
     this.getProductsErrorMessage = '',
     this.hasMoreProducts = true,
     this.next = '',
-    this.filteredSearchModel = const [],
+    this.filteredSearchModel = const FilteredSearchModel(),
     this.getFilteredSerchStatus = FormzSubmissionStatus.initial,
-    this.postResponseBasketModel = const GeneralResponseModel(),
-    this.postResponseBasketStatus = FormzSubmissionStatus.initial,
   });
 
   ProductsState copyWith({
@@ -36,33 +32,27 @@ class ProductsState extends Equatable {
     int? categoryId,
     List<ProductModel>? products,
     FormzSubmissionStatus? getProductsStatus,
-    
     List<ProductModel>? filteredProducts,
     FormzSubmissionStatus? filteredProductStatus,
     String? getProductsErrorMessage,
-    List<FilteredSearchModel>? filteredSearchModel,
+    FilteredSearchModel? filteredSearchModel,
     FormzSubmissionStatus? getFilteredSerchStatus,
     bool? hasMoreProducts,
     String? next,
-    GeneralResponseModel? postResponseBasketModel,
-    FormzSubmissionStatus? postResponseBasketStatus,
   }) {
     return ProductsState(
       sectionId: sectionId ?? this.sectionId,
       categoryId: categoryId ?? this.categoryId,
       products: products ?? this.products,
       getProductsStatus: getProductsStatus ?? this.getProductsStatus,
-       filteredProducts: filteredProducts ?? this.filteredProducts,
-      filteredProductStatus: filteredProductStatus ?? this.filteredProductStatus,
+      filteredProducts: filteredProducts ?? this.filteredProducts,
+      filteredProductStatus:
+          filteredProductStatus ?? this.filteredProductStatus,
       getProductsErrorMessage:
           getProductsErrorMessage ?? this.getProductsErrorMessage,
       filteredSearchModel: filteredSearchModel ?? this.filteredSearchModel,
       getFilteredSerchStatus:
           getFilteredSerchStatus ?? this.getFilteredSerchStatus,
-      postResponseBasketModel:
-          postResponseBasketModel ?? this.postResponseBasketModel,
-      postResponseBasketStatus:
-          postResponseBasketStatus ?? this.postResponseBasketStatus,
       hasMoreProducts: hasMoreProducts ?? this.hasMoreProducts,
       next: next ?? this.next,
     );
@@ -79,8 +69,6 @@ class ProductsState extends Equatable {
         getProductsErrorMessage,
         filteredSearchModel,
         getFilteredSerchStatus,
-        postResponseBasketModel,
-        postResponseBasketStatus,
         hasMoreProducts,
         next,
       ];

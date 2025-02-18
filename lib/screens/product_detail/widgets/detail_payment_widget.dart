@@ -80,14 +80,15 @@ class DetailPagePaymentWidget extends StatelessWidget {
               : Text(
                   realPrice,
                   style: const TextStyle(
-                      decoration: TextDecoration.lineThrough,
-                      color: AppColors.grey3),
+                    decoration: TextDecoration.lineThrough,
+                    color: AppColors.grey3,
+                  ),
                 ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-               index==3?realPrice: price,
+                index == 3 ? realPrice : price,
                 style: const TextStyle(
                   fontWeight: FontWeight.w600,
                 ),
@@ -157,8 +158,8 @@ class DetailPagePaymentWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SvgPicture.asset(
-                   index==3? AppIcons.cartAdd:AppIcons.edit,
-                    color: index == 1 ? Colors.black :AppColors.white,
+                    index == 3 ? AppIcons.cartAdd : AppIcons.edit,
+                    color: index == 1 ? Colors.black : AppColors.white,
                   ),
                   const SizedBox(
                     width: 10,
@@ -166,7 +167,7 @@ class DetailPagePaymentWidget extends StatelessWidget {
                   const Text(
                     'Rasmiylashtirish',
                     style: TextStyle(
-                      color:AppColors.white,
+                      color: AppColors.white,
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                     ),

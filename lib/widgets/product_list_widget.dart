@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/basket/basket_bloc/basket_bloc.dart';
 import 'package:flutter_application_1/screens/home/blocs/section_products_bloc/section_products_bloc.dart';
 import 'package:flutter_application_1/screens/see_all/see_all_page.dart';
 import 'package:flutter_application_1/widgets/product_widget_shimmer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import '../screens/navigation/navigation_page.dart';
 import 'product_widget.dart';
 import 'title_widget.dart';
 
@@ -34,9 +36,11 @@ class _SectionProductsListWidgetState extends State<SectionProductsListWidget> {
   void initState() {
     super.initState();
     sectionProductsBloc = ProductsBloc();
+    context.read<BasketBloc>().add(GetBasketProductsEvent());
     if (widget.sectionId != null) {
       sectionProductsBloc
           .add(SetSectionIdEvent(widget.sectionId!, widget.page!, widget.size));
+      // sectionProductsBloc.add(GetBasketProductEvent());
     } else if (widget.categoryId != null) {
       sectionProductsBloc.add(
         SetCategoryIdEvent(
@@ -67,12 +71,16 @@ class _SectionProductsListWidgetState extends State<SectionProductsListWidget> {
                   onSeaAllTap: () {
                     Navigator.of(context, rootNavigator: true).push(
                       MaterialPageRoute(
-                        builder: (context) => SeeAllPage(
-                          categoryId: widget.categoryId,
-                          sectionId: widget.sectionId,
-                          page: 1,
-                          size: 16,
-                          title: widget.sectionName,
+                        builder: (ctx) => HomeTabControllerProvider(
+                          controller:
+                              HomeTabControllerProvider.of(context).controller,
+                          child: SeeAllPage(
+                            categoryId: widget.categoryId,
+                            sectionId: widget.sectionId,
+                            page: 1,
+                            size: 16,
+                            title: widget.sectionName,
+                          ),
                         ),
                       ),
                     );
@@ -83,8 +91,8 @@ class _SectionProductsListWidgetState extends State<SectionProductsListWidget> {
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,
                     itemCount: state.products.length,
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 10),
                     itemBuilder: (context, index) {
                       return ProductWidget(
                         model: state.products[index],
@@ -95,6 +103,7 @@ class _SectionProductsListWidgetState extends State<SectionProductsListWidget> {
                     },
                   ),
                 ),
+                
               ],
             );
           }

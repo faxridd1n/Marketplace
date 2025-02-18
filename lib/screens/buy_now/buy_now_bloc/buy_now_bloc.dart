@@ -13,6 +13,7 @@ import 'package:formz/formz.dart';
 import 'package:meta/meta.dart';
 
 import '../../../models/order_model/post_order_request_model.dart';
+import '../../../service/order_service/order_service.dart';
 // import '../../../service/order_service/order_service.dart';
 
 part 'buy_now_event.dart';
@@ -36,7 +37,7 @@ class BuyNowBloc extends Bloc<BuyNowEvent, BuyNowState> {
         ));
       }
     });
-on<GetUserProfileEvent>((event, emit) async {
+    on<GetUserProfileEvent>((event, emit) async {
       emit(state.copyWith(
         getUserProfileStatus: FormzSubmissionStatus.inProgress,
       ));
@@ -91,20 +92,21 @@ on<GetUserProfileEvent>((event, emit) async {
             organizationContactStatus: FormzSubmissionStatus.failure));
       }
     });
-    // on<PostUsersOrderEvent>((event, emit) async {
-    //   emit(state.copyWith(
-    //       postOrderResponseStatus: FormzSubmissionStatus.inProgress));
-    //   final result = await OrderService.postUserOrders(event.orderRequestModel);
-    //   if (result is PostOrderResponseModel) {
-    //     emit(state.copyWith(
-    //         postOrderResponseModel: result,
-    //         postOrderResponseStatus: FormzSubmissionStatus.success));
-    //     add(GetBasketProductsEvent());
-    //   } else {
-    //     emit(state.copyWith(
-    //         postOrderResponseStatus: FormzSubmissionStatus.failure));
-    //   }
-    // });
+
+    on<PostUsersOrderEvent>((event, emit) async {
+      emit(state.copyWith(
+          postOrderResponseStatus: FormzSubmissionStatus.inProgress));
+      final result = await OrderService.postUserOrders(event.orderRequestModel);
+      if (result is PostOrderResponseModel) {
+        emit(state.copyWith(
+            postOrderResponseModel: result,
+            postOrderResponseStatus: FormzSubmissionStatus.success));
+        add(GetBasketProductsEvent());
+      } else {
+        emit(state.copyWith(
+            postOrderResponseStatus: FormzSubmissionStatus.failure));
+      }
+    });
 
     on<SelectPaymentTypeEvent>((event, emit) async {
       emit(state.copyWith(paymentType: event.paymentType));
@@ -116,6 +118,12 @@ on<GetUserProfileEvent>((event, emit) async {
 
     on<SelectRegionEvent>((event, emit) async {
       emit(state.copyWith(regionId: event.regionId));
+    });
+    on<GetUserInfoEvent>((event, emit) async {
+      emit(state.copyWith(
+        fullName: event.fullName,
+        phone: event.phone,
+      ));
     });
 
     on<SelectDistrictEvent>((event, emit) async {

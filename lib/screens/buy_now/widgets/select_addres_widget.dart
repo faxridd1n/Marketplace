@@ -16,46 +16,44 @@ class SelectAddresWidget extends StatefulWidget {
 class _SelectAddresWidgetState extends State<SelectAddresWidget> {
   String selectedRegion = '';
   String selectedDistrict = '';
-  late final BuyNowBloc buyNowBloc;
 
   @override
   void initState() {
     super.initState();
-    buyNowBloc = BuyNowBloc();
-    buyNowBloc.add(GetRegionsEvent());
+    context.read<BuyNowBloc>().add(GetRegionsEvent());
   }
 
   @override
   Widget build(BuildContext context) {
-    // final buyNowBloc = context.read<BuyNowBloc>();
-    return BlocProvider.value(
-      value: buyNowBloc,
-      child: BlocBuilder<BuyNowBloc, BuyNowState>(
-        builder: (ctx, state) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(translation(context).region),
-              const SizedBox(height: 10),
-              SizedBox(
-                height: 60,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    backgroundColor: AppColors.grey1,
+    return BlocBuilder<BuyNowBloc, BuyNowState>(
+      builder: (ctx, state) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(translation(context).region),
+            const SizedBox(height: 10),
+            SizedBox(
+              height: 60,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  onPressed: () {
-                    showModalBottomSheet<void>(
-                      backgroundColor: AppColors.transparent,
-                      isScrollControlled: true,
-                      context: context,
-                      builder: (BuildContext context) {
-                        final ScrollController controller = ScrollController();
-                        return Container(
+                  backgroundColor: AppColors.grey1,
+                ),
+                onPressed: () {
+                  showModalBottomSheet<void>(
+                    backgroundColor: AppColors.transparent,
+                    isScrollControlled: true,
+                    context: context,
+                    builder: (BuildContext ctx) {
+                      final ScrollController controller = ScrollController();
+                      return BlocProvider.value(
+                        value: context.read<
+                            BuyNowBloc>(), // Asosiy BlocProvider'dan olamiz
+                        child: Container(
                           decoration: const BoxDecoration(
                             borderRadius: BorderRadius.vertical(
                               top: Radius.circular(15),
@@ -122,17 +120,19 @@ class _SelectAddresWidgetState extends State<SelectAddresWidget> {
                                         physics: const BouncingScrollPhysics(),
                                         itemCount: state
                                             .regionModel.result.regions.length,
-                                        itemBuilder: (context, index) {
+                                        itemBuilder: (ctx, index) {
                                           final region = state.regionModel
                                               .result.regions[index];
                                           return InkWell(
                                             onTap: () {
                                               selectedRegion = region.name;
-                                              buyNowBloc.add(
+                                              context.read<BuyNowBloc>().add(
                                                   GetDistrictsEvent(region.id));
-                                              buyNowBloc.add(SelectRegionEvent(
-                                                regionId: region.id,
-                                              ));
+                                              context
+                                                  .read<BuyNowBloc>()
+                                                  .add(SelectRegionEvent(
+                                                    regionId: region.id,
+                                                  ));
                                               Navigator.of(context).pop();
                                             },
                                             child: SizedBox(
@@ -189,75 +189,78 @@ class _SelectAddresWidgetState extends State<SelectAddresWidget> {
                                     )
                             ],
                           ),
-                        );
-                      },
-                    );
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        selectedRegion.isEmpty
-                            ? translation(context).selectRegion
-                            : selectedRegion,
-                        style: TextStyle(
-                          color: selectedRegion.isEmpty
-                              ? AppColors.grey2
-                              : AppColors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
                         ),
+                      );
+                    },
+                  );
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      selectedRegion.isEmpty
+                          ? translation(context).selectRegion
+                          : selectedRegion,
+                      style: TextStyle(
+                        color: selectedRegion.isEmpty
+                            ? AppColors.grey2
+                            : AppColors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
                       ),
-                      Row(
-                        children: [
-                          if (selectedRegion.isNotEmpty)
-                            SizedBox(
-                              width: 30,
-                              child: IconButton(
-                                padding: const EdgeInsets.all(0),
-                                onPressed: () {
-                                  selectedRegion = '';
-                                  setState(() {});
-                                },
-                                icon: SvgPicture.asset(
-                                  AppIcons.xIcon,
-                                  semanticsLabel: 'Clear Selection',
-                                ),
+                    ),
+                    Row(
+                      children: [
+                        if (selectedRegion.isNotEmpty)
+                          SizedBox(
+                            width: 30,
+                            child: IconButton(
+                              padding: const EdgeInsets.all(0),
+                              onPressed: () {
+                                selectedRegion = '';
+                                setState(() {});
+                              },
+                              icon: SvgPicture.asset(
+                                AppIcons.xIcon,
+                                semanticsLabel: 'Clear Selection',
                               ),
                             ),
-                          const Icon(
-                            Icons.keyboard_arrow_down_rounded,
-                            color: AppColors.grey2,
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
+                        const Icon(
+                          Icons.keyboard_arrow_down_rounded,
+                          color: AppColors.grey2,
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 20),
-              Text(translation(context).district),
-              const SizedBox(height: 10),
-              SizedBox(
-                height: 60,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      side: BorderSide.none,
-                    ),
-                    backgroundColor: AppColors.grey1,
+            ),
+            const SizedBox(height: 20),
+            Text(translation(context).district),
+            const SizedBox(height: 10),
+            SizedBox(
+              height: 60,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    side: BorderSide.none,
                   ),
-                  onPressed: () {
-                    showModalBottomSheet<void>(
-                      backgroundColor: AppColors.transparent,
-                      isScrollControlled: true,
-                      context: context,
-                      builder: (BuildContext context) {
-                        final ScrollController controller = ScrollController();
-                        return Container(
+                  backgroundColor: AppColors.grey1,
+                ),
+                onPressed: () {
+                  showModalBottomSheet<void>(
+                    backgroundColor: AppColors.transparent,
+                    isScrollControlled: true,
+                    context: context,
+                    builder: (BuildContext ctx) {
+                      final ScrollController controller = ScrollController();
+                      return BlocProvider.value(
+                        value: context.read<BuyNowBloc>(),
+                        child: Container(
                           decoration: const BoxDecoration(
                             borderRadius: BorderRadius.vertical(
                               top: Radius.circular(15),
@@ -337,11 +340,12 @@ class _SelectAddresWidgetState extends State<SelectAddresWidget> {
                                           return InkWell(
                                             onTap: () {
                                               selectedDistrict = district.name;
-                                              buyNowBloc.add(
-                                                SelectDistrictEvent(
-                                                  districtId: district.id,
-                                                ),
-                                              );
+                                              setState(() {});
+                                              context.read<BuyNowBloc>().add(
+                                                    SelectDistrictEvent(
+                                                      districtId: district.id,
+                                                    ),
+                                                  );
 
                                               Navigator.of(context).pop();
                                             },
@@ -388,100 +392,100 @@ class _SelectAddresWidgetState extends State<SelectAddresWidget> {
                                     ),
                             ],
                           ),
-                        );
-                      },
-                    );
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        selectedDistrict.isEmpty
-                            ? translation(context).selectDistrict
-                            : selectedDistrict,
-                        style: TextStyle(
-                          color: selectedDistrict.isEmpty
-                              ? AppColors.grey2
-                              : AppColors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          if (selectedDistrict.isNotEmpty)
-                            SizedBox(
-                              width: 30,
-                              child: IconButton(
-                                padding: const EdgeInsets.all(0),
-                                onPressed: () {
-                                  selectedDistrict = '';
-                                  setState(() {});
-                                },
-                                icon: SvgPicture.asset(
-                                  AppIcons.xIcon,
-                                  semanticsLabel: 'Clear Selection',
-                                ),
-                              ),
-                            ),
-                          const Icon(
-                            Icons.keyboard_arrow_down_rounded,
-                            color: AppColors.grey2,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Text(translation(context).address),
-              const SizedBox(height: 10),
-              TextFormField(
-                onChanged: (value) {
-                  context.read<BuyNowBloc>().add(
-                        FillAddressEvent(
-                          address: value,
                         ),
                       );
+                    },
+                  );
                 },
-                onTapOutside: (event) {
-                  FocusScope.of(context).unfocus();
-                },
-                cursorWidth: 1.5,
-                style: const TextStyle(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      selectedDistrict.isEmpty
+                          ? translation(context).selectDistrict
+                          : selectedDistrict,
+                      style: TextStyle(
+                        color: selectedDistrict.isEmpty
+                            ? AppColors.grey2
+                            : AppColors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        if (selectedDistrict.isNotEmpty)
+                          SizedBox(
+                            width: 30,
+                            child: IconButton(
+                              padding: const EdgeInsets.all(0),
+                              onPressed: () {
+                                selectedDistrict = '';
+                                setState(() {});
+                              },
+                              icon: SvgPicture.asset(
+                                AppIcons.xIcon,
+                                semanticsLabel: 'Clear Selection',
+                              ),
+                            ),
+                          ),
+                        const Icon(
+                          Icons.keyboard_arrow_down_rounded,
+                          color: AppColors.grey2,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Text(translation(context).address),
+            const SizedBox(height: 10),
+            TextFormField(
+              onChanged: (value) {
+                context.read<BuyNowBloc>().add(
+                      FillAddressEvent(
+                        address: value,
+                      ),
+                    );
+              },
+              onTapOutside: (event) {
+                FocusScope.of(context).unfocus();
+              },
+              cursorWidth: 1.5,
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+              ),
+              textAlignVertical: TextAlignVertical.center,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide.none,
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide.none,
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide.none,
+                ),
+                hintText: translation(context).enterAddress,
+                hintStyle: const TextStyle(
+                  color: AppColors.grey2,
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
                 ),
-                textAlignVertical: TextAlignVertical.center,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide.none,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide.none,
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide.none,
-                  ),
-                  hintText: translation(context).enterAddress,
-                  hintStyle: const TextStyle(
-                    color: AppColors.grey2,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                  ),
-                  filled: true,
-                  fillColor: AppColors.grey1,
-                ),
-                cursorColor: AppColors.green,
+                filled: true,
+                fillColor: AppColors.grey1,
               ),
-            ],
-          );
-        },
-      ),
+              cursorColor: AppColors.green,
+            ),
+          ],
+        );
+      },
     );
   }
 }

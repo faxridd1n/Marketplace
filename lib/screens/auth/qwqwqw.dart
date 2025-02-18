@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/login_model/put_login_otp_response_model.dart';
 import 'package:flutter_application_1/models/order_model/post_order_request_model.dart';
 import 'package:flutter_application_1/models/order_model/post_order_response_model.dart';
-import 'package:flutter_application_1/models/profile_model/user_cards/post_user_add_card_confirm_response_model.dart';
 import 'package:flutter_application_1/models/profile_model/user_cards/post_user_card_response_model.dart';
 import 'package:flutter_application_1/models/register_model/register_confirm_model/register_confirm_request_model.dart';
 import 'package:flutter_application_1/models/register_model/register_confirm_model/register_confirm_response_model.dart';
-// import 'package:flutter_application_1/models/auth_model/register_confirm_response_model.dart';
 import 'package:flutter_application_1/models/register_model/register_model/register_user_request_model.dart';
 import 'package:flutter_application_1/models/register_model/register_model/register_user_response_model.dart';
 
@@ -22,7 +20,7 @@ class Pagee extends StatefulWidget {
       this.postOrderRequestModel,
       this.cardInfo,
       this.responseModel,
-      required this.confirmResponseModel,
+      // required this.confirmResponseModel,
       super.key});
   final RegisterUserRequestModel? model;
   final RegisterUserResponseModel? userResponseModel;
@@ -34,7 +32,7 @@ class Pagee extends StatefulWidget {
   final PostOrderRequestModel? postOrderRequestModel;
   final List<String>? cardInfo;
   final PostUserCardResponseModel? responseModel;
-  final PostUserAddCardConfirmResponseModel confirmResponseModel;
+  // final PostUserAddCardConfirmResponseModel confirmResponseModel;
   @override
   State<Pagee> createState() => _PageeState();
 }
@@ -63,59 +61,17 @@ class _PageeState extends State<Pagee> {
             const SizedBox(
               height: 100,
             ),
-            Text(
-              widget.cardInfo![0],
-              maxLines: 20,
-            ),
-            Text(
-              widget.cardInfo![1],
-              maxLines: 20,
-            ),
-            Text(
-              '${widget.confirmResponseModel.result.ownerName}',
-              maxLines: 20,
-            ),
-            Text(
-              '${widget.confirmResponseModel.error.errorMessage}',
-              maxLines: 20,
-            ),
-            Text(
-              '${widget.confirmResponseModel.error.errorCode}',
-              maxLines: 20,
-            ),
-
-            Text(
-              '${widget.confirmResponseModel.result.bankLogo}',
-              maxLines: 20,
-            ),
-            Text(
-              '${widget.confirmResponseModel.result.bankName}',
-              maxLines: 20,
-            ),
-            Text(
-              '${widget.confirmResponseModel.result.cardNumber}',
-              maxLines: 20,
-            ),
-            Text(
-              '${widget.confirmResponseModel.result.cardType}',
-              maxLines: 20,
-            ),
-            Text(
-              '${widget.confirmResponseModel.result.expireDate}',
-              maxLines: 20,
-            ),
-            Text(
-              '${widget.confirmResponseModel.result.id}',
-              maxLines: 20,
-            ),
-            Text(
-              '${widget.confirmResponseModel.result.isMainCard}',
-              maxLines: 20,
-            ),
-            Text(
-              '${widget.confirmResponseModel.result.ownerName}',
-              maxLines: 20,
-            ),
+            Text(widget.postOrderRequestModel!.address),
+            Text(widget.postOrderRequestModel!.comment),
+            Text(widget.postOrderRequestModel!.fullName),
+            Text(widget.postOrderRequestModel!.phone),
+            Text(widget.postOrderRequestModel!.deliveryType.toString()),
+            Text(widget.postOrderRequestModel!.destrictId.toString()),
+            Text(widget.postOrderRequestModel!.items[0].variationId.toString()),
+            Text(widget.postOrderRequestModel!.paymentType.toString()),
+            Text(widget.postOrderRequestModel!.regionId.toString()),
+            Text(widget.postOrderResponseModel!.result.id.toString()),
+            Text(widget.postOrderResponseModel!.error.errorCode.toString()),
             // Text(
             //   '${widget.model?.password}',
             //   maxLines: 20,

@@ -9,7 +9,7 @@ import '../../widgets/login_dialog.dart';
 
 class NavigationPage extends StatefulWidget {
   const NavigationPage({super.key});
-
+  
   @override
   State<NavigationPage> createState() => _NavigationPageState();
 }

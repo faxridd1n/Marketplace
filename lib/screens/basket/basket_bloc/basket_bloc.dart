@@ -8,7 +8,6 @@ import 'package:flutter_application_1/service/basket_service/basket_service.dart
 import 'package:flutter_application_1/service/product_service/product_service.dart';
 import 'package:formz/formz.dart';
 
-
 part 'basket_event.dart';
 part 'basket_state.dart';
 
@@ -85,7 +84,7 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
       emit(state.copyWith(
           postResponseBasketStatus: FormzSubmissionStatus.inProgress));
       final result = await BasketService.postBasketProducts(
-          event.productVariationId!, event.count!);
+          event.productVariationId, event.count);
       if (result is GeneralResponseModel) {
         emit(state.copyWith(
             postResponseBasketModel: result,
@@ -97,6 +96,23 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
       }
     });
 
+    on<PostBasketProductBasketOnlyBuyNowEvent>((event, emit) async {
+      emit(state.copyWith(
+          postResponseBasketStatusOnlyBuyNow:
+              FormzSubmissionStatus.inProgress));
+      final result = await BasketService.postBasketProducts(
+          event.productVariationId, event.count);
+      if (result is GeneralResponseModel) {
+        emit(state.copyWith(
+            postResponseBasketModelOnlyBuyNow: result,
+            postResponseBasketStatusOnlyBuyNow: FormzSubmissionStatus.success));
+        add(GetBasketProductsEvent());
+      } else {
+        emit(state.copyWith(
+            postResponseBasketStatusOnlyBuyNow: FormzSubmissionStatus.failure));
+      }
+    });
+
     on<PostBasketProductBasketEvent>((event, emit) async {
       emit(state.copyWith(
           postResponseBasketStatus: FormzSubmissionStatus.inProgress));
@@ -104,13 +120,20 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
           event.productVariationId, event.count);
       if (result is GeneralResponseModel) {
         emit(state.copyWith(
-            postResponseBasketModel: result,
-            postResponseBasketStatus: FormzSubmissionStatus.success));
+          basketProductCount: event.count,
+          postResponseBasketModel: result,
+          postResponseBasketStatus: FormzSubmissionStatus.success,
+        ));
         add(GetBasketProductsEvent());
       } else {
         emit(state.copyWith(
             postResponseBasketStatus: FormzSubmissionStatus.failure));
       }
+    });
+
+    on<SetBasketProductCount>((event, emit) async {
+      emit(state.copyWith(basketProductCount: event.basketProductCount));
+      // add(GetProductsEvent(event.size, event.page));
     });
   }
 }

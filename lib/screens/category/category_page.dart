@@ -57,9 +57,7 @@ class _CategoryPageState extends State<CategoryPage> {
               },
             );
           }
-          return const Center(
-            child: Text('Error'),
-          );
+          return const SizedBox.shrink();
         },
       ),
     );

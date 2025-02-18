@@ -202,9 +202,15 @@ class _CategoryProductsPageState extends State<CategoryProductsPage> {
                                   ),
                                   itemCount: state.filteredProductModel!.length,
                                   itemBuilder: (context, index) {
-                                    return MiniProductWidget(
-                                      // index: index,
-                                      model: state.filteredProductModel![index],
+                                    return HomeTabControllerProvider(
+                                      controller:
+                                          HomeTabControllerProvider.of(context)
+                                              .controller,
+                                      child: MiniProductWidget(
+                                        // index: index,
+                                        model:
+                                            state.filteredProductModel![index],
+                                      ),
                                     );
                                   },
                                 )
@@ -217,10 +223,16 @@ class _CategoryProductsPageState extends State<CategoryProductsPage> {
                                         horizontal: 10,
                                         vertical: 10,
                                       ),
-                                      child: HorizontalProductWidget(
-                                        model:
-                                            state.filteredProductModel![index],
-                                        // index: index,
+                                      child: HomeTabControllerProvider(
+                                        controller:
+                                            HomeTabControllerProvider.of(
+                                                    context)
+                                                .controller,
+                                        child: HorizontalProductWidget(
+                                          model: state
+                                              .filteredProductModel![index],
+                                          // index: index,
+                                        ),
                                       ),
                                     );
                                   },

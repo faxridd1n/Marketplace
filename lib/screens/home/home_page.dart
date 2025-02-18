@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/assets_path/app_icons_path.dart';
 import 'package:flutter_application_1/assets_path/app_images_path.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
-import 'package:flutter_application_1/screens/home/blocs/home_bloc/home_bloc.dart';
 import 'package:flutter_application_1/screens/home/blocs/section_list_bloc/section_list_bloc.dart';
-import 'package:flutter_application_1/screens/home/widgets/BannerWidget.dart';
+import 'package:flutter_application_1/screens/home/widgets/banner_widget.dart';
 import 'package:flutter_application_1/screens/home/widgets/categories_list.dart';
 import 'package:flutter_application_1/widgets/indicator.dart';
 import 'package:flutter_application_1/screens/home/widgets/home_text_field_widget.dart';
@@ -25,7 +24,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late final HomeBloc homeBloc;
+  // late final HomeBloc homeBloc;
   late final SectionListBloc sectionListBloc;
 
   late final PageController _pageController;
@@ -42,7 +41,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     sectionListBloc = SectionListBloc()..add(GetSectionListEvent());
-    homeBloc = HomeBloc();
+    // homeBloc = HomeBloc();
 
     _pageController = PageController(
       viewportFraction: 0.85,
@@ -158,14 +157,36 @@ class _HomePageState extends State<HomePage> {
                   );
                 }
                 if (state.getTabsStatus.isSuccess) {
-                  final sections = state.tabModel.result.items;
+                  // final sections = state.tabModel.result.items;
                   return Column(
-                    children: List.generate(sections.length, (index) {
-                      return SectionProductsListWidget(
-                        sectionId: sections[index].id.toString(),
-                        sectionName: sections[index].name,
-                        size: 10,
-                        page: 1,
+                    children: List.generate(state.tabModel.result.items.length,
+                        (index) {
+                      return Column(
+                        children: [
+                          SectionProductsListWidget(
+                            sectionId: state.tabModel.result.items[index].id
+                                .toString(),
+                            sectionName:
+                                state.tabModel.result.items[index].name,
+                            size: 10,
+                            page: 1,
+                          ),
+                          if (index % 2 != 0)
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 10),
+                              child: SizedBox(
+                                height: 150,
+                                child: BannerWidget(
+                                  assetBanner: banners[index == 1
+                                      ? 0
+                                      : index == 3
+                                          ? 1
+                                          : 2],
+                                ),
+                              ),
+                            ),
+                        ],
                       );
                     }),
                   );

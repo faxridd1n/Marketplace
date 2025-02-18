@@ -68,11 +68,13 @@ class _BasketProductWidgetState extends State<BasketProductWidget> {
                       onTap: () {
                         context.read<BasketBloc>().add(
                               DeleteBasketProductsEvent(
-                                widget.model.prices[0].variationId,
+                                productVariationId:
+                                    widget.model.prices[0].variationId,
                               ),
                             );
 
                         context.showPopUp(
+                          isSucces: true,
                           context,
                           title: 'Successful!',
                           message: widget.model.product.name,
@@ -112,6 +114,7 @@ class _BasketProductWidgetState extends State<BasketProductWidget> {
                                   ),
                                 );
                             context.showPopUp(
+                              isSucces: true,
                               context,
                               title: "Successful!",
                               message: widget.model.product.name,
@@ -119,11 +122,13 @@ class _BasketProductWidgetState extends State<BasketProductWidget> {
                           } else if (productCount == 1) {
                             context.read<BasketBloc>().add(
                                   DeleteBasketProductsEvent(
-                                    widget.model.prices[0].variationId,
+                                    productVariationId:
+                                        widget.model.prices[0].variationId,
                                   ),
                                 );
 
                             context.showPopUp(
+                              isSucces: true,
                               context,
                               title: "Successful!",
                               message: widget.model.product.name,
@@ -166,6 +171,7 @@ class _BasketProductWidgetState extends State<BasketProductWidget> {
                                 ),
                               );
                           context.showPopUp(
+                            isSucces: true,
                             context,
                             title: 'Successful!',
                             message: widget.model.product.name,

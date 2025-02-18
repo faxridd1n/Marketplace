@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_application_1/models/products_model/product_model.dart';
-import 'package:flutter_application_1/models/profile_model/user_cards/general_response_model.dart';
 import 'package:flutter_application_1/service/product_service/product_service.dart';
 import 'package:formz/formz.dart';
 import 'package:meta/meta.dart';
@@ -38,6 +37,7 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
         );
       }
     });
+
     on<GetFilteredProductsEvent>((event, emit) async {
       emit(state.copyWith(
           filteredProductStatus: FormzSubmissionStatus.inProgress));
@@ -62,6 +62,7 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
         );
       }
     });
+
     on<GetSimilarProductsEvent>((event, emit) async {
       emit(state.copyWith(getProductsStatus: FormzSubmissionStatus.inProgress));
       final result = await ProductService.getSimilarProducts(
@@ -83,6 +84,7 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
         );
       }
     });
+
     on<SetSectionIdEvent>((event, emit) async {
       emit(state.copyWith(sectionId: int.parse(event.sectionId)));
       add(GetProductsEvent(event.size, event.page));
@@ -103,7 +105,7 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
         sectionId: state.sectionId,
         categoryId: state.categoryId,
       ));
-      if (result is List<FilteredSearchModel>) {
+      if (result is FilteredSearchModel) {
         emit(state.copyWith(
             filteredSearchModel: result,
             getFilteredSerchStatus: FormzSubmissionStatus.success));
@@ -113,19 +115,39 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
       }
     });
 
-    on<PostBasketProductSeeAllEvent>((event, emit) async {
-      emit(state.copyWith(
-          postResponseBasketStatus: FormzSubmissionStatus.inProgress));
-      final result =
-          await SeeAllSevice.postBasketProducts(event.productVariationId);
-      if (result is GeneralResponseModel) {
-        emit(state.copyWith(
-            postResponseBasketModel: result,
-            postResponseBasketStatus: FormzSubmissionStatus.success));
-      } else {
-        emit(state.copyWith(
-            postResponseBasketStatus: FormzSubmissionStatus.failure));
-      }
-    });
+    // on<PostBasketProductEvent>((event, emit) async {
+    //   emit(state.copyWith(
+    //       postResponseBasketStatus: FormzSubmissionStatus.inProgress));
+    //   final result =
+    //       await SeeAllSevice.postBasketProducts(event.productVariationId);
+    //   if (result is GeneralResponseModel) {
+    //     emit(state.copyWith(
+    //         postResponseBasketModel: result,
+    //         postResponseBasketStatus: FormzSubmissionStatus.success));
+    //   } else {
+    //     emit(state.copyWith(
+    //         postResponseBasketStatus: FormzSubmissionStatus.failure));
+    //   }
+    // });
+
+    // on<GetBasketProductEvent>((event, emit) async {
+    //   emit(state.copyWith(
+    //       getBasketProductStatus: FormzSubmissionStatus.inProgress));
+    //   final result = await BasketService.getBasketProducts();
+    //   if (result is BasketProductModel) {
+    //     emit(
+    //       state.copyWith(
+    //         basketProductModel: result,
+    //         getBasketProductStatus: FormzSubmissionStatus.success,
+    //       ),
+    //     );
+    //   } else {
+    //     emit(
+    //       state.copyWith(
+    //         getBasketProductStatus: FormzSubmissionStatus.failure,
+    //       ),
+    //     );
+    //   }
+    // });
   }
 }

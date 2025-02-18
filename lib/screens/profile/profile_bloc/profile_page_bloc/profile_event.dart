@@ -12,9 +12,13 @@ class GetUserOrdersEvent extends ProfileEvent {
 }
 
 class PostOrderResponseEvent extends ProfileEvent {
-  PostOrderResponseEvent();
+  final int page;
+  PostOrderResponseEvent({required this.page});
 }
-
+class ShowMoreOrderEvent extends ProfileEvent {
+  final int page;
+  ShowMoreOrderEvent({required this.page});
+}
 class PostFinishedOrderResponseEvent extends ProfileEvent {
   PostFinishedOrderResponseEvent();
 }

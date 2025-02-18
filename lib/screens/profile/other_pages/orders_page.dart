@@ -21,7 +21,7 @@ class _OrdersPageState extends State<OrdersPage> {
   @override
   void initState() {
     super.initState();
-    bloc = ProfileBloc()..add(PostOrderResponseEvent());
+    bloc = ProfileBloc()..add(PostOrderResponseEvent(page: 1));
   }
 
   int selectedTab = 0;

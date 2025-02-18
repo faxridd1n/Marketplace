@@ -43,8 +43,12 @@ class GetSearchFiltersEvent extends ProductsEvent {
   GetSearchFiltersEvent(this.sectionId, this.categoryId);
 }
 
-class PostBasketProductSeeAllEvent extends ProductsEvent {
-  final String productVariationId;
-  final int? count;
-  PostBasketProductSeeAllEvent({required this.productVariationId, this.count});
-}
+// class PostBasketProductEvent extends ProductsEvent {
+//   final String productVariationId;
+//   final int? count;
+//   PostBasketProductEvent({required this.productVariationId, this.count});
+// }
+
+// class GetBasketProductEvent extends ProductsEvent {
+//   GetBasketProductEvent();
+// }

@@ -9,6 +9,7 @@ class AppColors {
   static const green = Color.fromRGBO(51, 92, 73, 1);
   static const snackBarGreen = Colors.green;
   static const snackBarGreenGradient = Color.fromARGB(255, 244, 252, 245);
+  static const snackBarRedGradient = Color.fromRGBO(254, 215, 215, 1);
   static const green1 = Color.fromRGBO(187, 214, 67, 0.397);
 
   static const appBarShadowColor = Color.fromARGB(82, 0, 0, 0);

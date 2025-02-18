@@ -4,6 +4,8 @@ class BasketState extends Equatable {
   final BasketProductModel basketResponseModel;
   final FormzSubmissionStatus getBasketProductStatus;
 
+  final int basketProductCount;
+
   final GeneralResponseModel basketDeleteResModel;
   final FormzSubmissionStatus basketDeleteResStatus;
 
@@ -13,11 +15,15 @@ class BasketState extends Equatable {
   final GeneralResponseModel postResponseBasketModel;
   final FormzSubmissionStatus postResponseBasketStatus;
 
+  final GeneralResponseModel postResponseBasketModelOnlyBuyNow;
+  final FormzSubmissionStatus postResponseBasketStatusOnlyBuyNow;
+
   // final List<ProductElement> selectedProducts;
   final OrganizationContactModel organizationContactModel;
   final FormzSubmissionStatus organizationContactStatus;
 
   const BasketState({
+    this.basketProductCount = 0,
     this.basketResponseModel = const BasketProductModel(),
     this.getBasketProductStatus = FormzSubmissionStatus.initial,
     this.basketDeleteResModel = const GeneralResponseModel(),
@@ -29,9 +35,12 @@ class BasketState extends Equatable {
     // this.selectedProducts = const [],
     this.organizationContactModel = const OrganizationContactModel(),
     this.organizationContactStatus = FormzSubmissionStatus.initial,
+    this.postResponseBasketModelOnlyBuyNow = const GeneralResponseModel(),
+    this.postResponseBasketStatusOnlyBuyNow = FormzSubmissionStatus.initial,
   });
 
   BasketState copyWith({
+    int? basketProductCount,
     BasketProductModel? basketResponseModel,
     FormzSubmissionStatus? getBasketProductStatus,
     GeneralResponseModel? basketDeleteResModel,
@@ -43,8 +52,11 @@ class BasketState extends Equatable {
     // List<ProductElement>? selectedProducts,
     OrganizationContactModel? organizationContactModel,
     FormzSubmissionStatus? organizationContactStatus,
+    GeneralResponseModel? postResponseBasketModelOnlyBuyNow,
+    FormzSubmissionStatus? postResponseBasketStatusOnlyBuyNow,
   }) {
     return BasketState(
+      basketProductCount: basketProductCount ?? this.basketProductCount,
       basketResponseModel: basketResponseModel ?? this.basketResponseModel,
       getBasketProductStatus:
           getBasketProductStatus ?? this.getBasketProductStatus,
@@ -64,11 +76,16 @@ class BasketState extends Equatable {
           organizationContactModel ?? this.organizationContactModel,
       organizationContactStatus:
           organizationContactStatus ?? this.organizationContactStatus,
+      postResponseBasketModelOnlyBuyNow: postResponseBasketModelOnlyBuyNow ??
+          this.postResponseBasketModelOnlyBuyNow,
+      postResponseBasketStatusOnlyBuyNow: postResponseBasketStatusOnlyBuyNow ??
+          this.postResponseBasketStatusOnlyBuyNow,
     );
   }
 
   @override
   List<Object?> get props => [
+        basketProductCount,
         postResponseBasketModel,
         postResponseBasketStatus,
         basketResponseModel,
@@ -80,5 +97,7 @@ class BasketState extends Equatable {
         // selectedProducts,
         organizationContactModel,
         organizationContactStatus,
+        postResponseBasketModelOnlyBuyNow,
+        postResponseBasketStatusOnlyBuyNow,
       ];
 }

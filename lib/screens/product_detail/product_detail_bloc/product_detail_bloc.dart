@@ -80,6 +80,8 @@ class ProductDetailBloc extends Bloc<ProductDetailEvent, ProductDetailState> {
       }
     });
 
+    
+
     on<GetOrganizationContactEvent>((event, emit) async {
       emit(state.copyWith(
           organizationContactStatus: FormzSubmissionStatus.inProgress));

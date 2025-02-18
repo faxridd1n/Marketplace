@@ -24,7 +24,7 @@ class _OrderWidgetState extends State<OrderWidget> {
     super.initState();
 
     productCreatedDate +=
-        '${widget.ordersModel.createdDate.substring(10, 16)},${widget.ordersModel.createdDate.substring(8, 10)}.${widget.ordersModel.createdDate.substring(5, 7)}.${widget.ordersModel.createdDate.substring(5, 7)}.${widget.ordersModel.createdDate.substring(0, 4)}';
+        '${widget.ordersModel.createdDate.substring(11, 16)}, ${widget.ordersModel.createdDate.substring(8, 10)}.${widget.ordersModel.createdDate.substring(5, 7)}.${widget.ordersModel.createdDate.substring(0, 4)}';
   }
 
   @override
@@ -98,85 +98,88 @@ class _OrderWidgetState extends State<OrderWidget> {
             ],
           ),
           const SizedBox(height: 15),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '${addSpaceEveryThreeCharacters(
-                      widget.ordersModel.subOrders[0].items[0].variation
-                          .prices[0].value
-                          .toInt()
-                          .toString(),
-                    )} AED',
-                    style: const TextStyle(
-                      color: AppColors.green,
-                      fontWeight: FontWeight.w600,
+          Text(
+            '${addSpaceEveryThreeCharacters(
+              widget.ordersModel.subOrders[0].items[0].variation.prices[0].value
+                  .toInt()
+                  .toString(),
+            )} AED',
+            style: const TextStyle(
+              color: AppColors.green,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 8),
+          widget.ordersModel.address.isNotEmpty
+              ? Column(
+                  children: [
+                    Row(
+                      children: [
+                        SvgPicture.asset(
+                          AppIcons.location,
+                          color: AppColors.grey2,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          widget.ordersModel.address,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
                     ),
+                    const SizedBox(height: 10),
+                  ],
+                )
+              : const SizedBox.shrink(),
+          Row(
+            children: [
+              InkWell(
+                onTap: () {
+                  setState(() {
+                    showMore = !showMore;
+                  });
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 5,
+                    vertical: 5,
                   ),
-                  const SizedBox(height: 8),
-                  Row(
+                  child: Row(
                     children: [
-                      SvgPicture.asset(
-                        AppIcons.location,
-                        color: AppColors.grey2,
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        widget.ordersModel.address,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        showMore = !showMore;
-                      });
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 5,
-                        vertical: 5,
-                      ),
-                      child: Row(
-                        children: [
-                          Container(
-                            decoration: const BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  width: 1.5,
-                                  color: AppColors.green,
-                                ),
-                              ),
-                            ),
-                            child: Text(
-                              showMore
-                                  ? translation(context).collapse
-                                  : translation(context).details,
-                              style: const TextStyle(
-                                height: 1.15,
-                                color: AppColors.green,
-                                fontWeight: FontWeight.w500,
-                              ),
+                      Container(
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              width: 1.5,
+                              color: AppColors.green,
                             ),
                           ),
-                          const SizedBox(width: 5),
-                          Icon(
-                            showMore
-                                ? Icons.keyboard_arrow_up_sharp
-                                : Icons.keyboard_arrow_down_sharp,
+                        ),
+                        child: Text(
+                          showMore
+                              ? translation(context).collapse
+                              : translation(context).details,
+                          style: const TextStyle(
+                            height: 1.15,
                             color: AppColors.green,
-                          )
-                        ],
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                       ),
-                    ),
+                      const SizedBox(width: 5),
+                      Icon(
+                        showMore
+                            ? Icons.keyboard_arrow_up_sharp
+                            : Icons.keyboard_arrow_down_sharp,
+                        color: AppColors.green,
+                      )
+                    ],
                   ),
-                ],
+                ),
               ),
+              Expanded(child: Container()),
               Text(
                 productCreatedDate,
                 style: const TextStyle(

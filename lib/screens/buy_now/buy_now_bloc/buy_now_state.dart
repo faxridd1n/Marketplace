@@ -7,7 +7,9 @@ class BuyNowState extends Equatable {
   final int destrictId;
   final String address;
   final String comment;
-  final List<Item> items;
+  final String phone;
+  final String fullName;
+  final List<Items> items;
   final FormzSubmissionStatus getRegionsStatus;
   final LocationModel regionModel;
   final FormzSubmissionStatus getDistrictsStatus;
@@ -28,16 +30,18 @@ class BuyNowState extends Equatable {
       this.destrictId = -1,
       this.address = '',
       this.comment = '',
+      this.fullName = '',
+      this.phone = '',
       this.items = const [],
       this.basketResponseModel = const BasketProductModel(),
       this.getBasketProductStatus = FormzSubmissionStatus.initial,
       this.getRegionsStatus = FormzSubmissionStatus.initial,
-      this.regionModel=const LocationModel(),
+      this.regionModel = const LocationModel(),
       this.getDistrictsStatus = FormzSubmissionStatus.initial,
-      this.districtModel=const LocationModel(),
+      this.districtModel = const LocationModel(),
       this.postOrderResponseModel = const PostOrderResponseModel(),
       this.postOrderResponseStatus = FormzSubmissionStatus.initial,
-      this.organizationContactModel=const OrganizationContactModel(),
+      this.organizationContactModel = const OrganizationContactModel(),
       this.organizationContactStatus = FormzSubmissionStatus.initial,
       this.getUserProfileStatus = FormzSubmissionStatus.initial,
       this.userProfileModel = const UserProfileModel()});
@@ -49,7 +53,9 @@ class BuyNowState extends Equatable {
     int? destrictId,
     String? address,
     String? comment,
-    List<Item>? items,
+    String? phone,
+    String? fullName,
+    List<Items>? items,
     BasketProductModel? basketResponseModel,
     FormzSubmissionStatus? getBasketProductStatus,
     FormzSubmissionStatus? getRegionsStatus,
@@ -70,6 +76,8 @@ class BuyNowState extends Equatable {
       destrictId: destrictId ?? this.destrictId,
       address: address ?? this.address,
       comment: comment ?? this.comment,
+      phone: phone ?? this.phone,
+      fullName: fullName ?? this.fullName,
       items: items ?? this.items,
       basketResponseModel: basketResponseModel ?? this.basketResponseModel,
       getBasketProductStatus:
@@ -99,6 +107,8 @@ class BuyNowState extends Equatable {
         destrictId,
         address,
         comment,
+        phone,
+        fullName,
         items,
         basketResponseModel,
         getBasketProductStatus,

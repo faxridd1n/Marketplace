@@ -44,7 +44,8 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
         centerTitle: true,
         surfaceTintColor: AppColors.transparent,
         backgroundColor: AppColors.white,
-        elevation: 0,
+        elevation: 2,
+        shadowColor: AppColors.appBarShadowColor,
         title: Text(
           translation(context).privacyPolicy,
           style: const TextStyle(

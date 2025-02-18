@@ -54,7 +54,7 @@ class _HomeLanguageChangeDropDownWidgetState
     return PopupMenuButton<Language>(
       color: AppColors.white,
       elevation: 5,
-      constraints: const BoxConstraints.tightFor(width: 150),
+      constraints: const BoxConstraints(minWidth: 100),
       offset: const Offset(0, 40),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -62,10 +62,7 @@ class _HomeLanguageChangeDropDownWidgetState
       onSelected: (Language? value) async {
         if (value != null) {
           Locale _locale = await setLocale(value.languageCode);
-          MyApp.setLocale(
-            context,
-            _locale,
-          );
+          MyApp.setLocale(context, _locale);
           setState(() {
             selectedLanguage = value;
           });
@@ -74,7 +71,7 @@ class _HomeLanguageChangeDropDownWidgetState
       itemBuilder: (BuildContext context) {
         return languages.map((Language language) {
           return PopupMenuItem<Language>(
-            padding: const EdgeInsets.only(left: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             value: language,
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -85,23 +82,25 @@ class _HomeLanguageChangeDropDownWidgetState
                   child: SvgPicture.asset(language.flag),
                 ),
                 const SizedBox(width: 8),
-                Container(
-                  decoration: BoxDecoration(
-                    border:
-                        language.languageCode == selectedLanguage.languageCode
-                            ? const Border(
-                                bottom: BorderSide(
-                                  color: AppColors.black,
-                                  width: 1,
-                                ),
-                              )
-                            : null,
-                  ),
-                  child: Text(
-                    language.name,
-                    style: const TextStyle(
-                      height: 1.15,
-                      fontSize: 12,
+                Flexible(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border:
+                          language.languageCode == selectedLanguage.languageCode
+                              ? const Border(
+                                  bottom: BorderSide(
+                                    color: AppColors.black,
+                                    width: 1,
+                                  ),
+                                )
+                              : null,
+                    ),
+                    child: Text(
+                      language.name,
+                      style: const TextStyle(
+                        height: 1.15,
+                        fontSize: 12,
+                      ),
                     ),
                   ),
                 ),
@@ -111,8 +110,9 @@ class _HomeLanguageChangeDropDownWidgetState
         }).toList();
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 5),
+        padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(
               height: 18,
@@ -126,7 +126,6 @@ class _HomeLanguageChangeDropDownWidgetState
                 fontSize: 12,
               ),
             ),
-            const SizedBox(width: 15),
           ],
         ),
       ),

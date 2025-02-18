@@ -39,7 +39,7 @@ class _OrderSuccessPageState extends State<OrderSuccessPage> {
             ),
             const SizedBox(height: 20),
             const Text(
-              'Ваш заказ будет обработан в кратчайшие сроки.В ближайшее время наши менеджеры свяжутся с вами. #82',
+              'Ваш заказ будет обработан в кратчайшие сроки.В ближайшее время наши менеджеры свяжутся с вами.',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: AppColors.grey2,
@@ -87,6 +87,9 @@ class _OrderSuccessPageState extends State<OrderSuccessPage> {
                 ),
               ),
             ),
+            const SizedBox(height: 10),
+            Text(widget.responseModel.error.errorCode.toString()),
+            Text(widget.responseModel.result.address)
           ],
         ),
       ),

@@ -45,7 +45,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<PostOrderResponseEvent>((event, emit) async {
       emit(state.copyWith(
           getUserOrdersStatus: FormzSubmissionStatus.inProgress));
-      final result = await OrderService.postUserOrders(PostOrderRequestModel());
+      final result = await OrderService.getUserOrders(event.page);
       if (result is UserOrdersModel) {
         emit(state.copyWith(
             userOrdersModel: result,
@@ -53,6 +53,20 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       } else {
         emit(
             state.copyWith(getUserOrdersStatus: FormzSubmissionStatus.failure));
+      }
+    });
+
+    on<ShowMoreOrderEvent>((event, emit) async {
+      emit(state.copyWith(
+          getShowMoreOrdersStatus: FormzSubmissionStatus.inProgress));
+      final result = await OrderService.showMoreOrders(event.page);
+      if (result is UserOrdersModel) {
+        emit(state.copyWith(
+            showMoreOrderModel: result,
+            getShowMoreOrdersStatus: FormzSubmissionStatus.success));
+      } else {
+        emit(state.copyWith(
+            getShowMoreOrdersStatus: FormzSubmissionStatus.failure));
       }
     });
 

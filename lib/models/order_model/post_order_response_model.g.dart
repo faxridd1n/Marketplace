@@ -45,8 +45,8 @@ Result _$ResultFromJson(Map<String, dynamic> json) => Result(
       phoneNumber: json['phoneNumber'] as String? ?? '',
       regionId: (json['regionId'] as num?)?.toInt() ?? -1,
       regionName: json['regionName'] as String? ?? '',
-      destrictId: (json['destrictId'] as num?)?.toInt() ?? -1,
-      destrictName: json['destrictName'] as String? ?? '',
+      districtId: (json['districtId'] as num?)?.toInt() ?? -1,
+      districtName: json['districtName'] as String? ?? '',
       address: json['address'] as String? ?? '',
       comment: json['comment'] as String? ?? '',
       subOrders: (json['subOrders'] as List<dynamic>?)
@@ -66,8 +66,8 @@ Map<String, dynamic> _$ResultToJson(Result instance) => <String, dynamic>{
       'phoneNumber': instance.phoneNumber,
       'regionId': instance.regionId,
       'regionName': instance.regionName,
-      'destrictId': instance.destrictId,
-      'destrictName': instance.destrictName,
+      'districtId': instance.districtId,
+      'districtName': instance.districtName,
       'address': instance.address,
       'comment': instance.comment,
       'subOrders': instance.subOrders,
@@ -82,7 +82,7 @@ SubOrder _$SubOrderFromJson(Map<String, dynamic> json) => SubOrder(
       state: (json['state'] as num?)?.toInt() ?? -1,
       updatedDate: json['updatedDate'] as String? ?? '',
       items: (json['items'] as List<dynamic>?)
-              ?.map((e) => ProductItem.fromJson(e as Map<String, dynamic>))
+              ?.map((e) => Item.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
     );
@@ -98,7 +98,7 @@ Map<String, dynamic> _$SubOrderToJson(SubOrder instance) => <String, dynamic>{
       'items': instance.items,
     };
 
-ProductItem _$ProductItemFromJson(Map<String, dynamic> json) => ProductItem(
+Item _$ItemFromJson(Map<String, dynamic> json) => Item(
       id: (json['id'] as num?)?.toInt() ?? -1,
       count: (json['count'] as num?)?.toInt() ?? -1,
       isAvailable: json['isAvailable'] as bool? ?? false,
@@ -108,8 +108,7 @@ ProductItem _$ProductItemFromJson(Map<String, dynamic> json) => ProductItem(
           : Variation.fromJson(json['variation'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$ProductItemToJson(ProductItem instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$ItemToJson(Item instance) => <String, dynamic>{
       'id': instance.id,
       'count': instance.count,
       'isAvailable': instance.isAvailable,
@@ -139,6 +138,7 @@ Variation _$VariationFromJson(Map<String, dynamic> json) => Variation(
           const [],
       isVisible: json['isVisible'] as bool? ?? false,
       moderationStatus: json['moderationStatus'] as String? ?? '',
+      moderationMessage: json['moderationMessage'] as String? ?? '',
       compensationOnly: json['compensationOnly'] as bool? ?? false,
       saleType: (json['saleType'] as num?)?.toInt() ?? -1,
       oonModerationStatus: (json['oonModerationStatus'] as num?)?.toInt() ?? -1,
@@ -155,6 +155,7 @@ Map<String, dynamic> _$VariationToJson(Variation instance) => <String, dynamic>{
       'attributeValues': instance.attributeValues,
       'isVisible': instance.isVisible,
       'moderationStatus': instance.moderationStatus,
+      'moderationMessage': instance.moderationMessage,
       'compensationOnly': instance.compensationOnly,
       'saleType': instance.saleType,
       'oonModerationStatus': instance.oonModerationStatus,
@@ -205,6 +206,9 @@ Attribute _$AttributeFromJson(Map<String, dynamic> json) => Attribute(
           const [],
       description: json['description'] as String? ?? '',
       categoryId: (json['categoryId'] as num?)?.toInt() ?? -1,
+      category: json['category'] == null
+          ? const Category()
+          : Category.fromJson(json['category'] as Map<String, dynamic>),
       filterId: (json['filterId'] as num?)?.toInt() ?? -1,
       filter: json['filter'] == null
           ? const Filter()
@@ -226,12 +230,27 @@ Map<String, dynamic> _$AttributeToJson(Attribute instance) => <String, dynamic>{
       'names': instance.names,
       'description': instance.description,
       'categoryId': instance.categoryId,
+      'category': instance.category,
       'filterId': instance.filterId,
       'filter': instance.filter,
       'groupId': instance.groupId,
       'isVisible': instance.isVisible,
       'isAdditional': instance.isAdditional,
       'type': instance.type,
+    };
+
+Category _$CategoryFromJson(Map<String, dynamic> json) => Category(
+      id: (json['id'] as num?)?.toInt() ?? -1,
+      name: json['name'] as String? ?? '',
+      imageId: json['imageId'] as String? ?? '',
+      isVisible: json['isVisible'] as bool? ?? false,
+    );
+
+Map<String, dynamic> _$CategoryToJson(Category instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'imageId': instance.imageId,
+      'isVisible': instance.isVisible,
     };
 
 Filter _$FilterFromJson(Map<String, dynamic> json) => Filter(
@@ -257,20 +276,6 @@ Map<String, dynamic> _$FilterToJson(Filter instance) => <String, dynamic>{
       'weight': instance.weight,
       'categoryId': instance.categoryId,
       'category': instance.category,
-      'isVisible': instance.isVisible,
-    };
-
-Category _$CategoryFromJson(Map<String, dynamic> json) => Category(
-      id: (json['id'] as num?)?.toInt() ?? -1,
-      name: json['name'] as String? ?? '',
-      imageId: json['imageId'] as String? ?? '',
-      isVisible: json['isVisible'] as bool? ?? false,
-    );
-
-Map<String, dynamic> _$CategoryToJson(Category instance) => <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'imageId': instance.imageId,
       'isVisible': instance.isVisible,
     };
 

@@ -6,9 +6,11 @@ abstract class BuyNowEvent {}
 class GetBasketProductsEvent extends BuyNowEvent {
   GetBasketProductsEvent();
 }
+
 class GetUserProfileEvent extends BuyNowEvent {
   GetUserProfileEvent();
 }
+
 class GetRegionsEvent extends BuyNowEvent {
   GetRegionsEvent();
 }
@@ -59,9 +61,18 @@ class FillAddressEvent extends BuyNowEvent {
 }
 
 class GetVariationEvent extends BuyNowEvent {
-  final List<Item> items;
+  final List<Items> items;
   GetVariationEvent({
     required this.items,
+  });
+}
+
+class GetUserInfoEvent extends BuyNowEvent {
+  final String fullName;
+  final String phone;
+  GetUserInfoEvent({
+    required this.fullName,
+    required this.phone,
   });
 }
 
